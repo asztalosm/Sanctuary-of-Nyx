@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://1a53yioxea0w"]
+
+[ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
+[ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://shaders/menubg.tres" id="2_mae5d"]
+[ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://images/PixelifySans-VariableFont_wght.ttf" id="3_mae5d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hy44"]
+shader = ExtResource("2_mae5d")
+
+[sub_resource type="Theme" id="Theme_mae5d"]
+default_font = ExtResource("3_mae5d")
+default_font_size = 28
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ouk20")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4hy44")
+layout_mode = 0
+offset_left = -1348.0
+offset_top = -1058.0
+offset_right = 1406.0
+offset_bottom = 1007.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -19.0
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 24.0
+offset_right = 56.0
+offset_bottom = 62.0
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = -30.0
+offset_top = 66.0
+offset_right = 30.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 24
+text = "Quit
+"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -102.0
+offset_right = 128.0
+offset_bottom = -66.0
+theme = SubResource("Theme_mae5d")
+text = "Sanctuary of Nyx"
+fit_content = true
