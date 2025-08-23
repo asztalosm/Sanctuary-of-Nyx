@@ -3,13 +3,10 @@
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://shaders/menubg.tres" id="2_mae5d"]
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://images/PixelifySans-VariableFont_wght.ttf" id="3_mae5d"]
+[ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://images/buttontheme.tres" id="4_4hy44"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hy44"]
 shader = ExtResource("2_mae5d")
-
-[sub_resource type="Theme" id="Theme_mae5d"]
-default_font = ExtResource("3_mae5d")
-default_font_size = 28
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -34,6 +31,7 @@ offset_left = -40.0
 offset_top = -19.0
 offset_right = 40.0
 offset_bottom = 19.0
+theme = ExtResource("4_4hy44")
 theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Play"
@@ -44,16 +42,19 @@ offset_left = -56.0
 offset_top = 24.0
 offset_right = 56.0
 offset_bottom = 62.0
+theme = ExtResource("4_4hy44")
 theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 
-[node name="Button3" type="Button" parent="."]
+[node name="Button3" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 0
 offset_left = -30.0
 offset_top = 66.0
 offset_right = 30.0
 offset_bottom = 104.0
+shortcut_context = NodePath("../Button")
+theme = ExtResource("4_4hy44")
 theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Quit
@@ -68,6 +69,7 @@ offset_left = -128.0
 offset_top = -102.0
 offset_right = 128.0
 offset_bottom = -66.0
-theme = SubResource("Theme_mae5d")
+theme = ExtResource("4_4hy44")
+theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 text = "Sanctuary of Nyx"
 fit_content = true

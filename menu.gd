@@ -1,2 +1,4 @@
 extends Control
-@onready var camera = $Camera2D
+
+func _ready() -> void:
+	$Button.grab_focus()
