@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhxtxemb7cwih"]
 
-[ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://shaders/menubg.tres" id="1_4dje8"]
+[ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="1_4dje8"]
 [ext_resource type="Script" uid="uid://b5a0mxqf3bgfy" path="res://classes.gd" id="1_evxi7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_evxi7"]
