@@ -1,10 +1,12 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
 [ext_resource type="StyleBox" uid="uid://00w4ei1xio6h" path="res://resources/shaders/normalbuttontheme.tres" id="2_gdvcs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f7xc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yoi3q"]
 
 [resource]
 default_font = ExtResource("1_fc12t")
@@ -34,3 +36,5 @@ Button/styles/hover = ExtResource("2_18rsa")
 Button/styles/normal = ExtResource("2_gdvcs")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3f7xc")
 Label/colors/font_color = Color(0.497474, 0.497474, 0.497474, 1)
+ProgressBar/font_sizes/font_size = 12
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_yoi3q")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=13 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
+[ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="3_iqepy"]
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="3_mae5d"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="4_4hy44"]
 [ext_resource type="Shader" uid="uid://stelul4p7r77" path="res://resources/shaders/moon.tres" id="4_l48gv"]
@@ -10,8 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://ccixxx747b6u" path="res://resources/classesquestionmark.png" id="7_ecwwl"]
 [ext_resource type="AudioStream" uid="uid://cjfu54oow127u" path="res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav" id="9_nrnbx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hy44"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrnbx"]
 shader = ExtResource("2_mae5d")
+shader_parameter/Texture2DParameter = ExtResource("3_iqepy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
 shader = ExtResource("4_l48gv")
@@ -26,7 +28,8 @@ grow_vertical = 2
 script = ExtResource("1_ouk20")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_4hy44")
+texture_repeat = 2
+material = SubResource("ShaderMaterial_nrnbx")
 layout_mode = 0
 offset_left = -1348.0
 offset_top = -1058.0
@@ -74,12 +77,6 @@ theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Buttons/Button"]
-stream = ExtResource("6_nrnbx")
-pitch_scale = 3.0
-attenuation = 1.1564e-05
-panning_strength = 0.0
-
 [node name="Button2" type="Button" parent="Buttons"]
 layout_mode = 0
 offset_left = -56.0
@@ -87,7 +84,6 @@ offset_top = 24.0
 offset_right = 56.0
 offset_bottom = 62.0
 theme = ExtResource("4_4hy44")
-theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 
@@ -282,11 +278,17 @@ theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
-[node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
+[node name="MenuButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_nrnbx")
+pitch_scale = 3.0
+autoplay = true
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_nrnbx")
-attenuation = 1e-05
-panning_strength = 0.0
+volume_db = -9.369
+autoplay = true
 
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Classes/Button" to="." method="_playgame"]

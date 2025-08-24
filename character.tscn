@@ -1,10 +1,23 @@
-[gd_scene load_steps=25 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=51 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Texture2D" uid="uid://ccdysljev5kmo" path="res://resources/swing.png" id="2_pjt0s"]
+[ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="2_wa5vi"]
+[ext_resource type="Texture2D" uid="uid://bsl474q5hiu65" path="res://resources/healthbarunder.png" id="2_wfnr8"]
+[ext_resource type="Script" uid="uid://dgyotd6ispllp" path="res://gui.gd" id="3_jb3kq"]
+[ext_resource type="Texture2D" uid="uid://bdllysncrmao8" path="res://resources/healthbarprogress.png" id="3_px5sl"]
+[ext_resource type="Texture2D" uid="uid://b48nfg2ml6qvu" path="res://resources/assassinicon.png" id="4_px5sl"]
+[ext_resource type="Texture2D" uid="uid://be450wnbhpqqp" path="res://resources/iconbackground.png" id="5_0qfo5"]
+[ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
+[ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
+[ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="9_c1b4b"]
+[ext_resource type="AudioStream" uid="uid://cn6xcwh7o2ju2" path="res://resources/footsteps.wav" id="12_7tnxx"]
+[ext_resource type="AudioStream" uid="uid://djke681bboc0q" path="res://resources/death.wav" id="13_bwfjh"]
+[ext_resource type="AudioStream" uid="uid://cjf78lwjcbh2q" path="res://resources/hit.wav" id="13_x1sy7"]
+[ext_resource type="AudioStream" uid="uid://dopqk0fkoy8ic" path="res://resources/daggerattack.wav" id="15_sm1rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
-size = Vector2(20, 11)
+size = Vector2(18, 2)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_glpr6"]
 load_path = "res://.godot/imported/assassin2.png-e086a34c3b8d3ac403b8f4ec0d697c84.ctex"
@@ -160,6 +173,352 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0s"]
 size = Vector2(20, 42)
 
+[sub_resource type="Gradient" id="Gradient_0qfo5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.223103, 0.223103, 0.223103, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yxww1"]
+gradient = SubResource("Gradient_0qfo5")
+width = 16
+
+[sub_resource type="Gradient" id="Gradient_wdpcj"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qi5as"]
+gradient = SubResource("Gradient_wdpcj")
+width = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1b4b"]
+shader = ExtResource("8_jb3kq")
+shader_parameter/Texture2DParameter = ExtResource("9_c1b4b")
+
+[sub_resource type="Animation" id="Animation_7tnxx"]
+resource_name = "footstepstart"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/footstep:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-17.0, -15.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/footstep:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_7tnxx")]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soundcontroller/footstep")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_bwfjh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/footstep:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/footstep:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-17.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soundcontroller/footstep:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_7tnxx")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Soundcontroller/death:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_bwfjh")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Soundcontroller/death:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Soundcontroller/death:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Soundcontroller/hit:stream")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Soundcontroller/attack:stream")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Soundcontroller/attack:volume_db")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_x1sy7"]
+resource_name = "footstepend"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/footstep:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-15.0, -80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/footstep:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sm1rv"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/death:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("13_bwfjh"), ExtResource("13_bwfjh")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/death:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soundcontroller/death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jx0ln"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/hit:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_x1sy7")]
+}
+
+[sub_resource type="Animation" id="Animation_lpiy1"]
+resource_name = "daggerattack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/attack:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_sm1rv")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soundcontroller/attack:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.0]
+}
+
+[sub_resource type="Animation" id="Animation_88tkl"]
+resource_name = "assassinstep"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/footstep:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-13.0, -17.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
+_data = {
+&"RESET": SubResource("Animation_bwfjh"),
+&"assassinstep": SubResource("Animation_88tkl"),
+&"daggerattack": SubResource("Animation_lpiy1"),
+&"death": SubResource("Animation_sm1rv"),
+&"footstepend": SubResource("Animation_x1sy7"),
+&"footstepstart": SubResource("Animation_7tnxx"),
+&"hit": SubResource("Animation_jx0ln")
+}
+
 [node name="Character" type="Node2D"]
 z_index = 5
 
@@ -168,7 +527,7 @@ collision_layer = 5
 script = ExtResource("1_pjt0s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 15.5)
+position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_vu45j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
@@ -200,8 +559,138 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
 shape = SubResource("RectangleShape2D_pjt0s")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="GUI" type="CanvasLayer" parent="CharacterBody2D"]
+process_mode = 3
+script = ExtResource("3_jb3kq")
+
+[node name="Health" type="Control" parent="CharacterBody2D/GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 48.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="CharacterBody2D/GUI/Health"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 32.0
+offset_right = 108.0
+offset_bottom = 40.0
+value = 50.0
+texture_under = ExtResource("2_wfnr8")
+texture_progress = ExtResource("3_px5sl")
+
+[node name="ClassName" type="RichTextLabel" parent="CharacterBody2D/GUI/Health"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 121.0
+offset_right = 91.0
+offset_bottom = 161.0
+
+[node name="Ability" type="Control" parent="CharacterBody2D/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 280.0
+offset_top = 141.0
+offset_right = 296.0
+offset_bottom = 183.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CharacterBody2D/GUI/Ability"]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 16.0
+offset_bottom = 46.0
+step = 0.1
+value = 50.0
+texture_under = SubResource("GradientTexture1D_yxww1")
+texture_progress = SubResource("GradientTexture1D_qi5as")
+
+[node name="Cooldown" type="Timer" parent="CharacterBody2D/GUI/Ability"]
+one_shot = true
+
+[node name="AbilityDuration" type="Timer" parent="CharacterBody2D/GUI/Ability"]
+one_shot = true
+
+[node name="Charactericon" type="TextureRect" parent="CharacterBody2D/GUI"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_px5sl")
+
+[node name="TextureRect" type="TextureRect" parent="CharacterBody2D/GUI/Charactericon"]
+z_index = -1
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 34.0
+offset_bottom = 34.0
+texture = ExtResource("5_0qfo5")
+
+[node name="DeathScreen" type="Control" parent="CharacterBody2D/GUI"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="ColorRect2" type="ColorRect" parent="CharacterBody2D/GUI/DeathScreen"]
+material = SubResource("ShaderMaterial_c1b4b")
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterBody2D/GUI/DeathScreen"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 576.0
+offset_bottom = 372.0
+theme = ExtResource("2_wa5vi")
+text = "You died"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="CharacterBody2D/GUI/DeathScreen"]
+process_mode = 3
+layout_mode = 0
+offset_left = 235.0
+offset_top = 148.0
+offset_right = 341.0
+offset_bottom = 186.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/font_size = 24
+text = "Restart"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D/GUI/DeathScreen/Button2"]
+stream = ExtResource("7_qi5as")
+pitch_scale = 3.0
+attenuation = 1.1564e-05
 panning_strength = 0.0
 
+[node name="Soundcontroller" type="AnimationPlayer" parent="CharacterBody2D"]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_x1sy7")
+}
+
+[node name="footstep" type="AudioStreamPlayer2D" parent="CharacterBody2D/Soundcontroller"]
+process_mode = 1
+stream = ExtResource("12_7tnxx")
+volume_db = -17.0
+panning_strength = 0.0
+
+[node name="death" type="AudioStreamPlayer" parent="CharacterBody2D/Soundcontroller"]
+stream = ExtResource("13_bwfjh")
+
+[node name="hit" type="AudioStreamPlayer2D" parent="CharacterBody2D/Soundcontroller"]
+
+[node name="attack" type="AudioStreamPlayer2D" parent="CharacterBody2D/Soundcontroller"]
+
+[connection signal="animation_changed" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="sprite_animation_changed"]
 [connection signal="area_entered" from="CharacterBody2D/Hitcheck" to="CharacterBody2D" method="_on_hitcheck_area_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Hitcheck/AnimatedSprite2D" to="CharacterBody2D" method="_attack_animation_finished"]
+[connection signal="timeout" from="CharacterBody2D/GUI/Ability/Cooldown" to="CharacterBody2D" method="ability_timeout"]
+[connection signal="timeout" from="CharacterBody2D/GUI/Ability/AbilityDuration" to="CharacterBody2D" method="ability_duration_timeout"]
+[connection signal="pressed" from="CharacterBody2D/GUI/DeathScreen/Button2" to="CharacterBody2D/GUI" method="_on_button_2_pressed"]

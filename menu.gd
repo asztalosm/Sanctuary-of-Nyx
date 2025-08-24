@@ -1,9 +1,9 @@
 extends Control
 var onclassesscreen = false
+
 func _ready() -> void:
 	$Buttons/Button.grab_focus()
 	await get_tree().create_timer(1).timeout
-	$MenuMusic.play()
 	
 func showclasses():
 	for children in $Classes/Buttons.get_children():
@@ -12,14 +12,14 @@ func showclasses():
 		await classtween.finished
 		release_focus()
 		$Classes/Button.grab_focus()
-		
 
 
 func _on_button_pressed() -> void:
 	if onclassesscreen == true:
 		return
 	else:
-		$Buttons/Button/AudioStreamPlayer2D.play()
+		$MenuButton.stream = load("res://resources/menubutton.wav")
+		$MenuButton.play()
 		onclassesscreen = true
 		#todo: make this be saved locally, idc that the browser probably won't hold the save
 		var buttontween = get_tree().create_tween()
@@ -34,8 +34,14 @@ func _on_button_pressed() -> void:
 
 
 func _playgame() -> void:
+	$MenuButton.play()
 	get_tree().change_scene_to_file("testplace.tscn")
 
 
 func _on_button_3_pressed() -> void:
 	get_tree().quit()
+
+
+func settings_pressed() -> void:
+	$MenuButton.stream = load("res://resources/menubutton.wav")
+	$MenuButton.play()
