@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var abilityduration = 1.0
 @export var usedability = false
 @export var abilityinuse = false
+@export var cantakedamage = true
 var attacked = false
 var hitenemies = []
 
@@ -47,7 +48,13 @@ func attack() -> void:
 		$Hitcheck.rotate($Hitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
 		$Hitcheck/AnimatedSprite2D.play("default")
 		$Soundcontroller.play(currentcharacter.Attacksound)
-
+func hit(selfdamage) ->void:
+	health -= selfdamage
+	$Soundcontroller.play("hit")
+	if health <= 0:
+		print("no invulnerabilty animation because character is already dead")
+	else:
+		$VFXController.play("invulnerability")
 
 func _physics_process(_delta: float) -> void:
 	if health <= 0:

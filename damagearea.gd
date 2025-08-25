@@ -1,9 +1,16 @@
 extends Area2D
-
-
+var inarea = false
+@export var character = null
+@export var damage = 5
+func _process(_delta: float) -> void:
+	if character != null and character.cantakedamage and inarea:
+		character.hit(damage)
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.get_parent().get_parent().name == "Character":
-		area.get_parent().health -= 5
-		$AudioStreamPlayer2D.stream = load("res://resources/hit.wav")
-		$AudioStreamPlayer2D.play()
+	character = area.get_parent()
+	inarea = true
+
+
+func _on_area_exited(area: Area2D) -> void:
+	character = null
+	inarea = false
