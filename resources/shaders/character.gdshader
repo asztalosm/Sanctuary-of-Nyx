@@ -18,7 +18,7 @@ void fragment() {
 		color = texture(TEXTURE, UV);
 	}
 	else if (shading_option == 1) {
-		color.rgb = vec3(1,1,1); //this option [1] turns the entire node white (blink effect)
+		color.rgb = vec3(1,1,1);
 	}
 	COLOR = color;
 }

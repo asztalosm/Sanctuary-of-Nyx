@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=27 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -145,6 +145,8 @@ radius = 41.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7rwgp"]
 radius = 108.227
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1ba"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuvm"]
 size = Vector2(40, 40)
 
@@ -220,6 +222,15 @@ shape = SubResource("CircleShape2D_7rwgp")
 
 [node name="AttackCooldown" type="Timer" parent="Enemies/EnemyDummy"]
 one_shot = true
+
+[node name="BossDummy" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(54, -38)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/BossDummy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/BossDummy"]
+shape = SubResource("RectangleShape2D_ob1ba")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-114, 40)

@@ -1,7 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=60 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
-[ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://character.gdshader" id="2_jx0ln"]
+[ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
 [ext_resource type="Texture2D" uid="uid://ccdysljev5kmo" path="res://resources/swing.png" id="2_pjt0s"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="2_wa5vi"]
 [ext_resource type="Texture2D" uid="uid://bsl474q5hiu65" path="res://resources/healthbarunder.png" id="2_wfnr8"]
@@ -11,11 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://be450wnbhpqqp" path="res://resources/iconbackground.png" id="5_0qfo5"]
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
+[ext_resource type="Texture2D" uid="uid://bx8eo8h6brff3" path="res://resources/backpack.png" id="8_lpiy1"]
+[ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="9_88tkl"]
 [ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="9_c1b4b"]
 [ext_resource type="AudioStream" uid="uid://cn6xcwh7o2ju2" path="res://resources/footsteps.wav" id="12_7tnxx"]
 [ext_resource type="AudioStream" uid="uid://djke681bboc0q" path="res://resources/death.wav" id="13_bwfjh"]
 [ext_resource type="AudioStream" uid="uid://cjf78lwjcbh2q" path="res://resources/hit.wav" id="13_x1sy7"]
 [ext_resource type="AudioStream" uid="uid://dopqk0fkoy8ic" path="res://resources/daggerattack.wav" id="15_sm1rv"]
+[ext_resource type="Texture2D" uid="uid://dq8vrix0f5qqw" path="res://resources/inventory.png" id="15_y0ipg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
 size = Vector2(18, 2)
@@ -179,6 +182,12 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0s"]
 size = Vector2(20, 42)
+
+[sub_resource type="FontVariation" id="FontVariation_y0ipg"]
+base_font = ExtResource("9_88tkl")
+variation_opentype = {
+2003265652: 700
+}
 
 [sub_resource type="Gradient" id="Gradient_0qfo5"]
 offsets = PackedFloat32Array(0)
@@ -540,33 +549,6 @@ _data = {
 &"hit": SubResource("Animation_jx0ln")
 }
 
-[sub_resource type="Animation" id="Animation_y0ipg"]
-resource_name = "invulnerability"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:cantakedamage")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 0]
-}
-
 [sub_resource type="Animation" id="Animation_kjduu"]
 length = 0.001
 tracks/0/type = "value"
@@ -594,6 +576,34 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_y0ipg"]
+resource_name = "invulnerability"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:cantakedamage")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjduu"]
 _data = {
 &"RESET": SubResource("Animation_kjduu"),
@@ -604,6 +614,7 @@ _data = {
 z_index = 5
 
 [node name="Player" type="CharacterBody2D" parent="."]
+scale = Vector2(0.8, 0.8)
 collision_layer = 5
 script = ExtResource("1_pjt0s")
 
@@ -662,11 +673,41 @@ texture_under = ExtResource("2_wfnr8")
 texture_progress = ExtResource("3_px5sl")
 
 [node name="ClassName" type="RichTextLabel" parent="Player/GUI/Health"]
+visible = false
 layout_mode = 0
-offset_left = 51.0
-offset_top = 121.0
-offset_right = 91.0
-offset_bottom = 161.0
+offset_left = 44.0
+offset_top = 9.0
+offset_right = 54.0
+offset_bottom = 29.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/normal_font_size = 16
+text = "E"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Player/GUI/Health"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 9.0
+offset_right = 65.0
+offset_bottom = 33.0
+texture = ExtResource("8_lpiy1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Health/TextureRect"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 0
+offset_left = 6.0
+offset_top = -17.0
+offset_right = 22.0
+offset_bottom = 13.0
+theme = ExtResource("2_wa5vi")
+theme_override_fonts/normal_font = SubResource("FontVariation_y0ipg")
+theme_override_font_sizes/normal_font_size = 16
+text = "E"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Ability" type="Control" parent="Player/GUI"]
 visible = false
@@ -750,6 +791,29 @@ stream = ExtResource("7_qi5as")
 pitch_scale = 3.0
 attenuation = 1.1564e-05
 panning_strength = 0.0
+
+[node name="Inventory" type="Control" parent="Player/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Player/GUI/Inventory"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 32.0
+offset_right = 480.0
+offset_bottom = 288.0
+pivot_offset = Vector2(172, 128)
+texture = ExtResource("15_y0ipg")
+stretch_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Player/GUI/Inventory"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.235294)
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3

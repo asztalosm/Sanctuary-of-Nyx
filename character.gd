@@ -3,10 +3,20 @@ extends CharacterBody2D
 @export var health = 15
 @export var speed = 80
 @export var critchance = 10
+@export var dodgechance = 20
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
 	"Attacksound": "daggerattack",
 	"Ability": "assassinstep"
+}
+#inventory menu is a TODO, have to change the resolution of the inventory.png
+@export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
+	"Head": null,
+	"Chest": null,
+	"Leggings": null,
+	"Ring": null,
+	"Hand": null,
+	"Ability": null
 }
 @export var abilitywaittime = 4.0
 @export var abilityduration = 1.0
@@ -49,12 +59,17 @@ func attack() -> void:
 		$Hitcheck/AnimatedSprite2D.play("default")
 		$Soundcontroller.play(currentcharacter.Attacksound)
 func hit(selfdamage) ->void:
-	health -= selfdamage
-	$Soundcontroller.play("hit")
-	if health <= 0:
-		print("no invulnerabilty animation because character is already dead")
+	var dodgerng = randi_range(0,30)
+	if dodgerng < dodgechance:
+		print("dodged")
+		print(dodgerng)
 	else:
-		$VFXController.play("invulnerability")
+		health -= selfdamage
+		$Soundcontroller.play("hit")
+		if health <= 0:
+			print("no invulnerabilty animation because character is already dead") #todo, play a death animation, add dodge stat
+		else:
+			$VFXController.play("invulnerability")
 
 func _physics_process(_delta: float) -> void:
 	if health <= 0:
