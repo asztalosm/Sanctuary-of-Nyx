@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=62 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -19,6 +19,8 @@
 [ext_resource type="AudioStream" uid="uid://cjf78lwjcbh2q" path="res://resources/hit.wav" id="13_x1sy7"]
 [ext_resource type="AudioStream" uid="uid://dopqk0fkoy8ic" path="res://resources/daggerattack.wav" id="15_sm1rv"]
 [ext_resource type="Texture2D" uid="uid://dq8vrix0f5qqw" path="res://resources/inventory.png" id="15_y0ipg"]
+[ext_resource type="Texture2D" uid="uid://dkutv54m2tu1m" path="res://resources/xpbarunder.png" id="16_3d8aq"]
+[ext_resource type="Texture2D" uid="uid://c72f21ovvn4hu" path="res://resources/xpbarprogress.png" id="17_8i6g0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
 size = Vector2(18, 2)
@@ -814,6 +816,22 @@ layout_mode = 0
 offset_right = 576.0
 offset_bottom = 324.0
 color = Color(0, 0, 0, 0.235294)
+
+[node name="Experience" type="Control" parent="Player/GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Player/GUI/Experience"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 312.0
+offset_right = 384.0
+offset_bottom = 320.0
+pivot_offset = Vector2(96, 0)
+texture_under = ExtResource("16_3d8aq")
+texture_progress = ExtResource("17_8i6g0")
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3

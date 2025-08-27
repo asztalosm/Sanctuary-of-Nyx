@@ -1,9 +1,9 @@
-[gd_scene load_steps=27 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=17 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
-[ext_resource type="Script" uid="uid://bop7acfgnbnx1" path="res://enemy_dummy.gd" id="3_7uaqn"]
-[ext_resource type="Texture2D" uid="uid://c1yrgku40a280" path="res://resources/assassin.png" id="3_ygqrc"]
+[ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="3_7uaqn"]
+[ext_resource type="Script" uid="uid://dc1w0e51u0ih2" path="res://enemies.gd" id="3_ob1ba"]
 [ext_resource type="Script" uid="uid://mb1cbderklgf" path="res://damagearea.gd" id="5_ob1ba"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
@@ -75,76 +75,6 @@ tile_size = Vector2i(32, 32)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_ygqrc")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uaqn"]
-size = Vector2(26, 6)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygqrc"]
-size = Vector2(26, 32)
-
-[sub_resource type="Animation" id="Animation_ob1ba"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7uaqn"]
-resource_name = "hit"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.75, 1),
-"update": 0,
-"values": [Color(1, 0.23, 0.23, 0.639216), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyuvm"]
-_data = {
-&"RESET": SubResource("Animation_ob1ba"),
-&"hit": SubResource("Animation_7uaqn")
-}
-
-[sub_resource type="Gradient" id="Gradient_ob1ba"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dyuvm"]
-gradient = SubResource("Gradient_ob1ba")
-width = 16
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ob1ba"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dyuvm"]
-radius = 41.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7rwgp"]
-radius = 108.227
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1ba"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuvm"]
@@ -159,69 +89,10 @@ tile_set = SubResource("TileSet_7uaqn")
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 
 [node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("3_ob1ba")
 
-[node name="EnemyDummy" type="CharacterBody2D" parent="Enemies"]
+[node name="EnemyDummy" parent="Enemies" instance=ExtResource("3_7uaqn")]
 position = Vector2(170, 8)
-collision_layer = 3
-collision_mask = 0
-script = ExtResource("3_7uaqn")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/EnemyDummy"]
-position = Vector2(0, 13)
-shape = SubResource("RectangleShape2D_7uaqn")
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemies/EnemyDummy"]
-texture = ExtResource("3_ygqrc")
-
-[node name="Hitbox" type="Area2D" parent="Enemies/EnemyDummy"]
-collision_layer = 2
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/EnemyDummy/Hitbox"]
-shape = SubResource("RectangleShape2D_ygqrc")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/EnemyDummy"]
-libraries = {
-&"": SubResource("AnimationLibrary_dyuvm")
-}
-
-[node name="HealthBar" type="TextureProgressBar" parent="Enemies/EnemyDummy"]
-offset_left = -8.0
-offset_top = -20.0
-offset_right = 8.0
-offset_bottom = -19.0
-max_value = 10.0
-value = 10.0
-texture_under = SubResource("GradientTexture1D_dyuvm")
-texture_progress = SubResource("GradientTexture1D_dyuvm")
-tint_under = Color(0.4, 0.4, 0.4, 1)
-tint_progress = Color(0.5, 0.16, 0.16, 1)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/EnemyDummy"]
-sprite_frames = SubResource("SpriteFrames_ob1ba")
-animation = &"walk"
-
-[node name="Detection" type="Area2D" parent="Enemies/EnemyDummy"]
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-
-[node name="AttackZone" type="Area2D" parent="Enemies/EnemyDummy/Detection"]
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/EnemyDummy/Detection/AttackZone"]
-shape = SubResource("CircleShape2D_dyuvm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/EnemyDummy/Detection"]
-shape = SubResource("CircleShape2D_7rwgp")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemies/EnemyDummy"]
-
-[node name="AttackCooldown" type="Timer" parent="Enemies/EnemyDummy"]
-one_shot = true
 
 [node name="BossDummy" type="CharacterBody2D" parent="Enemies"]
 position = Vector2(54, -38)
@@ -231,6 +102,10 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/BossDummy"]
 shape = SubResource("RectangleShape2D_ob1ba")
+
+[node name="Timer" type="Timer" parent="Enemies"]
+wait_time = 3.0
+autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-114, 40)
@@ -251,7 +126,6 @@ shape = SubResource("RectangleShape2D_dyuvm")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Area2D"]
 panning_strength = 0.0
 
-[connection signal="body_entered" from="Enemies/EnemyDummy/Detection" to="Enemies/EnemyDummy" method="_on_detection_body_entered"]
-[connection signal="timeout" from="Enemies/EnemyDummy/AttackCooldown" to="Enemies/EnemyDummy" method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="Enemies/Timer" to="Enemies" method="_on_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
 [connection signal="area_exited" from="Area2D" to="Area2D" method="_on_area_exited"]

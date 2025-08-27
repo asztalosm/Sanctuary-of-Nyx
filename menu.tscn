@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=15 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="6_nrnbx"]
 [ext_resource type="Texture2D" uid="uid://ccixxx747b6u" path="res://resources/classesquestionmark.png" id="7_ecwwl"]
 [ext_resource type="AudioStream" uid="uid://cjfu54oow127u" path="res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav" id="9_nrnbx"]
+[ext_resource type="Texture2D" uid="uid://b58somrp7hujj" path="res://resources/shiba.png" id="11_dwrpx"]
+[ext_resource type="AudioStream" uid="uid://dmti3th51lfmh" path="res://resources/dog-bark.mp3" id="12_g7jxm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nrnbx"]
 shader = ExtResource("2_mae5d")
@@ -287,6 +289,19 @@ autoplay = true
 stream = ExtResource("9_nrnbx")
 volume_db = -9.369
 autoplay = true
+
+[node name="Shiba" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -80.0
+offset_top = -82.0
+offset_right = -48.0
+offset_bottom = -50.0
+scale = Vector2(5, 5)
+texture = ExtResource("11_dwrpx")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Shiba"]
+stream = ExtResource("12_g7jxm")
 
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]

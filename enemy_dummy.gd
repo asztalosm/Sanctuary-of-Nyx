@@ -12,6 +12,7 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
 func death() -> void:
+	get_parent().get_parent().get_node("Character").get_node("Player").globalcharacterstats.Xp += 20
 	queue_free()
 func attack() -> void:
 	if onattackcooldown == false and target.cantakedamage:

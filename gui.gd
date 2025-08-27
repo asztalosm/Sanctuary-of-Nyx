@@ -12,6 +12,8 @@ func _on_button_2_pressed() -> void:
 func _process(_delta: float) -> void:
 	$Health/HealthBar.max_value = get_parent().maxhealth
 	$Health/HealthBar.value = get_parent().health
+	$Experience/TextureProgressBar.max_value = get_parent().globalcharacterstats.XptoNextLevel
+	$Experience/TextureProgressBar.value = get_parent().globalcharacterstats.Xp
 	if get_parent().abilityinuse == true:
 		$Ability/TextureProgressBar.max_value = get_parent().abilityduration
 		$Ability/TextureProgressBar.value = $Ability/AbilityDuration.time_left

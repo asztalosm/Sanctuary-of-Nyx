@@ -4,6 +4,12 @@ extends CharacterBody2D
 @export var speed = 80
 @export var critchance = 10
 @export var dodgechance = 20
+@export var globalcharacterstats = {
+	"Level": 1,
+	"Xp": 0,
+	"XptoNextLevel": 200,
+	"SkillPoints": 0
+}
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
 	"Attacksound": "daggerattack",
@@ -75,6 +81,11 @@ func _physics_process(_delta: float) -> void:
 	if health <= 0:
 		death()
 	else:
+		if globalcharacterstats.Xp >= globalcharacterstats.XptoNextLevel:
+			globalcharacterstats.Xp -= globalcharacterstats.XptoNextLevel
+			globalcharacterstats.Level += 1
+			globalcharacterstats.SkillPoints += 1
+			globalcharacterstats.XptoNextLevel += 200
 		var directionx = Input.get_axis("Left", "Right")
 		var directiony = Input.get_axis("Up", "Down")
 		if directionx or directiony: #movement
