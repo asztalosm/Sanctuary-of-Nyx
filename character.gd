@@ -70,7 +70,7 @@ func attack() -> void:
 		$Hitcheck/AnimatedSprite2D.play("default")
 		$Soundcontroller.play(currentcharacter.Attacksound)
 func hit(selfdamage) ->void:
-	var dodgerng = randi_range(0,10)
+	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance:
 		$VFXController.play("dodge")
 	else:
