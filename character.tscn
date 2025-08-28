@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=65 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dq8vrix0f5qqw" path="res://resources/inventory.png" id="15_y0ipg"]
 [ext_resource type="Texture2D" uid="uid://dkutv54m2tu1m" path="res://resources/xpbarunder.png" id="16_3d8aq"]
 [ext_resource type="Texture2D" uid="uid://c72f21ovvn4hu" path="res://resources/xpbarprogress.png" id="17_8i6g0"]
+[ext_resource type="AudioStream" uid="uid://dx4fk1fg770n" path="res://resources/levelup.wav" id="22_8i6g0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
 size = Vector2(18, 2)
@@ -333,6 +334,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Soundcontroller/LevelUp:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
 
 [sub_resource type="Animation" id="Animation_88tkl"]
 resource_name = "assassinstep"
@@ -540,8 +553,38 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_r5wlx"]
+resource_name = "LevelUp"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/LevelUp")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/LevelUp:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_8i6g0")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
+&"LevelUp": SubResource("Animation_r5wlx"),
 &"RESET": SubResource("Animation_bwfjh"),
 &"assassinstep": SubResource("Animation_88tkl"),
 &"daggerattack": SubResource("Animation_lpiy1"),
@@ -577,6 +620,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_y0ipg"]
 resource_name = "invulnerability"
@@ -606,9 +673,49 @@ tracks/1/keys = {
 "values": [1, 0]
 }
 
+[sub_resource type="Animation" id="Animation_8i6g0"]
+resource_name = "dodge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0.25098, 0.588235), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.6, 1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjduu"]
 _data = {
 &"RESET": SubResource("Animation_kjduu"),
+&"dodge": SubResource("Animation_8i6g0"),
 &"invulnerability": SubResource("Animation_y0ipg")
 }
 
@@ -851,6 +958,8 @@ stream = ExtResource("13_bwfjh")
 [node name="hit" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
 
 [node name="attack" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
+
+[node name="LevelUp" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
 
 [node name="VFXController" type="AnimationPlayer" parent="Player"]
 libraries = {

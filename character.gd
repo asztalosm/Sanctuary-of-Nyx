@@ -40,6 +40,11 @@ func death() -> void:
 	var deathtween = get_tree().create_tween()
 	deathtween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	$GUI/DeathScreen.visible = true
+	for nodes in $GUI.get_children():
+		if nodes.name != "DeathScreen":
+			nodes.visible = false
+		else:
+			nodes.visible = true
 	deathtween.tween_property($GUI/DeathScreen, "modulate:a", 1, 1.0)
 	$Soundcontroller.stop()
 	$Soundcontroller.play("death")
@@ -65,10 +70,9 @@ func attack() -> void:
 		$Hitcheck/AnimatedSprite2D.play("default")
 		$Soundcontroller.play(currentcharacter.Attacksound)
 func hit(selfdamage) ->void:
-	var dodgerng = randi_range(0,30)
-	if dodgerng < dodgechance:
-		print("dodged")
-		print(dodgerng)
+	var dodgerng = randi_range(0,10)
+	if dodgerng <= dodgechance:
+		$VFXController.play("dodge")
 	else:
 		health -= selfdamage
 		$Soundcontroller.play("hit")
@@ -86,6 +90,7 @@ func _physics_process(_delta: float) -> void:
 			globalcharacterstats.Level += 1
 			globalcharacterstats.SkillPoints += 1
 			globalcharacterstats.XptoNextLevel += 200
+			$Soundcontroller.play("LevelUp")
 		var directionx = Input.get_axis("Left", "Right")
 		var directiony = Input.get_axis("Up", "Down")
 		if directionx or directiony: #movement

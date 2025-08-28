@@ -20,5 +20,9 @@ void fragment() {
 	else if (shading_option == 1) {
 		color.rgb = vec3(1,1,1);
 	}
+	else if (shading_option == 2) {
+		color.r = min(COLOR.r * opacity_strength, 1.0);
+		color.g = min(COLOR.g * opacity_strength, 1.0);
+	}
 	COLOR = color;
 }
