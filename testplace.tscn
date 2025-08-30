@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
 [ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="3_7uaqn"]
 [ext_resource type="Script" uid="uid://dc1w0e51u0ih2" path="res://enemies.gd" id="3_ob1ba"]
+[ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="5_dyuvm"]
 [ext_resource type="Script" uid="uid://mb1cbderklgf" path="res://damagearea.gd" id="5_ob1ba"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
@@ -75,8 +76,6 @@ tile_size = Vector2i(32, 32)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_ygqrc")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1ba"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuvm"]
 size = Vector2(40, 40)
 
@@ -94,14 +93,8 @@ script = ExtResource("3_ob1ba")
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("3_7uaqn")]
 position = Vector2(170, 8)
 
-[node name="BossDummy" type="CharacterBody2D" parent="Enemies"]
+[node name="BossDummy" parent="Enemies" instance=ExtResource("5_dyuvm")]
 position = Vector2(54, -38)
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/BossDummy"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/BossDummy"]
-shape = SubResource("RectangleShape2D_ob1ba")
 
 [node name="Timer" type="Timer" parent="Enemies"]
 wait_time = 3.0

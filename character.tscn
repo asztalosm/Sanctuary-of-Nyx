@@ -1,10 +1,11 @@
-[gd_scene load_steps=65 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=79 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
 [ext_resource type="Texture2D" uid="uid://ccdysljev5kmo" path="res://resources/swing.png" id="2_pjt0s"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="2_wa5vi"]
 [ext_resource type="Texture2D" uid="uid://bsl474q5hiu65" path="res://resources/healthbarunder.png" id="2_wfnr8"]
+[ext_resource type="Texture2D" uid="uid://c2pp1ff0hew2v" path="res://resources/assassin2_walk.png" id="3_hvi53"]
 [ext_resource type="Script" uid="uid://dgyotd6ispllp" path="res://gui.gd" id="3_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://bdllysncrmao8" path="res://resources/healthbarprogress.png" id="3_px5sl"]
 [ext_resource type="Texture2D" uid="uid://b48nfg2ml6qvu" path="res://resources/assassinicon.png" id="4_px5sl"]
@@ -21,6 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://dq8vrix0f5qqw" path="res://resources/inventory.png" id="15_y0ipg"]
 [ext_resource type="Texture2D" uid="uid://dkutv54m2tu1m" path="res://resources/xpbarunder.png" id="16_3d8aq"]
 [ext_resource type="Texture2D" uid="uid://c72f21ovvn4hu" path="res://resources/xpbarprogress.png" id="17_8i6g0"]
+[ext_resource type="Texture2D" uid="uid://bex1cly7rafqi" path="res://resources/levelupupgrades.png" id="18_r5wlx"]
+[ext_resource type="Texture2D" uid="uid://cm5lknmjgspw0" path="res://resources/phyAtk.png" id="18_rr203"]
+[ext_resource type="Texture2D" uid="uid://xg5eim0fgn0p" path="res://resources/skills.png" id="19_1r1pa"]
+[ext_resource type="Texture2D" uid="uid://ttrtblxa8g0e" path="res://resources/defense.png" id="19_8vvwr"]
 [ext_resource type="AudioStream" uid="uid://dx4fk1fg770n" path="res://resources/levelup.wav" id="22_8i6g0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
@@ -35,6 +40,42 @@ shader_parameter/opacity_strength = 1.0
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_glpr6"]
 load_path = "res://.godot/imported/assassin2.png-e086a34c3b8d3ac403b8f4ec0d697c84.ctex"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr203"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vvwr"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5said"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm3tn"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvb2f"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uswop"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shm3m"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_go3uk"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyohd"]
+atlas = ExtResource("3_hvi53")
+region = Rect2(384, 0, 48, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wfnr8"]
 animations = [{
 "frames": [{
@@ -48,6 +89,33 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("CompressedTexture2D_glpr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr203")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vvwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5said")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm3tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvb2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uswop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shm3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_go3uk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyohd")
 }],
 "loop": true,
 "name": &"walk",
@@ -186,12 +254,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0s"]
 size = Vector2(20, 42)
 
-[sub_resource type="FontVariation" id="FontVariation_y0ipg"]
-base_font = ExtResource("9_88tkl")
-variation_opentype = {
-2003265652: 700
-}
-
 [sub_resource type="Gradient" id="Gradient_0qfo5"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.223103, 0.223103, 0.223103, 1)
@@ -211,6 +273,41 @@ width = 16
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1b4b"]
 shader = ExtResource("8_jb3kq")
 shader_parameter/Texture2DParameter = ExtResource("9_c1b4b")
+
+[sub_resource type="FontVariation" id="FontVariation_y0ipg"]
+base_font = ExtResource("9_88tkl")
+variation_opentype = {
+2003265652: 700
+}
+
+[sub_resource type="Animation" id="Animation_r5wlx"]
+resource_name = "LevelUp"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/LevelUp")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/LevelUp:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_8i6g0")]
+}
 
 [sub_resource type="Animation" id="Animation_bwfjh"]
 length = 0.001
@@ -553,35 +650,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_r5wlx"]
-resource_name = "LevelUp"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Soundcontroller/LevelUp")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Soundcontroller/LevelUp:stream")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("22_8i6g0")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
@@ -645,34 +713,6 @@ tracks/3/keys = {
 "values": [1.0]
 }
 
-[sub_resource type="Animation" id="Animation_y0ipg"]
-resource_name = "invulnerability"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:cantakedamage")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 0]
-}
-
 [sub_resource type="Animation" id="Animation_8i6g0"]
 resource_name = "dodge"
 tracks/0/type = "value"
@@ -710,6 +750,34 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [2.6, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_y0ipg"]
+resource_name = "invulnerability"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:cantakedamage")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjduu"]
@@ -794,30 +862,6 @@ text = "E"
 fit_content = true
 autowrap_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Player/GUI/Health"]
-layout_mode = 0
-offset_left = 41.0
-offset_top = 9.0
-offset_right = 65.0
-offset_bottom = 33.0
-texture = ExtResource("8_lpiy1")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Health/TextureRect"]
-modulate = Color(0.6, 0.6, 0.6, 1)
-layout_mode = 0
-offset_left = 6.0
-offset_top = -17.0
-offset_right = 22.0
-offset_bottom = 13.0
-theme = ExtResource("2_wa5vi")
-theme_override_fonts/normal_font = SubResource("FontVariation_y0ipg")
-theme_override_font_sizes/normal_font_size = 16
-text = "E"
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Ability" type="Control" parent="Player/GUI"]
 visible = false
 layout_mode = 3
@@ -901,6 +945,22 @@ pitch_scale = 3.0
 attenuation = 1.1564e-05
 panning_strength = 0.0
 
+[node name="Experience" type="Control" parent="Player/GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Player/GUI/Experience"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 312.0
+offset_right = 384.0
+offset_bottom = 320.0
+pivot_offset = Vector2(96, 0)
+texture_under = ExtResource("16_3d8aq")
+texture_progress = ExtResource("17_8i6g0")
+
 [node name="Inventory" type="Control" parent="Player/GUI"]
 visible = false
 layout_mode = 3
@@ -924,21 +984,132 @@ offset_right = 576.0
 offset_bottom = 324.0
 color = Color(0, 0, 0, 0.235294)
 
-[node name="Experience" type="Control" parent="Player/GUI"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Inventory"]
+layout_mode = 0
+offset_left = 221.0
+offset_right = 355.0
+offset_bottom = 33.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/normal_font_size = 27
+text = "Inventory"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skills" type="Control" parent="Player/GUI"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Player/GUI/Experience"]
+[node name="Foreground" type="TextureRect" parent="Player/GUI/Skills"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 312.0
-offset_right = 384.0
-offset_bottom = 320.0
-pivot_offset = Vector2(96, 0)
-texture_under = ExtResource("16_3d8aq")
-texture_progress = ExtResource("17_8i6g0")
+offset_left = 96.0
+offset_top = 32.0
+offset_right = 480.0
+offset_bottom = 288.0
+texture = ExtResource("19_1r1pa")
+
+[node name="Background" type="ColorRect" parent="Player/GUI/Skills"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.235294)
+
+[node name="Title" type="RichTextLabel" parent="Player/GUI/Skills"]
+layout_mode = 0
+offset_left = 255.0
+offset_right = 320.0
+offset_bottom = 33.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/normal_font_size = 27
+text = "Skills"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Info" type="RichTextLabel" parent="Player/GUI/Skills"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 40.0
+offset_right = 411.0
+offset_bottom = 60.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/normal_font_size = 16
+text = "You currently have 0 Skill Points"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ItemList" type="ItemList" parent="Player/GUI/Skills"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 64.0
+offset_right = 468.0
+offset_bottom = 280.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/font_size = 18
+item_count = 2
+fixed_icon_size = Vector2i(32, 32)
+item_0/text = "Physical Damage"
+item_0/icon = ExtResource("18_rr203")
+item_1/text = "Defense"
+item_1/icon = ExtResource("19_8vvwr")
+
+[node name="Hotkeys" type="Control" parent="Player/GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="Player/GUI/Hotkeys"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 9.0
+offset_right = 108.0
+offset_bottom = 33.0
+theme_override_constants/h_separation = -2
+columns = 3
+metadata/_edit_group_ = true
+
+[node name="Inventory" type="TextureRect" parent="Player/GUI/Hotkeys/GridContainer"]
+layout_mode = 2
+texture = ExtResource("8_lpiy1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Hotkeys/GridContainer/Inventory"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 0
+offset_top = -17.0
+offset_right = 24.0
+offset_bottom = 13.0
+theme = ExtResource("2_wa5vi")
+theme_override_fonts/normal_font = SubResource("FontVariation_y0ipg")
+theme_override_font_sizes/normal_font_size = 16
+text = "E"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skills" type="TextureRect" parent="Player/GUI/Hotkeys/GridContainer"]
+layout_mode = 2
+texture = ExtResource("18_r5wlx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Hotkeys/GridContainer/Skills"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 0
+offset_top = -17.0
+offset_right = 24.0
+offset_bottom = 13.0
+theme = ExtResource("2_wa5vi")
+theme_override_fonts/normal_font = SubResource("FontVariation_y0ipg")
+theme_override_font_sizes/normal_font_size = 16
+text = "U"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3

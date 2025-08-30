@@ -2,6 +2,8 @@ extends Control
 var onclassesscreen = false
 var konami = ""
 func _ready() -> void:
+	await get_tree().create_timer(5).timeout
+	$AudioAlert.visible = false
 	$Buttons/Button.grab_focus()
 	await get_tree().create_timer(1).timeout
 	

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
@@ -6,7 +6,46 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f7xc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tc13u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdyrp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbcev"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoi3q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.392157)
+border_width_left = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsjlh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1a5s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ik0fi"]
+bg_color = Color(0, 0, 0, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycurf"]
+bg_color = Color(0.2, 0.2, 0.2, 0.25098)
+border_color = Color(0.2, 0.2, 0.2, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nyqj"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yoi3q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8f5u"]
+bg_color = Color(0.2, 0.2, 0.2, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wh6be"]
 
 [resource]
 default_font = ExtResource("1_fc12t")
@@ -35,6 +74,31 @@ Button/styles/focus = ExtResource("2_18rsa")
 Button/styles/hover = ExtResource("2_18rsa")
 Button/styles/normal = ExtResource("2_gdvcs")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3f7xc")
+ItemList/colors/font_color = Color(0.65, 0.65, 0.65, 1)
+ItemList/colors/font_hovered_color = Color(0.95, 0.95, 0.95, 1)
+ItemList/colors/font_hovered_selected_color = Color(1, 1, 1, 1)
+ItemList/colors/font_outline_color = Color(0, 0, 0, 1)
+ItemList/colors/font_selected_color = Color(1, 1, 1, 1)
+ItemList/colors/guide_color = Color(0.7, 0.7, 0.7, 0.25)
+ItemList/constants/h_separation = 4
+ItemList/constants/icon_margin = 4
+ItemList/constants/line_separation = 2
+ItemList/constants/outline_size = 0
+ItemList/constants/v_separation = 4
+ItemList/styles/cursor = SubResource("StyleBoxFlat_tc13u")
+ItemList/styles/cursor_unfocused = SubResource("StyleBoxFlat_rdyrp")
+ItemList/styles/focus = SubResource("StyleBoxFlat_dbcev")
+ItemList/styles/hovered = SubResource("StyleBoxFlat_yoi3q")
+ItemList/styles/hovered_selected = SubResource("StyleBoxFlat_wsjlh")
+ItemList/styles/hovered_selected_focus = SubResource("StyleBoxFlat_f1a5s")
+ItemList/styles/panel = SubResource("StyleBoxFlat_ik0fi")
+ItemList/styles/selected = SubResource("StyleBoxFlat_ycurf")
+ItemList/styles/selected_focus = SubResource("StyleBoxFlat_2nyqj")
 Label/colors/font_color = Color(0.497474, 0.497474, 0.497474, 1)
 ProgressBar/font_sizes/font_size = 12
 ProgressBar/styles/background = SubResource("StyleBoxEmpty_yoi3q")
+TooltipLabel/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+TooltipLabel/font_sizes/font_size = 16
+TooltipLabel/fonts/font = ExtResource("1_fc12t")
+TooltipLabel/styles/normal = SubResource("StyleBoxFlat_v8f5u")
+TooltipPanel/styles/embedded_border = SubResource("StyleBoxFlat_wh6be")
