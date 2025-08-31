@@ -1,6 +1,6 @@
 extends CharacterBody2D
-@export var maxhealth = 20
-@export var health = 15
+@export var maxhealth : float = 20
+@export var health : float = 15.0
 @export var speed = 80
 @export var critchance = 10
 @export var dodgechance = 20
@@ -8,7 +8,9 @@ extends CharacterBody2D
 	"Level": 1,
 	"Xp": 0,
 	"XptoNextLevel": 200,
-	"SkillPoints": 0
+	"SkillPoints": 0,
+	"BasePhysAttack": 2,
+	"BaseDefense": 0,
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
@@ -23,6 +25,10 @@ extends CharacterBody2D
 	"Ring": null,
 	"Hand": null,
 	"Ability": null
+}
+@export var skills = {
+	"PhysAtk": 0,
+	"Defense": 0,
 }
 @export var abilitywaittime = 4.0
 @export var abilityduration = 1.0
@@ -116,7 +122,7 @@ func _attack_animation_finished() -> void:
 	$Hitcheck.monitoring = false
 	attacked = false
 	for enemies in hitenemies:
-		enemies.health -= 3
+		enemies.health -= globalcharacterstats.BasePhysAttack * ((skills.PhysAtk + 10) / 10)
 		enemies.get_node("AnimationPlayer").play("hit")
 
 

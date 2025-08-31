@@ -1,10 +1,11 @@
-[gd_scene load_steps=79 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=80 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
 [ext_resource type="Texture2D" uid="uid://ccdysljev5kmo" path="res://resources/swing.png" id="2_pjt0s"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="2_wa5vi"]
 [ext_resource type="Texture2D" uid="uid://bsl474q5hiu65" path="res://resources/healthbarunder.png" id="2_wfnr8"]
+[ext_resource type="Texture2D" uid="uid://d2272od8js77b" path="res://resources/assassinsmall.png" id="3_5said"]
 [ext_resource type="Texture2D" uid="uid://c2pp1ff0hew2v" path="res://resources/assassin2_walk.png" id="3_hvi53"]
 [ext_resource type="Script" uid="uid://dgyotd6ispllp" path="res://gui.gd" id="3_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://bdllysncrmao8" path="res://resources/healthbarprogress.png" id="3_px5sl"]
@@ -80,7 +81,7 @@ region = Rect2(384, 0, 48, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_glpr6")
+"texture": ExtResource("3_5said")
 }],
 "loop": false,
 "name": &"default",
@@ -791,8 +792,8 @@ _data = {
 z_index = 5
 
 [node name="Player" type="CharacterBody2D" parent="."]
-scale = Vector2(0.8, 0.8)
 collision_layer = 5
+collision_mask = 0
 script = ExtResource("1_pjt0s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -802,7 +803,6 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"walk"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -998,6 +998,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skills" type="Control" parent="Player/GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1048,6 +1049,7 @@ offset_left = 104.0
 offset_top = 64.0
 offset_right = 468.0
 offset_bottom = 280.0
+tooltip_text = "fsdfsdf"
 theme = ExtResource("2_wa5vi")
 theme_override_font_sizes/font_size = 18
 item_count = 2
@@ -1143,3 +1145,4 @@ libraries = {
 [connection signal="timeout" from="Player/GUI/Ability/Cooldown" to="Player" method="ability_timeout"]
 [connection signal="timeout" from="Player/GUI/Ability/AbilityDuration" to="Player" method="ability_duration_timeout"]
 [connection signal="pressed" from="Player/GUI/DeathScreen/Button2" to="Player/GUI" method="_on_button_2_pressed"]
+[connection signal="item_selected" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_selected"]

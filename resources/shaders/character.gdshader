@@ -2,7 +2,7 @@ shader_type canvas_item;
 /*
 so this shader is for controlling multiple effects on sprites
 basically you only have to make the shader the material of the selected node
-and then you can use either a script or an animationcontroller to change the 
+and then you can use either a script or an animationcontroller to change the
 desired effect on the node
 
 STYLES:

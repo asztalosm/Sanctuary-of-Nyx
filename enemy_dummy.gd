@@ -1,8 +1,8 @@
 extends CharacterBody2D
-@export var maxhealth = 10
-@export var health = maxhealth
+@export var maxhealth : float = 10
+@export var health : float = maxhealth
 @export var speed = 80
-@export var damage = 5
+@export var damage :float = 5
 @export var attackcooldown = 2.0
 @export var cantakedamage = true
 @export var target = self
@@ -24,7 +24,7 @@ func attack() -> void:
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0,0)
-	if health < 0:
+	if health <= 0:
 		death()
 	elif health != maxhealth:
 		$HealthBar.visible = true
