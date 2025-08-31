@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var health : float = 15.0
 @export var speed = 80
 @export var critchance = 10
-@export var dodgechance = 20
+@export var dodgechance = 10
 @export var globalcharacterstats = {
 	"Level": 1,
 	"Xp": 0,
@@ -15,7 +15,8 @@ extends CharacterBody2D
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
 	"Attacksound": "daggerattack",
-	"Ability": "assassinstep"
+	"Ability": "assassinstep",
+	"Icon": preload("res://resources/assassinicon.png"),
 }
 #inventory menu is a TODO, have to change the resolution of the inventory.png
 @export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
@@ -29,12 +30,16 @@ extends CharacterBody2D
 @export var skills = {
 	"PhysAtk": 0,
 	"Defense": 0,
+	"Dodge": 0,
+	"Health": 0
 }
 @export var abilitywaittime = 4.0
 @export var abilityduration = 1.0
 @export var usedability = false
 @export var abilityinuse = false
 @export var cantakedamage = true
+@export var defense = 0
+var oldspeed = speed
 var attacked = false
 var hitenemies = []
 
@@ -64,7 +69,8 @@ func ability() -> void:
 	$GUI/Ability/AbilityDuration.wait_time = abilityduration
 	$GUI/Ability/AbilityDuration.start()
 	$Soundcontroller.play(currentcharacter.Ability)
-	speed = 140
+	oldspeed = speed
+	speed = oldspeed * 1.5
 func attack() -> void:
 	if !attacked:
 		attacked = true
@@ -80,12 +86,37 @@ func hit(selfdamage) ->void:
 	if dodgerng <= dodgechance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage
+		health -= selfdamage - defense
+		print(selfdamage - defense)
 		$Soundcontroller.play("hit")
 		if health <= 0:
-			print("no invulnerabilty animation because character is already dead") #todo, play a death animation, add dodge stat
+			print("character died") #todo, play a death animation, add dodge stat
 		else:
 			$VFXController.play("invulnerability")
+func calculateanimation(direction): #ugly if statements, but will work for now
+	if direction.x < 0:
+		$AnimatedSprite2D.flip_h = true
+		if direction.y < 0:
+			$AnimatedSprite2D.play("walk4")
+		elif direction.y == 0:
+			$AnimatedSprite2D.play("walk3")
+		else:
+			$AnimatedSprite2D.play("walk2")
+	elif direction.x == 0:
+		$AnimatedSprite2D.flip_h = false
+		if direction.y < 0:
+			$AnimatedSprite2D.play("walk5")
+		else:
+			$AnimatedSprite2D.play("walk1")
+	else:
+		$AnimatedSprite2D.flip_h = false
+		if direction.y < 0:
+			$AnimatedSprite2D.play("walk4")
+		elif direction.y == 0:
+			$AnimatedSprite2D.play("walk3")
+		else:
+			$AnimatedSprite2D.play("walk2")
+	
 
 func _physics_process(_delta: float) -> void:
 	if health <= 0:
@@ -97,17 +128,14 @@ func _physics_process(_delta: float) -> void:
 			globalcharacterstats.SkillPoints += 1
 			globalcharacterstats.XptoNextLevel += 200
 			$Soundcontroller.play("LevelUp")
-		var directionx = Input.get_axis("Left", "Right")
-		var directiony = Input.get_axis("Up", "Down")
-		if directionx or directiony: #movement
-			velocity.x = directionx * speed
-			velocity.y = directiony * speed
-			$AnimatedSprite2D.play("walk")
+		var direction = Input.get_vector("Left", "Right", "Up", "Down")
+		if direction: #movement
+			velocity = direction * speed
+			calculateanimation(direction)
 		else:
-			velocity.x = move_toward(velocity.x, 0, speed)
-			velocity.y = move_toward(velocity.y, 0, speed)
-			if velocity == Vector2(0.0,0.0):
-				$AnimatedSprite2D.play("default")
+			velocity = Vector2(0,0)
+			if velocity == Vector2(0.0, 0.0):
+					$AnimatedSprite2D.play("frontidle")
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
@@ -121,9 +149,10 @@ func _physics_process(_delta: float) -> void:
 func _attack_animation_finished() -> void:
 	$Hitcheck.monitoring = false
 	attacked = false
-	for enemies in hitenemies:
-		enemies.health -= globalcharacterstats.BasePhysAttack * ((skills.PhysAtk + 10) / 10)
-		enemies.get_node("AnimationPlayer").play("hit")
+	if currentcharacter.Class == "Assassin":
+		for enemies in hitenemies:
+			enemies.health -= globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
+			enemies.get_node("AnimationPlayer").play("hit")
 
 
 func _on_hitcheck_area_entered(area: Area2D) -> void:
@@ -138,14 +167,15 @@ func ability_timeout() -> void:
 
 func ability_duration_timeout() -> void:
 	$GUI/Ability/TextureProgressBar.modulate = Color(1,1,1)
-	speed = 80
+	speed = oldspeed
 	$GUI/Ability/Cooldown.start()
 	abilityinuse = false
 	
 
 
 func sprite_animation_changed() -> void:
-	if $AnimatedSprite2D.animation == "default":
-		$Soundcontroller.play("footstepend")
-	elif $AnimatedSprite2D.animation == "walk":
+	var animname : String = $AnimatedSprite2D.animation
+	if animname.contains("walk"):
 		$Soundcontroller.play("footstepstart")
+	elif animname == "frontidle":
+		$Soundcontroller.play("footstepend")

@@ -304,6 +304,7 @@ texture = ExtResource("11_dwrpx")
 stream = ExtResource("12_g7jxm")
 
 [node name="AudioAlert" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
