@@ -13,11 +13,10 @@ func _process(_delta: float) -> void:
 		$ColorRect.color = Color8(255,0,0)
 		oncooldown = false
 
-func _on_area_entered(area: Area2D) -> void:
-	character = area.get_parent()
+func _on_body_entered(body: Node2D) -> void:
+	character = body
 	inarea = true
 
-
-func _on_area_exited(_area: Area2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	character = null
 	inarea = false

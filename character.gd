@@ -4,6 +4,22 @@ extends CharacterBody2D
 @export var speed = 80
 @export var critchance = 10
 @export var dodgechance = 10
+@export var Characters = [
+	{
+		"Class": "Assassin",
+		"Type": "Melee",
+		"Ability": "assassinstep",
+		"Icon": preload("res://resources/assassinicon.png"),
+		"Attack": "daggerattack",
+	},
+	{
+		"Class": "Mage",
+		"Type": "Projectile",
+		"Ability": "explosionorb",
+		"Icon": preload("res://resources/temporarybadwizardbase.png"),
+		"Attack": "mageattack",	
+	}
+]
 @export var globalcharacterstats = {
 	"Level": 1,
 	"Xp": 0,
@@ -14,7 +30,7 @@ extends CharacterBody2D
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
-	"Attacksound": "daggerattack",
+	"Attack": "daggerattack",
 	"Ability": "assassinstep",
 	"Icon": preload("res://resources/assassinicon.png"),
 }
@@ -43,6 +59,10 @@ var oldspeed = speed
 var attacked = false
 var hitenemies = []
 
+func switchcharacter(character):
+	print(character)
+	print([Characters[0].Class]) #make projectile system and actual character change system
+	
 
 func _ready() -> void:
 	$Hitcheck.monitoring = false	
@@ -80,14 +100,13 @@ func attack() -> void:
 		$Hitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
 		$Hitcheck.rotate($Hitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
 		$Hitcheck/AnimatedSprite2D.play("default")
-		$Soundcontroller.play(currentcharacter.Attacksound)
+		$Soundcontroller.play(currentcharacter.Attack)
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage - defense
-		print(selfdamage - defense)
+		health -= selfdamage - skills.Defense
 		$Soundcontroller.play("hit")
 		if health <= 0:
 			print("character died") #todo, play a death animation, add dodge stat
@@ -97,28 +116,33 @@ func calculateanimation(direction): #ugly if statements, but will work for now
 	if direction.x < 0:
 		$AnimatedSprite2D.flip_h = true
 		if direction.y < 0:
-			$AnimatedSprite2D.play("walk4")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk4")
 		elif direction.y == 0:
-			$AnimatedSprite2D.play("walk3")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk3")
 		else:
-			$AnimatedSprite2D.play("walk2")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk2")
 	elif direction.x == 0:
 		$AnimatedSprite2D.flip_h = false
 		if direction.y < 0:
-			$AnimatedSprite2D.play("walk5")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk5")
 		else:
-			$AnimatedSprite2D.play("walk1")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk1")
 	else:
 		$AnimatedSprite2D.flip_h = false
 		if direction.y < 0:
-			$AnimatedSprite2D.play("walk4")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk4")
 		elif direction.y == 0:
-			$AnimatedSprite2D.play("walk3")
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk3")
 		else:
-			$AnimatedSprite2D.play("walk2")
-	
+			$AnimatedSprite2D.play(currentcharacter.Class+"walk2")
+func charactercheckchange():
+	if Input.is_action_just_pressed("1"):
+		switchcharacter(Characters[0])
+	elif Input.is_action_just_pressed("2"):
+		switchcharacter(Characters[1])
 
 func _physics_process(_delta: float) -> void:
+	charactercheckchange()
 	if health <= 0:
 		death()
 	else:
