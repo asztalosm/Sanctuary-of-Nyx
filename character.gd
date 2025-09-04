@@ -4,15 +4,16 @@ extends CharacterBody2D
 @export var speed = 80
 @export var critchance = 10
 @export var dodgechance = 10
+@export var changingcharacter = false
 @export var Characters = [
-	{
+	{ #assassin
 		"Class": "Assassin",
 		"Type": "Melee",
 		"Ability": "assassinstep",
 		"Icon": preload("res://resources/assassinicon.png"),
 		"Attack": "daggerattack",
 	},
-	{
+	{ #mage
 		"Class": "Mage",
 		"Type": "Projectile",
 		"Ability": "explosionorb",
@@ -60,9 +61,13 @@ var attacked = false
 var hitenemies = []
 
 func switchcharacter(character):
-	print(character)
-	print([Characters[0].Class]) #make projectile system and actual character change system
-	
+	for elements in Characters:
+		if elements.Class == currentcharacter.Class:
+			elements = currentcharacter
+	currentcharacter = character
+	$GPUParticles2D.emitting = true
+	changingcharacter = true
+
 
 func _ready() -> void:
 	$Hitcheck.monitoring = false	

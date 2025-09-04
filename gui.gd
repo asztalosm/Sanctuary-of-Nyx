@@ -16,7 +16,7 @@ func showinventory() -> void:
 	$Inventory.visible = true
 	$Skills.visible = false
 	$Inventory/VSplitContainer/Control/TextureRect/Charactericon.texture = get_parent().currentcharacter.Icon
-	$Inventory/VSplitContainer/Control2/MarginContainer/GridContainer/HeadBg.used_text = "[rainbow] Slot for helmet [/rainbow][p] +x Defense [p] +x Health [p] -x Movement speed"
+	$Inventory/VSplitContainer/Control2/MarginContainer/GridContainer/HeadBg.used_text = "[color=444444] Slot for helmet [/color][p] [color=22BB22]+x Defense[/color] [p] +x Health [p] -x Movement speed"
 	
 	
 func _ready() -> void:
