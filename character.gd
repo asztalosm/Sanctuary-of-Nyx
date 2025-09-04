@@ -61,12 +61,14 @@ var attacked = false
 var hitenemies = []
 
 func switchcharacter(character):
-	for elements in Characters:
-		if elements.Class == currentcharacter.Class:
-			elements = currentcharacter
-	currentcharacter = character
-	$GPUParticles2D.emitting = true
-	changingcharacter = true
+	if !changingcharacter:
+		print(changingcharacter)
+		changingcharacter = true
+		for elements in Characters:
+			if elements.Class == currentcharacter.Class:
+				elements = currentcharacter
+		currentcharacter = character
+		$GPUParticles2D.restart()
 
 
 func _ready() -> void:
@@ -164,7 +166,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			velocity = Vector2(0,0)
 			if velocity == Vector2(0.0, 0.0):
-					$AnimatedSprite2D.play("frontidle")
+					$AnimatedSprite2D.play(currentcharacter.Class+"idle")
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
@@ -208,3 +210,8 @@ func sprite_animation_changed() -> void:
 		$Soundcontroller.play("footstepstart")
 	elif animname == "frontidle":
 		$Soundcontroller.play("footstepend")
+
+
+func characterswitched() -> void:
+	changingcharacter = false
+	print(changingcharacter)

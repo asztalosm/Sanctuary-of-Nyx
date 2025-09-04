@@ -33,6 +33,7 @@ func _on_button_2_pressed() -> void:
 
 
 func _process(_delta: float) -> void:
+	$Charactericon.texture = get_parent().currentcharacter.Icon
 	$Health/HealthBar.max_value = get_parent().maxhealth
 	$Health/HealthBar.value = get_parent().health
 	$Experience/TextureProgressBar.max_value = get_parent().globalcharacterstats.XptoNextLevel
