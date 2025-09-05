@@ -111,8 +111,6 @@ func attack() -> void:
 		$Soundcontroller.play(currentcharacter.Attack)
 	if currentcharacter.Attack == "mageattack":
 		$MageProjectile.start()
-		var mageprojectiletarget = get_global_mouse_position()
-		$MageProjectile.rotate($MageProjectile.get_angle_to(get_global_mouse_position()) + 0.5*PI)
 
 
 func hit(selfdamage) ->void:

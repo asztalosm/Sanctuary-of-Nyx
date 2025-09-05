@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=152 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://b2o8pbbp7adkm" path="res://resources/inventoryitembg.png" id="18_xvb2f"]
 [ext_resource type="Texture2D" uid="uid://xg5eim0fgn0p" path="res://resources/skills.png" id="19_1r1pa"]
 [ext_resource type="Texture2D" uid="uid://ttrtblxa8g0e" path="res://resources/defense.png" id="19_8vvwr"]
-[ext_resource type="Script" path="res://head_bg.gd" id="19_shm3m"]
+[ext_resource type="Script" uid="uid://bngoo5sh1tgu" path="res://head_bg.gd" id="19_shm3m"]
 [ext_resource type="Texture2D" uid="uid://chowm636eurtf" path="res://resources/helmetsample.png" id="19_uswop"]
 [ext_resource type="Texture2D" uid="uid://c0yt4uvjmrt21" path="res://resources/dodgemovement.png" id="20_5said"]
 [ext_resource type="Texture2D" uid="uid://dw6q8ew1d3d0l" path="res://resources/health.png" id="21_pm3tn"]
@@ -1152,6 +1152,9 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_aeagw"]
+resource_name = "explosionorb"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
@@ -1159,6 +1162,7 @@ _data = {
 &"assassinstep": SubResource("Animation_88tkl"),
 &"daggerattack": SubResource("Animation_lpiy1"),
 &"death": SubResource("Animation_sm1rv"),
+&"explosionorb": SubResource("Animation_aeagw"),
 &"footstepend": SubResource("Animation_x1sy7"),
 &"footstepstart": SubResource("Animation_7tnxx"),
 &"hit": SubResource("Animation_jx0ln")
@@ -1297,23 +1301,24 @@ collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_pjt0s")
 
-[node name="MageProjectile2" type="CharacterBody2D" parent="Player"]
+[node name="MageProjectile" type="CharacterBody2D" parent="Player"]
+z_index = 999
 script = ExtResource("6_aeagw")
 
-[node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile2"]
+[node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/MageProjectile2/MageHitcheck"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/MageProjectile/MageHitcheck"]
 sprite_frames = SubResource("SpriteFrames_dmqbl")
 animation = &"playing"
 
-[node name="Timer" type="Timer" parent="Player/MageProjectile2/MageHitcheck"]
+[node name="Timer" type="Timer" parent="Player/MageProjectile/MageHitcheck"]
 wait_time = 3.0
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile2/MageHitcheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile/MageHitcheck"]
 shape = SubResource("CircleShape2D_0fer6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile"]
 visible = false
 shape = SubResource("CircleShape2D_aeagw")
 disabled = true
@@ -1340,9 +1345,6 @@ animation = &"Assassinidle"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="MageProjectile" type="StaticBody2D" parent="Player"]
-script = ExtResource("6_aeagw")
 
 [node name="AssassinHitcheck" type="Area2D" parent="Player"]
 z_index = 4
@@ -1836,7 +1838,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_kjduu")
 }
 
-[connection signal="timeout" from="Player/MageProjectile2/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
+[connection signal="timeout" from="Player/MageProjectile/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
 [connection signal="finished" from="Player/GPUParticles2D" to="Player" method="characterswitched"]
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="sprite_animation_changed"]
 [connection signal="area_entered" from="Player/AssassinHitcheck" to="Player" method="_on_hitcheck_area_entered"]
