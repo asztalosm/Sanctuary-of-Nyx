@@ -62,7 +62,6 @@ var hitenemies = []
 
 func switchcharacter(character):
 	if !changingcharacter:
-		print(changingcharacter)
 		changingcharacter = true
 		for elements in Characters:
 			if elements.Class == currentcharacter.Class:
@@ -70,9 +69,11 @@ func switchcharacter(character):
 		currentcharacter = character
 		$GPUParticles2D.restart()
 
+func mageattack() -> void:
+	print("mage attack")
 
 func _ready() -> void:
-	$Hitcheck.monitoring = false	
+	$AssassinHitcheck.monitoring = false	
 func death() -> void:
 	#there will be a death animation that will be played before the death screen comes up
 	var deathtween = get_tree().create_tween()
@@ -99,15 +100,21 @@ func ability() -> void:
 	oldspeed = speed
 	speed = oldspeed * 1.5
 func attack() -> void:
-	if !attacked:
-		attacked = true
-		hitenemies.clear()
-		$Hitcheck.position.y += 12000
-		$Hitcheck.monitoring = true
-		$Hitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
-		$Hitcheck.rotate($Hitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
-		$Hitcheck/AnimatedSprite2D.play("default")
+	attacked = true
+	hitenemies.clear()
+	if currentcharacter.Attack == "daggerattack":
+		$AssassinHitcheck.position.y += 12000
+		$AssassinHitcheck.monitoring = true
+		$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
+		$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+		$AssassinHitcheck/AnimatedSprite2D.play("default")
 		$Soundcontroller.play(currentcharacter.Attack)
+	if currentcharacter.Attack == "mageattack":
+		$MageProjectile.start()
+		var mageprojectiletarget = get_global_mouse_position()
+		$MageProjectile.rotate($MageProjectile.get_angle_to(get_global_mouse_position()) + 0.5*PI)
+
+
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance:
@@ -170,6 +177,7 @@ func _physics_process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
+			
 		if Input.is_action_just_pressed("Ability"):
 			if !usedability:
 				ability()
@@ -178,7 +186,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _attack_animation_finished() -> void:
-	$Hitcheck.monitoring = false
+	$AssassinHitcheck.monitoring = false
 	attacked = false
 	if currentcharacter.Class == "Assassin":
 		for enemies in hitenemies:
@@ -214,4 +222,3 @@ func sprite_animation_changed() -> void:
 
 func characterswitched() -> void:
 	changingcharacter = false
-	print(changingcharacter)

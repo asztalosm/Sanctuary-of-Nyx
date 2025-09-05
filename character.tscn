@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=151 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://b48nfg2ml6qvu" path="res://resources/assassinicon.png" id="4_px5sl"]
 [ext_resource type="Texture2D" uid="uid://be450wnbhpqqp" path="res://resources/iconbackground.png" id="5_0qfo5"]
 [ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="5_2ia7u"]
+[ext_resource type="Texture2D" uid="uid://cj48epbbyef1c" path="res://resources/mageprojectile.png" id="6_0fer6"]
+[ext_resource type="Script" uid="uid://7gu5kc61pu6a" path="res://mage_projectile.gd" id="6_aeagw"]
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://bx8eo8h6brff3" path="res://resources/backpack.png" id="8_lpiy1"]
@@ -36,6 +38,111 @@
 [ext_resource type="AudioStream" uid="uid://dx4fk1fg770n" path="res://resources/levelup.wav" id="22_8i6g0"]
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xsir"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksa8x"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gdkj"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yg4w"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7pic"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30kjj"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nr8o"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5fon"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tndpq"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_427nv"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aicbt"]
+atlas = ExtResource("6_0fer6")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dmqbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7a2eb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xsir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksa8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gdkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yg4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7pic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30kjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nr8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5fon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tndpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_427nv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aicbt")
+}],
+"loop": true,
+"name": &"playing",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0fer6"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aeagw"]
+
 [sub_resource type="Curve" id="Curve_lyohd"]
 _limits = [0.0, 1.0, 0.0, 1.2]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.423529, 0.797753), 0.0, 0.0, 0, 0, Vector2(0.626471, 0.741573), -1.68617, -1.68617, 0, 0, Vector2(0.847059, 0.550562), 0.0, 0.0, 0, 0, Vector2(1.2, 0.146068), 0.0, 0.0, 0, 0]
@@ -46,7 +153,7 @@ curve = SubResource("Curve_lyohd")
 
 [sub_resource type="Curve" id="Curve_0fer6"]
 _limits = [0.0, 1.3, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 1.05169), 0.0, 0.0, 0, 0, Vector2(0.691177, 0.303371), 0.90438, 0.90438, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.204494), 0.0, 0.0, 0, 0, Vector2(0.0588235, 0.774157), 0.0, 0.0, 0, 0, Vector2(0.691177, 0.303371), 0.90438, 0.90438, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_aeagw"]
@@ -56,6 +163,8 @@ curve = SubResource("Curve_0fer6")
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 8.08
+angle_min = -33.1
+angle_max = 33.1
 direction = Vector3(1, 1, 0)
 initial_velocity_max = 17.24
 gravity = Vector3(0, 0, 0)
@@ -1188,9 +1297,32 @@ collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_pjt0s")
 
+[node name="MageProjectile2" type="CharacterBody2D" parent="Player"]
+script = ExtResource("6_aeagw")
+
+[node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile2"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/MageProjectile2/MageHitcheck"]
+sprite_frames = SubResource("SpriteFrames_dmqbl")
+animation = &"playing"
+
+[node name="Timer" type="Timer" parent="Player/MageProjectile2/MageHitcheck"]
+wait_time = 3.0
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile2/MageHitcheck"]
+shape = SubResource("CircleShape2D_0fer6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile2"]
+visible = false
+shape = SubResource("CircleShape2D_aeagw")
+disabled = true
+debug_color = Color(0, 0.595, 0.7, 0)
+
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Player"]
 z_index = 999
 emitting = false
+amount = 16
 texture = ExtResource("34_lyohd")
 one_shot = true
 explosiveness = 1.0
@@ -1204,23 +1336,26 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Mageidle"
+animation = &"Assassinidle"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
-[node name="Hitcheck" type="Area2D" parent="Player"]
+[node name="MageProjectile" type="StaticBody2D" parent="Player"]
+script = ExtResource("6_aeagw")
+
+[node name="AssassinHitcheck" type="Area2D" parent="Player"]
 z_index = 4
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitcheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AssassinHitcheck"]
 visible = false
 position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_wa5vi")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Hitcheck"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/AssassinHitcheck"]
 scale = Vector2(1, 1.5)
 sprite_frames = SubResource("SpriteFrames_kjduu")
 offset = Vector2(0, -16)
@@ -1231,6 +1366,7 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
+visible = false
 position = Vector2(0, -1.01563)
 shape = SubResource("RectangleShape2D_pjt0s")
 
@@ -1700,10 +1836,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_kjduu")
 }
 
+[connection signal="timeout" from="Player/MageProjectile2/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
 [connection signal="finished" from="Player/GPUParticles2D" to="Player" method="characterswitched"]
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="sprite_animation_changed"]
-[connection signal="area_entered" from="Player/Hitcheck" to="Player" method="_on_hitcheck_area_entered"]
-[connection signal="animation_finished" from="Player/Hitcheck/AnimatedSprite2D" to="Player" method="_attack_animation_finished"]
+[connection signal="area_entered" from="Player/AssassinHitcheck" to="Player" method="_on_hitcheck_area_entered"]
+[connection signal="animation_finished" from="Player/AssassinHitcheck/AnimatedSprite2D" to="Player" method="_attack_animation_finished"]
 [connection signal="timeout" from="Player/GUI/Ability/Cooldown" to="Player" method="ability_timeout"]
 [connection signal="timeout" from="Player/GUI/Ability/AbilityDuration" to="Player" method="ability_duration_timeout"]
 [connection signal="pressed" from="Player/GUI/DeathScreen/Button2" to="Player/GUI" method="_on_button_2_pressed"]
