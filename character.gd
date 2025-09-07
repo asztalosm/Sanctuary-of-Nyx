@@ -12,6 +12,7 @@ extends CharacterBody2D
 		"Ability": "assassinstep",
 		"Icon": preload("res://resources/assassinicon.png"),
 		"Attack": "daggerattack",
+		"AttackType": "Physical"
 	},
 	{ #mage
 		"Class": "Mage",
@@ -19,6 +20,7 @@ extends CharacterBody2D
 		"Ability": "explosionorb",
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
 		"Attack": "mageattack",	
+		"AttackType": "Magical"
 	}
 ]
 @export var globalcharacterstats = {
@@ -28,7 +30,7 @@ extends CharacterBody2D
 	"SkillPoints": 0,
 	"BasePhysAttack": 2,
 	"BaseDefense": 0,
-	"BaseMagicAttack": 1,
+	"BaseMagicAttack": 2.5,
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
@@ -36,6 +38,7 @@ extends CharacterBody2D
 	"Ability": "assassinstep",
 	"Icon": preload("res://resources/assassinicon.png"),
 	"Attack": "daggerattack",
+	"AttackType": "Physical"
 }
 #inventory menu is a TODO, have to change the resolution of the inventory.png
 @export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
@@ -52,13 +55,13 @@ extends CharacterBody2D
 	"Dodge": 0,
 	"Health": 0,
 	"MagicAtk": 0,
+	"AtkSpeed": 0
 }
 @export var abilitywaittime = 4.0
 @export var abilityduration = 1.0
 @export var usedability = false
 @export var abilityinuse = false
 @export var cantakedamage = true
-@export var defense = 0
 var oldspeed = speed
 var attacked = false
 var hitenemies = []
@@ -72,9 +75,6 @@ func switchcharacter(character):
 				elements = currentcharacter
 		currentcharacter = character
 		$GPUParticles2D.restart()
-
-func mageattack() -> void:
-	print("mage attack")
 
 func _ready() -> void:
 	$AssassinHitcheck.monitoring = false	
@@ -114,27 +114,40 @@ func attack() -> void:
 			$AssassinHitcheck.monitoring = true
 			$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
 			$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+			$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
 			$AssassinHitcheck/AnimatedSprite2D.play("default")
 			$Soundcontroller.play(currentcharacter.Attack)
 		if currentcharacter.Attack == "mageattack":
+			$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
+			$MageProjectile/MageHitcheck/Timer.wait_time = 1.8 - skills.AtkSpeed * 0.025
+			$MageProjectile.speed = 220 * (1 + skills.AtkSpeed * 0.025)
 			$MageProjectile.start()
 func applydamage() -> void:
-	attacked = false
-	if currentcharacter.Class == "Assassin":
+	var damage = 0
+	if currentcharacter.Class == "Assassin": #todo: calculate damage, based on equipment and base class stats
 		$AssassinHitcheck.monitoring = false
-		for enemies in hitenemies:
-			enemies.health -= globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
-			enemies.get_node("AnimationPlayer").play("hit")
+		attacked = false
 	if currentcharacter.Class == "Mage":
-		for enemies in hitenemies:
-			enemies.health -= globalcharacterstats.BaseMagicAttack * (skills.MagicAtk + 10) / 10 
+		$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
+		#for equipment in equipped:
+			#if equipment != null:
+				#print(equipment)
+	
+	
+	for enemies in hitenemies:
+		if currentcharacter.AttackType == "Magical":
+			damage = globalcharacterstats.BaseMagicAttack * (skills.MagicAtk + 10) / 10
+		elif currentcharacter.AttackType == "Physical":
+			damage = globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
+		enemies.health -= damage
+		enemies.get_node("AnimationPlayer").play("hit")
 
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage - skills.Defense
+		health -= selfdamage - (skills.Defense * 0.2)
 		$Soundcontroller.play("hit")
 		if health <= 0:
 			print("character died") #todo, play a death animation, add dodge stat

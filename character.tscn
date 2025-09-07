@@ -780,12 +780,14 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lphiu"]
+content_margin_left = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.501961)
 border_width_left = 4
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_left = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc4g8"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
@@ -1326,6 +1328,7 @@ script = ExtResource("6_aeagw")
 [node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile"]
 collision_layer = 0
 collision_mask = 3
+monitoring = false
 monitorable = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/MageProjectile/MageHitcheck"]
@@ -1380,6 +1383,8 @@ shape = SubResource("RectangleShape2D_wa5vi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/AssassinHitcheck"]
 scale = Vector2(1, 1.5)
 sprite_frames = SubResource("SpriteFrames_kjduu")
+frame = 17
+frame_progress = 1.0
 offset = Vector2(0, -16)
 
 [node name="Hitbox" type="Area2D" parent="Player"]
@@ -1492,7 +1497,7 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Button2" type="Button" parent="Player/GUI/DeathScreen"]
+[node name="Restart" type="Button" parent="Player/GUI/DeathScreen"]
 process_mode = 3
 layout_mode = 0
 offset_left = 235.0
@@ -1503,7 +1508,24 @@ theme = ExtResource("2_wa5vi")
 theme_override_font_sizes/font_size = 24
 text = "Restart"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player/GUI/DeathScreen/Button2"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player/GUI/DeathScreen/Restart"]
+stream = ExtResource("7_qi5as")
+pitch_scale = 3.0
+attenuation = 1.1564e-05
+panning_strength = 0.0
+
+[node name="Quit" type="Button" parent="Player/GUI/DeathScreen"]
+process_mode = 3
+layout_mode = 0
+offset_left = 235.0
+offset_top = 196.0
+offset_right = 341.0
+offset_bottom = 234.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player/GUI/DeathScreen/Quit"]
 stream = ExtResource("7_qi5as")
 pitch_scale = 3.0
 attenuation = 1.1564e-05
@@ -1560,22 +1582,6 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Player/GUI/Inventory"]
-layout_mode = 0
-offset_left = 486.0
-offset_top = 37.0
-offset_right = 529.0
-offset_bottom = 54.0
-theme_override_fonts/font = ExtResource("9_88tkl")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pm3tn")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_uswop")
-theme_override_styles/hover = SubResource("StyleBoxFlat_pm3tn")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uswop")
-theme_override_styles/normal = SubResource("StyleBoxFlat_xvb2f")
-toggle_mode = true
-text = "Stats"
 
 [node name="VSplitContainer" type="VSplitContainer" parent="Player/GUI/Inventory"]
 layout_mode = 0
@@ -1713,7 +1719,24 @@ offset_bottom = 29.0
 texture = ExtResource("19_uswop")
 stretch_mode = 2
 
+[node name="Stats" type="Button" parent="Player/GUI/Inventory"]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 37.0
+offset_right = 529.0
+offset_bottom = 54.0
+theme_override_fonts/font = ExtResource("9_88tkl")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pm3tn")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_uswop")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pm3tn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uswop")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xvb2f")
+toggle_mode = true
+text = "Stats"
+
 [node name="Skills" type="Control" parent="Player/GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1758,26 +1781,6 @@ text = "You currently have 0 Skill Points"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ItemList" type="ItemList" parent="Player/GUI/Skills"]
-visible = false
-layout_mode = 0
-offset_left = 104.0
-offset_top = 64.0
-offset_right = 468.0
-offset_bottom = 280.0
-theme = ExtResource("2_wa5vi")
-theme_override_font_sizes/font_size = 18
-item_count = 4
-fixed_icon_size = Vector2i(32, 32)
-item_0/text = "Physical Damage"
-item_0/icon = ExtResource("18_rr203")
-item_1/text = "Defense"
-item_1/icon = ExtResource("19_8vvwr")
-item_2/text = "Dodge"
-item_2/icon = ExtResource("20_5said")
-item_3/text = "Health"
-item_3/icon = ExtResource("21_pm3tn")
-
 [node name="GridContainer" type="GridContainer" parent="Player/GUI/Skills"]
 layout_mode = 2
 offset_left = 104.0
@@ -1790,6 +1793,8 @@ theme_override_constants/v_separation = 1
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../MagicAtk")
+focus_previous = NodePath("../AtkSpeed")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1797,6 +1802,7 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Physical Damage"
@@ -1808,6 +1814,8 @@ script = ExtResource("31_lphiu")
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../Defense")
+focus_previous = NodePath("../PhysAtk")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1815,6 +1823,7 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Magic Damage"
@@ -1826,6 +1835,8 @@ script = ExtResource("31_lphiu")
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../Dodge")
+focus_previous = NodePath("../MagicAtk")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1833,6 +1844,7 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Defense"
@@ -1844,6 +1856,8 @@ script = ExtResource("31_lphiu")
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../Health")
+focus_previous = NodePath("../Defense")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1851,6 +1865,7 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Dodge"
@@ -1862,6 +1877,8 @@ script = ExtResource("31_lphiu")
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../AtkSpeed")
+focus_previous = NodePath("../Dodge")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1869,6 +1886,7 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Health"
@@ -1880,6 +1898,8 @@ script = ExtResource("31_lphiu")
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../PhysAtk")
+focus_previous = NodePath("../Health")
 theme = ExtResource("2_wa5vi")
 theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
@@ -1887,13 +1907,14 @@ theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
 text = "Attack speed"
 icon = ExtResource("33_xc8pg")
 alignment = 0
 script = ExtResource("31_lphiu")
-used_text = "fasz nagyon hosszú"
+used_text = "aaa"
 
 [node name="Hotkeys" type="Control" parent="Player/GUI"]
 layout_mode = 3
@@ -1983,9 +2004,12 @@ libraries = {
 [connection signal="animation_finished" from="Player/AssassinHitcheck/AnimatedSprite2D" to="Player" method="_attack_animation_finished"]
 [connection signal="timeout" from="Player/GUI/Ability/Cooldown" to="Player" method="ability_timeout"]
 [connection signal="timeout" from="Player/GUI/Ability/AbilityDuration" to="Player" method="ability_duration_timeout"]
-[connection signal="pressed" from="Player/GUI/DeathScreen/Button2" to="Player/GUI" method="_on_button_2_pressed"]
-[connection signal="item_activated" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_activated"]
-[connection signal="item_clicked" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_clicked"]
-[connection signal="item_selected" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_selected"]
+[connection signal="pressed" from="Player/GUI/DeathScreen/Restart" to="Player/GUI" method="_on_restart_pressed"]
+[connection signal="pressed" from="Player/GUI/DeathScreen/Quit" to="Player/GUI" method="_on_quit_pressed"]
+[connection signal="pressed" from="Player/GUI/Inventory/Stats" to="Player/GUI" method="_on_quit_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/PhysAtk" to="Player/GUI" method="_on_phys_atk_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/MagicAtk" to="Player/GUI" method="_on_magic_atk_pressed"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/Defense" to="Player/GUI" method="_on_defense_pressed"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/Dodge" to="Player/GUI" method="_on_dodge_pressed"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/Health" to="Player/GUI" method="_on_health_pressed"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/AtkSpeed" to="Player/GUI" method="_on_atk_speed_pressed"]

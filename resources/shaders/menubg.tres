@@ -70,6 +70,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-179.896, -54.9751)
 mode = 1
 flags/light_only = false
 preview_params/Texture2DParameter = "Resource(\"res://resources/bgshaderimage.tres\")"

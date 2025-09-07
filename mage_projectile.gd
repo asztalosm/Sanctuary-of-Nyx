@@ -8,6 +8,7 @@ func _on_timer_timeout() -> void:
 	moving = false
 	global_position = get_parent().global_position
 	$MageHitcheck/AnimatedSprite2D.animation = "default"
+	$MageHitcheck.monitoring = true
 
 func start() -> void:
 	if !moving:
@@ -29,8 +30,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_mage_hitcheck_area_entered(area: Area2D) -> void:
-	moving = false
-	get_parent().hitenemies.append(area.get_parent())
-	get_parent().applydamage()
-	global_position = get_parent().global_position
-	$MageHitcheck/AnimatedSprite2D.animation = "default"
+	if moving:
+		moving = false
+		get_parent().hitenemies.append(area.get_parent())
+		get_parent().applydamage()
+		global_position = get_parent().global_position
+		$MageHitcheck/AnimatedSprite2D.animation = "default"
+	else:
+		pass

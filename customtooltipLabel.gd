@@ -3,13 +3,12 @@ extends Button
 
 
 func _make_custom_tooltip(_for_text: String) -> Object:
-	print(used_text)
 	var tooltiplabel : RichTextLabel = RichTextLabel.new()
 	tooltiplabel.bbcode_enabled = true
 	tooltiplabel.text = used_text
 	tooltiplabel.theme = preload("res://resources/shaders/inventorytooltip.tres")
 	var lines = 1
 	if used_text.count("[p]") > 0:
-		lines = used_text.count("[p]")
-	tooltiplabel.custom_minimum_size = tooltiplabel.get_theme_default_font().get_string_size(used_text) * Vector2(0.5, lines)
+		lines = used_text.count("[p]") +1
+	tooltiplabel.custom_minimum_size = Vector2(256, lines*18)
 	return tooltiplabel
