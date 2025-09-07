@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=157 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -31,11 +31,14 @@
 [ext_resource type="Texture2D" uid="uid://b2o8pbbp7adkm" path="res://resources/inventoryitembg.png" id="18_xvb2f"]
 [ext_resource type="Texture2D" uid="uid://xg5eim0fgn0p" path="res://resources/skills.png" id="19_1r1pa"]
 [ext_resource type="Texture2D" uid="uid://ttrtblxa8g0e" path="res://resources/defense.png" id="19_8vvwr"]
-[ext_resource type="Script" uid="uid://bngoo5sh1tgu" path="res://head_bg.gd" id="19_shm3m"]
+[ext_resource type="Script" uid="uid://bngoo5sh1tgu" path="res://customtooltip.gd" id="19_shm3m"]
 [ext_resource type="Texture2D" uid="uid://chowm636eurtf" path="res://resources/helmetsample.png" id="19_uswop"]
 [ext_resource type="Texture2D" uid="uid://c0yt4uvjmrt21" path="res://resources/dodgemovement.png" id="20_5said"]
 [ext_resource type="Texture2D" uid="uid://dw6q8ew1d3d0l" path="res://resources/health.png" id="21_pm3tn"]
 [ext_resource type="AudioStream" uid="uid://dx4fk1fg770n" path="res://resources/levelup.wav" id="22_8i6g0"]
+[ext_resource type="Script" uid="uid://cxvygi53tkf17" path="res://customtooltipLabel.gd" id="31_lphiu"]
+[ext_resource type="Texture2D" uid="uid://c7o1g6qo5nxak" path="res://resources/MagicAtk.png" id="32_xc4g8"]
+[ext_resource type="Texture2D" uid="uid://bbedbtdwvex2e" path="res://resources/atkspeed.png" id="33_xc8pg"]
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
@@ -776,6 +779,21 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lphiu"]
+bg_color = Color(0.1, 0.1, 0.1, 0.501961)
+border_width_left = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc4g8"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="FontVariation" id="FontVariation_y0ipg"]
 base_font = ExtResource("9_88tkl")
 variation_opentype = {
@@ -1054,6 +1072,9 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_aeagw"]
+resource_name = "explosionorb"
+
 [sub_resource type="Animation" id="Animation_x1sy7"]
 resource_name = "footstepend"
 tracks/0/type = "value"
@@ -1151,9 +1172,6 @@ tracks/1/keys = {
 "method": &"play"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_aeagw"]
-resource_name = "explosionorb"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
@@ -1306,13 +1324,15 @@ z_index = 999
 script = ExtResource("6_aeagw")
 
 [node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile"]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/MageProjectile/MageHitcheck"]
 sprite_frames = SubResource("SpriteFrames_dmqbl")
-animation = &"playing"
 
 [node name="Timer" type="Timer" parent="Player/MageProjectile/MageHitcheck"]
-wait_time = 3.0
+wait_time = 1.8
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile/MageHitcheck"]
@@ -1694,7 +1714,6 @@ texture = ExtResource("19_uswop")
 stretch_mode = 2
 
 [node name="Skills" type="Control" parent="Player/GUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1740,6 +1759,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="ItemList" type="ItemList" parent="Player/GUI/Skills"]
+visible = false
 layout_mode = 0
 offset_left = 104.0
 offset_top = 64.0
@@ -1757,6 +1777,123 @@ item_2/text = "Dodge"
 item_2/icon = ExtResource("20_5said")
 item_3/text = "Health"
 item_3/icon = ExtResource("21_pm3tn")
+
+[node name="GridContainer" type="GridContainer" parent="Player/GUI/Skills"]
+layout_mode = 2
+offset_left = 104.0
+offset_top = 76.0
+offset_right = 472.0
+offset_bottom = 280.0
+theme_override_constants/v_separation = 1
+
+[node name="PhysAtk" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Physical Damage"
+icon = ExtResource("18_rr203")
+alignment = 0
+script = ExtResource("31_lphiu")
+
+[node name="MagicAtk" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Magic Damage"
+icon = ExtResource("32_xc4g8")
+alignment = 0
+script = ExtResource("31_lphiu")
+
+[node name="Defense" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Defense"
+icon = ExtResource("19_8vvwr")
+alignment = 0
+script = ExtResource("31_lphiu")
+
+[node name="Dodge" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Dodge"
+icon = ExtResource("20_5said")
+alignment = 0
+script = ExtResource("31_lphiu")
+
+[node name="Health" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Health"
+icon = ExtResource("21_pm3tn")
+alignment = 0
+script = ExtResource("31_lphiu")
+
+[node name="AtkSpeed" type="Button" parent="Player/GUI/Skills/GridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wa5vi")
+theme_override_colors/icon_hover_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_focus_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/icon_normal_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_lphiu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xc4g8")
+text = "Attack speed"
+icon = ExtResource("33_xc8pg")
+alignment = 0
+script = ExtResource("31_lphiu")
+used_text = "fasz nagyon hosszú"
 
 [node name="Hotkeys" type="Control" parent="Player/GUI"]
 layout_mode = 3
@@ -1838,6 +1975,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_kjduu")
 }
 
+[connection signal="area_entered" from="Player/MageProjectile/MageHitcheck" to="Player/MageProjectile" method="_on_mage_hitcheck_area_entered"]
 [connection signal="timeout" from="Player/MageProjectile/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
 [connection signal="finished" from="Player/GPUParticles2D" to="Player" method="characterswitched"]
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="sprite_animation_changed"]
@@ -1849,3 +1987,5 @@ libraries = {
 [connection signal="item_activated" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_activated"]
 [connection signal="item_clicked" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_clicked"]
 [connection signal="item_selected" from="Player/GUI/Skills/ItemList" to="Player/GUI" method="_on_item_list_item_selected"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/PhysAtk" to="Player/GUI" method="_on_phys_atk_pressed"]
+[connection signal="pressed" from="Player/GUI/Skills/GridContainer/MagicAtk" to="Player/GUI" method="_on_magic_atk_pressed"]

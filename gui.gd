@@ -3,9 +3,13 @@ var clickedskill = false
 
 func refreshstats() -> void:
 	$Skills/Info.text = "You currently have " + str(get_parent().globalcharacterstats.SkillPoints) + " Skill Points."
-	$Skills/ItemList.set_item_text(0, "Physical Attack ("+ str(get_parent().skills.PhysAtk) +")")
-	$Skills/ItemList.set_item_text(1, "Defense ("+ str(get_parent().skills.Defense) +")")
-	$Skills/ItemList.set_item_text(2, "Speed and Dodge ("+ str(get_parent().skills.Dodge) +")")
+	$Skills/GridContainer/PhysAtk.text = "Physical Attack (" +str(get_parent().skills.PhysAtk) + ")"
+	$Skills/GridContainer/PhysAtk.used_text = "Multiplies your Physical damage by [color=#22BB22]" + (str(float(get_parent().skills.PhysAtk + 10) / 10)) + "[/color]"
+	$Skills/GridContainer/MagicAtk.text = "Magic Attack (" +str(get_parent().skills.MagicAtk) + ")"
+	$Skills/GridContainer/MagicAtk.used_text = "Multiplies your Magical damage by [color=#22BB22]" + (str(float(get_parent().skills.MagicAtk + 10) / 10)) + "[/color]"
+	
+	
+	
 	$Skills/ItemList.set_item_text(3, "Health ("+ str(get_parent().skills.Health) +")")
 	$Skills/ItemList.set_item_tooltip(0, "Multiplies your Physical damage by " + (str(float(get_parent().skills.PhysAtk + 10) / 10)))
 	$Skills/ItemList.set_item_tooltip(1, "Decreases incoming damage by "+ str(float(get_parent().defense)))
@@ -99,10 +103,7 @@ func _on_item_list_item_activated(index: int) -> void:
 	if get_parent().globalcharacterstats.SkillPoints > 0 and !clickedskill:
 		get_parent().globalcharacterstats.SkillPoints -= 1
 		$Skills/Info.text = "You currently have " + str(get_parent().globalcharacterstats.SkillPoints) + " Skill Points."
-		if index == 0:
-			get_parent().skills.PhysAtk += 1
-			$Skills/ItemList.set_item_text(0, "Physical Attack ("+ str(get_parent().skills.PhysAtk) +")")
-		elif index == 1:
+		if index == 1:
 			get_parent().skills.Defense += 1
 			$Skills/ItemList.set_item_text(1, "Defense ("+ str(get_parent().skills.Defense) +")")
 			get_parent().defense = get_parent().skills.Defense /10 * 2
@@ -111,4 +112,18 @@ func _on_item_list_item_activated(index: int) -> void:
 			$Skills/ItemList.set_item_text(2, "Speed and Dodge ("+ str(get_parent().skills.Dodge) +")")
 			get_parent().dodgechance += 1
 			get_parent().speed += 2
+	refreshstats()
+
+#Skill GUI buttons
+func _on_phys_atk_pressed() -> void:
+	if get_parent().globalcharacterstats.SkillPoints > 0 and !clickedskill:
+		get_parent().globalcharacterstats.SkillPoints -= 1
+		get_parent().skills.PhysAtk += 1
+		$Skills/ItemList.set_item_text(0, "Physical Attack ("+ str(get_parent().skills.PhysAtk) +")")
+	refreshstats()
+func _on_magic_atk_pressed() -> void:
+	if get_parent().globalcharacterstats.SkillPoints > 0 and !clickedskill:
+		get_parent().globalcharacterstats.SkillPoints -= 1
+		get_parent().skills.MagicAtk += 1
+		$Skills/ItemList.set_item_text(0, "Magical Attack ("+ str(get_parent().skills.MagicAtk) +")")
 	refreshstats()

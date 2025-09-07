@@ -28,12 +28,14 @@ extends CharacterBody2D
 	"SkillPoints": 0,
 	"BasePhysAttack": 2,
 	"BaseDefense": 0,
+	"BaseMagicAttack": 1,
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
-	"Attack": "daggerattack",
+	"Type": "Melee",
 	"Ability": "assassinstep",
 	"Icon": preload("res://resources/assassinicon.png"),
+	"Attack": "daggerattack",
 }
 #inventory menu is a TODO, have to change the resolution of the inventory.png
 @export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
@@ -48,7 +50,8 @@ extends CharacterBody2D
 	"PhysAtk": 0,
 	"Defense": 0,
 	"Dodge": 0,
-	"Health": 0
+	"Health": 0,
+	"MagicAtk": 0,
 }
 @export var abilitywaittime = 4.0
 @export var abilityduration = 1.0
@@ -61,7 +64,8 @@ var attacked = false
 var hitenemies = []
 
 func switchcharacter(character):
-	if !changingcharacter:
+	if !changingcharacter and character != currentcharacter:
+		attacked = false #i guess this could be exploited to reset atk cd but idc cause there already is a cd on character change
 		changingcharacter = true
 		for elements in Characters:
 			if elements.Class == currentcharacter.Class:
@@ -100,18 +104,30 @@ func ability() -> void:
 	oldspeed = speed
 	speed = oldspeed * 1.5
 func attack() -> void:
-	attacked = true
-	hitenemies.clear()
-	if currentcharacter.Attack == "daggerattack":
-		$AssassinHitcheck.position.y += 12000
-		$AssassinHitcheck.monitoring = true
-		$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
-		$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
-		$AssassinHitcheck/AnimatedSprite2D.play("default")
-		$Soundcontroller.play(currentcharacter.Attack)
-	if currentcharacter.Attack == "mageattack":
-		$MageProjectile.start()
-
+	if attacked:
+		return
+	else:
+		attacked = true
+		hitenemies.clear()
+		if currentcharacter.Attack == "daggerattack":
+			$AssassinHitcheck.position.y += 12000
+			$AssassinHitcheck.monitoring = true
+			$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
+			$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+			$AssassinHitcheck/AnimatedSprite2D.play("default")
+			$Soundcontroller.play(currentcharacter.Attack)
+		if currentcharacter.Attack == "mageattack":
+			$MageProjectile.start()
+func applydamage() -> void:
+	attacked = false
+	if currentcharacter.Class == "Assassin":
+		$AssassinHitcheck.monitoring = false
+		for enemies in hitenemies:
+			enemies.health -= globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
+			enemies.get_node("AnimationPlayer").play("hit")
+	if currentcharacter.Class == "Mage":
+		for enemies in hitenemies:
+			enemies.health -= globalcharacterstats.BaseMagicAttack * (skills.MagicAtk + 10) / 10 
 
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
@@ -184,12 +200,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _attack_animation_finished() -> void:
-	$AssassinHitcheck.monitoring = false
-	attacked = false
-	if currentcharacter.Class == "Assassin":
-		for enemies in hitenemies:
-			enemies.health -= globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
-			enemies.get_node("AnimationPlayer").play("hit")
+	applydamage()
 
 
 func _on_hitcheck_area_entered(area: Area2D) -> void:
@@ -214,7 +225,7 @@ func sprite_animation_changed() -> void:
 	var animname : String = $AnimatedSprite2D.animation
 	if animname.contains("walk"):
 		$Soundcontroller.play("footstepstart")
-	elif animname == "frontidle":
+	elif animname.contains("idle"):
 		$Soundcontroller.play("footstepend")
 
 
