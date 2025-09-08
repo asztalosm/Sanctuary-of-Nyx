@@ -1,14 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3j5jac2pr1ms"]
+[gd_scene load_steps=7 format=3 uid="uid://c3j5jac2pr1ms"]
 
 [ext_resource type="Script" uid="uid://bxxj8coe2eu2g" path="res://boss_dummy.gd" id="1_yba7a"]
+[ext_resource type="Texture2D" uid="uid://djmmfhd2f4win" path="res://resources/temporaryknightboss.png" id="2_u0yvb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct5c8"]
+atlas = ExtResource("2_u0yvb")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pdbhk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct5c8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1ba"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2bxsn"]
+radius = 195.064
 
 [node name="BossDummy" type="CharacterBody2D"]
 script = ExtResource("1_yba7a")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pdbhk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ob1ba")
+
+[node name="FightInitiator" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FightInitiator"]
+shape = SubResource("CircleShape2D_2bxsn")
+
+[connection signal="body_entered" from="FightInitiator" to="." method="_on_fight_initiator_body_entered"]

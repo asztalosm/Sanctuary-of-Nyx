@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=159 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -40,6 +40,8 @@
 [ext_resource type="Texture2D" uid="uid://c7o1g6qo5nxak" path="res://resources/MagicAtk.png" id="32_xc4g8"]
 [ext_resource type="Texture2D" uid="uid://bbedbtdwvex2e" path="res://resources/atkspeed.png" id="33_xc8pg"]
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
+[ext_resource type="Texture2D" uid="uid://vvqeupnsomto" path="res://resources/minibosshealthunder.png" id="36_3fhje"]
+[ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
 atlas = ExtResource("6_0fer6")
@@ -1969,6 +1971,38 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BossBar" type="Control" parent="Player/GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 576.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="BossHealth" type="TextureProgressBar" parent="Player/GUI/BossBar"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 3.0
+offset_right = 432.0
+offset_bottom = 51.0
+step = 0.1
+texture_under = ExtResource("36_3fhje")
+texture_progress = ExtResource("37_0a77e")
+
+[node name="BossName" type="RichTextLabel" parent="Player/GUI/BossBar"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = -1.0
+offset_right = 315.0
+offset_bottom = 20.0
+theme = ExtResource("2_wa5vi")
+theme_override_colors/default_color = Color(0.56, 0.56, 0.56, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/normal_font_size = 17
+text = "Knight"
+fit_content = true
+autowrap_mode = 0
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3

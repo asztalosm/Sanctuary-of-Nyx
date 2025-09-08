@@ -11,3 +11,7 @@ extends CharacterBody2D
 #func _physics_process(_delta: float) -> void:
 #	if position.distance_to()
 	
+
+
+func _on_fight_initiator_body_entered(body: Node2D) -> void:
+	print(body)
