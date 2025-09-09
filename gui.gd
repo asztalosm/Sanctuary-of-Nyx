@@ -70,7 +70,7 @@ func _on_phys_atk_pressed() -> void:
 		$Skills/GridContainer/PhysAtk.modulate = Color8(192,32,32)
 		await get_tree().create_timer(0.5).timeout
 		$Skills/GridContainer/PhysAtk.modulate = Color8(255,255,255)
-		refreshstats()
+	refreshstats()
 
 func _on_magic_atk_pressed() -> void:
 	if get_parent().globalcharacterstats.SkillPoints > 0 and !clickedskill:

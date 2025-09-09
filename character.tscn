@@ -1329,7 +1329,7 @@ script = ExtResource("6_aeagw")
 
 [node name="MageHitcheck" type="Area2D" parent="Player/MageProjectile"]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 monitoring = false
 monitorable = false
 
@@ -1973,6 +1973,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BossBar" type="Control" parent="Player/GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 576.0
