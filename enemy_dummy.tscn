@@ -46,12 +46,12 @@ _data = {
 &"hit": SubResource("Animation_7uaqn")
 }
 
-[sub_resource type="Gradient" id="Gradient_ob1ba"]
+[sub_resource type="Gradient" id="Gradient_jnamf"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dyuvm"]
-gradient = SubResource("Gradient_ob1ba")
+gradient = SubResource("Gradient_jnamf")
 width = 16
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ob1ba"]
@@ -76,9 +76,9 @@ radius = 108.227
 [node name="EnemyDummy" type="CharacterBody2D"]
 collision_mask = 0
 script = ExtResource("1_jnamf")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_7uaqn")
 
@@ -90,6 +90,7 @@ collision_layer = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
 shape = SubResource("RectangleShape2D_ygqrc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -125,9 +126,11 @@ collision_mask = 4
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection/AttackZone"]
+visible = false
 shape = SubResource("CircleShape2D_dyuvm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
 shape = SubResource("CircleShape2D_7rwgp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

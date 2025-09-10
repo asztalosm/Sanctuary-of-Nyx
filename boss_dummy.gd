@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var maxhealth = 200
-@export var health = maxhealth / 8
+@export var health = maxhealth / 8.0
 var bossbar = null
 @export var stats = {
 	"Phase": 1,

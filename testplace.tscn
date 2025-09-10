@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=31 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://dc1w0e51u0ih2" path="res://enemies.gd" id="3_ob1ba"]
 [ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="5_dyuvm"]
 [ext_resource type="Script" uid="uid://mb1cbderklgf" path="res://damagearea.gd" id="5_ob1ba"]
+[ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="7_hqufi"]
+[ext_resource type="Script" uid="uid://ctkuo4njv6hwk" path="res://archer_enemy.gd" id="8_4rwaw"]
+[ext_resource type="Texture2D" uid="uid://dy6hxwp6b21bj" path="res://resources/archerenemymain.png" id="8_mvtmc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -12, 16, -12)
@@ -110,6 +113,68 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_l1lf2")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rwaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_mvtmc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew55c"]
+size = Vector2(10, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mvtmc"]
+radius = 288.293
+
+[sub_resource type="Gradient" id="Gradient_jnamf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mvtmc"]
+gradient = SubResource("Gradient_jnamf")
+width = 16
+
+[sub_resource type="Animation" id="Animation_4rwaw"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ew55c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g626g"]
+_data = {
+&"RESET": SubResource("Animation_ew55c"),
+&"hit": SubResource("Animation_4rwaw")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuvm"]
 size = Vector2(40, 40)
 
@@ -120,6 +185,7 @@ tile_map_data = PackedByteArray("AAAEAP//AAABAAEAAAAEAAAAAAABAAEAAAAEAAEAAAABAAE
 tile_set = SubResource("TileSet_7uaqn")
 
 [node name="Ocean" type="TileMapLayer" parent="TileMapLayer"]
+visible = false
 self_modulate = Color(0.79, 0.79, 0.79, 1)
 tile_map_data = PackedByteArray("AAD+/wUAAAAAAAAAAAD//wUAAAADAAAAAAAAAAUAAAAEAAAAAAABAAUAAAABAAAAAAACAAUAAAACAAAAAAADAAUAAAADAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAFAAAAAAD9/wUAAAADAAAAAAAEAAUAAAAFAAAAAAAFAAUAAAADAAAAAAD5/wIAAAABAAEAAGD5/wMAAAAEAAEAAGD5/wEAAAACAAEAAGD5/wAAAAAAAAEAAGD5////AAABAAEAAGD4/wMAAAAEAAEAAGD4/wIAAAABAAEAAGD4/wEAAAACAAEAAGD4/wAAAAAAAAEAAGD4////AAABAAEAAGD5/wcAAAADAAEAADD5/wYAAAADAAEAADD5/wUAAAACAAEAAGD5/wQAAAADAAEAAGD4/wcAAAAEAAEAADD4/wYAAAAEAAEAADD4/wUAAAACAAEAAGD4/wQAAAADAAEAAGD6/wYAAAACAAEAADD7/wYAAAABAAEAADD8/wYAAAAEAAEAADD6/wcAAAACAAEAADD7/wcAAAABAAEAADD8/wcAAAAEAAEAADD9/wYAAAADAAEAADD+/wYAAAACAAEAADD//wYAAAABAAEAADAAAAYAAAAAAAEAADD9/wcAAAADAAEAADD+/wcAAAACAAEAADD//wcAAAABAAEAADAAAAcAAAAAAAEAADABAAcAAAAEAAEAADACAAcAAAADAAEAADADAAcAAAACAAEAADAEAAcAAAABAAEAADAFAAcAAAAAAAEAADABAAYAAAAEAAEAADACAAYAAAADAAEAADADAAYAAAACAAEAADAEAAYAAAAEAAEAADAFAAYAAAADAAEAADAGAAYAAAACAAEAADAHAAYAAAABAAEAADAIAAYAAAAEAAEAADAGAAcAAAAEAAEAADAHAAcAAAADAAEAADAIAAcAAAAEAAEAADAJAAcAAAADAAEAADAKAAcAAAACAAEAADALAAcAAAABAAEAADAMAAcAAAAAAAEAADD4//v/AAAEAAEAAGD5//v/AAAEAAEAAGD4//r/AAAAAAEAAAD5//r/AAABAAEAAAD5//7/AAACAAEAAGD5//3/AAADAAEAAGD5//z/AAAEAAEAAGD4//7/AAACAAEAAGD4//3/AAADAAEAAGD4//z/AAAEAAEAAGD3////AAABAAEAAGD3//7/AAACAAEAAGD3//3/AAADAAEAAGD3//z/AAAEAAEAAGD3//v/AAAEAAEAAGD2////AAABAAEAAGD2//7/AAACAAEAAGD2//3/AAADAAEAAGD2//z/AAAEAAEAAGD2//v/AAAEAAEAAGD1////AAAAAAEAAGD1//7/AAABAAEAAGD1//3/AAACAAEAAGD1//z/AAADAAEAAGD1//v/AAAEAAEAAGD3/wAAAAAAAAEAAGD2/wAAAAAAAAEAAGA=")
 tile_set = SubResource("TileSet_hqufi")
@@ -138,6 +204,56 @@ position = Vector2(698, -425)
 [node name="Timer" type="Timer" parent="Enemies"]
 wait_time = 3.0
 autostart = true
+
+[node name="NecromancerEnemy" parent="Enemies" instance=ExtResource("7_hqufi")]
+position = Vector2(56, -144)
+metadata/_edit_group_ = true
+
+[node name="ArcherEnemy" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(115, -143)
+collision_mask = 0
+script = ExtResource("8_4rwaw")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/ArcherEnemy"]
+sprite_frames = SubResource("SpriteFrames_4rwaw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/ArcherEnemy"]
+visible = false
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_ew55c")
+
+[node name="Detection" type="Area2D" parent="Enemies/ArcherEnemy"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/ArcherEnemy/Detection"]
+visible = false
+shape = SubResource("CircleShape2D_mvtmc")
+
+[node name="HealthBar" type="TextureProgressBar" parent="Enemies/ArcherEnemy"]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_mvtmc")
+texture_progress = SubResource("GradientTexture1D_mvtmc")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AttackCooldown" type="Timer" parent="Enemies/ArcherEnemy"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/ArcherEnemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_g626g")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemies/ArcherEnemy"]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-114, 40)
@@ -159,5 +275,8 @@ shape = SubResource("RectangleShape2D_dyuvm")
 panning_strength = 0.0
 
 [connection signal="timeout" from="Enemies/Timer" to="Enemies" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Enemies/ArcherEnemy/Detection" to="Enemies/ArcherEnemy" method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Enemies/ArcherEnemy/Detection" to="Enemies/ArcherEnemy" method="_on_detection_body_exited"]
+[connection signal="timeout" from="Enemies/ArcherEnemy/AttackCooldown" to="Enemies/ArcherEnemy" method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

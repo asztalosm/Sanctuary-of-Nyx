@@ -1,18 +1,19 @@
 extends CharacterBody2D
-@export var maxhealth : float = 10
+@export var maxhealth : float = 5
 @export var health : float = maxhealth
-@export var speed = 80
-@export var damage :float = 5
-@export var attackcooldown = 2.0
+@export var speed = 95
+@export var damage :float = 2
+@export var attackcooldown = 0.8
 @export var cantakedamage = true
 @export var target = self
 var onattackcooldown = false
+var canattack = true
 var dir := Vector2.ZERO
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
 func death() -> void:
-	get_parent().get_parent().get_node("Character").get_node("Player").globalcharacterstats.Xp += 20
+	#death animation
 	queue_free()
 func attack() -> void:
 	if !onattackcooldown and target.cantakedamage:
@@ -40,8 +41,8 @@ func _physics_process(_delta: float) -> void:
 			if dir.length_squared() > 1.0:
 					dir = dir.normalized()
 					velocity = dir * speed
-		
-	
+			if velocity != Vector2(0,0):
+				$AnimatedSprite2D.play("walk")
 	move_and_slide()
 
 
@@ -49,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
-	$NavigationAgent2D.target_desired_distance = $Detection/AttackZone/CollisionShape2D.shape.radius /2
+	$NavigationAgent2D.target_desired_distance = $Detection/AttackZone/CollisionShape2D.shape.radius
 
 
 func _on_attack_cooldown_timeout() -> void:

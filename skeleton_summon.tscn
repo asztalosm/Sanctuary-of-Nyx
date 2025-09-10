@@ -1,0 +1,202 @@
+[gd_scene load_steps=21 format=3 uid="uid://cnil3dyaxwrio"]
+
+[ext_resource type="Texture2D" uid="uid://bepco8il24w10" path="res://resources/skeletonsummonwalk.png" id="1_mr4ek"]
+[ext_resource type="Script" uid="uid://duq47ny2sw1h6" path="res://skeleton_summon.gd" id="1_rl2ub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rl2ub"]
+size = Vector2(4, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22ski"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2446"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18qvj"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8ivl"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2lle"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_novqi"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty275"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipf8u"]
+atlas = ExtResource("1_mr4ek")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugetr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22ski")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22ski")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2446")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18qvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8ivl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2lle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_novqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipf8u")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 24.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_at363"]
+size = Vector2(8, 16)
+
+[sub_resource type="Gradient" id="Gradient_ob1ba"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rl2ub"]
+gradient = SubResource("Gradient_ob1ba")
+width = 16
+
+[sub_resource type="Animation" id="Animation_rl2ub"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_22ski"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2446"]
+_data = {
+&"RESET": SubResource("Animation_22ski"),
+&"hit": SubResource("Animation_rl2ub")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rl2ub"]
+radius = 104.005
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_22ski"]
+radius = 16.0
+
+[node name="SkeletonSummon" type="CharacterBody2D"]
+collision_mask = 0
+script = ExtResource("1_rl2ub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_rl2ub")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ugetr")
+animation = &"walk"
+frame = 4
+frame_progress = 0.321262
+
+[node name="HitCheck" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitCheck"]
+visible = false
+shape = SubResource("RectangleShape2D_at363")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_rl2ub")
+texture_progress = SubResource("GradientTexture1D_rl2ub")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_f2446")
+}
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_rl2ub")
+
+[node name="AttackZone" type="Area2D" parent="Detection"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection/AttackZone"]
+visible = false
+shape = SubResource("CircleShape2D_22ski")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
