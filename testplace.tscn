@@ -1,11 +1,14 @@
-[gd_scene load_steps=31 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=41 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
 [ext_resource type="Texture2D" uid="uid://bg8yeaurt5axk" path="res://resources/ocean.png" id="2_7rwgp"]
 [ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="3_7uaqn"]
+[ext_resource type="Script" uid="uid://cd4g4mu68bamn" path="res://guide.gd" id="3_ew55c"]
 [ext_resource type="Script" uid="uid://dc1w0e51u0ih2" path="res://enemies.gd" id="3_ob1ba"]
+[ext_resource type="Texture2D" uid="uid://bo86i658v5v3g" path="res://resources/tutorialparticles.png" id="4_g626g"]
 [ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="5_dyuvm"]
+[ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="5_g626g"]
 [ext_resource type="Script" uid="uid://mb1cbderklgf" path="res://damagearea.gd" id="5_ob1ba"]
 [ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="7_hqufi"]
 [ext_resource type="Script" uid="uid://ctkuo4njv6hwk" path="res://archer_enemy.gd" id="8_4rwaw"]
@@ -113,6 +116,32 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_l1lf2")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vsyt0"]
+radius = 42.0119
+
+[sub_resource type="Curve" id="Curve_k3go7"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0.985294, 28.3146), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_ee4d1"]
+curve = SubResource("Curve_k3go7")
+
+[sub_resource type="Curve" id="Curve_ksrqk"]
+_data = [Vector2(0.426471, 0.516854), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b8mv0"]
+curve = SubResource("Curve_ksrqk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ok8i1"]
+particle_flag_disable_z = true
+angle_min = -57.9
+angle_max = 74.5
+angle_curve = SubResource("CurveTexture_ee4d1")
+gravity = Vector3(0, -20, 0)
+scale_curve = SubResource("CurveTexture_b8mv0")
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4rwaw"]
 animations = [{
 "frames": [{
@@ -138,6 +167,21 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_jnamf")
 width = 16
 
+[sub_resource type="Animation" id="Animation_ew55c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_4rwaw"]
 resource_name = "hit"
 length = 0.2
@@ -154,26 +198,14 @@ tracks/0/keys = {
 "values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ew55c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g626g"]
 _data = {
 &"RESET": SubResource("Animation_ew55c"),
 &"hit": SubResource("Animation_4rwaw")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g626g"]
+size = Vector2(20, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuvm"]
 size = Vector2(40, 40)
@@ -190,13 +222,211 @@ self_modulate = Color(0.79, 0.79, 0.79, 1)
 tile_map_data = PackedByteArray("AAD+/wUAAAAAAAAAAAD//wUAAAADAAAAAAAAAAUAAAAEAAAAAAABAAUAAAABAAAAAAACAAUAAAACAAAAAAADAAUAAAADAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAFAAAAAAD9/wUAAAADAAAAAAAEAAUAAAAFAAAAAAAFAAUAAAADAAAAAAD5/wIAAAABAAEAAGD5/wMAAAAEAAEAAGD5/wEAAAACAAEAAGD5/wAAAAAAAAEAAGD5////AAABAAEAAGD4/wMAAAAEAAEAAGD4/wIAAAABAAEAAGD4/wEAAAACAAEAAGD4/wAAAAAAAAEAAGD4////AAABAAEAAGD5/wcAAAADAAEAADD5/wYAAAADAAEAADD5/wUAAAACAAEAAGD5/wQAAAADAAEAAGD4/wcAAAAEAAEAADD4/wYAAAAEAAEAADD4/wUAAAACAAEAAGD4/wQAAAADAAEAAGD6/wYAAAACAAEAADD7/wYAAAABAAEAADD8/wYAAAAEAAEAADD6/wcAAAACAAEAADD7/wcAAAABAAEAADD8/wcAAAAEAAEAADD9/wYAAAADAAEAADD+/wYAAAACAAEAADD//wYAAAABAAEAADAAAAYAAAAAAAEAADD9/wcAAAADAAEAADD+/wcAAAACAAEAADD//wcAAAABAAEAADAAAAcAAAAAAAEAADABAAcAAAAEAAEAADACAAcAAAADAAEAADADAAcAAAACAAEAADAEAAcAAAABAAEAADAFAAcAAAAAAAEAADABAAYAAAAEAAEAADACAAYAAAADAAEAADADAAYAAAACAAEAADAEAAYAAAAEAAEAADAFAAYAAAADAAEAADAGAAYAAAACAAEAADAHAAYAAAABAAEAADAIAAYAAAAEAAEAADAGAAcAAAAEAAEAADAHAAcAAAADAAEAADAIAAcAAAAEAAEAADAJAAcAAAADAAEAADAKAAcAAAACAAEAADALAAcAAAABAAEAADAMAAcAAAAAAAEAADD4//v/AAAEAAEAAGD5//v/AAAEAAEAAGD4//r/AAAAAAEAAAD5//r/AAABAAEAAAD5//7/AAACAAEAAGD5//3/AAADAAEAAGD5//z/AAAEAAEAAGD4//7/AAACAAEAAGD4//3/AAADAAEAAGD4//z/AAAEAAEAAGD3////AAABAAEAAGD3//7/AAACAAEAAGD3//3/AAADAAEAAGD3//z/AAAEAAEAAGD3//v/AAAEAAEAAGD2////AAABAAEAAGD2//7/AAACAAEAAGD2//3/AAADAAEAAGD2//z/AAAEAAEAAGD2//v/AAAEAAEAAGD1////AAAAAAEAAGD1//7/AAABAAEAAGD1//3/AAACAAEAAGD1//z/AAADAAEAAGD1//v/AAAEAAEAAGD3/wAAAAAAAAEAAGD2/wAAAAAAAAEAAGA=")
 tile_set = SubResource("TileSet_hqufi")
 
+[node name="Tip1" type="Area2D" parent="TileMapLayer"]
+position = Vector2(0, -32)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip1"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip1"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip1"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -75.0
+offset_right = 82.0
+offset_bottom = -23.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "You can move with WASD and the arrow keys. Tutorial orbs like this one give you information about the game"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Tip2" type="Area2D" parent="TileMapLayer"]
+position = Vector2(8, 88)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip2"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip2"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip2"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -75.0
+offset_right = 82.0
+offset_bottom = -23.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "You can attack with left mouse button, and you can use your ability with the right mouse button"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Tip3" type="Area2D" parent="TileMapLayer"]
+position = Vector2(137, 66)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip3"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip3"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip3"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -51.0
+offset_right = 82.0
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "You can upgrade your skills by pressing the U button"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Tip4" type="Area2D" parent="TileMapLayer"]
+position = Vector2(239, -15)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip4"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip4"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip4"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -59.0
+offset_right = 82.0
+offset_bottom = -25.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "Currently there are 3 types of enemies, and a boss that is WIP."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Tip5" type="Area2D" parent="TileMapLayer"]
+position = Vector2(239, -135)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip5"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip5"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip5"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -75.0
+offset_right = 82.0
+offset_bottom = -23.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "You can change characters by pressing the numbers on your keyboard (2 characters only for now)"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Tip6" type="Area2D" parent="TileMapLayer"]
+position = Vector2(545, -294)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_ew55c")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip6"]
+shape = SubResource("CircleShape2D_vsyt0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip6"]
+amount = 2
+texture = ExtResource("4_g626g")
+process_material = SubResource("ParticleProcessMaterial_ok8i1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileMapLayer/Tip6"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = -75.0
+offset_right = 82.0
+offset_bottom = -23.0
+grow_horizontal = 2
+theme = ExtResource("5_g626g")
+theme_override_font_sizes/normal_font_size = 10
+text = "This is the end of the demo, you can go back and kill enemies for XP to try out the skills."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("3_ob1ba")
 
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("3_7uaqn")]
-position = Vector2(170, 8)
+position = Vector2(546, -170)
 
 [node name="BossDummy" parent="Enemies" instance=ExtResource("5_dyuvm")]
 position = Vector2(698, -425)
@@ -206,11 +436,11 @@ wait_time = 3.0
 autostart = true
 
 [node name="NecromancerEnemy" parent="Enemies" instance=ExtResource("7_hqufi")]
-position = Vector2(56, -144)
+position = Vector2(307, -366)
 metadata/_edit_group_ = true
 
 [node name="ArcherEnemy" type="CharacterBody2D" parent="Enemies"]
-position = Vector2(115, -143)
+position = Vector2(370, -358)
 collision_mask = 0
 script = ExtResource("8_4rwaw")
 metadata/_edit_group_ = true
@@ -255,6 +485,16 @@ libraries = {
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemies/ArcherEnemy"]
 
+[node name="Hitbox" type="Area2D" parent="Enemies/ArcherEnemy"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/ArcherEnemy/Hitbox"]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_g626g")
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-114, 40)
 collision_layer = 0
@@ -274,6 +514,18 @@ shape = SubResource("RectangleShape2D_dyuvm")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Area2D"]
 panning_strength = 0.0
 
+[connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMapLayer/Tip2" to="TileMapLayer/Tip2" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip2" to="TileMapLayer/Tip2" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMapLayer/Tip3" to="TileMapLayer/Tip3" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip3" to="TileMapLayer/Tip3" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMapLayer/Tip4" to="TileMapLayer/Tip4" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip4" to="TileMapLayer/Tip4" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMapLayer/Tip5" to="TileMapLayer/Tip5" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip5" to="TileMapLayer/Tip5" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMapLayer/Tip6" to="TileMapLayer/Tip6" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMapLayer/Tip6" to="TileMapLayer/Tip6" method="_on_body_exited"]
 [connection signal="timeout" from="Enemies/Timer" to="Enemies" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Enemies/ArcherEnemy/Detection" to="Enemies/ArcherEnemy" method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Enemies/ArcherEnemy/Detection" to="Enemies/ArcherEnemy" method="_on_detection_body_exited"]

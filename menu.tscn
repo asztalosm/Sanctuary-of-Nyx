@@ -1,24 +1,120 @@
-[gd_scene load_steps=15 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=37 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
 [ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="3_iqepy"]
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="3_mae5d"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="4_4hy44"]
+[ext_resource type="Texture2D" uid="uid://igms58n01xjc" path="res://resources/menubg.png" id="4_g7jxm"]
 [ext_resource type="Shader" uid="uid://stelul4p7r77" path="res://resources/shaders/moon.tres" id="4_l48gv"]
 [ext_resource type="Texture2D" uid="uid://7rw384fsttk" path="res://resources/moon.png" id="4_ytr4m"]
+[ext_resource type="Texture2D" uid="uid://cdk6e8cn82neu" path="res://resources/campfire.png" id="5_oxnod"]
+[ext_resource type="Texture2D" uid="uid://etr4r2qbiys4" path="res://resources/fire.png" id="6_gd0jp"]
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="6_nrnbx"]
 [ext_resource type="Texture2D" uid="uid://ccixxx747b6u" path="res://resources/classesquestionmark.png" id="7_ecwwl"]
+[ext_resource type="Texture2D" uid="uid://djmyhj6uxav5v" path="res://resources/swordground.png" id="7_gd0jp"]
+[ext_resource type="Texture2D" uid="uid://dihiu2xis83mt" path="res://resources/constellation1.png" id="8_5h80m"]
 [ext_resource type="AudioStream" uid="uid://cjfu54oow127u" path="res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav" id="9_nrnbx"]
+[ext_resource type="Texture2D" uid="uid://dxxoawqygr5s2" path="res://resources/constellation2.png" id="9_w25hu"]
 [ext_resource type="Texture2D" uid="uid://b58somrp7hujj" path="res://resources/shiba.png" id="11_dwrpx"]
 [ext_resource type="AudioStream" uid="uid://dmti3th51lfmh" path="res://resources/dog-bark.mp3" id="12_g7jxm"]
+[ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="13_3ls4m"]
+[ext_resource type="Texture2D" uid="uid://bgssu5nv0olj8" path="res://resources/assassin2.png" id="15_5h80m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
+shader = ExtResource("4_l48gv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ndjb"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ls4m"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h80m"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w25hu"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td6mg"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guify"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oil5j"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uog0"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5x1w"]
+atlas = ExtResource("6_gd0jp")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ndjb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ndjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ls4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5h80m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w25hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td6mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guify")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oil5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8uog0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5x1w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkpqm"]
+resource_local_to_scene = true
+atlas = ExtResource("8_5h80m")
+region = Rect2(0, 0, 48.7755, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wriu"]
+atlas = ExtResource("8_5h80m")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhgcl"]
+atlas = ExtResource("9_w25hu")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tnp7"]
+atlas = ExtResource("9_w25hu")
+region = Rect2(48, 0, 48, 64)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nrnbx"]
 shader = ExtResource("2_mae5d")
 shader_parameter/Texture2DParameter = ExtResource("3_iqepy")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
-shader = ExtResource("4_l48gv")
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -29,14 +125,78 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ouk20")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-texture_repeat = 2
-material = SubResource("ShaderMaterial_nrnbx")
+[node name="MenuBackground" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -1348.0
-offset_top = -1058.0
-offset_right = 1406.0
-offset_bottom = 1007.0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = 1440.0
+offset_bottom = 162.0
+texture = ExtResource("4_g7jxm")
+
+[node name="TextureRect" type="TextureRect" parent="MenuBackground"]
+self_modulate = Color(0.9, 0.9, 0.9, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_ytr4m")
+layout_mode = 0
+offset_left = 439.0
+offset_top = 54.0
+offset_right = 503.0
+offset_bottom = 118.0
+texture = ExtResource("4_ytr4m")
+expand_mode = 2
+
+[node name="Campfire" type="TextureRect" parent="MenuBackground"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 217.0
+offset_right = 208.0
+offset_bottom = 270.0
+texture = ExtResource("5_oxnod")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MenuBackground/Campfire"]
+position = Vector2(27, 18)
+sprite_frames = SubResource("SpriteFrames_4ndjb")
+autoplay = "default"
+frame_progress = 0.676359
+
+[node name="TextureRect" type="TextureRect" parent="MenuBackground/Campfire"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 17.0
+offset_right = 71.0
+offset_bottom = 41.0
+texture = ExtResource("7_gd0jp")
+
+[node name="Constellation1" type="TextureButton" parent="MenuBackground"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 61.0
+offset_right = 212.0
+offset_bottom = 125.0
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_rkpqm")
+texture_pressed = SubResource("AtlasTexture_7wriu")
+
+[node name="Constellation2" type="TextureButton" parent="MenuBackground"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 198.0
+offset_right = 585.0
+offset_bottom = 262.0
+rotation = -3.14159
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_xhgcl")
+texture_pressed = SubResource("AtlasTexture_8tnp7")
+
+[node name="Constellation1_2" type="TextureButton" parent="MenuBackground"]
+layout_mode = 0
+offset_left = 689.0
+offset_top = 49.0
+offset_right = 737.0
+offset_bottom = 113.0
+rotation = 1.57079
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_rkpqm")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
@@ -44,25 +204,14 @@ position_smoothing_enabled = true
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 clip_contents = false
 layout_mode = 0
-offset_left = -128.0
-offset_top = -102.0
-offset_right = 128.0
-offset_bottom = -66.0
+offset_left = -280.0
+offset_top = -148.0
+offset_right = 32.0
+offset_bottom = -109.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 32
 text = "Sanctuary of Nyx"
-horizontal_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="RichTextLabel"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_ytr4m")
-layout_mode = 0
-offset_left = 96.0
-offset_top = -56.0
-offset_right = 160.0
-offset_bottom = 8.0
-texture = ExtResource("4_ytr4m")
-expand_mode = 2
 
 [node name="Buttons" type="Control" parent="."]
 anchors_preset = 0
@@ -71,36 +220,39 @@ offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = -40.0
-offset_top = -19.0
-offset_right = 40.0
-offset_bottom = 19.0
+offset_left = -279.0
+offset_top = -107.0
+offset_right = -167.0
+offset_bottom = -75.0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 24
 text = "Play"
+alignment = 0
 
 [node name="Button2" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = -56.0
-offset_top = 24.0
-offset_right = 56.0
-offset_bottom = 62.0
+offset_left = -279.0
+offset_top = -72.0
+offset_right = -168.0
+offset_bottom = -40.0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 24
 text = "Settings"
+alignment = 0
 
 [node name="Button3" type="Button" parent="Buttons" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 0
-offset_left = -30.0
-offset_top = 66.0
-offset_right = 30.0
-offset_bottom = 104.0
+offset_left = -279.0
+offset_top = -36.0
+offset_right = -168.0
+offset_bottom = -4.0
 shortcut_context = NodePath("../Button")
 theme = ExtResource("4_4hy44")
 theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Quit
 "
+alignment = 0
 
 [node name="Classes" type="Control" parent="."]
 anchors_preset = 0
@@ -116,19 +268,7 @@ offset_right = 256.0
 offset_bottom = -4.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
-text = "Choose a class"
-fit_content = true
-horizontal_alignment = 1
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="Classes"]
-layout_mode = 0
-offset_top = 152.0
-offset_right = 256.0
-offset_bottom = 215.0
-theme = ExtResource("4_4hy44")
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 16
-text = "Classes don't exist in this playtest, so just press the play button"
+text = "Choose a class ( more coming soon)"
 fit_content = true
 horizontal_alignment = 1
 
@@ -138,6 +278,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Knight" type="TextureButton" parent="Classes/Buttons"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -144.0
@@ -160,19 +301,19 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="Mage" type="TextureButton" parent="Classes/Buttons"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -48.0
-offset_right = 16.0
-offset_bottom = 128.0
-texture_normal = ExtResource("7_ecwwl")
+offset_left = 13.0
+offset_top = 147.0
+offset_right = 45.0
+offset_bottom = 179.0
+texture_normal = ExtResource("13_3ls4m")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Mage"]
 layout_mode = 0
-offset_left = -1.0
-offset_top = 131.0
-offset_right = 64.0
-offset_bottom = 151.0
+offset_left = -16.0
+offset_top = 32.0
+offset_right = 49.0
+offset_bottom = 52.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 16
@@ -181,6 +322,7 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="Necromancer" type="TextureButton" parent="Classes/Buttons"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 48.0
@@ -204,19 +346,19 @@ autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="Assassin" type="TextureButton" parent="Classes/Buttons"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 144.0
-offset_right = 208.0
-offset_bottom = 128.0
-texture_normal = ExtResource("7_ecwwl")
+offset_left = -60.0
+offset_top = 164.0
+offset_right = -12.0
+offset_bottom = 212.0
+texture_normal = ExtResource("15_5h80m")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Assassin"]
 layout_mode = 0
-offset_left = -1.0
-offset_top = 131.0
-offset_right = 68.0
-offset_bottom = 171.0
+offset_left = -12.0
+offset_top = 45.0
+offset_right = 57.0
+offset_bottom = 85.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 16
@@ -226,6 +368,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="Tank" type="TextureButton" parent="Classes/Buttons"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 240.0
@@ -248,6 +391,7 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="Archer" type="TextureButton" parent="Classes/Buttons"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 336.0
@@ -342,4 +486,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Classes/Button" to="." method="_playgame"]
+[connection signal="pressed" from="Classes/Button" to="." method="startgame"]

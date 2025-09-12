@@ -1,6 +1,7 @@
 extends Control
 var onclassesscreen = false
 var konami = ""
+var selectedclass = ""
 func _ready() -> void:
 	$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
@@ -15,6 +16,7 @@ func showclasses():
 		await classtween.finished
 		release_focus()
 		$Classes/Button.grab_focus()
+
 
 func checkkonami() -> void:
 	if konami == "uuddlrlrblae" and len(konami) == 12:
@@ -42,6 +44,7 @@ func _on_button_pressed() -> void:
 		$Camera2D.position.x += 800
 		await get_tree().create_timer(1.0).timeout
 		showclasses()
+
 func _playgame() -> void:
 	$MenuButton.play()
 	get_tree().change_scene_to_file("testplace.tscn")
@@ -66,7 +69,17 @@ func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_SPACE):
 		konami = konami + "e"
 		checkkonami()
+	if Input.is_action_pressed("Attack") or Input.is_action_pressed("Up") or Input.is_action_pressed("Down") or Input.is_action_pressed("Left") or Input.is_action_pressed("Right") or Input.is_action_pressed("B") or Input.is_action_pressed("Ability") or Input.is_key_pressed(KEY_SPACE) or Input.is_key_pressed(KEY_ENTER):
+		if $AudioAlert.visible:
+			$AudioAlert.visible = false
+			$Buttons/Button.grab_focus()
 
 func settings_pressed() -> void:
 	$MenuButton.stream = load("res://resources/menubutton.wav")
 	$MenuButton.play()
+
+
+func startgame() -> void: #i have zero fucking ideas for why the pressed signal doesnt work but button down does
+	$MenuButton.stream = load("res://resources/menubutton.wav")
+	$MenuButton.play()
+	get_tree().change_scene_to_file("res://testplace.tscn")
