@@ -2,6 +2,7 @@ extends Control
 var onclassesscreen = false
 var konami = ""
 var selectedclass = ""
+var startscene = "res://testplace.tscn"
 func _ready() -> void:
 	$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
@@ -82,4 +83,4 @@ func settings_pressed() -> void:
 func startgame() -> void: #i have zero fucking ideas for why the pressed signal doesnt work but button down does
 	$MenuButton.stream = load("res://resources/menubutton.wav")
 	$MenuButton.play()
-	get_tree().change_scene_to_file("res://testplace.tscn")
+	get_tree().change_scene_to_file(startscene)

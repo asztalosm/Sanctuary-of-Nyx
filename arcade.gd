@@ -1,0 +1,146 @@
+extends CanvasLayer
+@export var isIntermission = false
+@export var dicenumber = 0
+@export var rerollpoints = 5
+var diceAtlas = AtlasTexture.new()
+var dicerolling = false
+var dices = []
+var currentdice = null
+var enemyList = { #so these will be decided whether theyll spawn in the setDescription function along with a count of enemies
+	"Assassin": range(1,6),
+	"Archer": range(1,5),
+	"Necromancer": range(1,4),
+	"Skeleton": range(1,6),
+}
+var enemyBuffList = {
+	"hp": range(1,6),
+	"dmg": range(1,6),
+	"movspd": range(1,5), 
+	"atkspd": range(1,3),
+	"range": range(1,2)}
+var playerStatsList = {"hp": range(1,6),
+	"dmg": range(1,6),
+	"dodge chance": range(1,4),
+	"mov spd": range(1,3),
+	"crit chance": range(1,2),
+	"def": range(1,6)}
+var playerBuffList = ["Skill points every wave start", "more XP per kill", "Life Steal", "Last Stand", "Point Multiplier"]
+
+func intermission() -> void: #makes the intermission visible
+	if isIntermission:
+		get_tree().paused = false
+		visible = false
+		isIntermission = false
+	else:
+		get_tree().paused = true
+		isIntermission = true
+		visible = true
+func startwave() -> void: #starts the wave
+	await get_tree().create_timer(5).timeout
+	get_parent().get_node("WaveOverlay").visible = true
+	print("Wave started")
+func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this
+	if rerollpoints > 0:
+		rerollpoints -= 1
+		dicerolling = true
+		currentdice = dice
+		dice.get_node("AnimationTimer").start()
+		dice.get_node("Timer").start()
+func setDescription() -> void: #sets the description and stats for the 4 dices
+	var description = ""
+	match currentdice.name:
+		"EnemyStats":
+			for enemies in enemyBuffList:
+				var enemyRolls = enemyBuffList[enemies]
+				var randomnum = randi_range(1,6) #decides if the debuff/buff will exist or not
+				var buffscale = snapped(randf_range(0.1,0.8) * ((6-dicenumber+1)), 0.1) #the float that decides what gets buffed and by how much
+				if randomnum in enemyRolls:
+					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(enemies) +"\n"
+			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+		"EnemyCount":
+			for enemies in enemyList:
+				var enemyRolls = enemyList[enemies]
+				var randomnum = randi_range(1,6)
+				var randomcount = randi_range(1,10) * (6-dicenumber+1)
+				if randomnum in enemyRolls:
+					description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
+			if description == "": #failsafe enemy spawns, others don't need failsafe
+				description = "[color=#881111]15[/color] Assassin\n[color=#881111]14[/color] Archer\n[color=#881111]3[/color] Necromancer\n[color=#881111]8[/color] Skeleton\n"
+			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+		"CharacterStats":
+			for statkeys in playerStatsList:
+				var stat = playerStatsList[statkeys]
+				var randomnum = randi_range(1,6)
+				var statscale = snapped(randf_range(0.1, 0.4) * dicenumber, 0.1)
+				if randomnum in stat:
+					description += "[color=#118811]+"+ str(statscale) + "[/color] " + str(statkeys) +"\n"
+			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+		"CharacterBuffs":
+			var buff = playerBuffList[randi_range(0,len(playerBuffList)-1)]
+			if buff == playerBuffList[0]:
+				var wavestartSP = 1
+				if dicenumber == 1:
+					wavestartSP = 1
+				else:
+					wavestartSP = roundi(dicenumber/2)
+				description += "[color=#118811]+" + str(wavestartSP) + "[/color] "
+			if buff == playerBuffList[1]:
+				var extraxp = randi_range(1,10) * dicenumber
+				description += "[color=#118811]+ " + str(extraxp) + "[/color] "
+			if buff == playerBuffList[2]:
+				var healthperkill = snapped((randf_range(0.1,0.5) * dicenumber), 0.1)
+				print(healthperkill)
+				description += "[color=#118811]+ " + str(healthperkill)+ "hp/kill[/color] "
+			if buff == playerBuffList[3]:
+				var length = snapped((randf_range(0.3,0.5) * dicenumber), 0.1)
+				description += "[color=#118811]" + str(length) + "s[/color] - heal back to half health before death, usable once per run - "
+			if buff == playerBuffList[4]:
+				var multiplier = snapped(randf_range(1.3, 1.5), 0.1) * ((10+dicenumber) / 10)
+				description = "[color=#118811]" + str(multiplier) + "x[/color] "
+			description += buff
+			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+
+func _ready() -> void:
+	intermission()
+	for dice in $Dice.get_children():
+		currentdice = dice
+		dices.append(dice)
+		dice.texture_normal = AtlasTexture.new() #we have to reference texture_normal to edit this, it's uglier than a variable but easier for me
+		dice.texture_normal.atlas = load("res://resources/dice.png")
+		dice.texture_normal.region.size = Vector2(32,32)
+		dicenumber = randi_range(1,6)
+		dice.texture_normal.region.position = Vector2(32 * dicenumber	, 0)
+		setDescription()
+
+func _process(_delta: float) -> void:
+	$RichTextLabel3.text = "rerolls: " + str(rerollpoints)
+	if Input.is_action_just_pressed("ui_accept"):
+		intermission()
+
+
+func _on_animation_timer_timeout() -> void:
+	dicenumber = randi_range(1,6)
+	currentdice.texture_normal.region.position = Vector2(32 * dicenumber ,0)
+
+
+func _on_timer_timeout() -> void:
+	currentdice.get_node("AnimationTimer").stop()
+	dicerolling = false
+	setDescription()
+
+
+func _on_enemy_stats_pressed() -> void: #just some ugly signals, ignore
+	if !dicerolling:
+		_animate_roll(dices[0])
+func _on_enemy_count_pressed() -> void:
+	if !dicerolling:
+		_animate_roll(dices[1])
+func _on_character_stats_pressed() -> void:
+	if !dicerolling:
+		_animate_roll(dices[2])
+func _on_character_buffs_pressed() -> void:
+	if !dicerolling:
+		_animate_roll(dices[3])
+func _on_button_pressed() -> void: #this is the play button
+	intermission()
+	startwave()

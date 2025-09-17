@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=40 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
@@ -20,6 +20,9 @@
 [ext_resource type="AudioStream" uid="uid://dmti3th51lfmh" path="res://resources/dog-bark.mp3" id="12_g7jxm"]
 [ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="13_3ls4m"]
 [ext_resource type="Texture2D" uid="uid://bgssu5nv0olj8" path="res://resources/assassin2.png" id="15_5h80m"]
+[ext_resource type="Texture2D" uid="uid://hofqsd5i5e3g" path="res://resources/gamemodeSelector.png" id="15_td6mg"]
+[ext_resource type="Script" uid="uid://bt4hwhvav4hjm" path="res://gamemode_toggle.gd" id="16_guify"]
+[ext_resource type="Texture2D" uid="uid://cqy6m7iincjth" path="res://resources/gamemodeSelectorArcade.png" id="16_oil5j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
 shader = ExtResource("4_l48gv")
@@ -179,10 +182,10 @@ texture_pressed = SubResource("AtlasTexture_7wriu")
 
 [node name="Constellation2" type="TextureButton" parent="MenuBackground"]
 layout_mode = 0
-offset_left = 537.0
-offset_top = 198.0
-offset_right = 585.0
-offset_bottom = 262.0
+offset_left = 557.0
+offset_top = 128.0
+offset_right = 605.0
+offset_bottom = 192.0
 rotation = -3.14159
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_xhgcl")
@@ -256,23 +259,31 @@ alignment = 0
 
 [node name="Classes" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 672.0
-offset_top = -102.0
-offset_right = 712.0
-offset_bottom = -62.0
+offset_left = 512.0
+offset_top = -162.0
+offset_right = 1088.0
+offset_bottom = 162.0
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Classes"]
 layout_mode = 0
-offset_top = -40.0
-offset_right = 256.0
-offset_bottom = -4.0
+offset_left = 194.0
+offset_top = 4.0
+offset_right = 570.0
+offset_bottom = 103.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
-text = "Choose a class ( more coming soon)"
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Select a gamemode
+[font_size=24]click on the button to change 
+the gamemode."
 fit_content = true
+autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="Buttons" type="Control" parent="Classes"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -415,14 +426,39 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Classes"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 213.0
-offset_right = 168.0
-offset_bottom = 251.0
+offset_left = 248.0
+offset_top = 219.0
+offset_right = 328.0
+offset_bottom = 257.0
+pivot_offset = Vector2(40, 0)
 theme = ExtResource("4_4hy44")
 theme_override_fonts/font = ExtResource("3_mae5d")
 theme_override_font_sizes/font_size = 24
 text = "Play"
+
+[node name="GamemodeToggle" type="TextureButton" parent="Classes"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 64.0
+offset_right = 352.0
+offset_bottom = 192.0
+toggle_mode = true
+texture_normal = ExtResource("15_td6mg")
+texture_pressed = ExtResource("16_oil5j")
+script = ExtResource("16_guify")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Classes/GamemodeToggle"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 128.0
+offset_right = 157.0
+offset_bottom = 153.0
+theme = ExtResource("4_4hy44")
+theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+text = "Campaign"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="MenuButton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_nrnbx")
@@ -487,3 +523,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Classes/Button" to="." method="startgame"]
+[connection signal="toggled" from="Classes/GamemodeToggle" to="Classes/GamemodeToggle" method="_on_toggled"]

@@ -65,6 +65,10 @@ extends CharacterBody2D
 var oldspeed = speed
 var attacked = false
 var hitenemies = []
+#skill tree with cursed branches
+#cursed branch can only be obtained after fighting a boss - your character will get MASSIVE debuffs AND buffs and new attacks, point redistribution would be expensive and give the player a challenge in the open world
+#chatgpt kinda cooked with the cursed branch idea
+
 
 func switchcharacter(character):
 	if !changingcharacter and character != currentcharacter:
@@ -116,6 +120,7 @@ func attack() -> void:
 			$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
 			$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
 			$AssassinHitcheck/AnimatedSprite2D.play("default")
+			$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
 			$Soundcontroller.play(currentcharacter.Attack)
 		if currentcharacter.Attack == "mageattack":
 			$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
@@ -154,6 +159,10 @@ func hit(selfdamage) ->void:
 		else:
 			$VFXController.play("invulnerability")
 func calculateanimation(direction): #ugly if statements, but will work for now
+	if usedability:
+		$AnimatedSprite2D.speed_scale = 1.25
+	else:
+		$AnimatedSprite2D.speed_scale = 1.0 # i guess this fixes an animation issue dont know why but good i guess
 	if direction.x < 0:
 		$AnimatedSprite2D.flip_h = true
 		if direction.y < 0:

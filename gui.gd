@@ -111,6 +111,11 @@ func _on_health_pressed() -> void:
 	if get_parent().globalcharacterstats.SkillPoints > 0 and !clickedskill:
 		get_parent().globalcharacterstats.SkillPoints -= 1
 		get_parent().skills.Health += 1
+		get_parent().maxhealth += 2
+		if get_parent().health + 4 > get_parent().maxhealth:
+			return
+		else:
+			get_parent().health += 4
 		$Skills/GridContainer/Health.text = "Health [" + str(get_parent().skills.Health) + "]"
 	else:
 		$Skills/GridContainer/Health.modulate = Color8(192,32,32)

@@ -992,7 +992,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-13.0, -17.0]
+"values": [-3.0, -5.0]
 }
 
 [sub_resource type="Animation" id="Animation_lpiy1"]
@@ -1034,7 +1034,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [6.0]
+"values": [15.0]
 }
 
 [sub_resource type="Animation" id="Animation_sm1rv"]
@@ -1091,7 +1091,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-15.0, -80.0]
+"values": [-12.0, -80.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1119,7 +1119,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-17.0, -15.0]
+"values": [-12.0, -10.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1320,7 +1320,6 @@ z_index = 5
 
 [node name="Player" type="CharacterBody2D" parent="."]
 collision_layer = 5
-collision_mask = 0
 script = ExtResource("1_pjt0s")
 
 [node name="MageProjectile" type="CharacterBody2D" parent="Player"]
@@ -1341,6 +1340,7 @@ wait_time = 1.8
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile/MageHitcheck"]
+visible = false
 shape = SubResource("CircleShape2D_0fer6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageProjectile"]
@@ -1366,7 +1366,7 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Assassinidle"
+animation = &"Assassinwalk1"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
