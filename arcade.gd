@@ -41,6 +41,7 @@ func startwave() -> void: #starts the wave
 	WaveOverlay.set_values()
 	await get_tree().create_timer(5).timeout
 	WaveOverlay.start_wave()
+	get_parent().get_node("EnemySpawners")._activateSpawner()
 
 
 func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this and get the value
@@ -64,6 +65,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 	
 	match currentdice.name:
 		"EnemyStats":
+			
 			for stat in enemyBuffList:
 				var enemyRolls = enemyBuffList[stat]
 				var randomnum = randi_range(1,6) #decides if the debuff/buff will exist or not
@@ -72,19 +74,20 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(stat) +"\n"
 					WaveOverlay.enemyStats.get_or_add(stat, buffscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+
 		"EnemyCount": #sends count to WaveOverlay
-			var enemysum = 0
+			
 			for enemies in enemyList:
 				var enemyRolls = enemyList[enemies]
 				var randomnum = randi_range(1,6)
 				var randomcount = randi_range(1,10) * (6-dicenumber+1)
 				if randomnum in enemyRolls:
-					enemysum += randomcount
 					description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
 					WaveOverlay.spawnableEnemies.get_or_add(enemies, randomcount)
 			if description == "": #failsafe enemy spawns, others don't need failsafe
 				description = "[color=#881111]15[/color] Assassin\n[color=#881111]14[/color] Archer\n[color=#881111]3[/color] Necromancer\n[color=#881111]8[/color] Skeleton\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+
 		"CharacterStats": #sends stats to WaveOverlay
 			for statkeys in playerStatsList:
 				var stat = playerStatsList[statkeys]
@@ -94,6 +97,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 					description += "[color=#118811]+"+ str(statscale) + "[/color] " + str(statkeys) +"\n"
 					WaveOverlay.playerStats.get_or_add(statkeys, statscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+
 		"CharacterBuffs": #sends buff to WaveOverlay
 			var buff = playerBuffList[randi_range(0,len(playerBuffList)-1)]
 			var buffvalue = 0.0
@@ -174,5 +178,6 @@ func _on_character_buffs_pressed() -> void:
 	if !dicerolling:
 		_animate_roll(dices[3])
 func _on_button_pressed() -> void: #this is the play button
-	intermission()
-	startwave()
+	if !dicerolling:
+		intermission()
+		startwave()
