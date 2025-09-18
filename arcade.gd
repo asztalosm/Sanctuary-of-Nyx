@@ -25,6 +25,7 @@ var playerStatsList = {"hp": range(1,6),
 	"crit chance": range(1,2),
 	"def": range(1,6)}
 var playerBuffList = ["Skill points every wave start", "more XP per kill", "Life Steal", "Last Stand", "Point Multiplier"]
+@onready var WaveOverlay = get_parent().get_node("WaveOverlay")
 
 func intermission() -> void: #makes the intermission visible
 	if isIntermission:
@@ -35,35 +36,55 @@ func intermission() -> void: #makes the intermission visible
 		get_tree().paused = true
 		isIntermission = true
 		visible = true
+
 func startwave() -> void: #starts the wave
+	WaveOverlay.set_values()
 	await get_tree().create_timer(5).timeout
-	get_parent().get_node("WaveOverlay").visible = true
-	print("Wave started")
-func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this
+	WaveOverlay.start_wave()
+
+
+func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this and get the value
 	if rerollpoints > 0:
 		rerollpoints -= 1
 		dicerolling = true
 		currentdice = dice
 		dice.get_node("AnimationTimer").start()
 		dice.get_node("Timer").start()
-func setDescription() -> void: #sets the description and stats for the 4 dices
+
+
+func setDescription() -> void: #sets the description and stats for the 4 dices and passes value to the waveoverlay so that it can make the gamemode work
 	var description = ""
+	
+	#values to be passed to the waveoverlay and the arcade script of the character
+	var enemyStatDictionary = {}
+	var enemyCountDictionary = {}
+	var characterStatsDictionary = {}
+	var characterBuff = {
+		"Type": "",
+		"Value": 0.0
+	}
+	
+	
 	match currentdice.name:
 		"EnemyStats":
 			for enemies in enemyBuffList:
 				var enemyRolls = enemyBuffList[enemies]
 				var randomnum = randi_range(1,6) #decides if the debuff/buff will exist or not
 				var buffscale = snapped(randf_range(0.1,0.8) * ((6-dicenumber+1)), 0.1) #the float that decides what gets buffed and by how much
+				enemyStatDictionary.get_or_add(enemies, buffscale)
 				if randomnum in enemyRolls:
 					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(enemies) +"\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 		"EnemyCount":
+			var enemysum = 0
 			for enemies in enemyList:
 				var enemyRolls = enemyList[enemies]
 				var randomnum = randi_range(1,6)
 				var randomcount = randi_range(1,10) * (6-dicenumber+1)
 				if randomnum in enemyRolls:
+					enemysum += randomcount
 					description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
+			WaveOverlay.remainingEnemies = enemysum
 			if description == "": #failsafe enemy spawns, others don't need failsafe
 				description = "[color=#881111]15[/color] Assassin\n[color=#881111]14[/color] Archer\n[color=#881111]3[/color] Necromancer\n[color=#881111]8[/color] Skeleton\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
@@ -72,33 +93,47 @@ func setDescription() -> void: #sets the description and stats for the 4 dices
 				var stat = playerStatsList[statkeys]
 				var randomnum = randi_range(1,6)
 				var statscale = snapped(randf_range(0.1, 0.4) * dicenumber, 0.1)
-				if randomnum in stat:
+				if int(randomnum) in stat:
 					description += "[color=#118811]+"+ str(statscale) + "[/color] " + str(statkeys) +"\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 		"CharacterBuffs":
 			var buff = playerBuffList[randi_range(0,len(playerBuffList)-1)]
+			var buffvalue = 0.0
 			if buff == playerBuffList[0]:
 				var wavestartSP = 1
 				if dicenumber == 1:
 					wavestartSP = 1
 				else:
-					wavestartSP = roundi(dicenumber/2)
+					wavestartSP = roundi(int(dicenumber/2))
+				buffvalue = wavestartSP
 				description += "[color=#118811]+" + str(wavestartSP) + "[/color] "
+
 			if buff == playerBuffList[1]:
 				var extraxp = randi_range(1,10) * dicenumber
 				description += "[color=#118811]+ " + str(extraxp) + "[/color] "
+				buffvalue = extraxp
+
 			if buff == playerBuffList[2]:
 				var healthperkill = snapped((randf_range(0.1,0.5) * dicenumber), 0.1)
-				print(healthperkill)
 				description += "[color=#118811]+ " + str(healthperkill)+ "hp/kill[/color] "
+				buffvalue = healthperkill
+
 			if buff == playerBuffList[3]:
 				var length = snapped((randf_range(0.3,0.5) * dicenumber), 0.1)
 				description += "[color=#118811]" + str(length) + "s[/color] - heal back to half health before death, usable once per run - "
+				buffvalue = length
+
 			if buff == playerBuffList[4]:
-				var multiplier = snapped(randf_range(1.3, 1.5), 0.1) * ((10+dicenumber) / 10)
+				var multiplier = snapped(randf_range(1.3, 1.5), 0.1) * float((10+dicenumber) / 10)
 				description = "[color=#118811]" + str(multiplier) + "x[/color] "
+				buffvalue = multiplier
+
 			description += buff
+			characterBuff.Type = buff
+			characterBuff.Value = buffvalue
+			WaveOverlay.playerBuffs = characterBuff
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
+			print(characterBuff)
 
 func _ready() -> void:
 	intermission()
