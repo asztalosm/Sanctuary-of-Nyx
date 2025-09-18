@@ -1,8 +1,9 @@
-[gd_scene load_steps=44 format=4 uid="uid://da8sdn3mbrv7r"]
+[gd_scene load_steps=47 format=4 uid="uid://da8sdn3mbrv7r"]
 
 [ext_resource type="Script" uid="uid://bt8ygafjov7nr" path="res://arcade.gd" id="1_7sx8j"]
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_kjmcv"]
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="2_658re"]
+[ext_resource type="Script" uid="uid://babjkqe1rhj8j" path="res://enemy_spawners.gd" id="3_bgdj6"]
 [ext_resource type="Texture2D" uid="uid://yyv8d870oiq4" path="res://resources/ArcadeShader2.tres" id="4_c0abk"]
 [ext_resource type="Texture2D" uid="uid://ra0tsvjo7vdl" path="res://resources/dice.png" id="5_j7ds0"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="6_gy4ly"]
@@ -230,6 +231,17 @@ noise = SubResource("FastNoiseLite_5q84y")
 shader = SubResource("VisualShader_gdhsj")
 shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_438xo")
 
+[sub_resource type="Gradient" id="Gradient_a2n0a"]
+offsets = PackedFloat32Array(0.461039, 0.467532)
+colors = PackedColorArray(0.517647, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bgdj6"]
+gradient = SubResource("Gradient_a2n0a")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_mp3sk"]
 parameter_name = "Texture2DParameter"
 texture_type = 1
@@ -395,9 +407,63 @@ offset_top = -418.0
 offset_right = 772.0
 offset_bottom = 426.0
 
+[node name="EnemySpawners" type="Node2D" parent="."]
+script = ExtResource("3_bgdj6")
+
+[node name="Spawner1" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(0, -224)
+gizmo_extents = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner1"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner2" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(160, -160)
+gizmo_extents = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner2"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner3" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(224, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner3"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner4" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(160, 160)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner4"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner5" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(0, 224)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner5"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner6" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(-159, 160)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner6"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner7" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(-224, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner7"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
+[node name="Spawner8" type="Marker2D" parent="EnemySpawners"]
+position = Vector2(-160, -160)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemySpawners/Spawner8"]
+texture = SubResource("GradientTexture2D_bgdj6")
+
 [node name="Intermission" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 2
+visible = false
 script = ExtResource("1_7sx8j")
 
 [node name="ColorRect" type="ColorRect" parent="Intermission"]
@@ -648,6 +714,7 @@ text = "Play"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Intermission"]
 
 [node name="WaveOverlay" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("8_6qik7")
 
 [node name="Explanation" type="CanvasLayer" parent="."]

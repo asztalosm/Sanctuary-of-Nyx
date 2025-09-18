@@ -56,9 +56,6 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 	var description = ""
 	
 	#values to be passed to the waveoverlay and the arcade script of the character
-	var enemyStatDictionary = {}
-	var enemyCountDictionary = {}
-	var characterStatsDictionary = {}
 	var characterBuff = {
 		"Type": "",
 		"Value": 0.0
@@ -67,15 +64,15 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 	
 	match currentdice.name:
 		"EnemyStats":
-			for enemies in enemyBuffList:
-				var enemyRolls = enemyBuffList[enemies]
+			for stat in enemyBuffList:
+				var enemyRolls = enemyBuffList[stat]
 				var randomnum = randi_range(1,6) #decides if the debuff/buff will exist or not
 				var buffscale = snapped(randf_range(0.1,0.8) * ((6-dicenumber+1)), 0.1) #the float that decides what gets buffed and by how much
-				enemyStatDictionary.get_or_add(enemies, buffscale)
 				if randomnum in enemyRolls:
-					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(enemies) +"\n"
+					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(stat) +"\n"
+					WaveOverlay.enemyStats.get_or_add(stat, buffscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
-		"EnemyCount":
+		"EnemyCount": #sends count to WaveOverlay
 			var enemysum = 0
 			for enemies in enemyList:
 				var enemyRolls = enemyList[enemies]
@@ -84,19 +81,20 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				if randomnum in enemyRolls:
 					enemysum += randomcount
 					description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
-			WaveOverlay.remainingEnemies = enemysum
+					WaveOverlay.spawnableEnemies.get_or_add(enemies, randomcount)
 			if description == "": #failsafe enemy spawns, others don't need failsafe
 				description = "[color=#881111]15[/color] Assassin\n[color=#881111]14[/color] Archer\n[color=#881111]3[/color] Necromancer\n[color=#881111]8[/color] Skeleton\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
-		"CharacterStats":
+		"CharacterStats": #sends stats to WaveOverlay
 			for statkeys in playerStatsList:
 				var stat = playerStatsList[statkeys]
 				var randomnum = randi_range(1,6)
 				var statscale = snapped(randf_range(0.1, 0.4) * dicenumber, 0.1)
 				if int(randomnum) in stat:
 					description += "[color=#118811]+"+ str(statscale) + "[/color] " + str(statkeys) +"\n"
+					WaveOverlay.playerStats.get_or_add(statkeys, statscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
-		"CharacterBuffs":
+		"CharacterBuffs": #sends buff to WaveOverlay
 			var buff = playerBuffList[randi_range(0,len(playerBuffList)-1)]
 			var buffvalue = 0.0
 			if buff == playerBuffList[0]:
@@ -104,7 +102,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				if dicenumber == 1:
 					wavestartSP = 1
 				else:
-					wavestartSP = roundi(int(dicenumber/2))
+					wavestartSP = roundi(int(dicenumber/2)) # integer division error but it's ignored
 				buffvalue = wavestartSP
 				description += "[color=#118811]+" + str(wavestartSP) + "[/color] "
 
@@ -133,7 +131,6 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 			characterBuff.Value = buffvalue
 			WaveOverlay.playerBuffs = characterBuff
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
-			print(characterBuff)
 
 func _ready() -> void:
 	intermission()
