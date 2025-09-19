@@ -310,7 +310,7 @@ void fragment() {
 "
 mode = 1
 flags/light_only = false
-preview_params/Texture2DParameter = "Resource(\"res://resources/bgshaderimage.tres\")"
+preview_params/Texture2DParameter = "Resource(\"uid://rxy21vwhf8l2\", \"res://resources/bgshaderimage.tres\")"
 nodes/fragment/0/position = Vector2(400, 160)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_pa4ky")
 nodes/fragment/5/position = Vector2(-720, 20)
@@ -350,9 +350,9 @@ fractal_gain = 0.0
 fractal_ping_pong_strength = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_438xo"]
-seamless = true
-color_ramp = SubResource("Gradient_yqbxb")
 noise = SubResource("FastNoiseLite_5q84y")
+color_ramp = SubResource("Gradient_yqbxb")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e11tl"]
 shader = SubResource("VisualShader_gdhsj")
@@ -481,7 +481,7 @@ void fragment() {
 "
 mode = 1
 flags/light_only = false
-preview_params/Texture2DParameter = "Resource(\"res://resources/bgshaderimage.tres\")"
+preview_params/Texture2DParameter = "Resource(\"uid://rxy21vwhf8l2\", \"res://resources/bgshaderimage.tres\")"
 nodes/fragment/0/position = Vector2(400, 160)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_kukjb")
 nodes/fragment/5/position = Vector2(-720, 20)
@@ -598,6 +598,7 @@ wait_time = 0.8
 [node name="Intermission" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 2
+visible = false
 script = ExtResource("1_7sx8j")
 
 [node name="ColorRect" type="ColorRect" parent="Intermission"]

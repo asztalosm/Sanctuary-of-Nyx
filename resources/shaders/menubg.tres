@@ -112,7 +112,7 @@ void fragment() {
 "
 mode = 1
 flags/light_only = false
-preview_params/Texture2DParameter = "Resource(\"res://resources/bgshaderimage.tres\")"
+preview_params/Texture2DParameter = "Resource(\"uid://rxy21vwhf8l2\", \"res://resources/bgshaderimage.tres\")"
 nodes/fragment/0/position = Vector2(400, 160)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_atcey")
 nodes/fragment/5/position = Vector2(-720, 20)

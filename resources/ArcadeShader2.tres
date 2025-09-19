@@ -14,6 +14,6 @@ fractal_ping_pong_strength = 1.0
 [resource]
 width = 256
 height = 256
-seamless = true
-color_ramp = SubResource("Gradient_803jg")
 noise = SubResource("FastNoiseLite_5fs0q")
+color_ramp = SubResource("Gradient_803jg")
+seamless = true

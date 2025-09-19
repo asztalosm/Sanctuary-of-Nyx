@@ -10,6 +10,6 @@ frequency = 0.0198
 [resource]
 width = 196
 height = 196
-seamless = true
-color_ramp = SubResource("Gradient_nrnbx")
 noise = SubResource("FastNoiseLite_iqepy")
+color_ramp = SubResource("Gradient_nrnbx")
+seamless = true
