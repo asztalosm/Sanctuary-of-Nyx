@@ -2,6 +2,7 @@ extends CanvasLayer
 @export var isIntermission = false
 @export var dicenumber = 0
 @export var rerollpoints = 5
+var wavecount = 1
 var diceAtlas = AtlasTexture.new()
 var dicerolling = false
 var dices = []
@@ -43,9 +44,13 @@ func startwave() -> void: #starts the wave
 	WaveOverlay.start_wave()
 	get_parent().get_node("EnemySpawners")._activateSpawner()
 
+func endwave() -> void:
+	wavecount += 1
+	intermission()
 
 func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this and get the value
 	if rerollpoints > 0:
+		$Dicesound.play()
 		rerollpoints -= 1
 		dicerolling = true
 		currentdice = dice
@@ -150,8 +155,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$RichTextLabel3.text = "rerolls: " + str(rerollpoints)
-	if Input.is_action_just_pressed("ui_accept"):
-		intermission()
 
 
 func _on_animation_timer_timeout() -> void:

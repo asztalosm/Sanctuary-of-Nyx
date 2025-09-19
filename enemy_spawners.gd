@@ -24,19 +24,40 @@ func _on_timer_timeout() -> void:
 	changeSpawner()
 
 
+
 func _on_spawn_timer_timeout() -> void:
 	var randomEnemy = []
 	var spawnableEnemies = get_parent().get_node("WaveOverlay").spawnableEnemies
 	for keys in spawnableEnemies:
 		randomEnemy.append(keys)
-	var selectedEnemy = randi_range(0, len(randomEnemy)-1)
-	var enemyName = randomEnemy[selectedEnemy] #this is what we use as the key in the dictionary
-	spawnableEnemies.set(enemyName, spawnableEnemies.get(enemyName)-1)
-	if spawnableEnemies.get(enemyName) == 0:
-		spawnableEnemies.erase(enemyName)
-	match enemyName:
-		"Assassin":
-			var assassin = preload("res://enemy_dummy.tscn")
-			var enemy = assassin.instantiate()
-			get_parent().get_node("Enemies").add_child(enemy)
-			enemy.global_position = activatedspawner.global_position
+	if (len(randomEnemy) > 0):
+		var selectedEnemy = randi_range(0, len(randomEnemy)-1)
+		var enemyName = randomEnemy[selectedEnemy] #this is what we use as the key in the dictionary
+		spawnableEnemies.set(enemyName, spawnableEnemies.get(enemyName)-1)
+		if spawnableEnemies.get(enemyName) == 0:
+			print(spawnableEnemies.get(enemyName))
+			spawnableEnemies.erase(enemyName)
+		match enemyName:
+			"Assassin":
+				var assassin = preload("res://enemy_dummy.tscn")
+				var enemy = assassin.instantiate()
+				get_parent().get_node("Enemies").add_child(enemy)
+				enemy.global_position = activatedspawner.global_position
+			"Necromancer":
+				var necromancer = preload("res://necromancer_enemy.tscn")
+				var enemy = necromancer.instantiate()
+				get_parent().get_node("Enemies").add_child(enemy)
+				enemy.global_position = activatedspawner.global_position
+			"Skeleton":
+				var skeleton = preload("res://skeleton_summon.tscn")
+				var enemy = skeleton.instantiate()
+				get_parent().get_node("Enemies").add_child(enemy)
+				enemy.global_position = activatedspawner.global_position
+			"Archer":
+				var archer = preload("res://archer_enemy.tscn")
+				var enemy = archer.instantiate()
+				get_parent().get_node("Enemies").add_child(enemy)
+				enemy.global_position = activatedspawner.global_position
+	elif (len(randomEnemy) == 0) and get_parent().get_node("Enemies").get_child_count() == 0:
+		await get_tree().create_timer(3.0).timeout
+		get_parent().get_node("Intermission").endwave()

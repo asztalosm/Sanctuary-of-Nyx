@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var dir = Vector2(0,0)
-@export var speed = 160
+@export var speed = 120
 #@export var arrowmodel = texture here
 
 func _ready() -> void:
@@ -10,7 +10,7 @@ func _ready() -> void:
 	queue_free()
 
 func _physics_process(_delta: float) -> void:
-	velocity = dir * speed
+	velocity = dir * speed + Vector2(randi_range(-30,30), randi_range(-30,30))
 	move_and_slide()
 
 

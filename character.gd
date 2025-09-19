@@ -1,9 +1,18 @@
 extends CharacterBody2D
-@export var maxhealth : float = 20
-@export var health : float = 15.0
-@export var speed = 80
-@export var critchance = 10
-@export var dodgechance = 10
+@export var arcadeStats = { #all will be set to 0 and arcade script will change these
+	"hp": 0.0,
+	"dmg": 0.0,
+	"dodge_chance": 0.0,
+	"mov_spd": 0.0,
+	"crit_chance": 0.0,
+	"def": 0.0,
+	"xp_multiplier": 0.0
+}
+@export var maxhealth : float = 20.0 + arcadeStats.hp
+@export var health : float = maxhealth
+@export var speed = 80 + arcadeStats.mov_spd
+@export var critchance = 10 + arcadeStats.crit_chance
+@export var dodgechance = 10 + arcadeStats.dodge_chance
 @export var changingcharacter = false
 @export var Characters = [
 	{ #assassin
@@ -28,9 +37,10 @@ extends CharacterBody2D
 	"Xp": 0,
 	"XptoNextLevel": 200,
 	"SkillPoints": 0,
-	"BasePhysAttack": 2,
-	"BaseDefense": 0,
-	"BaseMagicAttack": 2.5,
+	"BasePhysAttack": 2 + arcadeStats.dmg,
+	"BaseDefense": 0 + arcadeStats.def,
+	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
+	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
@@ -141,18 +151,21 @@ func applydamage() -> void:
 	
 	for enemies in hitenemies:
 		if currentcharacter.AttackType == "Magical":
-			damage = globalcharacterstats.BaseMagicAttack * (skills.MagicAtk + 10) / 10
+			damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
 		elif currentcharacter.AttackType == "Physical":
-			damage = globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
-		enemies.health -= damage
+			damage = (globalcharacterstats.BasePhysAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+		if randi_range(1,100) <= critchance:
+			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
+			damage *= 1.5
+		enemies.health -= damage 
 		enemies.get_node("AnimationPlayer").play("hit")
 
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
-	if dodgerng <= dodgechance:
+	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage - (skills.Defense * 0.2)
+		health -= selfdamage - (skills.Defense * 0.2 + arcadeStats.def)
 		$Soundcontroller.play("hit")
 		if health <= 0:
 			print("character died") #todo, play a death animation, add dodge stat
@@ -222,6 +235,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _attack_animation_finished() -> void:
+	$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,255,255)
 	applydamage()
 
 
