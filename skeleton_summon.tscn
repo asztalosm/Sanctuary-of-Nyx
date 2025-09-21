@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnil3dyaxwrio"]
+[gd_scene load_steps=27 format=3 uid="uid://cnil3dyaxwrio"]
 
 [ext_resource type="Texture2D" uid="uid://bepco8il24w10" path="res://resources/skeletonsummonwalk.png" id="1_mr4ek"]
 [ext_resource type="Script" uid="uid://duq47ny2sw1h6" path="res://skeleton_summon.gd" id="1_rl2ub"]
+[ext_resource type="Texture2D" uid="uid://6htdkplgdopg" path="res://resources/particles/bonefragment.png" id="3_22ski"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rl2ub"]
 size = Vector2(4, 2)
@@ -132,6 +133,32 @@ radius = 104.005
 [sub_resource type="CircleShape2D" id="CircleShape2D_22ski"]
 radius = 16.0
 
+[sub_resource type="Curve" id="Curve_f2446"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_18qvj"]
+curve = SubResource("Curve_f2446")
+
+[sub_resource type="Curve" id="Curve_f8ivl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.719697, 0.7191012), -0.98876435, -0.98876435, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_v2lle"]
+curve = SubResource("Curve_f8ivl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_novqi"]
+particle_flag_disable_z = true
+radial_velocity_min = 11.759977
+radial_velocity_max = 23.519978
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+scale_curve = SubResource("CurveTexture_v2lle")
+alpha_curve = SubResource("CurveTexture_18qvj")
+
 [node name="SkeletonSummon" type="CharacterBody2D"]
 collision_mask = 0
 script = ExtResource("1_rl2ub")
@@ -198,5 +225,14 @@ shape = SubResource("CircleShape2D_22ski")
 wait_time = 0.8
 one_shot = true
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+texture = ExtResource("3_22ski")
+lifetime = 0.6
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_novqi")
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

@@ -23,7 +23,7 @@ func set_values() -> void:
 	if playerBuffs.find_key("Point Multiplier"):
 		playerStats.get_or_add("Point Multiplier", playerBuffs.get("Point Multiplier"))
 	if playerBuffs.find_key("more XP per kill"):
-		playerStats.get_or_add("more XP per kill", playerBuffs.get("Value") + 300.0)
+		playerStats.get_or_add("more XP per kill", playerBuffs.get("Value"))
 	for stats in get_parent().get_node("Character").get_node("Player").arcadeStats:
 		for stats_to_set in playerStats:
 			if stats_to_set == stats:

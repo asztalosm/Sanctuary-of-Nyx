@@ -607,7 +607,7 @@ material = SubResource("ShaderMaterial_a2n0a")
 offset_right = 576.0
 offset_bottom = 324.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Intermission"]
+[node name="Waves" type="RichTextLabel" parent="Intermission"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 118.0
@@ -878,6 +878,18 @@ bbcode_enabled = true
 text = "enemies left: [color=#881111]124125[/color]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="WaveEnd" type="RichTextLabel" parent="WaveOverlay"]
+visible = false
+offset_left = 205.0
+offset_top = 16.0
+offset_right = 371.0
+offset_bottom = 56.0
+theme = ExtResource("6_gy4ly")
+text = "Wave 99 ended"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="Explanation" type="CanvasLayer" parent="."]
 process_mode = 3

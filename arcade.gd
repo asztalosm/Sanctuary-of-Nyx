@@ -46,7 +46,17 @@ func startwave() -> void: #starts the wave
 
 func endwave() -> void:
 	wavecount += 1
+	$Waves.text = "Waves: " + str(wavecount)
 	intermission()
+	for dice in $Dice.get_children():
+		currentdice = dice
+		dices.append(dice)
+		dice.texture_normal = AtlasTexture.new() #we have to reference texture_normal to edit this, it's uglier than a variable but easier for me
+		dice.texture_normal.atlas = load("res://resources/dice.png")
+		dice.texture_normal.region.size = Vector2(32,32)
+		dicenumber = randi_range(1,6)
+		dice.texture_normal.region.position = Vector2(32 * dicenumber, 0)
+		setDescription()
 
 func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this and get the value
 	if rerollpoints > 0:
@@ -81,7 +91,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 
 		"EnemyCount": #sends count to WaveOverlay
-			
+			WaveOverlay.spawnableEnemies.clear()
 			for enemies in enemyList:
 				var enemyRolls = enemyList[enemies]
 				var randomnum = randi_range(1,6)
@@ -139,7 +149,6 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 			characterBuff.Type = buff
 			characterBuff.Value = buffvalue
 			WaveOverlay.playerBuffs = characterBuff
-			print(WaveOverlay.playerBuffs)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 
 func _ready() -> void:

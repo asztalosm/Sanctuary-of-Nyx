@@ -1,6 +1,6 @@
 extends Node2D
 @export var activatedspawner : Marker2D
-
+var waveended = false
 func _activateSpawner():
 	$ChangeSpawner.start()
 	activatedspawner = $Markers.get_node("Spawner"+str(randi_range(1,8)))
@@ -58,6 +58,9 @@ func _on_spawn_timer_timeout() -> void:
 				var enemy = archer.instantiate()
 				get_parent().get_node("Enemies").add_child(enemy)
 				enemy.global_position = activatedspawner.global_position
-	elif (len(randomEnemy) == 0) and get_parent().get_node("Enemies").get_child_count() == 0:
+	elif (len(randomEnemy) == 0) and get_parent().get_node("Enemies").get_child_count() == 0 and !waveended:
+		waveended = true
+		get_parent().get_node("WaveOverlay").get_node("WaveEnd").text = "Wave " + str(get_parent().get_node("Intermission").wavecount) + " completed."
+		get_parent().get_node("WaveOverlay").get_node("WaveEnd").visible = true
 		await get_tree().create_timer(3.0).timeout
 		get_parent().get_node("Intermission").endwave()
