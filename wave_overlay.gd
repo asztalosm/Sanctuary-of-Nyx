@@ -5,7 +5,7 @@ extends CanvasLayer
 @export var playerStats = {} #
 @export var playerBuffs = {}
 @export var enemyStats = {}
-@export var points = 0
+@onready var points = get_parent().get_node("Character").get_node("Player").points
 
 #var playerStatsList = {"hp": range(1,6),
 #	"dmg": range(1,6),
@@ -20,6 +20,15 @@ func set_values() -> void:
 	for i in spawnableEnemies.values():
 		sum += i
 	remainingEnemies = sum
+	if playerBuffs.find_key("Point Multiplier"):
+		playerStats.get_or_add("Point Multiplier", playerBuffs.get("Point Multiplier"))
+	if playerBuffs.find_key("more XP per kill"):
+		playerStats.get_or_add("more XP per kill", playerBuffs.get("more XP per kill"))
+	for stats in get_parent().get_node("Character").get_node("Player").arcadeStats:
+		for stats_to_set in playerStats:
+			if stats_to_set == stats:
+				get_parent().get_node("Character").get_node("Player").arcadeStats.set(stats, playerStats.get(stats_to_set))
+
 
 func start_wave() -> void:
 	visible = true
@@ -27,5 +36,6 @@ func start_wave() -> void:
 
 func _process(_delta: float) -> void:
 	set_values()
+	points = get_parent().get_node("Character").get_node("Player").points
 	$Points.text = "Points: " + str(points)
 	$Enemies.text = "Spawns left: [color=#881111]" + str(remainingEnemies) + "[/color]"

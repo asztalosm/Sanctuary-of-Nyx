@@ -8,11 +8,14 @@ extends CharacterBody2D
 @export var target = self
 var onattackcooldown = false
 var dir := Vector2.ZERO
+@onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
+
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
 func death() -> void:
-	get_parent().get_parent().get_node("Character").get_node("Player").globalcharacterstats.Xp += 20
+	player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
+	player.addpoints(10)
 	queue_free()
 func attack() -> void:
 	if !onattackcooldown and target.cantakedamage:

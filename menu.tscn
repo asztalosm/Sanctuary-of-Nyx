@@ -18,10 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://dxxoawqygr5s2" path="res://resources/constellation2.png" id="9_w25hu"]
 [ext_resource type="Texture2D" uid="uid://b58somrp7hujj" path="res://resources/shiba.png" id="11_dwrpx"]
 [ext_resource type="AudioStream" uid="uid://dmti3th51lfmh" path="res://resources/dog-bark.mp3" id="12_g7jxm"]
+[ext_resource type="Script" uid="uid://ir13872atl3v" path="res://gamemode.gd" id="12_oil5j"]
 [ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="13_3ls4m"]
 [ext_resource type="Texture2D" uid="uid://bgssu5nv0olj8" path="res://resources/assassin2.png" id="15_5h80m"]
 [ext_resource type="Texture2D" uid="uid://hofqsd5i5e3g" path="res://resources/gamemodeSelector.png" id="15_td6mg"]
-[ext_resource type="Script" uid="uid://bt4hwhvav4hjm" path="res://gamemode_toggle.gd" id="16_guify"]
 [ext_resource type="Texture2D" uid="uid://cqy6m7iincjth" path="res://resources/gamemodeSelectorArcade.png" id="16_oil5j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
@@ -257,14 +257,15 @@ text = "Quit
 "
 alignment = 0
 
-[node name="Classes" type="Control" parent="."]
+[node name="Gamemode" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 512.0
 offset_top = -162.0
 offset_right = 1088.0
 offset_bottom = 162.0
+script = ExtResource("12_oil5j")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Classes"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Gamemode"]
 layout_mode = 0
 offset_left = 194.0
 offset_top = 4.0
@@ -282,13 +283,13 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Buttons" type="Control" parent="Classes"]
+[node name="Buttons" type="Control" parent="Gamemode"]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Knight" type="TextureButton" parent="Classes/Buttons"]
+[node name="Knight" type="TextureButton" parent="Gamemode/Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -297,7 +298,7 @@ offset_right = -80.0
 offset_bottom = 128.0
 texture_normal = ExtResource("7_ecwwl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Knight"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Knight"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = 131.0
@@ -311,7 +312,7 @@ text = "Knight
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Mage" type="TextureButton" parent="Classes/Buttons"]
+[node name="Mage" type="TextureButton" parent="Gamemode/Buttons"]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 147.0
@@ -319,7 +320,7 @@ offset_right = 45.0
 offset_bottom = 179.0
 texture_normal = ExtResource("13_3ls4m")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Mage"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Mage"]
 layout_mode = 0
 offset_left = -16.0
 offset_top = 32.0
@@ -332,7 +333,7 @@ text = "Mage"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Necromancer" type="TextureButton" parent="Classes/Buttons"]
+[node name="Necromancer" type="TextureButton" parent="Gamemode/Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -341,7 +342,7 @@ offset_right = 112.0
 offset_bottom = 128.0
 texture_normal = ExtResource("7_ecwwl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Necromancer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Necromancer"]
 layout_mode = 0
 offset_left = -21.0
 offset_top = 131.0
@@ -356,7 +357,7 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Assassin" type="TextureButton" parent="Classes/Buttons"]
+[node name="Assassin" type="TextureButton" parent="Gamemode/Buttons"]
 layout_mode = 0
 offset_left = -60.0
 offset_top = 164.0
@@ -364,7 +365,7 @@ offset_right = -12.0
 offset_bottom = 212.0
 texture_normal = ExtResource("15_5h80m")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Assassin"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Assassin"]
 layout_mode = 0
 offset_left = -12.0
 offset_top = 45.0
@@ -378,7 +379,7 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Tank" type="TextureButton" parent="Classes/Buttons"]
+[node name="Tank" type="TextureButton" parent="Gamemode/Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -387,7 +388,7 @@ offset_right = 304.0
 offset_bottom = 128.0
 texture_normal = ExtResource("7_ecwwl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Tank"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Tank"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = 131.0
@@ -401,7 +402,7 @@ text = "Tank
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Archer" type="TextureButton" parent="Classes/Buttons"]
+[node name="Archer" type="TextureButton" parent="Gamemode/Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -410,7 +411,7 @@ offset_right = 400.0
 offset_bottom = 128.0
 texture_normal = ExtResource("7_ecwwl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Classes/Buttons/Archer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Gamemode/Buttons/Archer"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = 131.0
@@ -424,30 +425,16 @@ text = "Archer
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="Classes"]
+[node name="GamemodeToggle" type="TextureButton" parent="Gamemode"]
 layout_mode = 0
-offset_left = 248.0
-offset_top = 219.0
-offset_right = 328.0
-offset_bottom = 257.0
-pivot_offset = Vector2(40, 0)
-theme = ExtResource("4_4hy44")
-theme_override_fonts/font = ExtResource("3_mae5d")
-theme_override_font_sizes/font_size = 24
-text = "Play"
-
-[node name="GamemodeToggle" type="TextureButton" parent="Classes"]
-layout_mode = 0
-offset_left = 224.0
+offset_left = 328.0
 offset_top = 64.0
-offset_right = 352.0
+offset_right = 456.0
 offset_bottom = 192.0
 toggle_mode = true
-texture_normal = ExtResource("15_td6mg")
-texture_pressed = ExtResource("16_oil5j")
-script = ExtResource("16_guify")
+texture_normal = ExtResource("16_oil5j")
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="Classes/GamemodeToggle"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="Gamemode/GamemodeToggle"]
 layout_mode = 0
 offset_left = -29.0
 offset_top = 128.0
@@ -455,7 +442,31 @@ offset_right = 157.0
 offset_bottom = 153.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
-text = "Campaign"
+text = "Arcade"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="GamemodeToggle2" type="TextureButton" parent="Gamemode"]
+modulate = Color(0.44, 0.44, 0.44, 1)
+layout_mode = 0
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 192.0
+disabled = true
+texture_normal = ExtResource("15_td6mg")
+texture_pressed = ExtResource("16_oil5j")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Gamemode/GamemodeToggle2"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 128.0
+offset_right = 157.0
+offset_bottom = 153.0
+theme = ExtResource("4_4hy44")
+theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+text = "Campaign (WIP)"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -522,5 +533,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Classes/Button" to="." method="startgame"]
-[connection signal="toggled" from="Classes/GamemodeToggle" to="Classes/GamemodeToggle" method="_on_toggled"]
+[connection signal="toggled" from="Gamemode/GamemodeToggle" to="Gamemode/GamemodeToggle" method="_on_toggled"]
+[connection signal="pressed" from="Gamemode/GamemodeToggle2" to="Gamemode" method="_on_gamemode_toggle_2_pressed"]
+[connection signal="toggled" from="Gamemode/GamemodeToggle2" to="Gamemode/GamemodeToggle2" method="_on_toggled"]

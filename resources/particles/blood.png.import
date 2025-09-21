@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqy6m7iincjth"
-path="res://.godot/imported/gamemodeSelectorArcade.png-7975690039c116285cc79f57795c4df5.ctex"
+uid="uid://c5s886t37cfxb"
+path="res://.godot/imported/blood.png-17101a8625779cf850a047b485dfb35d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/gamemodeSelectorArcade.png"
-dest_files=["res://.godot/imported/gamemodeSelectorArcade.png-7975690039c116285cc79f57795c4df5.ctex"]
+source_file="res://resources/particles/blood.png"
+dest_files=["res://.godot/imported/blood.png-17101a8625779cf850a047b485dfb35d.ctex"]
 
 [params]
 

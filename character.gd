@@ -6,7 +6,8 @@ extends CharacterBody2D
 	"mov_spd": 0.0,
 	"crit_chance": 0.0,
 	"def": 0.0,
-	"xp_multiplier": 0.0
+	"xp_multiplier": 0.0,
+	"more XP per kill": 0
 }
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -14,6 +15,7 @@ extends CharacterBody2D
 @export var critchance = 10 + arcadeStats.crit_chance
 @export var dodgechance = 10 + arcadeStats.dodge_chance
 @export var changingcharacter = false
+@export var points = 0
 @export var Characters = [
 	{ #assassin
 		"Class": "Assassin",
@@ -79,6 +81,8 @@ var hitenemies = []
 #cursed branch can only be obtained after fighting a boss - your character will get MASSIVE debuffs AND buffs and new attacks, point redistribution would be expensive and give the player a challenge in the open world
 #chatgpt kinda cooked with the cursed branch idea
 
+func addpoints(value):
+	points += int(value * globalcharacterstats.xpMultiplier)
 
 func switchcharacter(character):
 	if !changingcharacter and character != currentcharacter:
