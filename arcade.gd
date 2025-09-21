@@ -15,9 +15,9 @@ var enemyList = { #so these will be decided whether theyll spawn in the setDescr
 }
 var enemyBuffList = {
 	"hp": range(1,6),
-	"dmg": range(1,6),
-	"movspd": range(1,5), 
-	"atkspd": range(1,3),
+	"damage": range(1,6),
+	"speed": range(1,5), 
+	"attackcooldown": range(-1,-3),
 	"range": range(1,2)}
 var playerStatsList = {"hp": range(1,6),
 	"dmg": range(1,6),
@@ -87,7 +87,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				var buffscale = snapped(randf_range(0.1,0.8) * ((6-dicenumber+1)), 0.1) #the float that decides what gets buffed and by how much
 				if randomnum in enemyRolls:
 					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(stat) +"\n"
-					WaveOverlay.enemyStats.get_or_add(stat, buffscale)
+					get_parent().get_node("EnemySpawners").enemyStats.get_or_add(stat, buffscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 
 		"EnemyCount": #sends count to WaveOverlay

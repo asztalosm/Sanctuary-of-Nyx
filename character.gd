@@ -169,7 +169,10 @@ func hit(selfdamage) ->void:
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage - maxf((skills.Defense + arcadeStats.def * 0.2), 0.1) #TODO balancing changes with this
+		if selfdamage < (skills.Defense * 0.2 + arcadeStats.def):
+			health -= 0.1
+		else:
+			health -= selfdamage - maxf( maxf( (skills.Defense * 0.2 + arcadeStats.def) , 2.0), 0.1) #TODO balancing changes with this
 		$Soundcontroller.play("hit")
 		var cameratween = get_tree().create_tween()
 		cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)

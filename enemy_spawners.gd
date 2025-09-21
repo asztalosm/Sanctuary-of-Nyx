@@ -1,6 +1,8 @@
 extends Node2D
 @export var activatedspawner : Marker2D
 var waveended = false
+@export var enemyStats = {}
+
 func _activateSpawner():
 	$ChangeSpawner.start()
 	activatedspawner = $Markers.get_node("Spawner"+str(randi_range(1,8)))
@@ -25,7 +27,16 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	changeSpawner()
 
-
+func addstat(enemy) -> void:
+	for stats in enemyStats:
+			if stats == "range":
+				#enemy.set(stats, (enemy.get(stats) + enemyStats.get(stats)))
+				enemy.get_node("Detection").scale *= enemyStats.get(stats)
+			elif stats == "hp":
+				enemy.set("maxhealth", enemy.maxhealth + enemyStats.get(stats))
+				enemy.set("health", enemy.health + enemyStats.get(stats))
+			else:
+				return #fuckall
 
 func _on_spawn_timer_timeout() -> void:
 	if !waveended:
@@ -44,21 +55,25 @@ func _on_spawn_timer_timeout() -> void:
 					var assassin = preload("res://enemy_dummy.tscn")
 					var enemy = assassin.instantiate()
 					get_parent().get_node("Enemies").add_child(enemy)
+					addstat(enemy)
 					enemy.global_position = activatedspawner.global_position
 				"Necromancer":
 					var necromancer = preload("res://necromancer_enemy.tscn")
 					var enemy = necromancer.instantiate()
 					get_parent().get_node("Enemies").add_child(enemy)
+					addstat(enemy)
 					enemy.global_position = activatedspawner.global_position
 				"Skeleton":
 					var skeleton = preload("res://skeleton_summon.tscn")
 					var enemy = skeleton.instantiate()
 					get_parent().get_node("Enemies").add_child(enemy)
+					addstat(enemy)
 					enemy.global_position = activatedspawner.global_position
 				"Archer":
 					var archer = preload("res://archer_enemy.tscn")
 					var enemy = archer.instantiate()
 					get_parent().get_node("Enemies").add_child(enemy)
+					addstat(enemy)
 					enemy.global_position = activatedspawner.global_position
 		elif (len(randomEnemy) == 0) and get_parent().get_node("Enemies").get_child_count() == 0 and !waveended:
 			waveended = true
