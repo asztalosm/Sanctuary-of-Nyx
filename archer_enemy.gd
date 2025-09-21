@@ -10,13 +10,20 @@ extends CharacterBody2D
 @export var chargetime = 2.0
 var onattackcooldown = false
 var dir := Vector2.ZERO
-
+var dead = false
+@onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$AttackCooldown.wait_time = attackcooldown
 
 func death() -> void:
-	queue_free()
+	dead = true
+	player.globalcharacterstats.Xp += 30 + player.arcadeStats.get("more XP per kill")
+	player.addpoints(20)
+	$GPUParticles2D.restart()
+	for nodes in self.get_children():
+		if nodes != $GPUParticles2D:
+			nodes.queue_free()
 
 func attack() -> void:
 	if !onattackcooldown:
@@ -31,22 +38,23 @@ func attack() -> void:
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0,0)
-	if health <= 0:
+	if health <= 0 and !dead:
 		death()
-	elif health != maxhealth:
-		$HealthBar.visible = true
-		$HealthBar.value = health
-	if target != self:
-		if global_position.distance_to(target.global_position) < 100:
-			$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
-			dir = $NavigationAgent2D.get_next_path_position() - global_position
-			if dir.length_squared() > 1.0:
-					dir = dir.normalized()
-		else: 
-			attack()
-			dir = Vector2(0,0)
-			velocity = Vector2(0,0)
-	velocity = dir * speed
+	elif !dead:
+		if health != maxhealth:
+			$HealthBar.visible = true
+			$HealthBar.value = health
+		if target != self:
+			if global_position.distance_to(target.global_position) < 100:
+				$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
+				dir = $NavigationAgent2D.get_next_path_position() - global_position
+				if dir.length_squared() > 1.0:
+						dir = dir.normalized()
+			else: 
+				attack()
+				dir = Vector2(0,0)
+				velocity = Vector2(0,0)
+		velocity = dir * speed
 	move_and_slide()
 
 func _on_detection_body_entered(body: Node2D) -> void:
@@ -59,3 +67,7 @@ func _on_attack_cooldown_timeout() -> void:
 
 func _on_detection_body_exited(_body: Node2D) -> void:
 	target = self
+
+
+func _on_gpu_particles_2d_finished() -> void:
+	queue_free()

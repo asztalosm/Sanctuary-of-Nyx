@@ -31,6 +31,7 @@ func set_values() -> void:
 
 
 func start_wave() -> void:
+	$WaveEnd.visible = false
 	visible = true
 
 

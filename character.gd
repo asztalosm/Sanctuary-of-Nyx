@@ -175,7 +175,8 @@ func hit(selfdamage) ->void:
 		cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
 		cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
 		if health <= 0:
-			print("character died") #todo, play a death animation, add dodge stat
+			return
+			#print("character died") #todo, play a death animation, add dodge stat
 		else:
 			$VFXController.play("invulnerability")
 
