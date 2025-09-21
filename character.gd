@@ -7,7 +7,7 @@ extends CharacterBody2D
 	"crit_chance": 0.0,
 	"def": 0.0,
 	"xp_multiplier": 0.0,
-	"more XP per kill": 0
+	"more XP per kill": 0.0
 }
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -171,10 +171,14 @@ func hit(selfdamage) ->void:
 	else:
 		health -= selfdamage - (skills.Defense * 0.2 + arcadeStats.def)
 		$Soundcontroller.play("hit")
+		var cameratween = get_tree().create_tween()
+		cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-7,7), randf_range(-7,7)), 0.1)
+		cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
 		if health <= 0:
 			print("character died") #todo, play a death animation, add dodge stat
 		else:
 			$VFXController.play("invulnerability")
+
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
 		$AnimatedSprite2D.speed_scale = 1.25

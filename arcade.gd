@@ -116,7 +116,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				description += "[color=#118811]+" + str(wavestartSP) + "[/color] "
 
 			if buff == playerBuffList[1]:
-				var extraxp = randi_range(1,10) * dicenumber
+				var extraxp = float(randi_range(1,10) * dicenumber)
 				description += "[color=#118811]+ " + str(extraxp) + "[/color] "
 				buffvalue = extraxp
 
@@ -139,6 +139,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 			characterBuff.Type = buff
 			characterBuff.Value = buffvalue
 			WaveOverlay.playerBuffs = characterBuff
+			print(WaveOverlay.playerBuffs)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 
 func _ready() -> void:

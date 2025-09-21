@@ -10,13 +10,13 @@ func _ready() -> void:
 	$Buttons/Button.grab_focus()
 	await get_tree().create_timer(1).timeout
 	
-func showclasses():
-	for children in $Classes/Buttons.get_children():
-		var classtween = get_tree().create_tween()
-		classtween.tween_property(children, "modulate:a", 1, 0.25)
-		await classtween.finished
-		release_focus()
-		$Classes/Button.grab_focus()
+# func showclasses():
+#	for children in $Classes/Buttons.get_children():
+#		var classtween = get_tree().create_tween()
+#		classtween.tween_property(children, "modulate:a", 1, 0.25)
+#		await classtween.finished
+#		release_focus()
+#		$Classes/Button.grab_focus()
 
 
 func checkkonami() -> void:
@@ -44,7 +44,7 @@ func _on_button_pressed() -> void:
 		await get_tree().create_timer(1.0).timeout
 		$Camera2D.position.x += 800
 		await get_tree().create_timer(1.0).timeout
-		showclasses()
+		#showclasses()
 
 func _playgame() -> void:
 	$MenuButton.play()
