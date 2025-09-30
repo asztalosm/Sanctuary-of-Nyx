@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3j5jac2pr1ms"]
+[gd_scene load_steps=12 format=3 uid="uid://c3j5jac2pr1ms"]
 
 [ext_resource type="Script" uid="uid://bxxj8coe2eu2g" path="res://boss_dummy.gd" id="1_yba7a"]
 [ext_resource type="Texture2D" uid="uid://djmmfhd2f4win" path="res://resources/temporaryknightboss.png" id="2_u0yvb"]
@@ -63,6 +63,9 @@ _data = {
 &"hit": SubResource("Animation_u0yvb")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct5c8"]
+size = Vector2(85, 20)
+
 [node name="Knight" type="CharacterBody2D"]
 script = ExtResource("1_yba7a")
 metadata/_edit_group_ = true
@@ -97,5 +100,13 @@ shape = SubResource("RectangleShape2D_u0yvb")
 libraries = {
 &"": SubResource("AnimationLibrary_pdbhk")
 }
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+position = Vector2(8.5, 0)
+shape = SubResource("RectangleShape2D_ct5c8")
+
+[node name="Sprite2D" type="Sprite2D" parent="SwordHitbox"]
 
 [connection signal="body_entered" from="FightInitiator" to="." method="_on_fight_initiator_body_entered"]

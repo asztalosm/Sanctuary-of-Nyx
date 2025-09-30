@@ -2,6 +2,7 @@ extends CharacterBody2D
 @export var maxhealth = 200
 @export var health = maxhealth / 8.0
 var bossbar = null
+var player = null
 @export var stats = {
 	"Phase": 1,
 	"isInvulnerable": false,
@@ -11,6 +12,7 @@ var bossbar = null
 
 func death() -> void:
 	print("drop loot, write whats dropped, play death animation, give loads of xp")
+	player.globalcharacterstats.Xp += 2000
 	bossbar.visible = false
 	queue_free()
 
@@ -33,6 +35,7 @@ func refreshgui() -> void:
 func _on_fight_initiator_body_entered(body: Node2D) -> void:
 	if stats.Activated == false:
 		stats.Activated = true
+		player = body
 		bossbar = body.get_node("GUI").get_node("BossBar")
 		bossbar.visible = true
 		
