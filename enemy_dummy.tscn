@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cn05jtrfs1m72"]
+[gd_scene load_steps=19 format=3 uid="uid://cn05jtrfs1m72"]
 
 [ext_resource type="Script" uid="uid://bop7acfgnbnx1" path="res://enemy_dummy.gd" id="1_jnamf"]
 [ext_resource type="Texture2D" uid="uid://c1yrgku40a280" path="res://resources/assassin.png" id="2_1ob5i"]
+[ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="3_1ob5i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uaqn"]
 size = Vector2(26, 6)
@@ -73,7 +74,34 @@ radius = 41.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7rwgp"]
 radius = 108.227
 
+[sub_resource type="Curve" id="Curve_1ob5i"]
+_data = [Vector2(0.6136364, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jqwtn"]
+curve = SubResource("Curve_1ob5i")
+
+[sub_resource type="Curve" id="Curve_t1tt7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79545456, 0.52808994), -1.8055699, -1.8055699, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t4k0o"]
+curve = SubResource("Curve_t1tt7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t4k0o"]
+particle_flag_disable_z = true
+angle_min = -50.79999
+angle_max = 33.900013
+radial_velocity_min = 23.529978
+radial_velocity_max = 29.999977
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_t4k0o")
+alpha_curve = SubResource("CurveTexture_jqwtn")
+hue_variation_min = -0.04000002
+hue_variation_max = 0.019999977
+
 [node name="EnemyDummy" type="CharacterBody2D"]
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_jnamf")
 
@@ -138,5 +166,16 @@ shape = SubResource("CircleShape2D_7rwgp")
 [node name="AttackCooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 3
+texture = ExtResource("3_1ob5i")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.69
+process_material = SubResource("ParticleProcessMaterial_t4k0o")
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

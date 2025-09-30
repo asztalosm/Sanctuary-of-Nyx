@@ -1,10 +1,21 @@
 extends CharacterBody2D
-@export var maxhealth : float = 20
-@export var health : float = 15.0
-@export var speed = 80
-@export var critchance = 10
-@export var dodgechance = 10
+@export var arcadeStats = { #all will be set to 0 and arcade script will change these
+	"hp": 0.0,
+	"dmg": 0.0,
+	"dodge_chance": 0.0,
+	"mov_spd": 0.0,
+	"crit_chance": 0.0,
+	"def": 0.0,
+	"xp_multiplier": 0.0,
+	"more XP per kill": 0.0
+}
+@export var maxhealth : float = 20.0 + arcadeStats.hp
+@export var health : float = maxhealth
+@export var speed = 80 + arcadeStats.mov_spd
+@export var critchance = 10 + arcadeStats.crit_chance
+@export var dodgechance = 10 + arcadeStats.dodge_chance
 @export var changingcharacter = false
+@export var points = 0
 @export var Characters = [
 	{ #assassin
 		"Class": "Assassin",
@@ -28,9 +39,10 @@ extends CharacterBody2D
 	"Xp": 0,
 	"XptoNextLevel": 200,
 	"SkillPoints": 0,
-	"BasePhysAttack": 2,
-	"BaseDefense": 0,
-	"BaseMagicAttack": 2.5,
+	"BasePhysAttack": 2 + arcadeStats.dmg,
+	"BaseDefense": 0 + arcadeStats.def,
+	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
+	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
 @export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
 	"Class": "Assassin",
@@ -69,6 +81,8 @@ var hitenemies = []
 #cursed branch can only be obtained after fighting a boss - your character will get MASSIVE debuffs AND buffs and new attacks, point redistribution would be expensive and give the player a challenge in the open world
 #chatgpt kinda cooked with the cursed branch idea
 
+func addpoints(value):
+	points += int(value * globalcharacterstats.xpMultiplier)
 
 func switchcharacter(character):
 	if !changingcharacter and character != currentcharacter:
@@ -106,7 +120,7 @@ func ability() -> void:
 	$GUI/Ability/AbilityDuration.start()
 	$Soundcontroller.play(currentcharacter.Ability)
 	oldspeed = speed
-	speed = oldspeed * 1.5
+	speed = oldspeed * 1.75
 func attack() -> void:
 	if attacked:
 		return
@@ -141,23 +155,34 @@ func applydamage() -> void:
 	
 	for enemies in hitenemies:
 		if currentcharacter.AttackType == "Magical":
-			damage = globalcharacterstats.BaseMagicAttack * (skills.MagicAtk + 10) / 10
+			damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
 		elif currentcharacter.AttackType == "Physical":
-			damage = globalcharacterstats.BasePhysAttack * (skills.PhysAtk + 10) / 10
-		enemies.health -= damage
+			damage = (globalcharacterstats.BasePhysAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+		if randi_range(1,100) <= critchance:
+			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
+			damage *= 1.5
+		enemies.health -= damage 
 		enemies.get_node("AnimationPlayer").play("hit")
 
 func hit(selfdamage) ->void:
 	var dodgerng = randi_range(0,100)
-	if dodgerng <= dodgechance:
+	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
 		$VFXController.play("dodge")
 	else:
-		health -= selfdamage - (skills.Defense * 0.2)
+		if selfdamage < (skills.Defense * 0.2 + arcadeStats.def):
+			health -= 0.1
+		else:
+			health -= selfdamage - maxf( maxf( (skills.Defense * 0.2 + arcadeStats.def) , 2.0), 0.1) #TODO balancing changes with this
 		$Soundcontroller.play("hit")
+		var cameratween = get_tree().create_tween()
+		cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
+		cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
 		if health <= 0:
-			print("character died") #todo, play a death animation, add dodge stat
+			return
+			#print("character died") #todo, play a death animation, add dodge stat
 		else:
 			$VFXController.play("invulnerability")
+
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
 		$AnimatedSprite2D.speed_scale = 1.25
@@ -222,6 +247,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _attack_animation_finished() -> void:
+	$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,255,255)
 	applydamage()
 
 

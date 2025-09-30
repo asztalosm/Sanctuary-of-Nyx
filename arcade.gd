@@ -2,6 +2,7 @@ extends CanvasLayer
 @export var isIntermission = false
 @export var dicenumber = 0
 @export var rerollpoints = 5
+var wavecount = 1
 var diceAtlas = AtlasTexture.new()
 var dicerolling = false
 var dices = []
@@ -14,9 +15,9 @@ var enemyList = { #so these will be decided whether theyll spawn in the setDescr
 }
 var enemyBuffList = {
 	"hp": range(1,6),
-	"dmg": range(1,6),
-	"movspd": range(1,5), 
-	"atkspd": range(1,3),
+	"damage": range(1,6),
+	"speed": range(1,5), 
+	"attackcooldown": range(-1,-3),
 	"range": range(1,2)}
 var playerStatsList = {"hp": range(1,6),
 	"dmg": range(1,6),
@@ -43,9 +44,23 @@ func startwave() -> void: #starts the wave
 	WaveOverlay.start_wave()
 	get_parent().get_node("EnemySpawners")._activateSpawner()
 
+func endwave() -> void:
+	wavecount += 1
+	$Waves.text = "Waves: " + str(wavecount)
+	intermission()
+	for dice in $Dice.get_children():
+		currentdice = dice
+		dices.append(dice)
+		dice.texture_normal = AtlasTexture.new() #we have to reference texture_normal to edit this, it's uglier than a variable but easier for me
+		dice.texture_normal.atlas = load("res://resources/dice.png")
+		dice.texture_normal.region.size = Vector2(32,32)
+		dicenumber = randi_range(1,6)
+		dice.texture_normal.region.position = Vector2(32 * dicenumber, 0)
+		setDescription()
 
 func _animate_roll(dice) -> void: #starts the dice animation, a signal will end this and get the value
 	if rerollpoints > 0:
+		$Dicesound.play()
 		rerollpoints -= 1
 		dicerolling = true
 		currentdice = dice
@@ -72,11 +87,11 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				var buffscale = snapped(randf_range(0.1,0.8) * ((6-dicenumber+1)), 0.1) #the float that decides what gets buffed and by how much
 				if randomnum in enemyRolls:
 					description += "[color=#881111]+" + str(snapped(buffscale, 0.1)) + "[/color]"  + str(stat) +"\n"
-					WaveOverlay.enemyStats.get_or_add(stat, buffscale)
+					get_parent().get_node("EnemySpawners").enemyStats.get_or_add(stat, buffscale)
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description
 
 		"EnemyCount": #sends count to WaveOverlay
-			
+			WaveOverlay.spawnableEnemies.clear()
 			for enemies in enemyList:
 				var enemyRolls = enemyList[enemies]
 				var randomnum = randi_range(1,6)
@@ -111,7 +126,7 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 				description += "[color=#118811]+" + str(wavestartSP) + "[/color] "
 
 			if buff == playerBuffList[1]:
-				var extraxp = randi_range(1,10) * dicenumber
+				var extraxp = float(randi_range(1,10) * dicenumber)
 				description += "[color=#118811]+ " + str(extraxp) + "[/color] "
 				buffvalue = extraxp
 
@@ -150,8 +165,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$RichTextLabel3.text = "rerolls: " + str(rerollpoints)
-	if Input.is_action_just_pressed("ui_accept"):
-		intermission()
 
 
 func _on_animation_timer_timeout() -> void:

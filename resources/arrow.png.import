@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqy6m7iincjth"
-path="res://.godot/imported/gamemodeSelectorArcade.png-7975690039c116285cc79f57795c4df5.ctex"
+uid="uid://btxm5x2piwta8"
+path="res://.godot/imported/arrow.png-087cc092c542688937d2a9a0dc7fb383.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/gamemodeSelectorArcade.png"
-dest_files=["res://.godot/imported/gamemodeSelectorArcade.png-7975690039c116285cc79f57795c4df5.ctex"]
+source_file="res://resources/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-087cc092c542688937d2a9a0dc7fb383.ctex"]
 
 [params]
 

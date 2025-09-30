@@ -1,0 +1,166 @@
+[gd_scene load_steps=18 format=3 uid="uid://cbus4tr8g622d"]
+
+[ext_resource type="Script" uid="uid://ctkuo4njv6hwk" path="res://archer_enemy.gd" id="1_mo3xb"]
+[ext_resource type="Texture2D" uid="uid://dy6hxwp6b21bj" path="res://resources/archerenemymain.png" id="2_7gok4"]
+[ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="3_7gok4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rwaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7gok4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew55c"]
+size = Vector2(10, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mvtmc"]
+radius = 288.293
+
+[sub_resource type="Gradient" id="Gradient_jnamf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mvtmc"]
+gradient = SubResource("Gradient_jnamf")
+width = 16
+
+[sub_resource type="Animation" id="Animation_ew55c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4rwaw"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g626g"]
+_data = {
+&"RESET": SubResource("Animation_ew55c"),
+&"hit": SubResource("Animation_4rwaw")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g626g"]
+size = Vector2(20, 30)
+
+[sub_resource type="Curve" id="Curve_8138r"]
+_data = [Vector2(0.6136364, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_i078r"]
+curve = SubResource("Curve_8138r")
+
+[sub_resource type="Curve" id="Curve_iomva"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79545456, 0.52808994), -1.8055699, -1.8055699, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2nmpq"]
+curve = SubResource("Curve_iomva")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_88fbt"]
+particle_flag_disable_z = true
+angle_min = -50.79999
+angle_max = 33.900013
+radial_velocity_min = 23.529978
+radial_velocity_max = 29.999977
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_2nmpq")
+alpha_curve = SubResource("CurveTexture_i078r")
+hue_variation_min = -0.04000002
+hue_variation_max = 0.019999977
+
+[node name="ArcherEnemy" type="CharacterBody2D"]
+collision_mask = 0
+script = ExtResource("1_mo3xb")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4rwaw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_ew55c")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_mvtmc")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_mvtmc")
+texture_progress = SubResource("GradientTexture1D_mvtmc")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g626g")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_g626g")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 3
+texture = ExtResource("3_7gok4")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.69
+process_material = SubResource("ParticleProcessMaterial_88fbt")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

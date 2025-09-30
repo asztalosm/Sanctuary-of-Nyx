@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://da8sdn3mbrv7r"]
+[gd_scene load_steps=63 format=4 uid="uid://da8sdn3mbrv7r"]
 
 [ext_resource type="Script" uid="uid://bt8ygafjov7nr" path="res://arcade.gd" id="1_7sx8j"]
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_kjmcv"]
@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="7_c0abk"]
 [ext_resource type="Script" uid="uid://cunu83exqqsd6" path="res://wave_overlay.gd" id="8_6qik7"]
 [ext_resource type="Script" uid="uid://cixbw3h34xh3m" path="res://explanation.gd" id="9_a2n0a"]
+[ext_resource type="AudioStream" uid="uid://gswnme6wlheb" path="res://resources/diceroll.wav" id="9_mndso"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bgdj6"]
 vertices = PackedVector2Array(8, -8, 8, 8, -8, 8, -4, -4, -8, -4, -4, -8)
@@ -606,7 +607,7 @@ material = SubResource("ShaderMaterial_a2n0a")
 offset_right = 576.0
 offset_bottom = 324.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Intermission"]
+[node name="Waves" type="RichTextLabel" parent="Intermission"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 118.0
@@ -846,7 +847,8 @@ theme_override_fonts/font = ExtResource("7_c0abk")
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Intermission"]
+[node name="Dicesound" type="AudioStreamPlayer" parent="Intermission"]
+stream = ExtResource("9_mndso")
 
 [node name="WaveOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("8_6qik7")
@@ -863,6 +865,31 @@ bbcode_enabled = true
 text = "Points: 124125"
 fit_content = true
 autowrap_mode = 0
+
+[node name="Enemies" type="RichTextLabel" parent="WaveOverlay"]
+offset_left = 6.0
+offset_top = 58.0
+offset_right = 400.0
+offset_bottom = 97.0
+scale = Vector2(0.45, 0.45)
+theme = ExtResource("6_gy4ly")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "enemies left: [color=#881111]124125[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="WaveEnd" type="RichTextLabel" parent="WaveOverlay"]
+visible = false
+offset_left = 205.0
+offset_top = 16.0
+offset_right = 371.0
+offset_bottom = 56.0
+theme = ExtResource("6_gy4ly")
+text = "Wave 99 ended"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="Explanation" type="CanvasLayer" parent="."]
 process_mode = 3
