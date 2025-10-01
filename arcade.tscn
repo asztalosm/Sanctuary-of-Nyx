@@ -594,7 +594,7 @@ texture = SubResource("GradientTexture2D_bgdj6")
 wait_time = 10.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawners"]
-wait_time = 0.8
+wait_time = 0.3
 
 [node name="Intermission" type="CanvasLayer" parent="."]
 process_mode = 3

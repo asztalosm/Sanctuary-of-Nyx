@@ -1,11 +1,38 @@
-[gd_scene format=3 uid="uid://c8og007kjoahx"]
+[gd_scene load_steps=6 format=3 uid="uid://c8og007kjoahx"]
+
+[ext_resource type="Script" uid="uid://5rnhvbx11cfk" path="res://splasher.gd" id="1_lnp38"]
+[ext_resource type="Texture2D" uid="uid://mkctjo8lcaox" path="res://resources/splasher.png" id="1_nnf4a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lnp38"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nnf4a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnf4a"]
+size = Vector2(4, 2)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lnp38"]
 
 [node name="Splasher" type="CharacterBody2D"]
+script = ExtResource("1_lnp38")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lnp38")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_nnf4a")
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_lnp38")

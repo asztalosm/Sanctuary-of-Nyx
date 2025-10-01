@@ -26,15 +26,16 @@ func death() -> void:
 			nodes.queue_free()
 
 func attack() -> void:
-	if !onattackcooldown:
+	if !onattackcooldown and !dead:
 		onattackcooldown = true
 		await get_tree().create_timer(chargetime).timeout #this will be changed to a normal timer but its 1am
 		var arrow = preload("res://arrow.tscn").instantiate()
 		await get_tree().create_timer(0.01).timeout
-		add_child(arrow)
-		$AttackCooldown.start()
-		arrow.global_position = self.global_position
-		arrow.dir = arrow.global_position.direction_to(target.global_position)
+		if get_node_or_null("AttackCooldown") != null:
+			add_child(arrow)
+			$AttackCooldown.start()
+			arrow.global_position = self.global_position
+			arrow.dir = arrow.global_position.direction_to(target.global_position)
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0,0)

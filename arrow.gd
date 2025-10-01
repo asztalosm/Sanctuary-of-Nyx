@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var dir = Vector2(0,0)
-@export var speed = 160
+@export var speed = 200
 #@export var arrowmodel = texture here
 func _ready() -> void:
 	rotation = self.get_angle_to(get_parent().target.global_position) + deg_to_rad(90) #ill fix rotation later, lets just push this update
