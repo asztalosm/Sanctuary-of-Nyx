@@ -4,14 +4,26 @@ var brokenposition = null
 var airtime = 3.0 #seconds
 @onready var movetween = get_tree().create_tween()
 var broken = false
+var character = null
+
+func linger() -> void:
+	$Linger.visible = true
+	$Linger/Sprite2D.scale = Vector2(0.05, 0.05)
+	$Linger/Sprite2D.modulate = Color8(255,255,255,50)
+	var spriteTween = get_tree().create_tween()
+	spriteTween.tween_property($Linger/Sprite2D, "scale", Vector2(1, 1), 0.5)
+	spriteTween.tween_property($Linger/Sprite2D, "modulate", Color8(255,255,255,160), 0.5)
+	$Linger/Timer.start()
+
 func breakpotion() -> void:
 	broken = true
 	$CollisionShape2D.set_deferred("disabled", true)
-	print("will summon the lingering effect later, now i just want to make this work because 3 am tiredness")
+	linger()
 	$GPUParticles2D.restart()
 	$Sprite2D.visible = false
 	movetween.stop()
 	brokenposition = global_position
+	$Linger/Area2D/CollisionShape2D.set_deferred("disabled", false)
 	
 
 func _ready() -> void:
@@ -31,6 +43,24 @@ func _on_area_entered(area: Area2D) -> void:
 	area.get_parent().hit(3)
 	breakpotion()
 
+	
 
-func _on_gpu_particles_2d_finished() -> void:
+
+func _on_timer_timeout() -> void:
 	queue_free()
+
+
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	character = area.get_parent()
+	$Linger/AttackTimer.start()
+
+
+func _on_attack_timer_timeout() -> void:
+	if character != null:
+		character.hit(1, false)
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	character = null

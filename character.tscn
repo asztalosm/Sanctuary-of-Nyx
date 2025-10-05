@@ -910,7 +910,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Soundcontroller/hit:stream")
+tracks/6/path = NodePath("Soundcontroller/attack:stream")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -922,50 +922,50 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Soundcontroller/attack:stream")
+tracks/7/path = NodePath("Soundcontroller/attack:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
+"update": 0,
+"values": [0.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Soundcontroller/attack:volume_db")
+tracks/8/path = NodePath("AnimatedSprite2D:speed_scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/9/path = NodePath("Soundcontroller/LevelUp:stream")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"update": 1,
+"values": [null]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Soundcontroller/LevelUp:stream")
+tracks/10/path = NodePath("Soundcontroller/hit2:pitch_scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_88tkl"]
@@ -1153,7 +1153,7 @@ resource_name = "hit"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Soundcontroller/hit:stream")
+tracks/0/path = NodePath("Soundcontroller/hit2:stream")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1165,7 +1165,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Soundcontroller/hit")
+tracks/1/path = NodePath("Soundcontroller/hit2")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1175,6 +1175,18 @@ tracks/1/keys = {
 "args": [0.0],
 "method": &"play"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soundcontroller/hit2:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
@@ -1936,6 +1948,7 @@ columns = 3
 metadata/_edit_group_ = true
 
 [node name="Inventory" type="TextureRect" parent="Player/GUI/Hotkeys/GridContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("8_lpiy1")
 
@@ -2021,10 +2034,15 @@ volume_db = -17.0
 stream = ExtResource("13_bwfjh")
 
 [node name="hit" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
+stream = ExtResource("13_x1sy7")
 
 [node name="attack" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
 
 [node name="LevelUp" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
+
+[node name="hit2" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
+stream = ExtResource("13_x1sy7")
+volume_db = 5.0
 
 [node name="VFXController" type="AnimationPlayer" parent="Player"]
 libraries = {

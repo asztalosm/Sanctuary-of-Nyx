@@ -164,16 +164,17 @@ func applydamage() -> void:
 		enemies.health -= damage 
 		enemies.get_node("AnimationPlayer").play("hit")
 
-func hit(selfdamage) ->void:
+func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
-	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
+	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			if selfdamage < ((skills.Defense * 0.2) + arcadeStats.def):
+			if selfdamage <= 0:
 				health -= 0.1
 			else:
 				health -= selfdamage #TODO balancing changes with this
+			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
 			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)

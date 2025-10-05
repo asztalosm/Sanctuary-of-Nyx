@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vwlyxc30xprw"
-path="res://.godot/imported/arcadeTileset.png-98da3db3e3fe4ff0738cb917a258e33c.ctex"
+uid="uid://t1lf2tvhjmaw"
+path="res://.godot/imported/splash.png-4a99ad878c1ff9f7e7a33686bcacd572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/arcadeTileset.png"
-dest_files=["res://.godot/imported/arcadeTileset.png-98da3db3e3fe4ff0738cb917a258e33c.ctex"]
+source_file="res://resources/splash.png"
+dest_files=["res://.godot/imported/splash.png-4a99ad878c1ff9f7e7a33686bcacd572.ctex"]
 
 [params]
 
