@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://n33erunyewqo"]
+
+[ext_resource type="Script" uid="uid://cmeiqc7enkujm" path="res://potion.gd" id="1_5batk"]
+[ext_resource type="Texture2D" uid="uid://bv1245w5v8a0v" path="res://resources/potionprojectile.png" id="2_e76pv"]
+
+[sub_resource type="Gradient" id="Gradient_1s7mk"]
+offsets = PackedFloat32Array(0.033333335, 0.5466667)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lp60g"]
+gradient = SubResource("Gradient_1s7mk")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.95327103, 0.95327103)
+fill_to = Vector2(0.27570093, 0.43457943)
+
+[sub_resource type="Curve" id="Curve_2mqgd"]
+_data = [Vector2(0.8030303, 0.9887641), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_us7oh"]
+curve = SubResource("Curve_2mqgd")
+
+[sub_resource type="Curve" id="Curve_vftxr"]
+_limits = [0.0, 6.741577, 0.0, 1.0]
+_data = [Vector2(0, 2.2471924), 0.0, 0.0, 0, 0, Vector2(0.98484856, 2.1966934), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u6hw8"]
+curve = SubResource("Curve_vftxr")
+
+[sub_resource type="Curve" id="Curve_76xev"]
+_data = [Vector2(0.67424244, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5393259), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hw8xw"]
+curve = SubResource("Curve_76xev")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ldco6"]
+particle_flag_disable_z = true
+angle_min = -448.9
+angle_max = 559.10004
+direction = Vector3(1, 1, 0)
+spread = 105.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -21.180002
+linear_accel_max = -2.2351742e-06
+linear_accel_curve = SubResource("CurveTexture_u6hw8")
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+scale_min = 0.19999999
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_hw8xw")
+alpha_curve = SubResource("CurveTexture_us7oh")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.009999977
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u41y6"]
+size = Vector2(8, 8)
+
+[node name="Potion" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_5batk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e76pv")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+texture = SubResource("GradientTexture2D_lp60g")
+lifetime = 1.04
+one_shot = true
+explosiveness = 0.98
+process_material = SubResource("ParticleProcessMaterial_ldco6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u41y6")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
