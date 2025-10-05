@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bgjdmbdgei8de"
-path="res://.godot/imported/PixelifySans-VariableFont_wght.ttf-c210acbb64b2da08f3ef8eeffe282a46.fontdata"
+uid="uid://33gpuq86fnpd"
+path="res://.godot/imported/MedodicaRegular.otf-bb6c2f60c00d0f4b509864f3cf13cc76.fontdata"
 
 [deps]
 
-source_file="res://resources/PixelifySans-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/PixelifySans-VariableFont_wght.ttf-c210acbb64b2da08f3ef8eeffe282a46.fontdata"]
+source_file="res://resources/MedodicaRegular.otf"
+dest_files=["res://.godot/imported/MedodicaRegular.otf-bb6c2f60c00d0f4b509864f3cf13cc76.fontdata"]
 
 [params]
 
@@ -23,13 +23,13 @@ allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=0
-subpixel_positioning=0
-keep_rounding_remainders=true
-oversampling=1.0
+subpixel_positioning=2
+keep_rounding_remainders=false
+oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
-compress=false
+compress=true
 preload=[]
 language_support={}
 script_support={}

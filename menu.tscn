@@ -1,9 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=39 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
 [ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="3_iqepy"]
-[ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="3_mae5d"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="4_4hy44"]
 [ext_resource type="Texture2D" uid="uid://igms58n01xjc" path="res://resources/menubg.png" id="4_g7jxm"]
 [ext_resource type="Shader" uid="uid://stelul4p7r77" path="res://resources/shaders/moon.tres" id="4_l48gv"]
@@ -207,14 +206,16 @@ position_smoothing_enabled = true
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 clip_contents = false
 layout_mode = 0
-offset_left = -280.0
-offset_top = -148.0
-offset_right = 32.0
-offset_bottom = -109.0
+offset_left = -279.0
+offset_top = -159.0
+offset_right = -17.0
+offset_bottom = -111.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 48
 text = "Sanctuary of Nyx"
+fit_content = true
+autowrap_mode = 0
 
 [node name="Buttons" type="Control" parent="."]
 anchors_preset = 0
@@ -228,8 +229,8 @@ offset_top = -107.0
 offset_right = -167.0
 offset_bottom = -75.0
 theme = ExtResource("4_4hy44")
-theme_override_font_sizes/font_size = 24
-text = "Play"
+theme_override_font_sizes/font_size = 32
+text = " Play"
 alignment = 0
 
 [node name="Button2" type="Button" parent="Buttons"]
@@ -239,8 +240,8 @@ offset_top = -72.0
 offset_right = -168.0
 offset_bottom = -40.0
 theme = ExtResource("4_4hy44")
-theme_override_font_sizes/font_size = 24
-text = "Settings"
+theme_override_font_sizes/font_size = 32
+text = " Settings"
 alignment = 0
 
 [node name="Button3" type="Button" parent="Buttons" node_paths=PackedStringArray("shortcut_context")]
@@ -251,9 +252,8 @@ offset_right = -168.0
 offset_bottom = -4.0
 shortcut_context = NodePath("../Button")
 theme = ExtResource("4_4hy44")
-theme_override_fonts/font = ExtResource("3_mae5d")
-theme_override_font_sizes/font_size = 24
-text = "Quit
+theme_override_font_sizes/font_size = 32
+text = " Quit
 "
 alignment = 0
 
@@ -267,17 +267,15 @@ script = ExtResource("12_oil5j")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Gamemode"]
 layout_mode = 0
-offset_left = 194.0
+offset_left = 106.0
 offset_top = 4.0
-offset_right = 570.0
-offset_bottom = 103.0
-scale = Vector2(0.5, 0.5)
+offset_right = 482.0
+offset_bottom = 62.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
-theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "Select a gamemode
-[font_size=24]click on the button to change 
+text = "[font_size=31]Select a gamemode
+[font_size=15]click on the button to change 
 the gamemode."
 fit_content = true
 autowrap_mode = 0
@@ -439,9 +437,10 @@ layout_mode = 0
 offset_left = -29.0
 offset_top = 128.0
 offset_right = 157.0
-offset_bottom = 153.0
+offset_bottom = 157.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 32
 text = "Arcade"
 fit_content = true
 autowrap_mode = 0
@@ -466,6 +465,7 @@ offset_right = 157.0
 offset_bottom = 153.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 24
 text = "Campaign (WIP)"
 fit_content = true
 autowrap_mode = 0

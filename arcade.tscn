@@ -610,11 +610,10 @@ offset_bottom = 324.0
 [node name="Waves" type="RichTextLabel" parent="Intermission"]
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 118.0
-offset_bottom = 47.0
-scale = Vector2(0.5, 0.5)
+offset_right = 43.0
+offset_bottom = 24.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 16
 text = "Wave: 0"
 fit_content = true
 autowrap_mode = 0
@@ -623,11 +622,10 @@ horizontal_alignment = 1
 [node name="RichTextLabel3" type="RichTextLabel" parent="Intermission"]
 offset_left = 506.0
 offset_top = 8.0
-offset_right = 703.0
-offset_bottom = 53.0
-scale = Vector2(0.33, 0.33)
+offset_right = 576.04443
+offset_bottom = 24.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 16
 text = "rerolls: 999"
 fit_content = true
 autowrap_mode = 0
@@ -637,17 +635,15 @@ horizontal_alignment = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -113.0
-offset_top = 5.0
-offset_right = 339.0
-offset_bottom = 74.0
+offset_left = -226.0
+offset_right = 226.0
+offset_bottom = 48.0
 grow_horizontal = 2
-scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Click on a dice to roll it.
-[font_size=24]higher roll = more advantegous for you"
+[font_size=16]higher roll = more advantegous for you"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -678,13 +674,13 @@ one_shot = true
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/EnemyStats"]
 clip_contents = false
 layout_mode = 0
-offset_left = -8.0
+offset_left = -14.5
 offset_top = 32.0
-offset_right = 88.0
+offset_right = 105.5
 offset_bottom = 64.0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[color=#881111]enemy[/color] stats"
 fit_content = true
@@ -692,11 +688,11 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/EnemyStats/RichTextLabel"]
 layout_mode = 0
-offset_top = 60.0
+offset_top = 40.0
 offset_right = 107.0
-offset_bottom = 128.0
+offset_bottom = 108.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[color=#881111]+3.0[/color] hp
 [color=#881111]+0.8[/color] dmg
@@ -707,9 +703,9 @@ fit_content = true
 [node name="EnemyCount" type="TextureButton" parent="Intermission/Dice"]
 layout_mode = 0
 offset_left = 168.0
-offset_top = 76.0
+offset_top = 92.0
 offset_right = 200.0
-offset_bottom = 108.0
+offset_bottom = 124.0
 scale = Vector2(2, 2)
 texture_normal = SubResource("AtlasTexture_ihh7f")
 
@@ -723,13 +719,13 @@ one_shot = true
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/EnemyCount"]
 clip_contents = false
 layout_mode = 0
-offset_left = -8.0
-offset_top = 32.0
-offset_right = 88.0
-offset_bottom = 92.0
+offset_left = -11.5
+offset_top = 31.5
+offset_right = 100.5
+offset_bottom = 60.5
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[color=#881111]enemy[/color] count"
 fit_content = true
@@ -737,11 +733,11 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/EnemyCount/RichTextLabel"]
 layout_mode = 0
-offset_top = 60.0
+offset_top = 40.0
 offset_right = 106.0
-offset_bottom = 124.0
+offset_bottom = 104.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[color=#881111]15[/color] Assassin
 [color=#881111]14[/color] Archer
@@ -752,9 +748,9 @@ fit_content = true
 [node name="CharacterStats" type="TextureButton" parent="Intermission/Dice"]
 layout_mode = 0
 offset_left = 344.0
-offset_top = 76.0
+offset_top = 92.0
 offset_right = 376.0
-offset_bottom = 108.0
+offset_bottom = 124.0
 scale = Vector2(2, 2)
 texture_normal = SubResource("AtlasTexture_ihh7f")
 
@@ -768,13 +764,13 @@ one_shot = true
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/CharacterStats"]
 clip_contents = false
 layout_mode = 0
-offset_left = -8.0
+offset_left = -8.5
 offset_top = 32.0
-offset_right = 88.0
+offset_right = 89.5
 offset_bottom = 92.0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[color=#118811]self[/color] stats"
 fit_content = true
@@ -782,11 +778,11 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/CharacterStats/RichTextLabel"]
 layout_mode = 0
-offset_top = 60.0
+offset_top = 40.0
 offset_right = 90.0
-offset_bottom = 124.0
+offset_bottom = 104.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[color=#118811]+1[/color] dmg
 [color=#118811]+8[/color] hp
@@ -812,13 +808,13 @@ one_shot = true
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/CharacterBuffs"]
 clip_contents = false
 layout_mode = 0
-offset_left = -8.0
+offset_left = -10.5
 offset_top = 32.0
-offset_right = 88.0
-offset_bottom = 92.0
+offset_right = 95.5
+offset_bottom = 96.0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[color=#118811]self[/color] buffs
 "
@@ -827,11 +823,11 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/CharacterBuffs/RichTextLabel"]
 layout_mode = 0
-offset_top = 60.0
+offset_top = 40.0
 offset_right = 121.0
-offset_bottom = 124.0
+offset_bottom = 104.0
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[color=#118811]some[/color] buffs, idk"
 fit_content = true
@@ -858,9 +854,8 @@ offset_left = 6.0
 offset_top = 42.0
 offset_right = 219.0
 offset_bottom = 81.0
-scale = Vector2(0.45, 0.45)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "Points: 124125"
 fit_content = true
@@ -871,9 +866,8 @@ offset_left = 6.0
 offset_top = 58.0
 offset_right = 400.0
 offset_bottom = 97.0
-scale = Vector2(0.45, 0.45)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "enemies left: [color=#881111]124125[/color]"
 fit_content = true
@@ -908,16 +902,14 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -152.0
 offset_top = 21.0
-offset_right = 456.0
+offset_right = 152.0
 offset_bottom = 327.0
 grow_horizontal = 2
-scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[font_size=48]Arcade:
-[font_size=6]
-[font_size=24]In this gamemode your goal is to earn as many points as you can. You get points for killing enemies. There is an intermission where you have to roll dice that give buffs/debuffs to enemies/you.
+text = "[font_size=32]Arcade:
+[font_size=16]In this gamemode your goal is to earn as many points as you can. You get points for killing enemies. There is an intermission where you have to roll dice that give buffs/debuffs to enemies/you.
 Have fun!"
 fit_content = true
 horizontal_alignment = 1

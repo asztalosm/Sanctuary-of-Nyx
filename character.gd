@@ -169,19 +169,20 @@ func hit(selfdamage) ->void:
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
 		$VFXController.play("dodge")
 	else:
-		if selfdamage < ((skills.Defense * 0.2) + arcadeStats.def):
-			health -= 0.1
-		else:
-			health -= selfdamage #TODO balancing changes with this
-		$Soundcontroller.play("hit")
-		var cameratween = get_tree().create_tween()
-		cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
-		cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
-		if health <= 0:
-			return
-			#print("character died") #todo, play a death animation, add dodge stat
-		else:
-			$VFXController.play("invulnerability")
+		if cantakedamage:
+			if selfdamage < ((skills.Defense * 0.2) + arcadeStats.def):
+				health -= 0.1
+			else:
+				health -= selfdamage #TODO balancing changes with this
+			$Soundcontroller.play("hit")
+			var cameratween = get_tree().create_tween()
+			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
+			cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
+			if health <= 0:
+				return
+				#print("character died") #todo, play a death animation, add dodge stat
+			else:
+				$VFXController.play("invulnerability")
 
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
