@@ -26,8 +26,10 @@ func death() -> void:
 
 func throwpotion() -> void:
 	var potion = preload("res://potionprojectile.tscn").instantiate()
+	potion.targetposition = target.global_position
 	await get_tree().create_timer(0.01).timeout
-	add_child(potion)
+	get_parent().add_child(potion)
+	potion.targetposition = target.global_position
 	potion.global_position = global_position
 
 func attack() -> void:
@@ -49,13 +51,13 @@ func _physics_process(_delta: float) -> void:
 			$HealthBar.visible = true
 			$HealthBar.value = health
 		if target != self:
-			if global_position.distance_to(target.global_position) < 100:
+			if global_position.distance_to(target.global_position) < 70:
 				$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
 				dir = $NavigationAgent2D.get_next_path_position() - global_position
 			else:
 				$NavigationAgent2D.target_position = target.global_position
 				dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
-			if global_position.distance_to(target.global_position) > 200:
+			if global_position.distance_to(target.global_position) > 180:
 				target = self
 			else:
 				if $NavigationAgent2D.is_target_reached():
@@ -81,5 +83,5 @@ func _on_gpu_particles_2d_finished() -> void:
 	queue_free()
 
 
-func _on_detection_body_exited(body: Node2D) -> void:
+func _on_detection_body_exited(_body: Node2D) -> void:
 	characterinrange = false

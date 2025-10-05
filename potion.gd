@@ -1,6 +1,6 @@
 extends Area2D
 var brokenposition = null
-@onready var targetposition = get_parent().target.global_position
+@export var targetposition = Vector2.ZERO
 var airtime = 3.0 #seconds
 @onready var movetween = get_tree().create_tween()
 var broken = false
@@ -28,9 +28,9 @@ func breakpotion() -> void:
 
 func _ready() -> void:
 	top_level = true
-	var relativedistance = targetposition - global_position
-	movetween.set_parallel(false)
-	movetween.tween_property(self, "global_position", targetposition, airtime / 2)
+	if targetposition != Vector2.ZERO:
+		movetween.set_parallel(false)
+		movetween.tween_property(self, "global_position", targetposition, airtime / 2)
 
 
 func _process(_delta) -> void:

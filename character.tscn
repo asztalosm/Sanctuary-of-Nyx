@@ -1150,6 +1150,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_jx0ln"]
 resource_name = "hit"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
