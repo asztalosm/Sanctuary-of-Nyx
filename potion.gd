@@ -12,7 +12,8 @@ func linger() -> void:
 	$Linger/Sprite2D.modulate = Color8(255,255,255,50)
 	var spriteTween = get_tree().create_tween()
 	spriteTween.tween_property($Linger/Sprite2D, "scale", Vector2(1, 1), 0.5)
-	spriteTween.tween_property($Linger/Sprite2D, "modulate", Color8(255,255,255,160), 0.5)
+	spriteTween.tween_property($Linger/Sprite2D, "modulate", Color8(255,255,255,160), 0.1)
+	spriteTween.tween_property($Linger/Sprite2D, "modulate", Color8(255,255,255,0), 2)
 	$Linger/Timer.start()
 
 func breakpotion() -> void:

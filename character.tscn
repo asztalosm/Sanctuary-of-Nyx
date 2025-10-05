@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=164 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
 [ext_resource type="Texture2D" uid="uid://vvqeupnsomto" path="res://resources/minibosshealthunder.png" id="36_3fhje"]
 [ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
+[ext_resource type="AudioStream" uid="uid://f8eqgii7w22c" path="res://resources/stun.wav" id="43_0a77e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
 atlas = ExtResource("6_0fer6")
@@ -967,6 +968,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Soundcontroller/ability:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
 
 [sub_resource type="Animation" id="Animation_88tkl"]
 resource_name = "assassinstep"
@@ -1190,6 +1203,36 @@ tracks/2/keys = {
 "values": [1.0]
 }
 
+[sub_resource type="Animation" id="Animation_3fhje"]
+resource_name = "stun"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/ability:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("43_0a77e")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/ability")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
@@ -1200,7 +1243,8 @@ _data = {
 &"explosionorb": SubResource("Animation_aeagw"),
 &"footstepend": SubResource("Animation_x1sy7"),
 &"footstepstart": SubResource("Animation_7tnxx"),
-&"hit": SubResource("Animation_jx0ln")
+&"hit": SubResource("Animation_jx0ln"),
+&"stun": SubResource("Animation_3fhje")
 }
 
 [sub_resource type="Animation" id="Animation_kjduu"]
@@ -1303,6 +1347,20 @@ _data = {
 &"dodge": SubResource("Animation_8i6g0"),
 &"invulnerability": SubResource("Animation_y0ipg")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3fhje"]
+radius = 7.28011
+
+[sub_resource type="Gradient" id="Gradient_0a77e"]
+offsets = PackedFloat32Array(0.44666666, 0.5, 0.52666664)
+colors = PackedColorArray(0.3882353, 0.6117647, 0.67058825, 0, 0.38860005, 0.61371994, 0.67, 0.3529412, 0.3882353, 0.6117647, 0.67058825, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hkojd"]
+gradient = SubResource("Gradient_0a77e")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Character" type="Node2D"]
 z_index = 5
@@ -2021,10 +2079,31 @@ stream = ExtResource("13_x1sy7")
 stream = ExtResource("13_x1sy7")
 volume_db = 5.0
 
+[node name="ability" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
+
 [node name="VFXController" type="AnimationPlayer" parent="Player"]
 libraries = {
 &"": SubResource("AnimationLibrary_kjduu")
 }
+
+[node name="MageAbility" type="Area2D" parent="Player"]
+modulate = Color(1, 1, 1, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MageAbility"]
+visible = false
+shape = SubResource("CircleShape2D_3fhje")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/MageAbility"]
+z_index = -1
+scale = Vector2(0.125, 0.125)
+texture = SubResource("GradientTexture2D_hkojd")
+
+[node name="Timer" type="Timer" parent="Player/MageAbility"]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="area_entered" from="Player/MageProjectile/MageHitcheck" to="Player/MageProjectile" method="_on_mage_hitcheck_area_entered"]
 [connection signal="timeout" from="Player/MageProjectile/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
@@ -2043,3 +2122,5 @@ libraries = {
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/Dodge" to="Player/GUI" method="_on_dodge_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/Health" to="Player/GUI" method="_on_health_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/AtkSpeed" to="Player/GUI" method="_on_atk_speed_pressed"]
+[connection signal="area_entered" from="Player/MageAbility" to="Player" method="_on_stun_area_entered"]
+[connection signal="timeout" from="Player/MageAbility/Timer" to="Player" method="_on_timer_timeout"]
