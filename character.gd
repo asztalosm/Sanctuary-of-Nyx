@@ -174,6 +174,7 @@ func hit(selfdamage, dodgeable = true) ->void:
 				health -= 0.1
 			else:
 				health -= selfdamage #TODO balancing changes with this
+			cantakedamage = false
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
@@ -184,6 +185,8 @@ func hit(selfdamage, dodgeable = true) ->void:
 				#print("character died") #todo, play a death animation, add dodge stat
 			else:
 				$VFXController.play("invulnerability")
+				await get_tree().create_timer(0.3).timeout
+				cantakedamage = true
 
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:

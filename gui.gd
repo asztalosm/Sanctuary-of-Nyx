@@ -45,7 +45,7 @@ func _process(_delta: float) -> void:
 		$Ability/TextureProgressBar.max_value = get_parent().abilitywaittime
 		$Ability/TextureProgressBar.value = get_parent().abilitywaittime - $Ability/Cooldown.time_left
 	#opens menus if player isn't dead
-	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0:
+	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0 and false == true: #made this not work because inventory system isnt implemented yet and wont be for a long fucking time
 		if $Inventory.visible == false:
 			showinventory()
 		else:
