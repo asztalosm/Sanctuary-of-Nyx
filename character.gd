@@ -7,7 +7,8 @@ extends CharacterBody2D
 	"crit_chance": 0.0,
 	"def": 0.0,
 	"xp_multiplier": 0.0,
-	"more XP per kill": 0.0
+	"more XP per kill": 0.0,
+	"Life Steal": 0.0
 }
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -161,7 +162,9 @@ func applydamage() -> void:
 		if randi_range(1,100) <= critchance:
 			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
 			damage *= 1.5
-		enemies.health -= damage 
+		if enemies.health - damage <= 0.0:
+			health += arcadeStats.get("Life Steal")
+		enemies.health -= damage
 		enemies.get_node("AnimationPlayer").play("hit")
 
 func hit(selfdamage) ->void:
