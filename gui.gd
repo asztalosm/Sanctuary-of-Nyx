@@ -28,7 +28,7 @@ func showskills() -> void:
 	$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
 	get_parent().globalcharacterstats.SkillPoints = 10
-	$Ability/Cooldown.wait_time = get_parent().abilitywaittime
+	$Ability/Cooldown.wait_time = get_parent().currentcharacter.AbilityCooldown
 	refreshstats()
 	$Inventory/VSplitContainer/Control/TextureRect/Charactericon.texture = get_parent().currentcharacter.Icon
 
@@ -39,13 +39,13 @@ func _process(_delta: float) -> void:
 	$Experience/TextureProgressBar.max_value = get_parent().globalcharacterstats.XptoNextLevel
 	$Experience/TextureProgressBar.value = get_parent().globalcharacterstats.Xp
 	if get_parent().abilityinuse == true:
-		$Ability/TextureProgressBar.max_value = get_parent().abilityduration
+		$Ability/TextureProgressBar.max_value = get_parent().currentcharacter.AbilityDuration
 		$Ability/TextureProgressBar.value = $Ability/AbilityDuration.time_left
 	else:
-		$Ability/TextureProgressBar.max_value = get_parent().abilitywaittime
-		$Ability/TextureProgressBar.value = get_parent().abilitywaittime - $Ability/Cooldown.time_left
+		$Ability/TextureProgressBar.max_value = get_parent().currentcharacter.AbilityCooldown
+		$Ability/TextureProgressBar.value = get_parent().currentcharacter.AbilityCooldown - $Ability/Cooldown.time_left
 	#opens menus if player isn't dead
-	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0:
+	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0 and false == true: #made this not work because inventory system isnt implemented yet and wont be for a long fucking time
 		if $Inventory.visible == false:
 			showinventory()
 		else:

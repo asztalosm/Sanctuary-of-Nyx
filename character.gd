@@ -22,6 +22,8 @@ extends CharacterBody2D
 		"Class": "Assassin",
 		"Type": "Melee",
 		"Ability": "assassinstep",
+		"AbilityCooldown": 2,
+		"AbilityDuration": 1.2,
 		"Icon": preload("res://resources/assassinicon.png"),
 		"Attack": "daggerattack",
 		"AttackType": "Physical"
@@ -29,7 +31,9 @@ extends CharacterBody2D
 	{ #mage
 		"Class": "Mage",
 		"Type": "Projectile",
-		"Ability": "explosionorb",
+		"Ability": "stun",
+		"AbilityCooldown": 5,
+		"AbilityDuration": 3,
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
 		"Attack": "mageattack",	
 		"AttackType": "Magical"
@@ -49,6 +53,8 @@ extends CharacterBody2D
 	"Class": "Assassin",
 	"Type": "Melee",
 	"Ability": "assassinstep",
+	"AbilityCooldown": 2,
+	"AbilityDuration": 1.2,
 	"Icon": preload("res://resources/assassinicon.png"),
 	"Attack": "daggerattack",
 	"AttackType": "Physical"
@@ -70,8 +76,6 @@ extends CharacterBody2D
 	"MagicAtk": 0,
 	"AtkSpeed": 0
 }
-@export var abilitywaittime = 4.0
-@export var abilityduration = 1.0
 @export var usedability = false
 @export var abilityinuse = false
 @export var cantakedamage = true
@@ -114,14 +118,24 @@ func death() -> void:
 func ability() -> void:
 	abilityinuse = true
 	usedability = true
+	if currentcharacter.Ability == "assassinstep":
+		oldspeed = speed
+		speed = oldspeed * 1.75
+	if currentcharacter.Ability == "stun":
+		var stunSpriteTween = get_tree().create_tween()
+		$MageAbility/CollisionShape2D.set_deferred("disabled", false)
+		$MageAbility/Timer.start()
+		stunSpriteTween.set_parallel(true)
+		stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
+		stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 	$GUI/Ability.visible = true
 	$GUI/Ability/TextureProgressBar.modulate = Color(0.5,0.5,1)
-	$GUI/Ability/Cooldown.wait_time = abilitywaittime
-	$GUI/Ability/AbilityDuration.wait_time = abilityduration
+	$GUI/Ability/Cooldown.wait_time = currentcharacter.AbilityCooldown
+	$GUI/Ability/AbilityDuration.wait_time = currentcharacter.AbilityDuration
 	$GUI/Ability/AbilityDuration.start()
 	$Soundcontroller.play(currentcharacter.Ability)
-	oldspeed = speed
-	speed = oldspeed * 1.75
+
+
 func attack() -> void:
 	if attacked:
 		return
@@ -167,16 +181,18 @@ func applydamage() -> void:
 		enemies.health -= damage
 		enemies.get_node("AnimationPlayer").play("hit")
 
-func hit(selfdamage) ->void:
+func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
-	if dodgerng <= dodgechance + arcadeStats.dodge_chance:
+	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			if selfdamage < ((skills.Defense * 0.2) + arcadeStats.def):
+			if selfdamage <= 0:
 				health -= 0.1
 			else:
 				health -= selfdamage #TODO balancing changes with this
+			cantakedamage = false
+			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
 			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
@@ -186,6 +202,8 @@ func hit(selfdamage) ->void:
 				#print("character died") #todo, play a death animation, add dodge stat
 			else:
 				$VFXController.play("invulnerability")
+				await get_tree().create_timer(0.3).timeout
+				cantakedamage = true
 
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
@@ -283,3 +301,19 @@ func sprite_animation_changed() -> void:
 
 func characterswitched() -> void:
 	changingcharacter = false
+
+func _on_stun_area_entered(area: Area2D) -> void:
+	area.get_parent().set_process(false)
+	area.get_parent().set_physics_process(false)
+	print(area.get_parent())
+	await get_tree().create_timer(2).timeout
+	area.get_parent().set_process(true)
+	area.get_parent().set_physics_process(true)
+
+
+func _on_timer_timeout() -> void: #stun timer
+	var stunSpriteTween = get_tree().create_tween()
+	stunSpriteTween.set_parallel(false)
+	$MageAbility/CollisionShape2D.set_deferred("disabled", true)
+	stunSpriteTween.tween_property($MageAbility, "scale", Vector2(1,1), 0.1)
+	stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,0), 0.1)
