@@ -26,7 +26,7 @@ func set_values() -> void:
 		sum += i
 	remainingEnemies = sum
 	if playerBuffs.find_key("Point Multiplier"):
-		playerStats.get_or_add("Point Multiplier", playerBuffs.get("Point Multiplier"))
+		playerStats.get_or_add("Point Multiplier", playerBuffs.get("Value"))
 	if playerBuffs.find_key("more XP per kill"):
 		playerStats.get_or_add("more XP per kill", playerBuffs.get("Value"))
 	if playerBuffs.find_key("Life Steal"):
@@ -40,6 +40,7 @@ func set_values() -> void:
 func start_wave() -> void:
 	$WaveEnd.visible = false
 	visible = true
+	get_parent().get_node("Character").get_node("Player").arcadeStats.set("laststand", playerBuffs.get("Value"))
 
 
 func _process(_delta: float) -> void:

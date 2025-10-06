@@ -8,7 +8,8 @@ extends CharacterBody2D
 	"def": 0.0,
 	"xp_multiplier": 0.0,
 	"more XP per kill": 0.0,
-	"lifesteal": 0.0
+	"lifesteal": 0.0,
+	"laststand": 0.0
 }
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -176,9 +177,8 @@ func applydamage() -> void:
 		if randi_range(1,100) <= critchance:
 			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
 			damage *= 1.5
-		print(arcadeStats.lifesteal)
 		if (enemies.health - damage) <= 0.0:
-			if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal:
+			if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
 				health = maxhealth
 			health += arcadeStats.lifesteal
 		enemies.get_node("AnimationPlayer").play("hit")
@@ -193,8 +193,15 @@ func hit(selfdamage, dodgeable = true) ->void:
 			if selfdamage <= 0:
 				health -= 0.1
 			else:
-				health -= selfdamage #TODO balancing changes with this
-			cantakedamage = false
+				if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
+					health = maxhealth + selfdamage
+					arcadeStats.laststand = 0.0
+					cantakedamage = false
+					await get_tree().create_timer(arcadeStats.laststand).timeout
+					cantakedamage = true
+				else: 
+					cantakedamage = false
+					health -= selfdamage #TODO balancing changes with this
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
@@ -309,7 +316,6 @@ func _on_stun_area_entered(area: Area2D) -> void:
 	if abilityinuse:
 		area.get_parent().set_process(false)
 		area.get_parent().set_physics_process(false)
-		print(area.get_parent())
 		await get_tree().create_timer(2).timeout
 		area.get_parent().set_process(true)
 		area.get_parent().set_physics_process(true)
