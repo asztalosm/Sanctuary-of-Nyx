@@ -75,6 +75,12 @@ func _on_spawn_timer_timeout() -> void:
 					get_parent().get_node("Enemies").add_child(enemy)
 					addstat(enemy)
 					enemy.global_position = activatedspawner.global_position
+				"Splasher":
+					var splasher = preload("res://splasher.tscn")
+					var enemy = splasher.instantiate()
+					get_parent().get_node("Enemies").add_child(enemy)
+					addstat(enemy)
+					enemy.global_position = activatedspawner.global_position
 		elif (len(randomEnemy) == 0) and get_parent().get_node("Enemies").get_child_count() == 0 and !waveended:
 			waveended = true
 			get_parent().get_node("WaveOverlay").get_node("WaveEnd").text = "Wave " + str(get_parent().get_node("Intermission").wavecount) + " completed."
