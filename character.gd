@@ -8,7 +8,7 @@ extends CharacterBody2D
 	"def": 0.0,
 	"xp_multiplier": 0.0,
 	"more XP per kill": 0.0,
-	"Life Steal": 0.0
+	"lifesteal": 0.0
 }
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -176,10 +176,13 @@ func applydamage() -> void:
 		if randi_range(1,100) <= critchance:
 			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
 			damage *= 1.5
-		if enemies.health - damage <= 0.0:
-			health += arcadeStats.get("Life Steal")
-		enemies.health -= damage
+		print(arcadeStats.lifesteal)
+		if (enemies.health - damage) <= 0.0:
+			if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal:
+				health = maxhealth
+			health += arcadeStats.lifesteal
 		enemies.get_node("AnimationPlayer").play("hit")
+		enemies.health -= damage
 
 func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
@@ -303,12 +306,13 @@ func characterswitched() -> void:
 	changingcharacter = false
 
 func _on_stun_area_entered(area: Area2D) -> void:
-	area.get_parent().set_process(false)
-	area.get_parent().set_physics_process(false)
-	print(area.get_parent())
-	await get_tree().create_timer(2).timeout
-	area.get_parent().set_process(true)
-	area.get_parent().set_physics_process(true)
+	if abilityinuse:
+		area.get_parent().set_process(false)
+		area.get_parent().set_physics_process(false)
+		print(area.get_parent())
+		await get_tree().create_timer(2).timeout
+		area.get_parent().set_process(true)
+		area.get_parent().set_physics_process(true)
 
 
 func _on_timer_timeout() -> void: #stun timer
