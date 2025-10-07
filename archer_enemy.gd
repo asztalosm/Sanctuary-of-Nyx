@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var cantakedamage = true
 @export var target = self
 @export var chargetime = 2.0
+@export var stunned = false
 var onattackcooldown = false
 var dir := Vector2.ZERO
 var dead = false
@@ -15,6 +16,11 @@ var dead = false
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$AttackCooldown.wait_time = attackcooldown
+
+func stun() -> void:
+	stunned = true
+	await get_tree().create_timer(3.0).timeout
+	stunned = false
 
 func death() -> void:
 	dead = true
@@ -45,17 +51,18 @@ func _physics_process(_delta: float) -> void:
 		if health != maxhealth:
 			$HealthBar.visible = true
 			$HealthBar.value = health
-		if target != self:
-			if global_position.distance_to(target.global_position) < 100:
-				$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
-				dir = $NavigationAgent2D.get_next_path_position() - global_position
-				if dir.length_squared() > 1.0:
-						dir = dir.normalized()
-			else: 
-				attack()
-				dir = Vector2(0,0)
-				velocity = Vector2(0,0)
-		velocity = dir * speed
+		if !stunned:
+			if target != self:
+				if global_position.distance_to(target.global_position) < 100:
+					$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
+					dir = $NavigationAgent2D.get_next_path_position() - global_position
+					if dir.length_squared() > 1.0:
+							dir = dir.normalized()
+				else: 
+					attack()
+					dir = Vector2(0,0)
+					velocity = Vector2(0,0)
+			velocity = dir * speed
 	move_and_slide()
 
 func _on_detection_body_entered(body: Node2D) -> void:

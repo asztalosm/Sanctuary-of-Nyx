@@ -1,4 +1,5 @@
 extends CharacterBody2D
+
 @export var arcadeStats = { #all will be set to 0 and arcade script will change these
 	"hp": 0.0,
 	"dmg": 0.0,
@@ -314,11 +315,7 @@ func characterswitched() -> void:
 
 func _on_stun_area_entered(area: Area2D) -> void:
 	if abilityinuse:
-		area.get_parent().set_process(false)
-		area.get_parent().set_physics_process(false)
-		await get_tree().create_timer(2).timeout
-		area.get_parent().set_process(true)
-		area.get_parent().set_physics_process(true)
+		area.get_parent().stun()
 
 
 func _on_timer_timeout() -> void: #stun timer

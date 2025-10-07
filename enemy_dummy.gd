@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var attackcooldown = 2.0
 @export var cantakedamage = true
 @export var target = self
+@export var stunned = false
 var onattackcooldown = false
 var dir := Vector2.ZERO
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
@@ -24,12 +25,16 @@ func death() -> void:
 			nodes.queue_free()
 
 func attack() -> void:
-	if !onattackcooldown and target.cantakedamage:
+	if !onattackcooldown and target.cantakedamage and !stunned:
 		$AttackCooldown.wait_time = attackcooldown
 		onattackcooldown = true
 		$AttackCooldown.start()
 		target.hit(damage)
 
+func stun() -> void:
+	stunned = true
+	await get_tree().create_timer(3.0).timeout
+	stunned = false
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0,0)
@@ -39,17 +44,18 @@ func _physics_process(_delta: float) -> void:
 		if health != maxhealth:
 			$HealthBar.visible = true
 			$HealthBar.value = health
-		if target != self:
-			if global_position.distance_to(target.global_position) > 220:
-				target = self
-			else:
-				if $NavigationAgent2D.is_target_reached():
-					attack()
-				$NavigationAgent2D.target_position = target.global_position
-				dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
-				if dir.length_squared() > 1.0:
-						dir = dir.normalized()
-						velocity = dir * speed
+		if !stunned:
+			if target != self:
+				if global_position.distance_to(target.global_position) > 220:
+					target = self
+				else:
+					if $NavigationAgent2D.is_target_reached():
+						attack()
+					$NavigationAgent2D.target_position = target.global_position
+					dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
+					if dir.length_squared() > 1.0:
+							dir = dir.normalized()
+							velocity = dir * speed
 	move_and_slide()
 
 

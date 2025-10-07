@@ -48,15 +48,16 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xh5y8")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 5.0
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1uih"]
 size = Vector2(20, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xn8d0"]
+radius = 19.0
 
 [sub_resource type="Gradient" id="Gradient_5wi5q"]
 offsets = PackedFloat32Array(0.42, 0.56)
@@ -85,6 +86,7 @@ scale_curve = SubResource("CurveTexture_yf2b5")
 
 [node name="Explosive Barrel" type="Area2D"]
 collision_layer = 0
+collision_mask = 8
 monitorable = false
 script = ExtResource("1_xn8d0")
 
@@ -96,9 +98,10 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_j1uih")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(6, 6)
 shape = SubResource("CircleShape2D_xn8d0")
 disabled = true
 
@@ -112,4 +115,4 @@ process_material = SubResource("ParticleProcessMaterial_5qdpu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
