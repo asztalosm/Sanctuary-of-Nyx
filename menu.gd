@@ -32,6 +32,7 @@ func _on_button_pressed() -> void:
 	if onclassesscreen == true:
 		return
 	else:
+		$Gamemode/GamemodeToggle.grab_focus()
 		$MenuButton.stream = load("res://resources/menubutton.wav")
 		$MenuButton.play()
 		onclassesscreen = true

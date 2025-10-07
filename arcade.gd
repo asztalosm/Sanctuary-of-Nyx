@@ -46,6 +46,7 @@ func startwave() -> void: #starts the wave
 	get_parent().get_node("EnemySpawners")._activateSpawner()
 
 func endwave() -> void:
+	$Dice/EnemyStats.grab_focus()
 	wavecount += 1
 	$Waves.text = "Waves: " + str(wavecount)
 	intermission()

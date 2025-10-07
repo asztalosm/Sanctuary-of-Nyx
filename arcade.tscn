@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://da8sdn3mbrv7r"]
+[gd_scene load_steps=65 format=4 uid="uid://da8sdn3mbrv7r"]
 
 [ext_resource type="Script" uid="uid://bt8ygafjov7nr" path="res://arcade.gd" id="1_7sx8j"]
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_kjmcv"]
@@ -518,6 +518,16 @@ shader_parameter/Texture2DParameter = ExtResource("4_c0abk")
 atlas = ExtResource("5_j7ds0")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="Gradient" id="Gradient_mndso"]
+offsets = PackedFloat32Array(0.89855075, 1)
+colors = PackedColorArray(0.24520364, 0.52180165, 0.9999997, 0.12156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ihh7f"]
+gradient = SubResource("Gradient_mndso")
+fill = 1
+fill_from = Vector2(0.5, 1.4)
+fill_to = Vector2(0.5, 0.9)
+
 [node name="Arcade" type="Node2D"]
 process_mode = 1
 
@@ -599,7 +609,6 @@ wait_time = 0.3
 [node name="Intermission" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 2
-visible = false
 script = ExtResource("1_7sx8j")
 
 [node name="ColorRect" type="ColorRect" parent="Intermission"]
@@ -662,7 +671,11 @@ offset_top = 76.0
 offset_right = 88.0
 offset_bottom = 108.0
 scale = Vector2(2, 2)
+focus_neighbor_left = NodePath("../CharacterBuffs")
+focus_neighbor_right = NodePath("../EnemyCount")
+focus_neighbor_bottom = NodePath("../../Button")
 texture_normal = SubResource("AtlasTexture_ihh7f")
+texture_focused = SubResource("GradientTexture2D_ihh7f")
 
 [node name="AnimationTimer" type="Timer" parent="Intermission/Dice/EnemyStats"]
 wait_time = 0.1
@@ -702,12 +715,16 @@ fit_content = true
 
 [node name="EnemyCount" type="TextureButton" parent="Intermission/Dice"]
 layout_mode = 0
-offset_left = 168.0
+offset_left = 174.0
 offset_top = 92.0
-offset_right = 200.0
+offset_right = 206.0
 offset_bottom = 124.0
 scale = Vector2(2, 2)
+focus_neighbor_left = NodePath("../EnemyStats")
+focus_neighbor_right = NodePath("../CharacterStats")
+focus_neighbor_bottom = NodePath("../../Button")
 texture_normal = SubResource("AtlasTexture_ihh7f")
+texture_focused = SubResource("GradientTexture2D_ihh7f")
 
 [node name="AnimationTimer" type="Timer" parent="Intermission/Dice/EnemyCount"]
 wait_time = 0.1
@@ -719,13 +736,13 @@ one_shot = true
 [node name="RichTextLabel" type="RichTextLabel" parent="Intermission/Dice/EnemyCount"]
 clip_contents = false
 layout_mode = 0
-offset_left = -11.5
+offset_left = -14.5
 offset_top = 31.5
-offset_right = 100.5
-offset_bottom = 60.5
+offset_right = 109.5
+offset_bottom = 63.5
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("6_gy4ly")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[color=#881111]enemy[/color] count"
 fit_content = true
@@ -747,12 +764,16 @@ fit_content = true
 
 [node name="CharacterStats" type="TextureButton" parent="Intermission/Dice"]
 layout_mode = 0
-offset_left = 344.0
+offset_left = 339.0
 offset_top = 92.0
-offset_right = 376.0
+offset_right = 371.0
 offset_bottom = 124.0
 scale = Vector2(2, 2)
+focus_neighbor_left = NodePath("../EnemyCount")
+focus_neighbor_right = NodePath("../CharacterBuffs")
+focus_neighbor_bottom = NodePath("../../Button")
 texture_normal = SubResource("AtlasTexture_ihh7f")
+texture_focused = SubResource("GradientTexture2D_ihh7f")
 
 [node name="AnimationTimer" type="Timer" parent="Intermission/Dice/CharacterStats"]
 wait_time = 0.1
@@ -796,7 +817,11 @@ offset_top = 76.0
 offset_right = 480.0
 offset_bottom = 108.0
 scale = Vector2(2, 2)
+focus_neighbor_left = NodePath("../CharacterStats")
+focus_neighbor_right = NodePath("../EnemyStats")
+focus_neighbor_bottom = NodePath("../../Button")
 texture_normal = SubResource("AtlasTexture_ihh7f")
+texture_focused = SubResource("GradientTexture2D_ihh7f")
 
 [node name="AnimationTimer" type="Timer" parent="Intermission/Dice/CharacterBuffs"]
 wait_time = 0.1
@@ -838,6 +863,7 @@ offset_top = 267.0
 offset_right = 328.0
 offset_bottom = 305.0
 pivot_offset = Vector2(40, 0)
+focus_neighbor_top = NodePath("../Dice/EnemyStats")
 theme = ExtResource("6_gy4ly")
 theme_override_fonts/font = ExtResource("7_c0abk")
 theme_override_font_sizes/font_size = 24

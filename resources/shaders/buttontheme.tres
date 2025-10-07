@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
@@ -16,6 +16,15 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tc13u"]
+bg_color = Color(0.8431838, 0.8431839, 0.84318364, 0.09803922)
+border_width_right = 2
+border_color = Color(0.8, 0.8, 0.8, 0.24705882)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f7xc"]
 
@@ -74,7 +83,7 @@ Button/constants/align_to_largest_stylebox = 0
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/styles/disabled = SubResource("StyleBoxFlat_ycurf")
-Button/styles/focus = ExtResource("2_18rsa")
+Button/styles/focus = SubResource("StyleBoxFlat_tc13u")
 Button/styles/hover = ExtResource("2_18rsa")
 Button/styles/normal = ExtResource("2_gdvcs")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3f7xc")
