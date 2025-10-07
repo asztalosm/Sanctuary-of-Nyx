@@ -41,6 +41,20 @@ func intermission() -> void: #makes the intermission visible
 
 func startwave() -> void: #starts the wave
 	WaveOverlay.set_values()
+	#barrel x: [-120;120] y [-200; 200]
+	var barrelscene = preload("res://explosive_barrel.tscn")
+	var spikescene = preload("res://spikes.tscn")
+	for child in get_parent().get_node("TileMapLayer").get_children():
+		if child.name.contains("spikes") or child.name.contains("explosive_barrel") or child.name.contains("Area2D"):
+			child.queue_free()
+	for i in randi_range(1,5):
+		var barrel = barrelscene.instantiate()
+		get_parent().get_node("TileMapLayer").add_child(barrel)
+		barrel.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
+	for i in randi_range(1,3):
+		var spikes = spikescene.instantiate()
+		get_parent().get_node("TileMapLayer").add_child(spikes)
+		spikes.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
 	await get_tree().create_timer(5).timeout
 	WaveOverlay.start_wave()
 	get_parent().get_node("EnemySpawners")._activateSpawner()

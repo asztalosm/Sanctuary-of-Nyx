@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://46r7nc5opvkj"
-path="res://.godot/imported/grasstilemap.png-4d264fe182d84d069afed2c7aa2cfc46.ctex"
+uid="uid://g7x7kklrqlj7"
+path="res://.godot/imported/spikes.png-5613dbcbc8b1c6dadff8b0dbdaed4058.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/grasstilemap.png"
-dest_files=["res://.godot/imported/grasstilemap.png-4d264fe182d84d069afed2c7aa2cfc46.ctex"]
+source_file="res://resources/spikes.png"
+dest_files=["res://.godot/imported/spikes.png-5613dbcbc8b1c6dadff8b0dbdaed4058.ctex"]
 
 [params]
 

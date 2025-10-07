@@ -147,6 +147,7 @@ script = ExtResource("1_bnsxp")
 visible = false
 position = Vector2(-1, 14)
 shape = SubResource("RectangleShape2D_hqufi")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ee4d1")

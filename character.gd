@@ -182,8 +182,9 @@ func applydamage() -> void:
 			if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
 				health = maxhealth
 			health += arcadeStats.lifesteal
-		enemies.get_node("AnimationPlayer").play("hit")
-		enemies.health -= damage
+		if get_node_or_null(get_path_to(enemies)) != null: 
+			enemies.get_node("AnimationPlayer").play("hit")
+			enemies.health -= damage
 
 func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
@@ -314,7 +315,7 @@ func characterswitched() -> void:
 	changingcharacter = false
 
 func _on_stun_area_entered(area: Area2D) -> void:
-	if abilityinuse:
+	if abilityinuse and currentcharacter.Ability == "stun":
 		area.get_parent().stun()
 
 

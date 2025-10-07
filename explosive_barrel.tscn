@@ -57,7 +57,7 @@ animations = [{
 size = Vector2(20, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xn8d0"]
-radius = 19.0
+radius = 16.124516
 
 [sub_resource type="Gradient" id="Gradient_5wi5q"]
 offsets = PackedFloat32Array(0.42, 0.56)

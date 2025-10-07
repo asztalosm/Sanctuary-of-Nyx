@@ -107,6 +107,7 @@ sprite_frames = SubResource("SpriteFrames_lnp38")
 visible = false
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_nnf4a")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2

@@ -108,6 +108,7 @@ sprite_frames = SubResource("SpriteFrames_4rwaw")
 visible = false
 position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_ew55c")
+disabled = true
 
 [node name="Detection" type="Area2D" parent="."]
 collision_layer = 0
