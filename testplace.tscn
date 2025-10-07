@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=31 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bo86i658v5v3g" path="res://resources/tutorialparticles.png" id="4_g626g"]
 [ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="5_dyuvm"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="5_g626g"]
+[ext_resource type="PackedScene" uid="uid://c42du4or37t2d" path="res://explosive_barrel.tscn" id="6_g626g"]
 [ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="7_hqufi"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="11_ew55c"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="12_g626g"]
@@ -350,6 +351,9 @@ text = "This is the end of the demo, you can go back and kill enemies for XP to 
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+
+[node name="Explosive Barrel" parent="TileMapLayer" instance=ExtResource("6_g626g")]
+position = Vector2(88, -32)
 
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 

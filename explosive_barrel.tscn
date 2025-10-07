@@ -98,11 +98,16 @@ shape = SubResource("RectangleShape2D_j1uih")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(6, 6)
 shape = SubResource("CircleShape2D_xn8d0")
 disabled = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
+emitting = false
 texture = SubResource("GradientTexture2D_011ws")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.2
 process_material = SubResource("ParticleProcessMaterial_5qdpu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
