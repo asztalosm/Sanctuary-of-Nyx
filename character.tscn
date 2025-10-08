@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=168 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="5_2ia7u"]
 [ext_resource type="Texture2D" uid="uid://cj48epbbyef1c" path="res://resources/mageprojectile.png" id="6_0fer6"]
 [ext_resource type="Script" uid="uid://7gu5kc61pu6a" path="res://mage_projectile.gd" id="6_aeagw"]
+[ext_resource type="Texture2D" uid="uid://dijq3c7j0or1p" path="res://resources/mageSpritesheet.png" id="7_hkojd"]
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://bx8eo8h6brff3" path="res://resources/backpack.png" id="8_lpiy1"]
@@ -383,6 +384,18 @@ region = Rect2(912, 0, 24, 24)
 atlas = ExtResource("3_5said")
 region = Rect2(936, 0, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmqbl"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52jvx"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5wle"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(64, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wfnr8"]
 animations = [{
 "frames": [{
@@ -561,11 +574,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_dmqbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52jvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5wle")
 }],
 "loop": true,
 "name": &"Mageidle",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1415,8 +1434,9 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Assassinwalk1"
+animation = &"Mageidle"
 autoplay = "Assassinidle"
+frame_progress = 0.94461143
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
