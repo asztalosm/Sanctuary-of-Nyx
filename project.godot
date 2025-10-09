@@ -129,6 +129,7 @@ Skills={
 2d_physics/layer_1="Map-Physical"
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="Player"
+2d_physics/layer_5="Spikes"
 
 [physics]
 

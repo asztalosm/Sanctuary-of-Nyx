@@ -8,7 +8,7 @@ radius = 16.124516
 
 [node name="Spikes" type="Area2D"]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 16
 monitorable = false
 script = ExtResource("1_nrdsm")
 
@@ -20,5 +20,4 @@ position = Vector2(2.3841858e-07, 0)
 scale = Vector2(0.68750006, 0.68750006)
 texture = ExtResource("2_8fhau")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
