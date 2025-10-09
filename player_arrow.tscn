@@ -1,18 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddrhcwbgbanwj"]
+[gd_scene load_steps=5 format=3 uid="uid://b7umxi8dc7gtv"]
 
-[ext_resource type="Script" uid="uid://cpit8plnjb8o5" path="res://arrow.gd" id="1_l5ahi"]
-[ext_resource type="Texture2D" uid="uid://btxm5x2piwta8" path="res://resources/arrow.png" id="2_2ndhl"]
+[ext_resource type="Script" uid="uid://brrjapq20wdev" path="res://player_arrow.gd" id="1_er7ls"]
+[ext_resource type="Texture2D" uid="uid://btxm5x2piwta8" path="res://resources/arrow.png" id="2_sj8k5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ndhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
 size = Vector2(3, 8)
 
-[node name="Arrow" type="CharacterBody2D"]
+[node name="PlayerArrow" type="CharacterBody2D"]
 top_level = true
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_l5ahi")
+script = ExtResource("1_er7ls")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -21,7 +21,7 @@ disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -29,6 +29,6 @@ position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_acd0x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_2ndhl")
+texture = ExtResource("2_sj8k5")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

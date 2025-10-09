@@ -39,6 +39,16 @@ extends CharacterBody2D
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
 		"Attack": "mageattack",	
 		"AttackType": "Magical"
+	},
+	{
+		"Class": "Mage",
+		"Type": "Projectile",
+		"Abilty": "fastarrows",
+		"AbilityCooldown": 10,
+		"AbilityDuration": 4,
+		"Icon": preload("res://resources/temporaryknightboss.png"), #just a temp file
+		"Attack": "archerattack",
+		"AttackType": "Physical"
 	}
 ]
 @export var globalcharacterstats = {
@@ -144,20 +154,30 @@ func attack() -> void:
 	else:
 		attacked = true
 		hitenemies.clear()
-		if currentcharacter.Attack == "daggerattack":
-			$AssassinHitcheck.position.y += 12000
-			$AssassinHitcheck.monitoring = true
-			$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
-			$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
-			$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
-			$AssassinHitcheck/AnimatedSprite2D.play("default")
-			$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
-			$Soundcontroller.play(currentcharacter.Attack)
-		if currentcharacter.Attack == "mageattack":
-			$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
-			$MageProjectile/MageHitcheck/Timer.wait_time = 1.8 - skills.AtkSpeed * 0.025
-			$MageProjectile.speed = 220 * (1 + skills.AtkSpeed * 0.025)
-			$MageProjectile.start()
+		match currentcharacter.Attack:
+			"daggerattack":
+				$AssassinHitcheck.position.y += 12000
+				$AssassinHitcheck.monitoring = true
+				$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
+				$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+				$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
+				$AssassinHitcheck/AnimatedSprite2D.play("default")
+				$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
+				$Soundcontroller.play(currentcharacter.Attack)
+			"mageattack":
+				$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
+				$MageProjectile/MageHitcheck/Timer.wait_time = 1.8 - skills.AtkSpeed * 0.025
+				$MageProjectile.speed = 220 * (1 + skills.AtkSpeed * 0.025)
+				$MageProjectile.start()
+			"archerattack":
+				var arrowScene = load("res://player_arrow.tscn")
+				var arrow = arrowScene.instantiate()
+				arrow.global_position = global_position
+				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
+				add_child(arrow)
+				await get_tree().create_timer(1.5).timeout
+				attacked = false
+				
 func applydamage() -> void:
 	var damage = 0
 	if currentcharacter.Class == "Assassin": #todo: calculate damage, based on equipment and base class stats
@@ -249,6 +269,9 @@ func charactercheckchange():
 		switchcharacter(Characters[0])
 	elif Input.is_action_just_pressed("2"):
 		switchcharacter(Characters[1])
+	elif Input.is_action_just_pressed("3"):
+		switchcharacter(Characters[2])
+	
 
 func _physics_process(_delta: float) -> void:
 	charactercheckchange()

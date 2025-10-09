@@ -63,5 +63,5 @@ func _on_attack_timer_timeout() -> void:
 		character.hit(1, false)
 
 
-func _on_area_2d_area_exited(area: Area2D) -> void:
+func _on_area_2d_area_exited(_area: Area2D) -> void:
 	character = null
