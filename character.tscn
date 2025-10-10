@@ -1,4 +1,4 @@
-[gd_scene load_steps=172 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=173 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://be450wnbhpqqp" path="res://resources/iconbackground.png" id="5_0qfo5"]
 [ext_resource type="Texture2D" uid="uid://cj48epbbyef1c" path="res://resources/mageprojectile.png" id="6_0fer6"]
 [ext_resource type="Script" uid="uid://7gu5kc61pu6a" path="res://mage_projectile.gd" id="6_aeagw"]
+[ext_resource type="Texture2D" uid="uid://o71dbthc765" path="res://resources/temparcher.png" id="6_hkojd"]
 [ext_resource type="Texture2D" uid="uid://dijq3c7j0or1p" path="res://resources/mageSpritesheet.png" id="7_hkojd"]
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
@@ -417,6 +418,54 @@ region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wfnr8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archeridle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archerwalk1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archerwalk2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archerwalk3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archerwalk4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hkojd")
+}],
+"loop": true,
+"name": &"Archerwalk5",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2ia7u")
@@ -1453,7 +1502,7 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Magewalk5"
+animation = &"Archeridle"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

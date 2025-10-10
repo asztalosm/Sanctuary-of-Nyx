@@ -41,12 +41,12 @@ extends CharacterBody2D
 		"AttackType": "Magical"
 	},
 	{
-		"Class": "Mage",
+		"Class": "Archer",
 		"Type": "Projectile",
 		"Abilty": "fastarrows",
 		"AbilityCooldown": 10,
 		"AbilityDuration": 4,
-		"Icon": preload("res://resources/temporaryknightboss.png"), #just a temp file
+		"Icon": preload("res://resources/temparcher.png"), #just a temp file
 		"Attack": "archerattack",
 		"AttackType": "Physical"
 	}
@@ -130,16 +130,22 @@ func death() -> void:
 func ability() -> void:
 	abilityinuse = true
 	usedability = true
-	if currentcharacter.Ability == "assassinstep":
-		oldspeed = speed
-		speed = oldspeed * 1.75
-	if currentcharacter.Ability == "stun":
-		var stunSpriteTween = get_tree().create_tween()
-		$MageAbility/CollisionShape2D.set_deferred("disabled", false)
-		$MageAbility/Timer.start()
-		stunSpriteTween.set_parallel(true)
-		stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
-		stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
+	print(currentcharacter)
+	match str(currentcharacter.Ability):
+		"assassinstep":
+			oldspeed = speed
+			speed = oldspeed * 1.75
+		"stun":
+			var stunSpriteTween = get_tree().create_tween()
+			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
+			$MageAbility/Timer.start()
+			stunSpriteTween.set_parallel(true)
+			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
+			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
+		"fastarrows":
+			print("fastArrows")
+				
+		
 	$GUI/Ability.visible = true
 	$GUI/Ability/TextureProgressBar.modulate = Color(0.5,0.5,1)
 	$GUI/Ability/Cooldown.wait_time = currentcharacter.AbilityCooldown
