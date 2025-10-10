@@ -1469,7 +1469,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_hkojd"]
-offsets = PackedFloat32Array(0.3043478, 0.33333334, 0.35507247)
+offsets = PackedFloat32Array(0.3478261, 0.38405797, 0.4)
 colors = PackedColorArray(0.23905474, 0.37569284, 0.48010564, 1, 1, 1, 1, 1, 0.12770063, 0.11260613, 0.13270172, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ltcw0"]
@@ -1477,7 +1477,7 @@ gradient = SubResource("Gradient_hkojd")
 width = 60
 
 [sub_resource type="Gradient" id="Gradient_ltcw0"]
-offsets = PackedFloat32Array(0.3, 0.3115942)
+offsets = PackedFloat32Array(0.36956522, 0.4)
 colors = PackedColorArray(0.14055833, 0.40354845, 0.7730844, 1, 0.1224, 0.35495996, 0.51, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fwo57"]
@@ -2244,6 +2244,7 @@ texture_under = SubResource("GradientTexture1D_ltcw0")
 texture_progress = SubResource("GradientTexture1D_fwo57")
 
 [node name="PassiveHealthRegen" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [connection signal="area_entered" from="Player/MageProjectile/MageHitcheck" to="Player/MageProjectile" method="_on_mage_hitcheck_area_entered"]

@@ -12,7 +12,7 @@ extends CharacterBody2D
 	"lifesteal": 0.0,
 	"laststand": 0.0
 }
-@export var regen : float = 2.0
+@export var regen : float = 1.0
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
 @export var speed = 80 + arcadeStats.mov_spd
