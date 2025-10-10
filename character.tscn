@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=172 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bdllysncrmao8" path="res://resources/healthbarprogress.png" id="3_px5sl"]
 [ext_resource type="Texture2D" uid="uid://b48nfg2ml6qvu" path="res://resources/assassinicon.png" id="4_px5sl"]
 [ext_resource type="Texture2D" uid="uid://be450wnbhpqqp" path="res://resources/iconbackground.png" id="5_0qfo5"]
-[ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="5_2ia7u"]
 [ext_resource type="Texture2D" uid="uid://cj48epbbyef1c" path="res://resources/mageprojectile.png" id="6_0fer6"]
 [ext_resource type="Script" uid="uid://7gu5kc61pu6a" path="res://mage_projectile.gd" id="6_aeagw"]
 [ext_resource type="Texture2D" uid="uid://dijq3c7j0or1p" path="res://resources/mageSpritesheet.png" id="7_hkojd"]
@@ -396,6 +395,26 @@ region = Rect2(32, 0, 32, 32)
 atlas = ExtResource("7_hkojd")
 region = Rect2(64, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp252"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phyiy"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foo2l"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fln0p"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7ay3"]
+atlas = ExtResource("7_hkojd")
+region = Rect2(192, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wfnr8"]
 animations = [{
 "frames": [{
@@ -588,7 +607,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_gp252")
 }],
 "loop": true,
 "name": &"Magewalk1",
@@ -596,7 +615,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_phyiy")
 }],
 "loop": true,
 "name": &"Magewalk2",
@@ -604,7 +623,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_foo2l")
 }],
 "loop": true,
 "name": &"Magewalk3",
@@ -612,7 +631,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_fln0p")
 }],
 "loop": true,
 "name": &"Magewalk4",
@@ -620,7 +639,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_2ia7u")
+"texture": SubResource("AtlasTexture_k7ay3")
 }],
 "loop": true,
 "name": &"Magewalk5",
@@ -1272,14 +1291,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1296,14 +1315,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_8i6g0"]
@@ -1311,14 +1330,14 @@ resource_name = "dodge"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333, 1),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 0.25098, 0.588235), Color(1, 1, 1, 1)]
+"values": [2.6, 1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1329,20 +1348,20 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [2, 0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0.0333, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [2.6, 1.0]
+"values": [Color(1, 1, 0.25098, 0.588235), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_y0ipg"]
@@ -1357,7 +1376,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [1, 0]
 }
 
@@ -1434,9 +1453,8 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Mageidle"
+animation = &"Magewalk5"
 autoplay = "Assassinidle"
-frame_progress = 0.94461143
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
