@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=182 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://c6c8y7kdyseup" path="res://resources/menubutton.wav" id="7_qi5as"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="8_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://bx8eo8h6brff3" path="res://resources/backpack.png" id="8_lpiy1"]
+[ext_resource type="Texture2D" uid="uid://ddhn1qq2juo56" path="res://resources/tempknight.png" id="8_ltcw0"]
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="9_88tkl"]
 [ext_resource type="Texture2D" uid="uid://rxy21vwhf8l2" path="res://resources/bgshaderimage.tres" id="9_c1b4b"]
 [ext_resource type="AudioStream" uid="uid://cn6xcwh7o2ju2" path="res://resources/footsteps.wav" id="12_7tnxx"]
@@ -642,6 +643,54 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightidle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightwalk1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightwalk2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightwalk3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightwalk4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ltcw0")
+}],
+"loop": true,
+"name": &"Knightwalk5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dmqbl")
 }, {
 "duration": 1.0,
@@ -696,7 +745,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wa5vi"]
-size = Vector2(24, 42)
+size = Vector2(24, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wfnr8"]
 atlas = ExtResource("2_pjt0s")
@@ -822,6 +871,71 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 48.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hkojd"]
+size = Vector2(50, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltcw0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfnr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px5sl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qfo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxww1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdpcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi5as")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb3kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1b4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tnxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwfjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1sy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sm1rv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx0ln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpiy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88tkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0ipg")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 32.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0s"]
@@ -1338,11 +1452,29 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_ltcw0"]
+resource_name = "berserk"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/ability")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
 &"RESET": SubResource("Animation_bwfjh"),
 &"assassinstep": SubResource("Animation_88tkl"),
+&"berserk": SubResource("Animation_ltcw0"),
 &"daggerattack": SubResource("Animation_lpiy1"),
 &"death": SubResource("Animation_sm1rv"),
 &"explosionorb": SubResource("Animation_aeagw"),
@@ -1536,7 +1668,7 @@ shape = SubResource("RectangleShape2D_vu45j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
-animation = &"Archeridle"
+animation = &"Knightwalk5"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -1548,15 +1680,27 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AssassinHitcheck"]
-visible = false
-position = Vector2(0, -21)
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_wa5vi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/AssassinHitcheck"]
 scale = Vector2(1, 1.5)
 sprite_frames = SubResource("SpriteFrames_kjduu")
-frame = 17
-frame_progress = 1.0
+offset = Vector2(0, -16)
+
+[node name="KnightHitcheck" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/KnightHitcheck"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_hkojd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/KnightHitcheck"]
+position = Vector2(-2, 0)
+scale = Vector2(2, 1.75)
+sprite_frames = SubResource("SpriteFrames_ltcw0")
 offset = Vector2(0, -16)
 
 [node name="Hitbox" type="Area2D" parent="Player"]
@@ -2191,10 +2335,8 @@ volume_db = -17.0
 [node name="death" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
 stream = ExtResource("13_bwfjh")
 
-[node name="hit" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
-stream = ExtResource("13_x1sy7")
-
 [node name="attack" type="AudioStreamPlayer2D" parent="Player/Soundcontroller"]
+pitch_scale = 0.6
 
 [node name="LevelUp" type="AudioStreamPlayer" parent="Player/Soundcontroller"]
 
@@ -2253,6 +2395,8 @@ autostart = true
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="sprite_animation_changed"]
 [connection signal="area_entered" from="Player/AssassinHitcheck" to="Player" method="_on_hitcheck_area_entered"]
 [connection signal="animation_finished" from="Player/AssassinHitcheck/AnimatedSprite2D" to="Player" method="_attack_animation_finished"]
+[connection signal="area_entered" from="Player/KnightHitcheck" to="Player" method="_on_knight_hitcheck_area_entered"]
+[connection signal="animation_finished" from="Player/KnightHitcheck/AnimatedSprite2D" to="Player" method="_on_knightattack_finished"]
 [connection signal="timeout" from="Player/GUI/Ability/Cooldown" to="Player" method="ability_timeout"]
 [connection signal="timeout" from="Player/GUI/Ability/AbilityDuration" to="Player" method="ability_duration_timeout"]
 [connection signal="pressed" from="Player/GUI/DeathScreen/Restart" to="Player/GUI" method="_on_restart_pressed"]
