@@ -12,6 +12,7 @@ extends CharacterBody2D
 	"lifesteal": 0.0,
 	"laststand": 0.0
 }
+@export var regen : float = 2.0
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
 @export var speed = 80 + arcadeStats.mov_spd
@@ -19,6 +20,7 @@ extends CharacterBody2D
 @export var dodgechance = 10 + arcadeStats.dodge_chance
 @export var changingcharacter = false
 @export var points = 0
+@export var rolling = false
 @export var Characters = [
 	{ #assassin
 		"Class": "Assassin",
@@ -44,8 +46,8 @@ extends CharacterBody2D
 		"Class": "Archer",
 		"Type": "Projectile",
 		"Ability": "fastarrows",
-		"AbilityCooldown": 10,
-		"AbilityDuration": 4,
+		"AbilityCooldown": 3,
+		"AbilityDuration": 1,
 		"Icon": preload("res://resources/temparcher.png"), #just a temp file
 		"Attack": "archerattack",
 		"AttackType": "Physical"
@@ -65,7 +67,7 @@ extends CharacterBody2D
 	"Class": "Assassin",
 	"Type": "Melee",
 	"Ability": "assassinstep",
-	"AbilityCooldown": 2,
+	"AbilityCooldown": 1.1,
 	"AbilityDuration": 1.2,
 	"Icon": preload("res://resources/assassinicon.png"),
 	"Attack": "daggerattack",
@@ -130,24 +132,37 @@ func death() -> void:
 func ability() -> void:
 	abilityinuse = true
 	usedability = true
-	if currentcharacter.Ability == "assassinstep":
-		oldspeed = speed
-		speed = oldspeed * 1.75
-	if currentcharacter.Ability == "stun":
-		var stunSpriteTween = get_tree().create_tween()
-		$MageAbility/CollisionShape2D.set_deferred("disabled", false)
-		$MageAbility/Timer.start()
-		stunSpriteTween.set_parallel(true)
-		stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
-		stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 	$GUI/Ability.visible = true
 	$GUI/Ability/TextureProgressBar.modulate = Color(0.5,0.5,1)
 	$GUI/Ability/Cooldown.wait_time = currentcharacter.AbilityCooldown
 	$GUI/Ability/AbilityDuration.wait_time = currentcharacter.AbilityDuration
 	$GUI/Ability/AbilityDuration.start()
 	$Soundcontroller.play(currentcharacter.Ability)
+	match currentcharacter.Ability:
+		"assassinstep":
+			oldspeed = speed
+			speed = oldspeed * 1.75
+		"stun":
+			var stunSpriteTween = get_tree().create_tween()
+			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
+			$MageAbility/Timer.start()
+			stunSpriteTween.set_parallel(true)
+			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
+			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
+		"fastarrows":
+			for i in range(10):
+				attack()
+				attacked = false
+				await get_tree().create_timer(0.1).timeout
 
-
+func roll() -> void:
+	if !rolling:
+		rolling = true
+		cantakedamage = false
+		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
+		$RollCooldown.start()
+		await get_tree().create_timer(0.6).timeout
+		cantakedamage = true
 func attack() -> void:
 	if attacked:
 		return
@@ -177,7 +192,6 @@ func attack() -> void:
 				add_child(arrow)
 				await get_tree().create_timer(1.5).timeout
 				attacked = false
-				
 func applydamage() -> void:
 	var damage = 0
 	if currentcharacter.Class == "Assassin": #todo: calculate damage, based on equipment and base class stats
@@ -205,7 +219,6 @@ func applydamage() -> void:
 		if get_node_or_null(get_path_to(enemies)) != null: 
 			enemies.get_node("AnimationPlayer").play("hit")
 			enemies.health -= damage
-
 func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
@@ -236,7 +249,6 @@ func hit(selfdamage, dodgeable = true) ->void:
 				$VFXController.play("invulnerability")
 				await get_tree().create_timer(0.3).timeout
 				cantakedamage = true
-
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
 		$AnimatedSprite2D.speed_scale = 1.25
@@ -271,13 +283,17 @@ func charactercheckchange():
 		switchcharacter(Characters[1])
 	elif Input.is_action_just_pressed("3"):
 		switchcharacter(Characters[2])
-	
+
 
 func _physics_process(_delta: float) -> void:
+	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100
+	$RollCooldown/CanvasLayer/TextureProgressBar.value = ($RollCooldown.wait_time - $RollCooldown.time_left) * 100
 	charactercheckchange()
 	if health <= 0:
 		death()
 	else:
+		if health > maxhealth:
+			health = maxhealth
 		if globalcharacterstats.Xp >= globalcharacterstats.XptoNextLevel:
 			globalcharacterstats.Xp -= globalcharacterstats.XptoNextLevel
 			globalcharacterstats.Level += 1
@@ -295,7 +311,10 @@ func _physics_process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
-			
+		
+		if Input.is_action_just_pressed("Roll"):
+			roll()
+		
 		if Input.is_action_just_pressed("Ability"):
 			if !usedability:
 				ability()
@@ -348,3 +367,13 @@ func _on_timer_timeout() -> void: #stun timer
 	$MageAbility/CollisionShape2D.set_deferred("disabled", true)
 	stunSpriteTween.tween_property($MageAbility, "scale", Vector2(1,1), 0.1)
 	stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,0), 0.1)
+
+
+func _on_roll_cooldown_timeout() -> void:
+	cantakedamage = true
+	rolling = false
+
+
+func _on_passive_health_regen_timeout() -> void:
+	if health > 0:
+		health += regen

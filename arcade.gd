@@ -62,6 +62,7 @@ func startwave() -> void: #starts the wave
 func endwave() -> void:
 	$Dice/EnemyStats.grab_focus()
 	wavecount += 1
+	rerollpoints += 5
 	$Waves.text = "Waves: " + str(wavecount)
 	intermission()
 	for dice in $Dice.get_children():
@@ -96,7 +97,6 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 	
 	match currentdice.name:
 		"EnemyStats":
-			
 			for stat in enemyBuffList:
 				var enemyRolls = enemyBuffList[stat]
 				var randomnum = randi_range(1,6) #decides if the debuff/buff will exist or not
