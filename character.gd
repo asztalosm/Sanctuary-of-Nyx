@@ -257,19 +257,16 @@ func hit(selfdamage, dodgeable = true) ->void:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			var calculateddamage = selfdamage #and do some stuff with defense here
-			if selfdamage <= 0:
-				health -= 0.1
-			else:
-				if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
-					health = maxhealth + selfdamage
-					arcadeStats.laststand = 0.0
-					cantakedamage = false
-					await get_tree().create_timer(arcadeStats.laststand).timeout
-					cantakedamage = true
-				else: 
-					cantakedamage = false
-					health -= selfdamage #TODO balancing changes with this with defense
+			selfdamage = max(selfdamage - (globalcharacterstats.BaseDefense + (skills.Defense * 0.2)), 0.1)
+			if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
+				health = maxhealth + selfdamage
+				arcadeStats.laststand = 0.0
+				cantakedamage = false
+				await get_tree().create_timer(arcadeStats.laststand).timeout
+				cantakedamage = true
+			else: 
+				cantakedamage = false
+				health -= selfdamage #TODO balancing changes with this with defense
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
