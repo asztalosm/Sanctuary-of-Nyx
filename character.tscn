@@ -1,4 +1,4 @@
-[gd_scene load_steps=182 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=183 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -1210,6 +1210,23 @@ tracks/1/keys = {
 "values": [-3.0, -5.0]
 }
 
+[sub_resource type="Animation" id="Animation_ltcw0"]
+resource_name = "berserk"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/ability")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_lpiy1"]
 resource_name = "daggerattack"
 length = 0.1
@@ -1293,6 +1310,23 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_aeagw"]
 resource_name = "explosionorb"
+
+[sub_resource type="Animation" id="Animation_hkojd"]
+resource_name = "fastarrows"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/ability")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_x1sy7"]
 resource_name = "footstepend"
@@ -1435,40 +1469,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_hkojd"]
-resource_name = "fastarrows"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Soundcontroller/ability")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_ltcw0"]
-resource_name = "berserk"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Soundcontroller/ability")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
@@ -1490,38 +1490,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/opacity_strength")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0]
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_8i6g0"]
@@ -1579,11 +1567,42 @@ tracks/0/keys = {
 "values": [1, 0]
 }
 
+[sub_resource type="Animation" id="Animation_fwo57"]
+resource_name = "roll"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/shading_option")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.567),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VFXController")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["RESET"],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kjduu"]
 _data = {
 &"RESET": SubResource("Animation_kjduu"),
 &"dodge": SubResource("Animation_8i6g0"),
-&"invulnerability": SubResource("Animation_y0ipg")
+&"invulnerability": SubResource("Animation_y0ipg"),
+&"roll": SubResource("Animation_fwo57")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3fhje"]
@@ -1666,6 +1685,7 @@ position = Vector2(0.5, 9)
 shape = SubResource("RectangleShape2D_vu45j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+self_modulate = Color(1, 1, 0.25098, 0.588235)
 material = SubResource("ShaderMaterial_lpiy1")
 sprite_frames = SubResource("SpriteFrames_wfnr8")
 animation = &"Knightwalk5"
@@ -2371,7 +2391,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="RollCooldown" type="Timer" parent="Player"]
-wait_time = 1.5999999999999999
+wait_time = 1.6
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player/RollCooldown"]

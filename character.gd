@@ -176,6 +176,7 @@ func roll() -> void:
 		cantakedamage = false
 		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
 		$RollCooldown.start()
+		$VFXController.play("roll")
 		await get_tree().create_timer(0.6).timeout
 		cantakedamage = true
 func attack() -> void:

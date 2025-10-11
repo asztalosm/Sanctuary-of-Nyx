@@ -24,5 +24,9 @@
 			color.r = min(COLOR.r * opacity_strength, 1.0);
 			color.g = min(COLOR.g * opacity_strength, 1.0);
 		}
+		else if (shading_option == 3) {
+			color.rgb = (COLOR.rgb + vec3(-0.2, -0.2, 0.1));
+			color.a = COLOR.a * 0.5;
+		}
 		COLOR = color;
 	}
