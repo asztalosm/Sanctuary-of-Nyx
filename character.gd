@@ -248,8 +248,9 @@ func applydamage() -> void:
 				if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
 					health = maxhealth
 				health += arcadeStats.lifesteal
-			enemies.get_node("AnimationPlayer").play("hit") #i have to completely remake this hit effect so it doesn't crash the game
 			enemies.health -= damage
+			if enemies.get_node_or_null("AnimationPlayer") != null:
+				enemies.get_node_or_null("AnimationPlayer").play("hit")
 func hit(selfdamage, dodgeable = true) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:

@@ -1,7 +1,32 @@
-[gd_scene load_steps=17 format=3 uid="uid://c42du4or37t2d"]
+[gd_scene load_steps=24 format=3 uid="uid://c42du4or37t2d"]
 
 [ext_resource type="Script" uid="uid://c7yr5mkximls5" path="res://explosive_barrel.gd" id="1_xn8d0"]
 [ext_resource type="Texture2D" uid="uid://caae33abyr636" path="res://resources/tnt.png" id="2_5wi5q"]
+[ext_resource type="Texture2D" uid="uid://b0rn6380l0pwk" path="res://resources/explosion.png" id="2_011ws"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwwbc"]
+atlas = ExtResource("2_011ws")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1uih"]
+atlas = ExtResource("2_011ws")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aeeht"]
+atlas = ExtResource("2_011ws")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j70w6"]
+atlas = ExtResource("2_011ws")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhisl"]
+atlas = ExtResource("2_011ws")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_en83t"]
+atlas = ExtResource("2_011ws")
+region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_011ws"]
 atlas = ExtResource("2_5wi5q")
@@ -29,6 +54,35 @@ region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pwwbc"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwwbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1uih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aeeht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j70w6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhisl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_en83t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Explosion",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_011ws")
