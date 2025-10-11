@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=35 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c42du4or37t2d" path="res://explosive_barrel.tscn" id="6_g626g"]
 [ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="7_hqufi"]
 [ext_resource type="PackedScene" uid="uid://md3h5mxv5mfr" path="res://spikes.tscn" id="7_vsyt0"]
+[ext_resource type="PackedScene" uid="uid://caofjymwqx1yi" path="res://arrowtrap.tscn" id="8_k3go7"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="11_ew55c"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="12_g626g"]
 
@@ -400,6 +401,15 @@ position = Vector2(88, -32)
 
 [node name="Spikes" parent="TileMapLayer" instance=ExtResource("7_vsyt0")]
 position = Vector2(-42, -33)
+
+[node name="ArrowTrap" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
+position = Vector2(140, -117)
+
+[node name="ArrowTrap2" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
+position = Vector2(106, -118)
+
+[node name="ArrowTrap3" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
+position = Vector2(67, -118)
 
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 

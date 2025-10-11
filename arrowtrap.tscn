@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://caofjymwqx1yi"]
+
+[ext_resource type="Texture2D" uid="uid://oqadiebibwtf" path="res://resources/arrowtrap.png" id="1_sp4v8"]
+[ext_resource type="Script" uid="uid://cf7kifwvai2ce" path="res://sprite_2d.gd" id="2_fj7it"]
+
+[node name="ArrowTrap" type="Sprite2D"]
+texture = ExtResource("1_sp4v8")
+script = ExtResource("2_fj7it")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
