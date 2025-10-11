@@ -71,7 +71,7 @@ extends CharacterBody2D
 	"SkillPoints": 0,
 	"DaggerAttack": 2,
 	"SwordAttack": 4,
-	"BaseDefense": 0 + arcadeStats.def,
+	"BaseDefense": 0.0 + arcadeStats.def,
 	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
 	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
@@ -167,8 +167,9 @@ func ability() -> void:
 				attacked = false
 				await get_tree().create_timer(0.1).timeout
 		"berserk":
-			globalcharacterstats.baseDefense = 50
-			
+			globalcharacterstats.BaseDefense = 50.0
+			await get_tree().create_timer(4).timeout
+			globalcharacterstats.BaseDefense = 0 + arcadeStats.def
 
 func roll() -> void:
 	if !rolling:
@@ -219,15 +220,15 @@ func attack() -> void:
 #				$Soundcontroller.play(currentcharacter.Attack)
 func applydamage() -> void:
 	var damage = 0
-	#will change these to switch statements later prolly
-	if currentcharacter.Class == "Assassin": #todo: calculate damage, based on equipment and base class stats
-		$AssassinHitcheck.monitoring = false
-		attacked = false
-	if currentcharacter.Class == "Knight":
-		$KnightHitcheck.monitoring = false
-		attacked = false
-	if currentcharacter.Class == "Mage":
-		$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
+	match currentcharacter.Class:
+		"Assassin":
+			$AssassinHitcheck.monitoring = false
+			attacked = false
+		"Knight":
+			$KnightHitcheck.monitoring = false
+			attacked = false
+		"Mage":
+			$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
 		#for equipment in equipped:
 			#if equipment != null:
 				#print(equipment)
@@ -257,7 +258,7 @@ func hit(selfdamage, dodgeable = true) ->void:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			selfdamage = max(selfdamage - (globalcharacterstats.BaseDefense + (skills.Defense * 0.2)), 0.1)
+			selfdamage = max(selfdamage - ((globalcharacterstats.BaseDefense + skills.Defense * 0.2)), 0.1)
 			if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
 				health = maxhealth + selfdamage
 				arcadeStats.laststand = 0.0
@@ -266,7 +267,7 @@ func hit(selfdamage, dodgeable = true) ->void:
 				cantakedamage = true
 			else: 
 				cantakedamage = false
-				health -= selfdamage #TODO balancing changes with this with defense
+				health -= selfdamage 
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
@@ -343,7 +344,8 @@ func _physics_process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
-		
+		if Input.is_action_just_pressed("pause"):
+			get_tree().paused = true
 		if Input.is_action_just_pressed("Roll"):
 			roll()
 		
