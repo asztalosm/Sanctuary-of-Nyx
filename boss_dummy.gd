@@ -97,3 +97,8 @@ func _on_sword_hitbox_body_entered(body: Node2D) -> void:
 
 func _on_attack_cooldown_timeout() -> void:
 	attacked = false
+
+
+func _on_all_dir_hitbox_body_entered(body: Node2D) -> void:
+	print(body)
+	body.hit(damage, dodgeable, truedamage)

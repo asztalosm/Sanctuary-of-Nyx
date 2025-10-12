@@ -153,6 +153,8 @@ func ability() -> void:
 	match currentcharacter.Ability:
 		"assassinstep":
 			speed *= 1.75
+			await get_tree().create_timer(currentcharacter.AbilityDuration).timeout
+			speed /= 1.75
 		"stun":
 			var stunSpriteTween = get_tree().create_tween()
 			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
@@ -167,7 +169,9 @@ func ability() -> void:
 				await get_tree().create_timer(0.1).timeout
 		"berserk":
 			globalcharacterstats.BaseDefense = 10
+			speed /= 1.3
 			await get_tree().create_timer(4).timeout
+			speed *= 1.3
 			globalcharacterstats.BaseDefense = 0 + arcadeStats.def
 
 func roll() -> void:
@@ -375,7 +379,6 @@ func ability_timeout() -> void:
 
 func ability_duration_timeout() -> void:
 	$GUI/Ability/TextureProgressBar.modulate = Color(1,1,1)
-	speed /= 1.75
 	$GUI/Ability/Cooldown.start()
 	abilityinuse = false
 	
