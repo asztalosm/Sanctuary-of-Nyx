@@ -12,19 +12,43 @@ var player = null
 var damage
 var dodgeable
 var truedamage
-var attacklist = ["slashattack"] #will probably make two of these when i start making the second phase
+var attacklist = ["slashattack", "alldirattack"] #will probably make two of these when i start making the second phase
 var attacked = false
 
+func finishedattack():
+	$SwordHitbox/AnimatedSprite2D.play("RESET")
+	for children in $AllDirHitbox.get_children():
+		children.get_node("AnimatedSprite2D").play("RESET")
+	$AttackCooldown.start()
 
 func slashAttack():
+	$SwordHitbox.rotation = self.get_angle_to(player.global_position) - deg_to_rad(90)
 	$SwordHitbox/AnimatedSprite2D.play("default")
+	await $SwordHitbox/AnimatedSprite2D.animation_finished
 	var swordMovementTween = get_tree().create_tween()
 	swordMovementTween.set_parallel(false)
-	swordMovementTween.tween_property($SwordHitbox, "global_position", player.global_position, 1.5)
+	swordMovementTween.tween_property($SwordHitbox, "global_position", global_position + Vector2.from_angle(get_angle_to(player.global_position)) * 300, 1.5)
 	swordMovementTween.tween_property($SwordHitbox, "global_position", global_position, 0)
+	await swordMovementTween.finished
+	finishedattack()
+
+func alldirAttack():
+	for hitboxes in $AllDirHitbox.get_children():
+		hitboxes.get_node("AnimatedSprite2D").play("default")
+	await $AllDirHitbox/CollisionPolygon2D4/AnimatedSprite2D.animation_finished
+	var multiSwordTween = get_tree().create_tween()
+	multiSwordTween.set_parallel(true)
+	for hitboxes in $AllDirHitbox.get_children():
+		multiSwordTween.tween_property(hitboxes, "position", hitboxes.position * 5, 1.5)
+	await multiSwordTween.finished
+	for hitboxes in $AllDirHitbox.get_children():
+		multiSwordTween.stop()
+		multiSwordTween.tween_property(hitboxes, "position", hitboxes.position / 5, 0)
+		multiSwordTween.play()
+	finishedattack()
+
 
 func death() -> void:
-	print("drop loot, write whats dropped, play death animation, give loads of xp")
 	player.globalcharacterstats.Xp += 2000
 	bossbar.visible = false
 	queue_free()
@@ -37,6 +61,11 @@ func rollAttack():
 			dodgeable = false
 			truedamage = true
 			slashAttack()
+		"alldirattack":
+			damage = 3
+			dodgeable = false
+			truedamage = true
+			alldirAttack()
 
 func _physics_process(_delta: float) -> void:
 	refreshgui()
@@ -66,6 +95,5 @@ func _on_fight_initiator_body_entered(body: Node2D) -> void:
 func _on_sword_hitbox_body_entered(body: Node2D) -> void:
 	body.hit(damage, dodgeable, truedamage)
 
-
-func _on_animated_sprite_2d_animation_finished() -> void:
-	$SwordHitbox/AnimatedSprite2D.play("RESET") #might add exclusions later
+func _on_attack_cooldown_timeout() -> void:
+	attacked = false

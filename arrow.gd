@@ -8,7 +8,7 @@ func _ready() -> void:
 	queue_free()
 
 func _physics_process(_delta: float) -> void:
-	velocity = dir * speed + Vector2(randi_range(-30,30), randi_range(-30,30))
+	velocity = dir * speed
 	move_and_slide()
 
 

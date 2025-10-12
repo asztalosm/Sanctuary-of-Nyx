@@ -423,7 +423,7 @@ position = Vector2(546, -170)
 position = Vector2(-127, 142)
 
 [node name="Timer" type="Timer" parent="Enemies"]
-wait_time = 3.0
+wait_time = 2.0
 autostart = true
 
 [node name="NecromancerEnemy" parent="Enemies" instance=ExtResource("7_hqufi")]
