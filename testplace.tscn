@@ -420,7 +420,7 @@ script = ExtResource("3_ob1ba")
 position = Vector2(546, -170)
 
 [node name="BossDummy" parent="Enemies" instance=ExtResource("5_dyuvm")]
-position = Vector2(698, -425)
+position = Vector2(-127, 142)
 
 [node name="Timer" type="Timer" parent="Enemies"]
 wait_time = 3.0

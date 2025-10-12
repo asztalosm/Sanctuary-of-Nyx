@@ -152,8 +152,7 @@ func ability() -> void:
 	$Soundcontroller.play(currentcharacter.Ability)
 	match currentcharacter.Ability:
 		"assassinstep":
-			oldspeed = speed
-			speed = oldspeed * 1.75
+			speed *= 1.75
 		"stun":
 			var stunSpriteTween = get_tree().create_tween()
 			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
@@ -167,7 +166,7 @@ func ability() -> void:
 				attacked = false
 				await get_tree().create_timer(0.1).timeout
 		"berserk":
-			globalcharacterstats.BaseDefense = 50.0
+			globalcharacterstats.BaseDefense = 10
 			await get_tree().create_timer(4).timeout
 			globalcharacterstats.BaseDefense = 0 + arcadeStats.def
 
@@ -178,7 +177,9 @@ func roll() -> void:
 		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
 		$RollCooldown.start()
 		$VFXController.play("roll")
+		speed *= 1.5
 		await get_tree().create_timer(0.6).timeout
+		speed /= 1.5
 		cantakedamage = true
 func attack() -> void:
 	if attacked:
@@ -252,13 +253,14 @@ func applydamage() -> void:
 			enemies.health -= damage
 			if enemies.get_node_or_null("AnimationPlayer") != null:
 				enemies.get_node_or_null("AnimationPlayer").play("hit")
-func hit(selfdamage, dodgeable = true) ->void:
+func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			selfdamage = max(selfdamage - ((globalcharacterstats.BaseDefense + skills.Defense * 0.2)), 0.1)
+			if !truedamage:
+				selfdamage = max(selfdamage - ((globalcharacterstats.BaseDefense + skills.Defense * 0.2)), 0.1)
 			if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
 				health = maxhealth + selfdamage
 				arcadeStats.laststand = 0.0
@@ -373,7 +375,7 @@ func ability_timeout() -> void:
 
 func ability_duration_timeout() -> void:
 	$GUI/Ability/TextureProgressBar.modulate = Color(1,1,1)
-	speed = oldspeed
+	speed /= 1.75
 	$GUI/Ability/Cooldown.start()
 	abilityinuse = false
 	

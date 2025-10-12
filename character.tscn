@@ -2337,9 +2337,11 @@ theme_override_colors/default_color = Color(0.56, 0.56, 0.56, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/normal_font_size = 17
-text = "Knight"
+text = "Knight "
 fit_content = true
 autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3
