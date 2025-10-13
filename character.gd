@@ -176,6 +176,7 @@ func ability() -> void:
 
 func roll() -> void:
 	if !rolling:
+		
 		rolling = true
 		cantakedamage = false
 		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
@@ -186,7 +187,7 @@ func roll() -> void:
 		speed /= 1.5
 		cantakedamage = true
 func attack() -> void:
-	if attacked:
+	if attacked or rolling:
 		return
 	else:
 		attacked = true

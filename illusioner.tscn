@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxq6u0a387ick"]
+
+[ext_resource type="Script" uid="uid://efjy5gt1yre2" path="res://illusioner.gd" id="1_wsr8h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6el0x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pv4hw"]
+
+[node name="Illusioner" type="CharacterBody2D"]
+script = ExtResource("1_wsr8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_6el0x")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pv4hw")
