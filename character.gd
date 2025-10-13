@@ -163,7 +163,7 @@ func ability() -> void:
 			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
 			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 		"fastarrows":
-			for i in range(10):
+			for i in range(5):
 				attack()
 				attacked = false
 				await get_tree().create_timer(0.1).timeout
