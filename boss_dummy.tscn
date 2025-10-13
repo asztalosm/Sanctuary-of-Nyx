@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3j5jac2pr1ms"]
+[gd_scene load_steps=20 format=3 uid="uid://c3j5jac2pr1ms"]
 
 [ext_resource type="Script" uid="uid://bxxj8coe2eu2g" path="res://boss_dummy.gd" id="1_yba7a"]
 [ext_resource type="Texture2D" uid="uid://djmmfhd2f4win" path="res://resources/temporaryknightboss.png" id="2_u0yvb"]
+[ext_resource type="Texture2D" uid="uid://wcempfo32bld" path="res://resources/KnightbossAttack.png" id="3_ct5c8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ct5c8"]
 atlas = ExtResource("2_u0yvb")
@@ -63,12 +64,73 @@ _data = {
 &"hit": SubResource("Animation_u0yvb")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct5c8"]
-size = Vector2(85, 20)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdbhk"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bxsn"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(96, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt4kg"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(192, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxtlu"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(288, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wvof"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(384, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxclq"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(480, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cbet"]
+atlas = ExtResource("3_ct5c8")
+region = Rect2(576, 0, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72ylb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"RESET",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdbhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bxsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt4kg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxtlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wvof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxclq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cbet")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Knight" type="CharacterBody2D"]
 script = ExtResource("1_yba7a")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pdbhk")
@@ -102,11 +164,107 @@ libraries = {
 }
 
 [node name="SwordHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
-position = Vector2(8.5, 0)
-shape = SubResource("RectangleShape2D_ct5c8")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SwordHitbox"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
 
-[node name="Sprite2D" type="Sprite2D" parent="SwordHitbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordHitbox"]
+visible = false
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AllDirHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(-47.33, 36.633)
+rotation = 0.7853982
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(0.67012024, 64.63313)
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D2"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(-64, 5.6701202)
+rotation = 1.5707964
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D3"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(65, 0.67012024)
+rotation = -1.5707964
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D8"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(33, 50.670128)
+rotation = -0.7853982
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D9"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(-32.000004, -47.329884)
+rotation = 2.3561945
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D4"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(0, -60.32988)
+rotation = 3.1415927
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D5"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="AllDirHitbox"]
+position = Vector2(50.999985, -31.329887)
+rotation = -2.3561945
+polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllDirHitbox/CollisionPolygon2D6"]
+sprite_frames = SubResource("SpriteFrames_72ylb")
+animation = &"RESET"
 
 [connection signal="body_entered" from="FightInitiator" to="." method="_on_fight_initiator_body_entered"]
+[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="AllDirHitbox" to="." method="_on_all_dir_hitbox_body_entered"]

@@ -12,6 +12,7 @@ extends CharacterBody2D
 	"lifesteal": 0.0,
 	"laststand": 0.0
 }
+@export var regen : float = 1.0
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
 @export var speed = 80 + arcadeStats.mov_spd
@@ -19,9 +20,11 @@ extends CharacterBody2D
 @export var dodgechance = 10 + arcadeStats.dodge_chance
 @export var changingcharacter = false
 @export var points = 0
+@export var rolling = false
 @export var Characters = [
 	{ #assassin
 		"Class": "Assassin",
+		"BaseDamage": 2.0,
 		"Type": "Melee",
 		"Ability": "assassinstep",
 		"AbilityCooldown": 2,
@@ -37,17 +40,27 @@ extends CharacterBody2D
 		"AbilityCooldown": 5,
 		"AbilityDuration": 3,
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
-		"Attack": "mageattack",	
+		"Attack": "mageattack",
 		"AttackType": "Magical"
 	},
-	{
-		"Class": "Mage",
+	{ #archer
+		"Class": "Archer",
 		"Type": "Projectile",
-		"Abilty": "fastarrows",
-		"AbilityCooldown": 10,
-		"AbilityDuration": 4,
-		"Icon": preload("res://resources/temporaryknightboss.png"), #just a temp file
+		"Ability": "fastarrows",
+		"AbilityCooldown": 3,
+		"AbilityDuration": 1,
+		"Icon": preload("res://resources/temparcher.png"), #just a temp file
 		"Attack": "archerattack",
+		"AttackType": "Physical"
+	},
+	{ #knight
+		"Class": "Knight",
+		"Type": "Melee",
+		"Ability": "berserk",
+		"AbilityCooldown": 8,
+		"AbilityDuration": 4,
+		"Icon": preload("res://resources/temporarybadwizardbase.png"),
+		"Attack": "knightattack",
 		"AttackType": "Physical"
 	}
 ]
@@ -56,8 +69,9 @@ extends CharacterBody2D
 	"Xp": 0,
 	"XptoNextLevel": 200,
 	"SkillPoints": 0,
-	"BasePhysAttack": 2 + arcadeStats.dmg,
-	"BaseDefense": 0 + arcadeStats.def,
+	"DaggerAttack": 2,
+	"SwordAttack": 4,
+	"BaseDefense": 0.0 + arcadeStats.def,
 	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
 	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
@@ -65,7 +79,7 @@ extends CharacterBody2D
 	"Class": "Assassin",
 	"Type": "Melee",
 	"Ability": "assassinstep",
-	"AbilityCooldown": 2,
+	"AbilityCooldown": 1.1,
 	"AbilityDuration": 1.2,
 	"Icon": preload("res://resources/assassinicon.png"),
 	"Attack": "daggerattack",
@@ -130,24 +144,47 @@ func death() -> void:
 func ability() -> void:
 	abilityinuse = true
 	usedability = true
-	if currentcharacter.Ability == "assassinstep":
-		oldspeed = speed
-		speed = oldspeed * 1.75
-	if currentcharacter.Ability == "stun":
-		var stunSpriteTween = get_tree().create_tween()
-		$MageAbility/CollisionShape2D.set_deferred("disabled", false)
-		$MageAbility/Timer.start()
-		stunSpriteTween.set_parallel(true)
-		stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
-		stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 	$GUI/Ability.visible = true
 	$GUI/Ability/TextureProgressBar.modulate = Color(0.5,0.5,1)
 	$GUI/Ability/Cooldown.wait_time = currentcharacter.AbilityCooldown
 	$GUI/Ability/AbilityDuration.wait_time = currentcharacter.AbilityDuration
 	$GUI/Ability/AbilityDuration.start()
 	$Soundcontroller.play(currentcharacter.Ability)
+	match currentcharacter.Ability:
+		"assassinstep":
+			speed *= 1.75
+			await get_tree().create_timer(currentcharacter.AbilityDuration).timeout
+			speed /= 1.75
+		"stun":
+			var stunSpriteTween = get_tree().create_tween()
+			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
+			$MageAbility/Timer.start()
+			stunSpriteTween.set_parallel(true)
+			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
+			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
+		"fastarrows":
+			for i in range(10):
+				attack()
+				attacked = false
+				await get_tree().create_timer(0.1).timeout
+		"berserk":
+			globalcharacterstats.BaseDefense = 10
+			speed /= 1.3
+			await get_tree().create_timer(4).timeout
+			speed *= 1.3
+			globalcharacterstats.BaseDefense = 0 + arcadeStats.def
 
-
+func roll() -> void:
+	if !rolling:
+		rolling = true
+		cantakedamage = false
+		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
+		$RollCooldown.start()
+		$VFXController.play("roll")
+		speed *= 1.5
+		await get_tree().create_timer(0.6).timeout
+		speed /= 1.5
+		cantakedamage = true
 func attack() -> void:
 	if attacked:
 		return
@@ -177,53 +214,66 @@ func attack() -> void:
 				add_child(arrow)
 				await get_tree().create_timer(1.5).timeout
 				attacked = false
-				
+			"knightattack":
+				$KnightHitcheck.position.y += 12000
+				$KnightHitcheck.monitoring = true
+				$KnightHitcheck.position.y -= 12000
+				$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(get_global_mouse_position()) + 0.5*PI)
+				$KnightHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025
+				$KnightHitcheck/AnimatedSprite2D.play("default")
+#				$Soundcontroller/attack.pitch_scale = randf_range(0.6, 0.9)
+#				$Soundcontroller.play(currentcharacter.Attack)
 func applydamage() -> void:
 	var damage = 0
-	if currentcharacter.Class == "Assassin": #todo: calculate damage, based on equipment and base class stats
-		$AssassinHitcheck.monitoring = false
-		attacked = false
-	if currentcharacter.Class == "Mage":
-		$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
+	match currentcharacter.Class:
+		"Assassin":
+			$AssassinHitcheck.monitoring = false
+			attacked = false
+		"Knight":
+			$KnightHitcheck.monitoring = false
+			attacked = false
+		"Mage":
+			$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
 		#for equipment in equipped:
 			#if equipment != null:
 				#print(equipment)
 	
-	
 	for enemies in hitenemies:
-		if currentcharacter.AttackType == "Magical":
-			damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
-		elif currentcharacter.AttackType == "Physical":
-			damage = (globalcharacterstats.BasePhysAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
-		if randi_range(1,100) <= critchance:
-			$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
-			damage *= 1.5
-		if (enemies.health - damage) <= 0.0:
-			if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
-				health = maxhealth
-			health += arcadeStats.lifesteal
-		if get_node_or_null(get_path_to(enemies)) != null: 
-			enemies.get_node("AnimationPlayer").play("hit")
+		if get_node_or_null(get_path_to(enemies)) != null:
+			if currentcharacter.AttackType == "Magical":
+				damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
+			elif currentcharacter.AttackType == "Physical":
+				if currentcharacter.Class == "Assassin":
+					damage = (globalcharacterstats.DaggerAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+				else: #for now this else will work but i should change this to switch statements
+					damage = (globalcharacterstats.SwordAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+			if randi_range(1,100) <= critchance:
+				$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
+				damage *= 1.5
+			if (enemies.health - damage) <= 0.0:
+				if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
+					health = maxhealth
+				health += arcadeStats.lifesteal
 			enemies.health -= damage
-
-func hit(selfdamage, dodgeable = true) ->void:
+			if enemies.get_node_or_null("AnimationPlayer") != null:
+				enemies.get_node_or_null("AnimationPlayer").play("hit")
+func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
 		$VFXController.play("dodge")
 	else:
 		if cantakedamage:
-			if selfdamage <= 0:
-				health -= 0.1
-			else:
-				if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
-					health = maxhealth + selfdamage
-					arcadeStats.laststand = 0.0
-					cantakedamage = false
-					await get_tree().create_timer(arcadeStats.laststand).timeout
-					cantakedamage = true
-				else: 
-					cantakedamage = false
-					health -= selfdamage #TODO balancing changes with this
+			if !truedamage:
+				selfdamage = max(selfdamage - ((globalcharacterstats.BaseDefense + skills.Defense * 0.2)), 0.1)
+			if health - selfdamage <= 0 and arcadeStats.laststand != 0.0:
+				health = maxhealth + selfdamage
+				arcadeStats.laststand = 0.0
+				cantakedamage = false
+				await get_tree().create_timer(arcadeStats.laststand).timeout
+				cantakedamage = true
+			else: 
+				cantakedamage = false
+				health -= selfdamage 
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
@@ -236,7 +286,6 @@ func hit(selfdamage, dodgeable = true) ->void:
 				$VFXController.play("invulnerability")
 				await get_tree().create_timer(0.3).timeout
 				cantakedamage = true
-
 func calculateanimation(direction): #ugly if statements, but will work for now
 	if usedability:
 		$AnimatedSprite2D.speed_scale = 1.25
@@ -271,13 +320,19 @@ func charactercheckchange():
 		switchcharacter(Characters[1])
 	elif Input.is_action_just_pressed("3"):
 		switchcharacter(Characters[2])
-	
+	elif Input.is_action_just_pressed("4"):
+		switchcharacter(Characters[3])
+
 
 func _physics_process(_delta: float) -> void:
+	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100
+	$RollCooldown/CanvasLayer/TextureProgressBar.value = ($RollCooldown.wait_time - $RollCooldown.time_left) * 100
 	charactercheckchange()
 	if health <= 0:
 		death()
 	else:
+		if health > maxhealth:
+			health = maxhealth
 		if globalcharacterstats.Xp >= globalcharacterstats.XptoNextLevel:
 			globalcharacterstats.Xp -= globalcharacterstats.XptoNextLevel
 			globalcharacterstats.Level += 1
@@ -295,7 +350,11 @@ func _physics_process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 			attack()
-			
+		if Input.is_action_just_pressed("pause"):
+			get_tree().paused = true
+		if Input.is_action_just_pressed("Roll"):
+			roll()
+		
 		if Input.is_action_just_pressed("Ability"):
 			if !usedability:
 				ability()
@@ -320,7 +379,6 @@ func ability_timeout() -> void:
 
 func ability_duration_timeout() -> void:
 	$GUI/Ability/TextureProgressBar.modulate = Color(1,1,1)
-	speed = oldspeed
 	$GUI/Ability/Cooldown.start()
 	abilityinuse = false
 	
@@ -348,3 +406,22 @@ func _on_timer_timeout() -> void: #stun timer
 	$MageAbility/CollisionShape2D.set_deferred("disabled", true)
 	stunSpriteTween.tween_property($MageAbility, "scale", Vector2(1,1), 0.1)
 	stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,0), 0.1)
+
+
+func _on_roll_cooldown_timeout() -> void:
+	cantakedamage = true
+	rolling = false
+
+
+func _on_passive_health_regen_timeout() -> void:
+	if health > 0:
+		health += regen
+
+
+func _on_knightattack_finished() -> void:
+	applydamage()
+
+
+func _on_knight_hitcheck_area_entered(area: Area2D) -> void:
+	if area.get_parent().get_parent().name == "Enemies":
+		hitenemies.append(area.get_parent())
