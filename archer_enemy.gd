@@ -67,6 +67,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
+	$Detection.scale = Vector2(3,3)
 
 
 func _on_attack_cooldown_timeout() -> void:

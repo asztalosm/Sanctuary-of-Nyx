@@ -24,12 +24,12 @@ size = Vector2(18, 30)
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnp38"]
 radius = 81.0
 
-[sub_resource type="Gradient" id="Gradient_jnamf"]
+[sub_resource type="Gradient" id="Gradient_a1mae"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ohqb6"]
-gradient = SubResource("Gradient_jnamf")
+gradient = SubResource("Gradient_a1mae")
 width = 16
 
 [sub_resource type="Animation" id="Animation_a1mae"]
@@ -73,14 +73,14 @@ _data = {
 _data = [Vector2(0.6136364, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_jqwtn"]
+[sub_resource type="CurveTexture" id="CurveTexture_ohqb6"]
 curve = SubResource("Curve_07evq")
 
 [sub_resource type="Curve" id="Curve_ksq1y"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79545456, 0.52808994), -1.8055699, -1.8055699, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_t4k0o"]
+[sub_resource type="CurveTexture" id="CurveTexture_twgjm"]
 curve = SubResource("Curve_ksq1y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4m288"]
@@ -90,8 +90,8 @@ angle_max = 33.900013
 radial_velocity_min = 23.529978
 radial_velocity_max = 29.999977
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_t4k0o")
-alpha_curve = SubResource("CurveTexture_jqwtn")
+scale_curve = SubResource("CurveTexture_twgjm")
+alpha_curve = SubResource("CurveTexture_ohqb6")
 hue_variation_min = -0.04000002
 hue_variation_max = 0.019999977
 

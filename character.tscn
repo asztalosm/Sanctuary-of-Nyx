@@ -1679,6 +1679,17 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_lphiu")
 
+[node name="SmokeScreen" type="GPUParticles2D" parent="Player"]
+modulate = Color(0.23, 0.23, 0.23, 0.7254902)
+z_index = 999
+scale = Vector2(3, 3)
+emitting = false
+amount = 16
+texture = ExtResource("34_lyohd")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_lphiu")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 visible = false
 position = Vector2(0.5, 9)
@@ -2414,6 +2425,7 @@ autostart = true
 [connection signal="area_entered" from="Player/MageProjectile/MageHitcheck" to="Player/MageProjectile" method="_on_mage_hitcheck_area_entered"]
 [connection signal="timeout" from="Player/MageProjectile/MageHitcheck/Timer" to="Player/MageProjectile" method="_on_timer_timeout"]
 [connection signal="finished" from="Player/GPUParticles2D" to="Player" method="characterswitched"]
+[connection signal="finished" from="Player/SmokeScreen" to="Player" method="characterswitched"]
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="sprite_animation_changed"]
 [connection signal="area_entered" from="Player/AssassinHitcheck" to="Player" method="_on_hitcheck_area_entered"]
 [connection signal="animation_finished" from="Player/AssassinHitcheck/AnimatedSprite2D" to="Player" method="_attack_animation_finished"]

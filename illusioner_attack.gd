@@ -6,6 +6,7 @@ func _ready() -> void:
 	await get_tree().create_timer(5.0).timeout
 	queue_free()
 
+
 func _physics_process(_delta: float) -> void:
 	dir = global_position.direction_to(get_parent().player.global_position)
 	velocity = dir * SPEED

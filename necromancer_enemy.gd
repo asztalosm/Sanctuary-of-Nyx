@@ -28,7 +28,7 @@ func death() -> void:
 func attack() -> void:
 	if onattackcooldown == false:
 		onattackcooldown = true
-		$AnimatedSprite2D.play("attack")
+		await $AnimatedSprite2D.play("attack").timeout
 		for i in range(summoncount):
 			var summon = preload("res://skeleton_summon.tscn").instantiate()
 			await get_tree().create_timer(0.1).timeout #added this line so the debugger stops bitching about 4 area2d's being worked with at the same time
@@ -61,6 +61,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 		target = body
+		$Detection.scale = Vector2(2,2)
 		attack()
 
 
@@ -70,3 +71,7 @@ func _on_summon_time_timeout() -> void:
 
 func _on_gpu_particles_2d_finished() -> void:
 	queue_free()
+
+
+func _on_detection_body_exited(_body: Node2D) -> void:
+	target = self

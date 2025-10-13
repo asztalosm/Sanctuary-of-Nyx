@@ -64,6 +64,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
+	$Detection.scale = Vector2(2,2)
 	$NavigationAgent2D.target_desired_distance = $Detection/AttackZone/CollisionShape2D.shape.radius
 
 
@@ -73,3 +74,7 @@ func _on_attack_cooldown_timeout() -> void:
 
 func _on_gpu_particles_2d_finished() -> void:
 	queue_free()
+
+
+func _on_detection_body_exited(_body: Node2D) -> void:
+	target = self

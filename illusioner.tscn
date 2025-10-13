@@ -1,11 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxq6u0a387ick"]
+[gd_scene load_steps=18 format=3 uid="uid://dxq6u0a387ick"]
 
 [ext_resource type="Script" uid="uid://efjy5gt1yre2" path="res://illusioner.gd" id="1_wsr8h"]
 [ext_resource type="Texture2D" uid="uid://b773d31i54o3v" path="res://resources/illlusioner.png" id="2_6el0x"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6el0x"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pv4hw"]
+[ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="3_pv4hw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pv4hw"]
 animations = [{
@@ -18,8 +15,89 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6el0x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pv4hw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hbyax"]
+radius = 90.0
+
+[sub_resource type="Gradient" id="Gradient_jnamf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_td4xs"]
+gradient = SubResource("Gradient_jnamf")
+width = 16
+
+[sub_resource type="Animation" id="Animation_a1mae"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_twgjm"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.23137255, 0.23137255, 0.6392157), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
+_data = {
+&"RESET": SubResource("Animation_a1mae"),
+&"hit": SubResource("Animation_twgjm")
+}
+
+[sub_resource type="Curve" id="Curve_wlper"]
+_data = [Vector2(0.6136364, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jqwtn"]
+curve = SubResource("Curve_wlper")
+
+[sub_resource type="Curve" id="Curve_mxsbf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79545456, 0.52808994), -1.8055699, -1.8055699, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t4k0o"]
+curve = SubResource("Curve_mxsbf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6sa2l"]
+particle_flag_disable_z = true
+angle_min = -50.79999
+angle_max = 33.900013
+radial_velocity_min = 23.529978
+radial_velocity_max = 29.999977
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_t4k0o")
+alpha_curve = SubResource("CurveTexture_jqwtn")
+hue_variation_min = -0.04000002
+hue_variation_max = 0.019999977
+
 [node name="Illusioner" type="CharacterBody2D"]
 script = ExtResource("1_wsr8h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pv4hw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -27,9 +105,55 @@ shape = SubResource("RectangleShape2D_6el0x")
 disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_pv4hw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_pv4hw")
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_hbyax")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_td4xs")
+texture_progress = SubResource("GradientTexture1D_td4xs")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8omkc")
+}
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 3
+texture = ExtResource("3_pv4hw")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.69
+process_material = SubResource("ParticleProcessMaterial_6sa2l")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
