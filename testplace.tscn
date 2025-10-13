@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=36 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://caofjymwqx1yi" path="res://arrowtrap.tscn" id="8_k3go7"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="11_ew55c"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="12_g626g"]
+[ext_resource type="PackedScene" uid="uid://dxq6u0a387ick" path="res://illusioner.tscn" id="16_ee4d1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -12, 16, -12)
@@ -420,7 +421,7 @@ script = ExtResource("3_ob1ba")
 position = Vector2(546, -170)
 
 [node name="BossDummy" parent="Enemies" instance=ExtResource("5_dyuvm")]
-position = Vector2(-127, 142)
+position = Vector2(792, -73)
 
 [node name="Timer" type="Timer" parent="Enemies"]
 wait_time = 2.0
@@ -435,6 +436,9 @@ position = Vector2(370, -358)
 
 [node name="Splasher" parent="Enemies" instance=ExtResource("12_g626g")]
 position = Vector2(-136, -8)
+
+[node name="Illusioner" parent="Enemies" instance=ExtResource("16_ee4d1")]
+position = Vector2(-93, 137)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]
