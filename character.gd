@@ -377,8 +377,7 @@ func _attack_animation_finished() -> void:
 
 
 func _on_hitcheck_area_entered(area: Area2D) -> void:
-	if area.get_parent().get_parent().name == "Enemies":
-		hitenemies.append(area.get_parent())
+	hitenemies.append(area.get_parent())
 
 
 func ability_timeout() -> void:

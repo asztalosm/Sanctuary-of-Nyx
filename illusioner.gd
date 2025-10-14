@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @export var maxhealth : float = 4
 @export var health : float = maxhealth
-@export var speed = 100
+@export var speed = 50
 @export var damage :float = 4
 @export var cantakedamage = true
 @export var target = self
@@ -26,6 +26,7 @@ func summonself(count, path) -> void:
 			selfscene.global_position = global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
 			global_position = global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
 			selfscene.target = target
+			selfscene.name = "Illusion"
 			selfscene.original = false
 	attacked = true
 
@@ -36,6 +37,9 @@ func death() -> void:
 		player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
 		player.addpoints(10)
 		$GPUParticles2D.restart()
+		for children in get_children():
+			if children != $GPUParticles2D:
+				children.queue_free()
 	else:
 		var player = get_parent().get_parent().get_parent().get_node("Character").get_node("Player")
 		summonself(1, get_parent())
