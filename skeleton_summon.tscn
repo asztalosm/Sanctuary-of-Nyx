@@ -137,14 +137,14 @@ radius = 16.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_18qvj"]
+[sub_resource type="CurveTexture" id="CurveTexture_22ski"]
 curve = SubResource("Curve_f2446")
 
 [sub_resource type="Curve" id="Curve_f8ivl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.719697, 0.7191012), -0.98876435, -0.98876435, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_v2lle"]
+[sub_resource type="CurveTexture" id="CurveTexture_f2446"]
 curve = SubResource("Curve_f8ivl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_novqi"]
@@ -156,8 +156,8 @@ linear_accel_min = -2.2351742e-06
 linear_accel_max = -2.2351742e-06
 radial_accel_min = -2.2351742e-06
 radial_accel_max = -2.2351742e-06
-scale_curve = SubResource("CurveTexture_v2lle")
-alpha_curve = SubResource("CurveTexture_18qvj")
+scale_curve = SubResource("CurveTexture_f2446")
+alpha_curve = SubResource("CurveTexture_22ski")
 
 [node name="SkeletonSummon" type="CharacterBody2D"]
 collision_layer = 2

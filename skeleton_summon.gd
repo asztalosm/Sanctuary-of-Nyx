@@ -15,6 +15,10 @@ var dead = false
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func death() -> void:
 	dead = true
 	player.globalcharacterstats.Xp += 10 + player.arcadeStats.get("more XP per kill")

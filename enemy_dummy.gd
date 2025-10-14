@@ -12,6 +12,10 @@ var dir := Vector2.ZERO
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 @export var dead = false
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 

@@ -13,6 +13,10 @@ var dir := Vector2.ZERO
 var dead = false
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$SummonTime.wait_time = attackcooldown

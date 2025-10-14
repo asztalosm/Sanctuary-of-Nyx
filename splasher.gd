@@ -13,6 +13,9 @@ var dir := Vector2.ZERO
 var characterinrange = false
 @export var stunned = false
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth

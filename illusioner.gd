@@ -16,6 +16,10 @@ func _ready() -> void:
 		$GPUParticles2D.restart()
 	$HealthBar.max_value = maxhealth
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func summonself(count, path) -> void:
 	if !attacked:
 		$GPUParticles2D.restart()

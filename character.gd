@@ -270,9 +270,7 @@ func applydamage() -> void:
 				if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
 					health = maxhealth
 				health += arcadeStats.lifesteal
-			enemies.health -= damage
-			if enemies.get_node_or_null("AnimationPlayer") != null:
-				enemies.get_node_or_null("AnimationPlayer").play("hit")
+			enemies.hit(damage)
 		else:
 			hitenemies.erase(enemies)
 func hit(selfdamage, dodgeable = true, truedamage = false) ->void:

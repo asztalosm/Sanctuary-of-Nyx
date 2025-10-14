@@ -17,6 +17,10 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$AttackCooldown.wait_time = attackcooldown
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func stun() -> void:
 	stunned = true
 	await get_tree().create_timer(3.0).timeout

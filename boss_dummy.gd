@@ -91,6 +91,10 @@ func rollAttack():
 			truedamage = true
 			homingAttack()
 
+func hit(selfdamage) -> void:
+	health -= selfdamage
+	$AnimationPlayer.play("hit")
+
 func _physics_process(_delta: float) -> void:
 	refreshgui()
 	if health <= 0:
