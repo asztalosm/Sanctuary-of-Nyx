@@ -1,41 +1,46 @@
 extends CharacterBody2D
 @export var maxhealth : float = 4
 @export var health : float = maxhealth
-@export var speed = 120
+@export var speed = 100
 @export var damage :float = 4
 @export var cantakedamage = true
 @export var target = self
 @export var stunned = false
 var attacked = false
 var dir := Vector2.ZERO
-@onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 @export var dead = false
 @export var original = true
 
 func _ready() -> void:
+	if !original:
+		$GPUParticles2D.restart()
 	$HealthBar.max_value = maxhealth
 
-func summonself(count) -> void:
+func summonself(count, path) -> void:
 	if !attacked:
-		#$AttackCooldown.start()
-		var selfscene = preload("res://illusioner.tscn").instantiate()
-		get_parent().call_deferred("add_child", selfscene)
-		selfscene.global_position = global_position
-		selfscene.dir = selfscene.dir * Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
-		#dir *= Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+		$GPUParticles2D.restart()
+		for i in range(count):
+			var selfscene = preload("res://illusioner.tscn").instantiate()
+			path.call_deferred("add_child", selfscene)
+			selfscene.top_level = true
+			selfscene.global_position = global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			global_position = global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			selfscene.target = target
+			selfscene.original = false
+	attacked = true
 
 func death() -> void:
 	if original:
 		dead = true
+		var player = get_parent().get_parent().get_node("Character").get_node("Player")
 		player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
 		player.addpoints(10)
 		$GPUParticles2D.restart()
-		for nodes in self.get_children():
-			if nodes != $GPUParticles2D:
-				nodes.queue_free()
 	else:
-		summonself(1)
+		var player = get_parent().get_parent().get_parent().get_node("Character").get_node("Player")
+		summonself(1, get_parent())
 		player.hit(3,false, true)
+		queue_free()
 
 func stun() -> void:
 	stunned = true
@@ -63,20 +68,22 @@ func _physics_process(_delta: float) -> void:
 					target = self
 				else:
 					if dir.length_squared() > 1.0:
-							dir = dir.normalized()
-							velocity = dir * speed
+						dir = dir.normalized()
+						velocity = dir * speed
 	move_and_slide()
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
-	summonself(2)
 	$Detection.scale = Vector2(2,2)
+	if original:
+		summonself(2, self)
 
 func _on_attack_cooldown_timeout() -> void:
-	attacked = false
+	return
 
 func _on_gpu_particles_2d_finished() -> void:
-	queue_free()
+	if dead:
+		queue_free()
 
 func _on_detection_body_exited(_body: Node2D) -> void:
 	target = self

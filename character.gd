@@ -182,7 +182,6 @@ func ability() -> void:
 
 func roll() -> void:
 	if !rolling:
-		
 		rolling = true
 		cantakedamage = false
 		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
@@ -192,6 +191,7 @@ func roll() -> void:
 		await get_tree().create_timer(0.6).timeout
 		speed /= 1.5
 		cantakedamage = true
+
 func attack() -> void:
 	if attacked or rolling:
 		return
@@ -264,6 +264,8 @@ func applydamage() -> void:
 			enemies.health -= damage
 			if enemies.get_node_or_null("AnimationPlayer") != null:
 				enemies.get_node_or_null("AnimationPlayer").play("hit")
+		else:
+			hitenemies.erase(enemies)
 func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:

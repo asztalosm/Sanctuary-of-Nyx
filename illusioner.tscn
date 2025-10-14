@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://efjy5gt1yre2" path="res://illusioner.gd" id="1_wsr8h"]
 [ext_resource type="Texture2D" uid="uid://b773d31i54o3v" path="res://resources/illlusioner.png" id="2_6el0x"]
-[ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="3_pv4hw"]
+[ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="3_pv4hw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pv4hw"]
 animations = [{
@@ -146,7 +146,7 @@ one_shot = true
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 process_mode = 3
 emitting = false
-amount = 3
+amount = 6
 texture = ExtResource("3_pv4hw")
 lifetime = 0.6
 one_shot = true
