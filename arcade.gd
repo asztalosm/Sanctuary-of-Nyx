@@ -12,7 +12,8 @@ var enemyList = { #so these will be decided whether theyll spawn in the setDescr
 	"Archer": range(1,5),
 	"Necromancer": range(1,4),
 	"Skeleton": range(1,6),
-	"Splasher": range(1,3)
+	"Splasher": range(1,3),
+	"Illusioner": range(1,4)
 }
 var enemyBuffList = {
 	"hp": range(1,6),

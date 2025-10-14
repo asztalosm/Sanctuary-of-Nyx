@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bg8yeaurt5axk" path="res://resources/ocean.png" id="2_7rwgp"]
 [ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="3_7uaqn"]
 [ext_resource type="Script" uid="uid://cd4g4mu68bamn" path="res://guide.gd" id="3_ew55c"]
-[ext_resource type="Script" uid="uid://dc1w0e51u0ih2" path="res://enemies.gd" id="3_ob1ba"]
 [ext_resource type="Texture2D" uid="uid://bo86i658v5v3g" path="res://resources/tutorialparticles.png" id="4_g626g"]
 [ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="5_dyuvm"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="5_g626g"]
@@ -16,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="11_ew55c"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="12_g626g"]
 [ext_resource type="PackedScene" uid="uid://dxq6u0a387ick" path="res://illusioner.tscn" id="16_ee4d1"]
+[ext_resource type="PackedScene" uid="uid://dj6xi2bqa36xk" path="res://advanced_skeleton.tscn" id="16_ksrqk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -12, 16, -12)
@@ -398,24 +398,23 @@ scroll_active = false
 horizontal_alignment = 1
 
 [node name="Explosive Barrel" parent="TileMapLayer" instance=ExtResource("6_g626g")]
-position = Vector2(88, -32)
+position = Vector2(130, -192)
 
 [node name="Spikes" parent="TileMapLayer" instance=ExtResource("7_vsyt0")]
-position = Vector2(-42, -33)
+position = Vector2(170, -204)
 
 [node name="ArrowTrap" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
-position = Vector2(140, -117)
+position = Vector2(319, -232)
 
 [node name="ArrowTrap2" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
-position = Vector2(106, -118)
+position = Vector2(285, -233)
 
 [node name="ArrowTrap3" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
-position = Vector2(67, -118)
+position = Vector2(246, -233)
 
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 
 [node name="Enemies" type="Node2D" parent="."]
-script = ExtResource("3_ob1ba")
 
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("3_7uaqn")]
 position = Vector2(546, -170)
@@ -435,10 +434,13 @@ metadata/_edit_group_ = true
 position = Vector2(370, -358)
 
 [node name="Splasher" parent="Enemies" instance=ExtResource("12_g626g")]
-position = Vector2(-136, -8)
+position = Vector2(488, -232)
 
 [node name="Illusioner" parent="Enemies" instance=ExtResource("16_ee4d1")]
-position = Vector2(-93, 137)
+position = Vector2(655, -245)
+
+[node name="AdvancedSkeleton" parent="Enemies" instance=ExtResource("16_ksrqk")]
+position = Vector2(-91, 40)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]

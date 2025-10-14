@@ -101,7 +101,6 @@ func _physics_process(_delta: float) -> void:
 #kisebb bokrok ahol el tudsz bújni 1. abilityt expandolom ezzel és egy smoke grenadedel
 #necromancer lebegő csontpajzs
 #monk reflection enemy
-#illusioner abiltiy
 
 func stun() -> void:
 	return

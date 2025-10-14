@@ -105,6 +105,7 @@ extends CharacterBody2D
 @export var usedability = false
 @export var abilityinuse = false
 @export var cantakedamage = true
+@export var stunned = false
 var oldspeed = speed
 var attacked = false
 var hitenemies = []
@@ -124,6 +125,14 @@ func switchcharacter(character):
 				elements = currentcharacter
 		currentcharacter = character
 		$GPUParticles2D.restart()
+
+func stun() -> void:
+	stunned = true
+	velocity = Vector2.ZERO
+	$AnimatedSprite2D.stop()
+	$AnimatedSprite2D.frame = 0
+	await get_tree().create_timer(1).timeout
+	stunned = false
 
 func _ready() -> void:
 	$AssassinHitcheck.monitoring = false	
@@ -340,33 +349,34 @@ func _physics_process(_delta: float) -> void:
 	if health <= 0:
 		death()
 	else:
-		if health > maxhealth:
-			health = maxhealth
-		if globalcharacterstats.Xp >= globalcharacterstats.XptoNextLevel:
-			globalcharacterstats.Xp -= globalcharacterstats.XptoNextLevel
-			globalcharacterstats.Level += 1
-			globalcharacterstats.SkillPoints += 1
-			globalcharacterstats.XptoNextLevel += 200
-			$Soundcontroller.play("LevelUp")
-		var direction = Input.get_vector("Left", "Right", "Up", "Down")
-		if direction: #movement
-			velocity = direction * speed
-			calculateanimation(direction)
-		else:
-			velocity = Vector2(0,0)
-			if velocity == Vector2(0.0, 0.0):
-					$AnimatedSprite2D.play(currentcharacter.Class+"idle")
-		
-		if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
-			attack()
-		if Input.is_action_just_pressed("pause"):
-			get_tree().paused = true
-		if Input.is_action_just_pressed("Roll"):
-			roll()
-		
-		if Input.is_action_just_pressed("Ability"):
-			if !usedability:
-				ability()
+		if !stunned:
+			if health > maxhealth:
+				health = maxhealth
+			if globalcharacterstats.Xp >= globalcharacterstats.XptoNextLevel:
+				globalcharacterstats.Xp -= globalcharacterstats.XptoNextLevel
+				globalcharacterstats.Level += 1
+				globalcharacterstats.SkillPoints += 1
+				globalcharacterstats.XptoNextLevel += 200
+				$Soundcontroller.play("LevelUp")
+			var direction = Input.get_vector("Left", "Right", "Up", "Down")
+			if direction: #movement
+				velocity = direction * speed
+				calculateanimation(direction)
+			else:
+				velocity = Vector2(0,0)
+				if velocity == Vector2(0.0, 0.0):
+						$AnimatedSprite2D.play(currentcharacter.Class+"idle")
+			
+			if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
+				attack()
+			if Input.is_action_just_pressed("pause"):
+				get_tree().paused = true
+			if Input.is_action_just_pressed("Roll"):
+				roll()
+			
+			if Input.is_action_just_pressed("Ability"):
+				if !usedability:
+					ability()
 		move_and_slide()
 
 
