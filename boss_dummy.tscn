@@ -186,7 +186,7 @@ collision_mask = 4
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(-47.33, 36.633)
+position = Vector2(-48.33, 47.633003)
 rotation = 0.7853982
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -196,7 +196,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(0.67012024, 64.63313)
+position = Vector2(-0.32987976, 63.633133)
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
 
@@ -205,7 +205,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(-64, 5.6701202)
+position = Vector2(-64, 0.67012024)
 rotation = 1.5707964
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -215,7 +215,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(65, 0.67012024)
+position = Vector2(64, -0.32987976)
 rotation = -1.5707964
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -225,7 +225,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(33, 50.670128)
+position = Vector2(48, 47.670128)
 rotation = -0.7853982
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -235,7 +235,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(-32.000004, -47.329884)
+position = Vector2(-48.00001, -47.329884)
 rotation = 2.3561945
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -245,7 +245,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(0, -60.32988)
+position = Vector2(0, -63.32988)
 rotation = 3.1415927
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true
@@ -255,7 +255,7 @@ sprite_frames = SubResource("SpriteFrames_72ylb")
 animation = &"RESET"
 
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="AllDirHitbox"]
-position = Vector2(50.999985, -31.329887)
+position = Vector2(47.999996, -48.329884)
 rotation = -2.3561945
 polygon = PackedVector2Array(45, 7, 45, 15, -1, 15, -16.3834, 11.923309, -36, 8, -45, -1, -44, -12, -36, -14, -35, -7, -26, 0, -3, 5, 17, 7)
 metadata/_edit_group_ = true

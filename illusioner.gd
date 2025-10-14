@@ -1,45 +1,41 @@
 extends CharacterBody2D
-@export var maxhealth : float = 10
+@export var maxhealth : float = 4
 @export var health : float = maxhealth
-@export var speed = 60
-@export var damage :float = 3
-@export var attackcooldown = 2.0
+@export var speed = 120
+@export var damage :float = 4
 @export var cantakedamage = true
 @export var target = self
-var onattackcooldown = false
+@export var stunned = false
+var attacked = false
 var dir := Vector2.ZERO
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 @export var dead = false
-var characterinrange = false
-@export var stunned = false
-
+@export var original = true
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
+func summonself(count) -> void:
+	if !attacked:
+		#$AttackCooldown.start()
+		var selfscene = preload("res://illusioner.tscn").instantiate()
+		get_parent().call_deferred("add_child", selfscene)
+		selfscene.global_position = global_position
+		selfscene.dir = selfscene.dir * Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+		#dir *= Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+
 func death() -> void:
-	dead = true
-	player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
-	player.addpoints(10)
-	$GPUParticles2D.restart()
-	for nodes in self.get_children():
-		if nodes != $GPUParticles2D:
-			nodes.queue_free()
-
-func throwpotion() -> void:
-	var potion = preload("res://potionprojectile.tscn").instantiate()
-	potion.targetposition = target.global_position
-	await get_tree().create_timer(0.01).timeout
-	get_parent().add_child(potion)
-	potion.targetposition = target.global_position
-	potion.global_position = global_position
-
-func attack() -> void:
-	if !onattackcooldown and !stunned:
-		$AttackCooldown.wait_time = attackcooldown
-		onattackcooldown = true
-		$AttackCooldown.start()
-		throwpotion()
+	if original:
+		dead = true
+		player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
+		player.addpoints(10)
+		$GPUParticles2D.restart()
+		for nodes in self.get_children():
+			if nodes != $GPUParticles2D:
+				nodes.queue_free()
+	else:
+		summonself(1)
+		player.hit(3,false, true)
 
 func stun() -> void:
 	stunned = true
@@ -51,8 +47,6 @@ func _physics_process(_delta: float) -> void:
 	if health <= 0 and !dead:
 		death()
 	elif !dead:
-		if characterinrange and !onattackcooldown:
-			attack()
 		if health != maxhealth:
 			$HealthBar.visible = true
 			$HealthBar.value = health
@@ -63,34 +57,26 @@ func _physics_process(_delta: float) -> void:
 					dir = $NavigationAgent2D.get_next_path_position() - global_position
 				else:
 					$NavigationAgent2D.target_position = target.global_position
-					dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
+					dir = Vector2.ZERO
+					#old : $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
 				if global_position.distance_to(target.global_position) > 180:
 					target = self
 				else:
-					if $NavigationAgent2D.is_target_reached():
-						attack()
 					if dir.length_squared() > 1.0:
 							dir = dir.normalized()
 							velocity = dir * speed
 	move_and_slide()
 
-
-
-
 func _on_detection_body_entered(body: Node2D) -> void:
-		target = body
-		$Detection.scale = Vector2(2,2)
-		characterinrange = true
-
+	target = body
+	summonself(2)
+	$Detection.scale = Vector2(2,2)
 
 func _on_attack_cooldown_timeout() -> void:
-	onattackcooldown = false
-
+	attacked = false
 
 func _on_gpu_particles_2d_finished() -> void:
 	queue_free()
 
-
 func _on_detection_body_exited(_body: Node2D) -> void:
-	characterinrange = false
 	target = self

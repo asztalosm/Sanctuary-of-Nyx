@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddxsqjcsc7atg"]
+
+[ext_resource type="Script" uid="uid://b68tsbbvsq38s" path="res://homing_projectile.gd" id="1_npraj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bxljw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_00fkt"]
+
+[sub_resource type="Gradient" id="Gradient_pdbhk"]
+offsets = PackedFloat32Array(0.55333334, 0.67333335)
+colors = PackedColorArray(0.86, 0.86, 0.86, 1, 0.7, 0.7, 0.7, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_erhst"]
+gradient = SubResource("Gradient_pdbhk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="HomingProjectile" type="CharacterBody2D"]
+script = ExtResource("1_npraj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bxljw")
+disabled = true
+
+[node name="HomingProjectile" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomingProjectile"]
+shape = SubResource("CircleShape2D_00fkt")
+
+[node name="TextureRect" type="TextureRect" parent="HomingProjectile"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+texture = SubResource("GradientTexture2D_erhst")
+expand_mode = 1
+
+[connection signal="body_entered" from="HomingProjectile" to="." method="_on_homing_projectile_body_entered"]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvp1v7c6ofnaj"]
+
+[ext_resource type="Script" uid="uid://d3boxg1u1lx6i" path="res://illusioner_attack.gd" id="1_dghs0"]
+[ext_resource type="Shader" uid="uid://dn5bbmkbobt14" path="res://illusioner_attack.tres" id="2_t56f0"]
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_ufy2s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4atcp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkkt0"]
+shader = ExtResource("2_t56f0")
+
+[sub_resource type="Gradient" id="Gradient_320kh"]
+offsets = PackedFloat32Array(0, 0.27333334, 0.6533333)
+colors = PackedColorArray(0.29411766, 0.21176471, 0.41960785, 1, 0.294, 0.21, 0.42, 0.14509805, 0.294, 0.21, 0.42, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f1gb0"]
+gradient = SubResource("Gradient_320kh")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_dghs0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("SeparationRayShape2D_ufy2s")
+disabled = true
+
+[node name="HomingProjectile" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomingProjectile"]
+visible = false
+shape = SubResource("CircleShape2D_4atcp")
+
+[node name="TextureRect" type="TextureRect" parent="HomingProjectile"]
+material = SubResource("ShaderMaterial_lkkt0")
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+texture = SubResource("GradientTexture2D_f1gb0")
+expand_mode = 1
+
+[connection signal="body_entered" from="HomingProjectile" to="." method="_on_homing_projectile_body_entered"]

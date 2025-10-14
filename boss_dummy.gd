@@ -12,16 +12,27 @@ var player = null
 var damage
 var dodgeable
 var truedamage
-var attacklist = ["slashattack", "alldirattack"] #will probably make two of these when i start making the second phase
+var attacklist = ["slashattack", "alldirattack", "homingattack"] #will probably make two of these when i start making the second phase
 var attacked = false
 
+func _ready() -> void:
+	stats = {
+	"Phase": 1,
+	"isInvulnerable": false,
+	"Activated": false, #as in, has the player attacked it / went near it
+	"Name": "Knight",
+}
+
 func finishedattack():
+	$SwordHitbox/CollisionPolygon2D.set_deferred("disabled", true)
 	$SwordHitbox/AnimatedSprite2D.play("RESET")
 	for children in $AllDirHitbox.get_children():
 		children.get_node("AnimatedSprite2D").play("RESET")
+		children.set_deferred("disabled", true)
 	$AttackCooldown.start()
 
-func slashAttack():
+func slashAttack() -> void:
+	$SwordHitbox/CollisionPolygon2D.set_deferred("disabled", false)
 	$SwordHitbox.rotation = self.get_angle_to(player.global_position) - deg_to_rad(90)
 	$SwordHitbox/AnimatedSprite2D.play("default")
 	await $SwordHitbox/AnimatedSprite2D.animation_finished
@@ -32,9 +43,10 @@ func slashAttack():
 	await swordMovementTween.finished
 	finishedattack()
 
-func alldirAttack():
+func alldirAttack() -> void:
 	for hitboxes in $AllDirHitbox.get_children():
 		hitboxes.get_node("AnimatedSprite2D").play("default")
+		hitboxes.set_deferred("disabled", false)
 	await $AllDirHitbox/CollisionPolygon2D4/AnimatedSprite2D.animation_finished
 	var multiSwordTween = get_tree().create_tween()
 	multiSwordTween.set_parallel(true)
@@ -46,6 +58,13 @@ func alldirAttack():
 		multiSwordTween.tween_property(hitboxes, "position", hitboxes.position / 5, 0)
 		multiSwordTween.play()
 	finishedattack()
+
+func homingAttack() -> void:
+	var homingScene = preload("res://homing_projectile.tscn")
+	var homingInstance = homingScene.instantiate()
+	add_child(homingInstance)
+	finishedattack()
+	return
 
 
 func death() -> void:
@@ -66,6 +85,11 @@ func rollAttack():
 			dodgeable = false
 			truedamage = true
 			alldirAttack()
+		"homingattack":
+			damage = 3
+			dodgeable = false
+			truedamage = true
+			homingAttack()
 
 func _physics_process(_delta: float) -> void:
 	refreshgui()
@@ -74,6 +98,13 @@ func _physics_process(_delta: float) -> void:
 	if !attacked and player != null:
 		rollAttack()
 
+#kisebb bokrok ahol el tudsz bújni 1. abilityt expandolom ezzel és egy smoke grenadedel
+#necromancer lebegő csontpajzs
+#monk reflection enemy
+#illusioner abiltiy
+
+func stun() -> void:
+	return
 
 func refreshgui() -> void:
 	if bossbar != null:
@@ -100,5 +131,4 @@ func _on_attack_cooldown_timeout() -> void:
 
 
 func _on_all_dir_hitbox_body_entered(body: Node2D) -> void:
-	print(body)
 	body.hit(damage, dodgeable, truedamage)

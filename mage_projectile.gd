@@ -10,6 +10,7 @@ func _on_timer_timeout() -> void:
 	$MageHitcheck/AnimatedSprite2D.animation = "default"
 	$MageHitcheck.monitoring = true
 
+
 func start() -> void:
 	if !moving:
 		get_parent().hitenemies.clear()

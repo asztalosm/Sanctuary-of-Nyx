@@ -152,9 +152,15 @@ func ability() -> void:
 	$Soundcontroller.play(currentcharacter.Ability)
 	match currentcharacter.Ability:
 		"assassinstep":
+			$CollisionShape2D.set_deferred("disabled", true)
+			$SmokeScreen.restart()
 			speed *= 1.75
+			var cameratween = get_tree().create_tween()
+			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-2,2), randf_range(-2,2)), 0.15)
+			cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
 			await get_tree().create_timer(currentcharacter.AbilityDuration).timeout
 			speed /= 1.75
+			$CollisionShape2D.set_deferred("disabled", false)
 		"stun":
 			var stunSpriteTween = get_tree().create_tween()
 			$MageAbility/CollisionShape2D.set_deferred("disabled", false)
@@ -163,7 +169,7 @@ func ability() -> void:
 			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
 			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 		"fastarrows":
-			for i in range(10):
+			for i in range(5):
 				attack()
 				attacked = false
 				await get_tree().create_timer(0.1).timeout
@@ -176,6 +182,7 @@ func ability() -> void:
 
 func roll() -> void:
 	if !rolling:
+		
 		rolling = true
 		cantakedamage = false
 		$RollCooldown/CanvasLayer/TextureProgressBar.value = 0
@@ -186,7 +193,7 @@ func roll() -> void:
 		speed /= 1.5
 		cantakedamage = true
 func attack() -> void:
-	if attacked:
+	if attacked or rolling:
 		return
 	else:
 		attacked = true
