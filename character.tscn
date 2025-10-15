@@ -1,4 +1,4 @@
-[gd_scene load_steps=183 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=185 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
 [ext_resource type="Texture2D" uid="uid://vvqeupnsomto" path="res://resources/minibosshealthunder.png" id="36_3fhje"]
 [ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
+[ext_resource type="Shader" uid="uid://bppxlnqkxv25n" path="res://glitch.tres" id="40_fwo57"]
 [ext_resource type="AudioStream" uid="uid://f8eqgii7w22c" path="res://resources/stun.wav" id="43_0a77e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
@@ -1006,6 +1007,9 @@ base_font = ExtResource("9_88tkl")
 variation_opentype = {
 2003265652: 700
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0b81"]
+shader = ExtResource("40_fwo57")
 
 [sub_resource type="Animation" id="Animation_r5wlx"]
 resource_name = "LevelUp"
@@ -2353,6 +2357,12 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VisionGlitch" type="ColorRect" parent="Player/GUI"]
+visible = false
+material = SubResource("ShaderMaterial_n0b81")
+offset_right = 575.0
+offset_bottom = 323.0
 
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3

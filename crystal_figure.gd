@@ -29,8 +29,8 @@ func stun() -> void:
 
 func death() -> void:
 	dead = true
-	player.globalcharacterstats.Xp += 100 + player.arcadeStats.get("more XP per kill")
-	player.addpoints(200)
+	player.globalcharacterstats.Xp += 250 + player.arcadeStats.get("more XP per kill")
+	player.addpoints(250)
 	$GPUParticles2D.restart()
 	for nodes in self.get_children():
 		if nodes != $GPUParticles2D:
@@ -53,16 +53,31 @@ func shield() -> void:
 	shielded = false
 
 func shardprojectile() -> void:
-	print("shardprojectile")
+	var shardinstance = load("res://crystal_projectile.tscn").instantiate()
+	await get_tree().create_timer(0.01).timeout # now that i look back on this this is an ugly implementation and probably buggy, will rewrite this later
+	if get_node_or_null("AttackCooldown") != null:
+		add_child(shardinstance)
+		$AttackCooldown.start()
+		shardinstance.global_position = self.global_position
+		shardinstance.dir = shardinstance.global_position.direction_to(target.global_position)
+
+func spiketrap() -> void:
+	#i dont care, im reusing the spike asset
+	if !dead:
+		var spikeinstance = load("res://spikes.tscn").instantiate()
+		spikeinstance.global_position = target.global_position + Vector2(randi_range(-40, 40), randi_range(-40, 40))
+		spikeinstance.top_level = true
+		add_child(spikeinstance)
 
 func attackroll() -> void:
-	match randi_range(1,2):
-		1:
-			shardprojectile()
-		2:
-			print("attack2")
-	onattackcooldown = true
-	$AttackCooldown.start()
+	if !dead:
+		match randi_range(1,2):
+			1:
+				shardprojectile()
+			2:
+				spiketrap()
+		onattackcooldown = true
+		$AttackCooldown.start()
 
 func _process(_delta: float) -> void:
 	velocity = Vector2(0,0)

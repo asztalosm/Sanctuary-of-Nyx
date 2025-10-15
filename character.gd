@@ -430,6 +430,7 @@ func _on_roll_cooldown_timeout() -> void:
 
 
 func _on_passive_health_regen_timeout() -> void:
+	$GUI/VisionGlitch.visible = false
 	if health > 0:
 		health += regen
 
