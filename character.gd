@@ -439,5 +439,5 @@ func _on_knightattack_finished() -> void:
 
 
 func _on_knight_hitcheck_area_entered(area: Area2D) -> void:
-	if area.get_parent().get_parent().name == "Enemies":
+	if area.get_parent().get_parent().name == "Enemies" and currentcharacter.Class == "Knight":
 		hitenemies.append(area.get_parent())

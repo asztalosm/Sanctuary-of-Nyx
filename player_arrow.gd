@@ -12,6 +12,5 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	area.get_parent().health -= 3.0
-	area.get_parent().get_node("AnimationPlayer").play("hit")
+	area.get_parent().hit(3.0)
 	queue_free()

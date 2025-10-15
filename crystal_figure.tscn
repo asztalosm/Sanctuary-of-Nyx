@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnmsj2aguea8g"]
+
+[ext_resource type="Script" uid="uid://xhi4m03kbvc5" path="res://crystal_figure.gd" id="1_ona2e"]
+[ext_resource type="Texture2D" uid="uid://cu1g28kyx2qmf" path="res://resources/crystalfigure.png" id="2_5l0fj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c8o25"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wpevf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5l0fj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CrystalFigure" type="CharacterBody2D"]
+script = ExtResource("1_ona2e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_c8o25")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wpevf")

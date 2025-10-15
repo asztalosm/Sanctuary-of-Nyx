@@ -3,7 +3,6 @@ extends CharacterBody2D
 #some ideas on how this should work - physical attacks will break the helmet, magical ones will bypass it
 #helmet blocks 1 attack, enemy can also use it's shield to stun the player
 @export var shielded = false
-@export var helmet = true
 @export var maxhealth : float = 8
 @export var health : float = maxhealth
 @export var speed = 50
@@ -41,11 +40,8 @@ func hit(selfdamage) -> void:
 	if shielded:
 		player.stun()
 	else:
-		if helmet:
-			helmet = false
-		else:
-			health -= selfdamage
-			$AnimationPlayer.play("hit")
+		health -= selfdamage
+		$AnimationPlayer.play("hit")
 
 func shield() -> void:
 	shielded = true
@@ -89,7 +85,6 @@ func _process(_delta: float) -> void:
 					if dir.length_squared() > 1.0:
 						dir = dir.normalized()
 						velocity = dir * Vector2(speed, speed)
-		$AnimatedSprite2D.play(str(animationname, helmet))
 	move_and_slide()
 
 

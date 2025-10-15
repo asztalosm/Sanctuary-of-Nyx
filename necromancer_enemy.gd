@@ -32,13 +32,7 @@ func death() -> void:
 func attack() -> void:
 	if onattackcooldown == false:
 		onattackcooldown = true
-		await $AnimatedSprite2D.play("attack").timeout
-		for i in range(summoncount):
-			var summon = preload("res://skeleton_summon.tscn").instantiate()
-			await get_tree().create_timer(0.1).timeout #added this line so the debugger stops bitching about 4 area2d's being worked with at the same time
-			get_parent().add_child(summon)
-			$SummonTime.start()
-			summon.global_position = global_position + Vector2(randi_range(-48, 48), randi_range(-48, 48))
+		$AnimatedSprite2D.play("attack")
 
 
 func _physics_process(_delta: float) -> void:
@@ -79,3 +73,13 @@ func _on_gpu_particles_2d_finished() -> void:
 
 func _on_detection_body_exited(_body: Node2D) -> void:
 	target = self
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "attack":
+		for i in range(summoncount):
+			var summon = preload("res://skeleton_summon.tscn").instantiate()
+			await get_tree().create_timer(0.1).timeout #added this line so the debugger stops bitching about 4 area2d's being worked with at the same time
+			get_parent().add_child(summon)
+			$SummonTime.start()
+			summon.global_position = global_position + Vector2(randi_range(-48, 48), randi_range(-48, 48))

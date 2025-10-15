@@ -206,6 +206,7 @@ one_shot = true
 explosiveness = 0.69
 process_material = SubResource("ParticleProcessMaterial_p6mej")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="timeout" from="SummonTime" to="." method="_on_summon_time_timeout"]
