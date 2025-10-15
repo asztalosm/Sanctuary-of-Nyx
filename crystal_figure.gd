@@ -1,9 +1,10 @@
 extends CharacterBody2D
-#so in this script there will be a helmet boolean, that will be used in animations. thats how it will calculate which sprites to use
-#some ideas on how this should work - physical attacks will break the helmet, magical ones will bypass it
-#helmet blocks 1 attack, enemy can also use it's shield to stun the player
+#this enemy will attack the player with shards, will have multiple attacks like bosses:
+#attacks: shard like an arrow, set shards on floor like a minecraft evoker, and wall off the player with a solid wall that damages the player on contact
+
+
 @export var shielded = false
-@export var maxhealth : float = 8
+@export var maxhealth : float = 25.0
 @export var health : float = maxhealth
 @export var speed = 50
 @export var damage :float = 3
@@ -21,7 +22,6 @@ var dead = false
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
-
 func stun() -> void:
 	stunned = true
 	await get_tree().create_timer(3.0).timeout
@@ -29,8 +29,8 @@ func stun() -> void:
 
 func death() -> void:
 	dead = true
-	player.globalcharacterstats.Xp += 30 + player.arcadeStats.get("more XP per kill")
-	player.addpoints(20)
+	player.globalcharacterstats.Xp += 100 + player.arcadeStats.get("more XP per kill")
+	player.addpoints(200)
 	$GPUParticles2D.restart()
 	for nodes in self.get_children():
 		if nodes != $GPUParticles2D:
@@ -52,16 +52,15 @@ func shield() -> void:
 	$ShieldCooldown.start()
 	shielded = false
 
+func shardprojectile() -> void:
+	print("shardprojectile")
+
 func attackroll() -> void:
 	match randi_range(1,2):
 		1:
-			animationname = "sword"
+			shardprojectile()
 		2:
-			if onshieldcooldown:
-				attackroll()
-			else:
-				animationname = "shield"
-				shield()
+			print("attack2")
 	onattackcooldown = true
 	$AttackCooldown.start()
 
@@ -70,7 +69,7 @@ func _process(_delta: float) -> void:
 	if health <= 0 and !dead:
 		death()
 	elif !dead:
-		if health != maxhealth:
+		if health != maxhealth or target != self:
 			$HealthBar.visible = true
 			$HealthBar.value = health
 		if !stunned:

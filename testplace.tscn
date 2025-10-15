@@ -444,7 +444,7 @@ position = Vector2(458, -283)
 position = Vector2(422, -337)
 
 [node name="CrystalFigure" parent="Enemies" instance=ExtResource("17_ksrqk")]
-position = Vector2(-125, -27)
+position = Vector2(-103, -134)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]

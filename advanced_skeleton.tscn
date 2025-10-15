@@ -177,6 +177,7 @@ disabled = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
+visible = false
 offset_left = -8.0
 offset_top = -20.0
 offset_right = 8.0
