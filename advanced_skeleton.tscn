@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dj6xi2bqa36xk"]
+[gd_scene load_steps=26 format=3 uid="uid://dj6xi2bqa36xk"]
 
 [ext_resource type="Script" uid="uid://0bt5f2oxtj6t" path="res://advanced_skeleton.gd" id="1_b6hoc"]
 [ext_resource type="Texture2D" uid="uid://36kd5ftivpxo" path="res://resources/multiattackenemy.png" id="2_qj70m"]
@@ -161,6 +161,9 @@ radial_accel_max = -2.2351742e-06
 scale_curve = SubResource("CurveTexture_v2lle")
 alpha_curve = SubResource("CurveTexture_18qvj")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpmqx"]
+size = Vector2(32, 24)
+
 [node name="AdvancedSkeleton" type="CharacterBody2D"]
 script = ExtResource("1_b6hoc")
 
@@ -236,9 +239,21 @@ process_material = SubResource("ParticleProcessMaterial_mph73")
 [node name="ShieldCooldown" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="AttackHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_lpmqx")
+disabled = true
+
+[node name="AttackLength" type="Timer" parent="."]
+wait_time = 0.8
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
 [connection signal="timeout" from="ShieldCooldown" to="." method="_on_shield_cooldown_timeout"]
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
+[connection signal="timeout" from="AttackLength" to="." method="_on_attack_length_timeout"]

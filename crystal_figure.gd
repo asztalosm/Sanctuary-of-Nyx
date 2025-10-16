@@ -104,6 +104,8 @@ func _process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
+	$HealthBar.visible = true
+	$HealthBar.value = health
 
 
 func _on_attack_cooldown_timeout() -> void:
@@ -111,7 +113,7 @@ func _on_attack_cooldown_timeout() -> void:
 	animationname = "default"
 
 
-func _on_attack_range_body_entered(body: Node2D) -> void:
+func _on_attack_range_body_entered(_body: Node2D) -> void:
 	inattackzone = true
 
 
@@ -123,5 +125,5 @@ func _on_shield_cooldown_timeout() -> void:
 	onshieldcooldown = false
 
 
-func _on_attack_range_body_exited(body: Node2D) -> void:
+func _on_attack_range_body_exited(_body: Node2D) -> void:
 	inattackzone = false

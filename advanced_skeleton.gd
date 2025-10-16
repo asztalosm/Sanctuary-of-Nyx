@@ -47,6 +47,9 @@ func hit(selfdamage) -> void:
 			health -= selfdamage
 			$AnimationPlayer.play("hit")
 
+func swordattack() -> void:
+	$AttackLength.start()
+
 func shield() -> void:
 	shielded = true
 	$HealthBar.tint_progress = Color8(255,255,255)
@@ -60,6 +63,7 @@ func attackroll() -> void:
 	match randi_range(1,2):
 		1:
 			animationname = "sword"
+			swordattack()
 		2:
 			if onshieldcooldown:
 				attackroll()
@@ -95,6 +99,8 @@ func _process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
+	$HealthBar.visible = true
+	$HealthBar.value = health
 
 
 func _on_attack_cooldown_timeout() -> void:
@@ -102,7 +108,7 @@ func _on_attack_cooldown_timeout() -> void:
 	animationname = "default"
 
 
-func _on_attack_range_body_entered(body: Node2D) -> void:
+func _on_attack_range_body_entered(_body: Node2D) -> void:
 	inattackzone = true
 
 
@@ -114,5 +120,15 @@ func _on_shield_cooldown_timeout() -> void:
 	onshieldcooldown = false
 
 
-func _on_attack_range_body_exited(body: Node2D) -> void:
+func _on_attack_range_body_exited(_body: Node2D) -> void:
 	inattackzone = false
+
+
+func _on_attack_hitbox_body_entered(body: Node2D) -> void:
+	body.hit(damage)
+	$AttackHitbox/CollisionShape2D.set_deferred("disabled", true)
+
+
+func _on_attack_length_timeout() -> void:
+	$AttackHitbox.rotation = get_angle_to(target.global_position) + deg_to_rad(90)
+	$AttackHitbox/CollisionShape2D.set_deferred("disabled", false)
