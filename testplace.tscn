@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=38 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dxq6u0a387ick" path="res://illusioner.tscn" id="16_ee4d1"]
 [ext_resource type="PackedScene" uid="uid://dj6xi2bqa36xk" path="res://advanced_skeleton.tscn" id="16_ksrqk"]
 [ext_resource type="PackedScene" uid="uid://bnmsj2aguea8g" path="res://crystal_figure.tscn" id="17_ksrqk"]
+[ext_resource type="PackedScene" uid="uid://dulu8yqn1otak" path="res://bat.tscn" id="18_b8mv0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -12, 16, -12)
@@ -209,6 +210,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip1"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip1"]
@@ -242,6 +244,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip2"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip2"]
@@ -275,6 +278,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip3"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip3"]
@@ -308,6 +312,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip4"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip4"]
@@ -341,6 +346,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip5"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip5"]
@@ -374,6 +380,7 @@ script = ExtResource("3_ew55c")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/Tip6"]
+visible = false
 shape = SubResource("CircleShape2D_vsyt0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TileMapLayer/Tip6"]
@@ -429,7 +436,6 @@ autostart = true
 
 [node name="NecromancerEnemy" parent="Enemies" instance=ExtResource("7_hqufi")]
 position = Vector2(307, -366)
-metadata/_edit_group_ = true
 
 [node name="ArcherEnemy" parent="Enemies" instance=ExtResource("11_ew55c")]
 position = Vector2(370, -358)
@@ -441,10 +447,13 @@ position = Vector2(488, -232)
 position = Vector2(458, -283)
 
 [node name="AdvancedSkeleton" parent="Enemies" instance=ExtResource("16_ksrqk")]
-position = Vector2(-93, 129)
+position = Vector2(590, -219)
 
 [node name="CrystalFigure" parent="Enemies" instance=ExtResource("17_ksrqk")]
-position = Vector2(-135, -161)
+position = Vector2(670, -231)
+
+[node name="Bat" parent="Enemies" instance=ExtResource("18_b8mv0")]
+position = Vector2(-136, -65)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]

@@ -13,6 +13,7 @@ monitorable = false
 script = ExtResource("1_nrdsm")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_xn8d0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
