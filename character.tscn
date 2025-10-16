@@ -44,7 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://g1b26c8m7md3" path="res://resources/characterchangeparticle.png" id="34_lyohd"]
 [ext_resource type="Texture2D" uid="uid://vvqeupnsomto" path="res://resources/minibosshealthunder.png" id="36_3fhje"]
 [ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
-[ext_resource type="Shader" uid="uid://bppxlnqkxv25n" path="res://glitch.tres" id="40_fwo57"]
+[ext_resource type="Shader" uid="uid://k0pkqxox6qxb" path="res://glitch.gdshader" id="40_fwo57"]
 [ext_resource type="AudioStream" uid="uid://f8eqgii7w22c" path="res://resources/stun.wav" id="43_0a77e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
@@ -1010,6 +1010,11 @@ variation_opentype = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0b81"]
 shader = ExtResource("40_fwo57")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
 
 [sub_resource type="Animation" id="Animation_r5wlx"]
 resource_name = "LevelUp"
