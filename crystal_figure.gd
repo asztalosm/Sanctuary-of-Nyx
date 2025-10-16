@@ -69,13 +69,24 @@ func spiketrap() -> void:
 		spikeinstance.top_level = true
 		add_child(spikeinstance)
 
+func crystalwall() -> void:
+	if !dead:
+		var wallinstance = load("res://crystalwall.tscn").instantiate()
+		# get distance between player and enemy, this will be used as a random variable
+		wallinstance.global_position = global_position + Vector2(randf_range((target.global_position.x - global_position.x), (target.global_position.x - global_position.x)*0.5), randf_range((target.global_position.y - global_position.y), (target.global_position.y - global_position.y)*0.5))
+		wallinstance.rotation = get_angle_to(target.global_position) + deg_to_rad(90)
+		wallinstance.top_level = true
+		add_child(wallinstance)
+
 func attackroll() -> void:
 	if !dead:
-		match randi_range(1,2):
+		match randi_range(1,3):
 			1:
 				shardprojectile()
 			2:
 				spiketrap()
+			3:
+				crystalwall()
 		onattackcooldown = true
 		$AttackCooldown.start()
 
