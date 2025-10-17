@@ -1,0 +1,140 @@
+extends CharacterBody2D
+#this enemy will attack the player with shards, will have multiple attacks like bosses:
+#attacks: shard like an arrow, set shards on floor like a minecraft evoker, and wall off the player with a solid wall that damages the player on contact
+
+
+@export var shielded = false
+@export var maxhealth : float = 25.0
+@export var health : float = maxhealth
+@export var speed = 50
+@export var damage :float = 3
+@export var attackcooldown = 1.8
+@export var cantakedamage = true
+@export var target = self
+@export var stunned = false
+@export var animationname = "default"
+var onshieldcooldown = false
+var inattackzone = false
+var onattackcooldown = false
+var dir := Vector2.ZERO
+var dead = false
+@onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
+
+func _ready() -> void:
+	$HealthBar.max_value = maxhealth
+func stun() -> void:
+	stunned = true
+	await get_tree().create_timer(3.0).timeout
+	stunned = false
+
+func death() -> void:
+	dead = true
+	player.globalcharacterstats.Xp += 250 + player.arcadeStats.get("more XP per kill")
+	player.addpoints(250)
+	$GPUParticles2D.restart()
+	for nodes in self.get_children():
+		if nodes != $GPUParticles2D:
+			nodes.queue_free()
+
+func hit(selfdamage) -> void:
+	if shielded:
+		player.stun()
+	else:
+		health -= selfdamage
+		$AnimationPlayer.play("hit")
+
+func shield() -> void:
+	shielded = true
+	$HealthBar.tint_progress = Color8(255,255,255)
+	await get_tree().create_timer(1.2).timeout
+	onshieldcooldown = true
+	$HealthBar.tint_progress = Color8(128, 41, 41)
+	$ShieldCooldown.start()
+	shielded = false
+
+func shardprojectile() -> void:
+	var shardinstance = load("res://crystal_projectile.tscn").instantiate()
+	await get_tree().create_timer(0.01).timeout # now that i look back on this this is an ugly implementation and probably buggy, will rewrite this later
+	if get_node_or_null("AttackCooldown") != null:
+		add_child(shardinstance)
+		$AttackCooldown.start()
+		shardinstance.global_position = self.global_position
+		shardinstance.dir = shardinstance.global_position.direction_to(target.global_position)
+
+func spiketrap() -> void:
+	#i dont care, im reusing the spike asset
+	if !dead:
+		var spikeinstance = load("res://spikes.tscn").instantiate()
+		spikeinstance.global_position = target.global_position + Vector2(randi_range(-40, 40), randi_range(-40, 40))
+		spikeinstance.top_level = true
+		add_child(spikeinstance)
+
+func crystalwall() -> void:
+	if !dead:
+		var wallinstance = load("res://crystalwall.tscn").instantiate()
+		# get distance between player and enemy, this will be used as a random variable
+		wallinstance.global_position = global_position + Vector2(randf_range((target.global_position.x - global_position.x), (target.global_position.x - global_position.x)*0.5), randf_range((target.global_position.y - global_position.y), (target.global_position.y - global_position.y)*0.5))
+		wallinstance.rotation = get_angle_to(target.global_position) + deg_to_rad(90)
+		wallinstance.top_level = true
+		add_child(wallinstance)
+
+func attackroll() -> void:
+	if !dead:
+		match randi_range(1,3):
+			1:
+				shardprojectile()
+			2:
+				spiketrap()
+			3:
+				crystalwall()
+		onattackcooldown = true
+		$AttackCooldown.start()
+
+func _process(_delta: float) -> void:
+	velocity = Vector2(0,0)
+	if health <= 0 and !dead:
+		death()
+	elif !dead:
+		if health != maxhealth or target != self:
+			$HealthBar.visible = true
+			$HealthBar.value = health
+		if !stunned:
+			if inattackzone and !onattackcooldown and inattackzone:
+				attackroll()
+			if target != self:
+				if global_position.distance_to(target.global_position) > 220:
+					target = self
+				else:
+					$NavigationAgent2D.target_position = target.global_position
+					dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-5, 5), randf_range(-5, 5))
+					if dir.length_squared() > 1.0:
+						dir = dir.normalized()
+						velocity = dir * Vector2(speed, speed)
+	move_and_slide()
+
+
+func _on_detection_body_entered(body: Node2D) -> void:
+	target = body
+	$HealthBar.visible = true
+	$HealthBar.value = health
+
+
+func _on_attack_cooldown_timeout() -> void:
+	onattackcooldown = false
+	animationname = "default"
+
+
+func _on_attack_range_body_entered(_body: Node2D) -> void:
+	inattackzone = true
+
+
+func _on_gpu_particles_2d_finished() -> void:
+	queue_free()
+
+
+func _on_shield_cooldown_timeout() -> void:
+	onshieldcooldown = false
+
+
+func _on_attack_range_body_exited(_body: Node2D) -> void:
+	inattackzone = false

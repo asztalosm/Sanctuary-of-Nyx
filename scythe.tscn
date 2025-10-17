@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://xbuq0m1xj15o"]
+
+[ext_resource type="Script" uid="uid://bdgweliv1413o" path="res://schyte.gd" id="1_ov54h"]
+[ext_resource type="Texture2D" uid="uid://gscvwkrlalns" path="res://resources/scythe.png" id="2_fpx6y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w2t4k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fpx6y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2onbn"]
+
+[node name="Scythe" type="CharacterBody2D"]
+script = ExtResource("1_ov54h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w2t4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_2onbn")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(10, 14, 4, 14, 5, -7, -12, -4, -15, -8, 3, -15, 14, -12)

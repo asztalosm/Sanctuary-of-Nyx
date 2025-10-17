@@ -1,0 +1,136 @@
+[gd_scene load_steps=16 format=3 uid="uid://dx85rguk6nluo"]
+
+[ext_resource type="Script" uid="uid://d2gbm8tsn8edg" path="res://reaper.gd" id="1_bpyeu"]
+[ext_resource type="Texture2D" uid="uid://cyeqppupjkyvs" path="res://resources/batparticle.png" id="1_lgd72"]
+[ext_resource type="Texture2D" uid="uid://coiypa4ua4nx4" path="res://resources/reaper.png" id="2_7mi6d"]
+
+[sub_resource type="Gradient" id="Gradient_jnamf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7mi6d"]
+gradient = SubResource("Gradient_jnamf")
+width = 16
+
+[sub_resource type="Animation" id="Animation_a1mae"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_twgjm"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.23137255, 0.23137255, 0.6392157), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
+_data = {
+&"RESET": SubResource("Animation_a1mae"),
+&"hit": SubResource("Animation_twgjm")
+}
+
+[sub_resource type="Curve" id="Curve_bpyeu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_18qvj"]
+curve = SubResource("Curve_bpyeu")
+
+[sub_resource type="Curve" id="Curve_vj8bx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.719697, 0.7191012), -0.98876435, -0.98876435, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_v2lle"]
+curve = SubResource("Curve_vj8bx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j4mwn"]
+particle_flag_disable_z = true
+radial_velocity_min = 11.759977
+radial_velocity_max = 23.519978
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+scale_curve = SubResource("CurveTexture_v2lle")
+alpha_curve = SubResource("CurveTexture_18qvj")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bpyeu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7mi6d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8bx"]
+
+[node name="Reaper" type="CharacterBody2D"]
+script = ExtResource("1_bpyeu")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_7mi6d")
+texture_progress = SubResource("GradientTexture1D_7mi6d")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5019608, 0.16078432, 0.16078432, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8omkc")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.56, 0.56, 0.56, 1)
+scale = Vector2(3, 3)
+emitting = false
+texture = ExtResource("1_lgd72")
+lifetime = 0.6
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_j4mwn")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.75
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bpyeu")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(2, 14, 21, 24, 25, 24, 21, 7, 12, -4, 26, 3, 29, -1, 13, -18, 11, -36, -5, -22, -20, -19, -24, -4, -11, -13, -19, 19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vj8bx")
+disabled = true
