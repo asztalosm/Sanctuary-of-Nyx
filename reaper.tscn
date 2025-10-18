@@ -3,14 +3,8 @@
 [ext_resource type="Script" uid="uid://d2gbm8tsn8edg" path="res://reaper.gd" id="1_bpyeu"]
 [ext_resource type="Texture2D" uid="uid://cyeqppupjkyvs" path="res://resources/batparticle.png" id="1_lgd72"]
 [ext_resource type="Texture2D" uid="uid://coiypa4ua4nx4" path="res://resources/reaper.png" id="2_7mi6d"]
-
-[sub_resource type="Gradient" id="Gradient_jnamf"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_7mi6d"]
-gradient = SubResource("Gradient_jnamf")
-width = 16
+[ext_resource type="Texture2D" uid="uid://cxjajhpxe01sd" path="res://resources/elitehealthbar2under.png" id="4_j4mwn"]
+[ext_resource type="Texture2D" uid="uid://cwaj7mdfd4i5t" path="res://resources/elitehealthbar2.png" id="5_6llas"]
 
 [sub_resource type="Animation" id="Animation_a1mae"]
 length = 0.001
@@ -97,19 +91,6 @@ radius = 157.0796
 [node name="Reaper" type="CharacterBody2D"]
 script = ExtResource("1_bpyeu")
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -2.0
-offset_top = -36.0
-offset_right = 14.0
-offset_bottom = -35.0
-max_value = 10.0
-step = 0.1
-value = 10.0
-texture_under = SubResource("GradientTexture1D_7mi6d")
-texture_progress = SubResource("GradientTexture1D_7mi6d")
-tint_under = Color(0.4, 0.4, 0.4, 1)
-tint_progress = Color(0.5019608, 0.16078432, 0.16078432, 1)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_8omkc")
@@ -162,6 +143,19 @@ monitorable = false
 shape = SubResource("CircleShape2D_vj8bx")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+process_mode = 3
+visible = false
+offset_left = -1.0
+offset_top = -38.0
+offset_right = 15.0
+offset_bottom = -34.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = ExtResource("4_j4mwn")
+texture_progress = ExtResource("5_6llas")
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]

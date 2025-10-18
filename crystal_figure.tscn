@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://xhi4m03kbvc5" path="res://crystal_figure.gd" id="1_ona2e"]
 [ext_resource type="Texture2D" uid="uid://bhvkahk03sw68" path="res://resources/crystalparticleatlas.png" id="2_5l0fj"]
+[ext_resource type="Texture2D" uid="uid://cxjajhpxe01sd" path="res://resources/elitehealthbar2under.png" id="2_wpevf"]
+[ext_resource type="Texture2D" uid="uid://cwaj7mdfd4i5t" path="res://resources/elitehealthbar2.png" id="3_43kj6"]
 [ext_resource type="Texture2D" uid="uid://lma2v6jvkvpc" path="res://resources/crystal-sheet.png" id="3_c8o25"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c8o25"]
@@ -14,14 +16,6 @@ radius = 171.01169
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wpevf"]
 radius = 157.0796
-
-[sub_resource type="Gradient" id="Gradient_ob1ba"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_wgj47"]
-gradient = SubResource("Gradient_ob1ba")
-width = 16
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mglwy"]
 particles_animation = true
@@ -210,10 +204,8 @@ offset_bottom = -35.0
 max_value = 10.0
 step = 0.1
 value = 10.0
-texture_under = SubResource("GradientTexture1D_wgj47")
-texture_progress = SubResource("GradientTexture1D_wgj47")
-tint_under = Color(0.4, 0.4, 0.4, 1)
-tint_progress = Color(0.5, 0.16, 0.16, 1)
+texture_under = ExtResource("2_wpevf")
+texture_progress = ExtResource("3_43kj6")
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.8
