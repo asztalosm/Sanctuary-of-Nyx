@@ -38,23 +38,11 @@ func hit(selfdamage) -> void:
 	$AnimationPlayer.play("hit")
 
 func attack1() -> void:
-	#scythe summon
-	var scythe = load("res://scythe.tscn").instantiate()
-	await get_tree().create_timer(0.01).timeout # now that i look back on this this is an ugly implementation and probably buggy, will rewrite this later
-	if get_node_or_null("AttackCooldown") != null:
-		add_child(scythe)
-		$AttackCooldown.start()
-		scythe.global_position = self.global_position
-		scythe.dir = scythe.global_position.direction_to(target.global_position)
+	print("attack 1")
 
 func attack2() -> void:
-	#soul minion spawner
-	var soulminion = load("res://soul_minion.tscn").instantiate()
-	await get_tree().create_timer(0.01).timeout
-	if get_node_or_null("AttackCooldown") != null:
-		add_child(soulminion)
-		$AttackCooldown.start()
-		soulminion.global_position = global_position
+	print("attack 2")
+
 func attack3() -> void:
 	print("attack 3")
 
@@ -113,3 +101,7 @@ func _on_gpu_particles_2d_finished() -> void:
 
 func _on_attack_range_body_exited(_body: Node2D) -> void:
 	inattackzone = false
+
+
+func _on_detection_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.

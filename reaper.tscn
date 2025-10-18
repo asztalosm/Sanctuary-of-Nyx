@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dx85rguk6nluo"]
+[gd_scene load_steps=18 format=3 uid="uid://dx85rguk6nluo"]
 
 [ext_resource type="Script" uid="uid://d2gbm8tsn8edg" path="res://reaper.gd" id="1_bpyeu"]
 [ext_resource type="Texture2D" uid="uid://cyeqppupjkyvs" path="res://resources/batparticle.png" id="1_lgd72"]
@@ -88,10 +88,14 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8bx"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bpyeu"]
+radius = 171.01169
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vj8bx"]
+radius = 157.0796
+
 [node name="Reaper" type="CharacterBody2D"]
 script = ExtResource("1_bpyeu")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -8.0
@@ -121,12 +125,15 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_j4mwn")
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 2.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bpyeu")
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 polygon = PackedVector2Array(2, 14, 21, 24, 25, 24, 21, 7, 12, -4, 26, 3, 29, -1, 13, -18, 11, -36, -5, -22, -20, -19, -24, -4, -11, -13, -19, 19)
@@ -134,3 +141,30 @@ polygon = PackedVector2Array(2, 14, 21, 24, 25, 24, 21, 7, 12, -4, 26, 3, 29, -1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vj8bx")
 disabled = true
+
+[node name="Detection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_bpyeu")
+
+[node name="AttackRange" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_vj8bx")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
