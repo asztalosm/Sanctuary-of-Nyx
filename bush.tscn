@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds1jifabtcyn6"]
+
+[ext_resource type="Texture2D" uid="uid://falhykhgymmh" path="res://resources/bush.png" id="1_8cy4n"]
+[ext_resource type="Script" uid="uid://dqairgdckogjq" path="res://bush.gd" id="1_28u5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28u5p"]
+radius = 23.0
+
+[node name="Bush" type="Area2D"]
+collision_layer = 0
+collision_mask = 5
+monitorable = false
+script = ExtResource("1_28u5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8cy4n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 2)
+shape = SubResource("CircleShape2D_28u5p")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

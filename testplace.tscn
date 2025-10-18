@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=40 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="7_hqufi"]
 [ext_resource type="PackedScene" uid="uid://md3h5mxv5mfr" path="res://spikes.tscn" id="7_vsyt0"]
 [ext_resource type="PackedScene" uid="uid://caofjymwqx1yi" path="res://arrowtrap.tscn" id="8_k3go7"]
+[ext_resource type="PackedScene" uid="uid://ds1jifabtcyn6" path="res://bush.tscn" id="9_mboee"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="11_ew55c"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="12_g626g"]
 [ext_resource type="PackedScene" uid="uid://dxq6u0a387ick" path="res://illusioner.tscn" id="16_ee4d1"]
@@ -420,6 +421,9 @@ position = Vector2(285, -233)
 
 [node name="ArrowTrap3" parent="TileMapLayer" instance=ExtResource("8_k3go7")]
 position = Vector2(246, -233)
+
+[node name="Bush" parent="TileMapLayer" instance=ExtResource("9_mboee")]
+position = Vector2(20, 115)
 
 [node name="Character" parent="." instance=ExtResource("1_ceir1")]
 

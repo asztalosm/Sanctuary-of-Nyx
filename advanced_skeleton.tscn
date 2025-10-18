@@ -124,7 +124,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.75, 1),
 "update": 0,
-"values": [Color(1, 0.23137255, 0.23137255, 0.6392157), Color(1, 1, 1, 1)]
+"values": [Color(1, 0.23000002, 0.23000002, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
@@ -254,6 +254,7 @@ disabled = true
 wait_time = 0.8
 
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]

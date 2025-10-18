@@ -12,13 +12,14 @@ extends CharacterBody2D
 @export var stunned = false
 @export var animationname = "default"
 var inattackzone = false
-var onattackcooldown = false
+var onattackcooldown = true
 var dir := Vector2.ZERO
 var dead = false
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
+
 func stun() -> void:
 	stunned = true
 	await get_tree().create_timer(3.0).timeout
@@ -49,14 +50,24 @@ func attack1() -> void:
 
 func attack2() -> void:
 	#soul minion spawner
-	var soulminion = load("res://soul_minion.tscn").instantiate()
-	await get_tree().create_timer(0.01).timeout
-	if get_node_or_null("AttackCooldown") != null:
-		add_child(soulminion)
-		$AttackCooldown.start()
-		soulminion.global_position = global_position
+	for i in range(3):
+		var soulminion = load("res://soul_minion.tscn").instantiate()
+		await get_tree().create_timer(0.01).timeout
+		if get_node_or_null("AttackCooldown") != null:
+			add_child(soulminion)
+			$AttackCooldown.start()
+			soulminion.global_position = global_position + Vector2(randf_range(-80, 80), randf_range(-80, 80))
 func attack3() -> void:
-	print("attack 3")
+	var oldpos = global_position
+	for i in range(5):
+		var horizontaldistance = randf_range(-70, 70)
+		var distancesum = 70 - abs(horizontaldistance)
+		global_position = player.global_position + Vector2(horizontaldistance, distancesum)
+		player.hit(1.0)
+		await get_tree().create_timer(0.4).timeout
+	if get_node_or_null("AttackCooldown") != null:
+		$AttackCooldown.start()
+	global_position = oldpos
 
 func attackroll() -> void:
 	if !dead:
@@ -68,7 +79,6 @@ func attackroll() -> void:
 			3:
 				attack3()
 		onattackcooldown = true
-		$AttackCooldown.start()
 
 func _process(_delta: float) -> void:
 	velocity = Vector2(0,0)
@@ -96,6 +106,10 @@ func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
 	$HealthBar.visible = true
 	$HealthBar.value = health
+	$AttackCooldown.start()
+
+func _on_detection_body_exited(_body: Node2D) -> void:
+	target = self
 
 
 func _on_attack_cooldown_timeout() -> void:

@@ -43,7 +43,16 @@ func slashAttack() -> void:
 	await swordMovementTween.finished
 	finishedattack()
 
+func groundstomp() -> void:
+	print(global_position)
+	print(global_position * (Vector2(1,1)+global_position.direction_to(player.global_position)))
+	print(global_position.direction_to(player.global_position))
+	if global_position.distance_to(player.global_position) < 100:
+		var stomptween = get_tree().create_tween()
+		stomptween.tween_property(player, "global_position", (player.global_position - (global_position - player.global_position) * 1.2), 0.8)
+
 func alldirAttack() -> void:
+	groundstomp()
 	for hitboxes in $AllDirHitbox.get_children():
 		hitboxes.get_node("AnimatedSprite2D").play("default")
 		hitboxes.set_deferred("disabled", false)

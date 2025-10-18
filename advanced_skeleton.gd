@@ -132,3 +132,7 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 func _on_attack_length_timeout() -> void:
 	$AttackHitbox.rotation = get_angle_to(target.global_position) + deg_to_rad(90)
 	$AttackHitbox/CollisionShape2D.set_deferred("disabled", false)
+
+
+func _on_detection_body_exited(_body: Node2D) -> void:
+	target = self

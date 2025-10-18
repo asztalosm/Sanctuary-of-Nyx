@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c8o25"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpevf"]
-size = Vector2(8, 16)
+size = Vector2(28, 60)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5l0fj"]
 radius = 171.01169
@@ -151,7 +151,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.75, 1),
 "update": 0,
-"values": [Color(1, 0.23137255, 0.23137255, 0.6392157), Color(1, 1, 1, 1)]
+"values": [Color(1, 0.23000002, 0.23000002, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
@@ -178,6 +178,7 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitCheck"]
 visible = false
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_wpevf")
 
 [node name="Detection" type="Area2D" parent="."]
@@ -231,9 +232,11 @@ animation = &"0"
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_mglwy")
+emitting = false
 amount = 4
 texture = ExtResource("2_5l0fj")
-lifetime = 3.0
+one_shot = true
+explosiveness = 0.25
 process_material = SubResource("ParticleProcessMaterial_riq2t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -242,6 +245,8 @@ libraries = {
 }
 
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="finished" from="GPUParticles2D2" to="." method="_on_gpu_particles_2d_finished"]

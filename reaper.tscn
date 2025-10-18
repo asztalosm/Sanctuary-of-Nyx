@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.75, 1),
 "update": 0,
-"values": [Color(1, 0.23137255, 0.23137255, 0.6392157), Color(1, 1, 1, 1)]
+"values": [Color(1, 0.23000002, 0.23000002, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
@@ -98,10 +98,10 @@ radius = 157.0796
 script = ExtResource("1_bpyeu")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -8.0
-offset_top = -20.0
-offset_right = 8.0
-offset_bottom = -19.0
+offset_left = -2.0
+offset_top = -36.0
+offset_right = 14.0
+offset_bottom = -35.0
 max_value = 10.0
 step = 0.1
 value = 10.0

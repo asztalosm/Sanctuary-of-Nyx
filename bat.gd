@@ -83,6 +83,8 @@ func _on_detection_body_entered(body: Node2D) -> void:
 	$HealthBar.visible = true
 	$HealthBar.value = health
 
+func _on_detection_body_exited(_body: Node2D) -> void:
+	target = self
 
 func _on_attack_cooldown_timeout() -> void:
 	onattackcooldown = false
