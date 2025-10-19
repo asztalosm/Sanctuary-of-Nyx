@@ -27,7 +27,6 @@ func showskills() -> void:
 	$Inventory.visible = false
 	$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
-	get_parent().globalcharacterstats.SkillPoints = 10
 	$Ability/Cooldown.wait_time = get_parent().currentcharacter.AbilityCooldown
 	refreshstats()
 	$Inventory/VSplitContainer/Control/TextureRect/Charactericon.texture = get_parent().currentcharacter.Icon

@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://bbpgfu7xlih8s"]
+
+[ext_resource type="Script" uid="uid://b08nc2jvuj0tt" path="res://dummy.gd" id="1_xmspm"]
+[ext_resource type="Texture2D" uid="uid://cw6hsjqv62hdn" path="res://resources/dummy.png" id="2_0umox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhfnd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvjhf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0umox")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_1ob5i"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1324b"]
+gradient = SubResource("Gradient_1ob5i")
+width = 16
+
+[sub_resource type="Animation" id="Animation_ew55c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4rwaw"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g626g"]
+_data = {
+&"RESET": SubResource("Animation_ew55c"),
+&"hit": SubResource("Animation_4rwaw")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmspm"]
+size = Vector2(26, 32)
+
+[node name="Dummy" type="CharacterBody2D"]
+script = ExtResource("1_xmspm")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bhfnd")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tvjhf")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_1324b")
+texture_progress = SubResource("GradientTexture1D_1324b")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g626g")
+}
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+shape = SubResource("RectangleShape2D_xmspm")
