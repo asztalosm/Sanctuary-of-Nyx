@@ -161,7 +161,7 @@ func ability() -> void:
 	$Soundcontroller.play(currentcharacter.Ability)
 	match currentcharacter.Ability:
 		"assassinstep":
-			$CollisionShape2D.set_deferred("disabled", true)
+			collision_layer = 1
 			$SmokeScreen.restart()
 			speed *= 1.75
 			var cameratween = get_tree().create_tween()
@@ -169,7 +169,7 @@ func ability() -> void:
 			cameratween.tween_property($Camera2D, "offset", Vector2.ZERO, 0.3)
 			await get_tree().create_timer(currentcharacter.AbilityDuration).timeout
 			speed /= 1.75
-			$CollisionShape2D.set_deferred("disabled", false)
+			collision_layer = 21
 		"stun":
 			var stunSpriteTween = get_tree().create_tween()
 			$MageAbility/CollisionShape2D.set_deferred("disabled", false)

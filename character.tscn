@@ -1700,7 +1700,6 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_lphiu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-visible = false
 position = Vector2(0.5, 9)
 shape = SubResource("RectangleShape2D_vu45j")
 

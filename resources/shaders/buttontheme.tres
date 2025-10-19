@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
@@ -50,6 +50,21 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdyrp"]
+bg_color = Color(0.29, 0.29, 0.29, 0.69803923)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.03, 0.03, 0.03, 0.2901961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yoi3q"]
 
@@ -105,6 +120,7 @@ ItemList/styles/hovered_selected_focus = SubResource("StyleBoxFlat_2nyqj")
 ItemList/styles/panel = SubResource("StyleBoxFlat_ik0fi")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_2nyqj")
 Label/colors/font_color = Color(0.497474, 0.497474, 0.497474, 1)
+Label/styles/normal = SubResource("StyleBoxFlat_rdyrp")
 ProgressBar/font_sizes/font_size = 12
 ProgressBar/styles/background = SubResource("StyleBoxEmpty_yoi3q")
 RichTextLabel/font_sizes/normal_font_size = 20
