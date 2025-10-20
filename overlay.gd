@@ -54,10 +54,9 @@ func _process(_delta: float) -> void:
 					cantProgress() 
 				7: #open skills menu
 					cantProgress()
-				14:
+				15:
 					counter += 1
 					get_parent().get_node("Collisions").get_node("StaticBody2D3").queue_free()
-				15: #use abilities
 					cantProgress()
 				utolsoelotti:
 					$Label/RichTextLabel.text = "Press E to exit"

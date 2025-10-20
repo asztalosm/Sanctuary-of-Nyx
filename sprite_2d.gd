@@ -5,7 +5,8 @@ extends Sprite2D
 func _on_timer_timeout() -> void:
 	var arrowscene = preload("res://arrow.tscn")
 	var arrowinstance = arrowscene.instantiate()
+	arrowinstance.damage = 3.0
 	arrowinstance.global_position = global_position
 	add_child(arrowinstance)
 	arrowinstance.rotation = 0
-	arrowinstance.dir = Vector2(0, 1)
+	arrowinstance.dir = Vector2.from_angle(get_angle_to(global_position - $Marker2D.global_position) - 0.2)
