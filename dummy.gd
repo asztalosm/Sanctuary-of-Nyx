@@ -14,7 +14,7 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
 func death() -> void:
-	player.globalcharacterstats.Xp += 20 + player.arcadeStats.get("more XP per kill")
+	player.globalcharacterstats.Xp += 1000 + player.arcadeStats.get("more XP per kill")
 	get_parent().get_parent().get_node("Collisions").get_node("StaticBody2D").queue_free()
 	get_parent().get_parent().get_node("Overlay").counter += 1
 	get_parent().get_parent().get_node("Overlay").canProgress()

@@ -1904,6 +1904,18 @@ pivot_offset = Vector2(96, 0)
 texture_under = ExtResource("16_3d8aq")
 texture_progress = ExtResource("17_8i6g0")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/GUI/Experience"]
+layout_mode = 0
+offset_top = 295.0
+offset_right = 576.0
+offset_bottom = 316.0
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/normal_font_size = 17
+text = "4/ xp"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
 [node name="Inventory" type="Control" parent="Player/GUI"]
 visible = false
 layout_mode = 3

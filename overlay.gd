@@ -6,17 +6,25 @@ var szovegek = [
 	"You can move your character around with WASD or the arrow keys", #3
 	"You have the ability to control multiple characters, check them out by pressing the numbers on your keyboard.", #4
 	"Follow The arrows and meet a dummy enemy to learn how the attacks work.", #5
-	"You can attack by pressing the left mouse click, each character has unique attacks that make them viable in different situations.",
-	"When you kill an enemy you gain experience.", #6
-	"From killing the dummy you got a skill point, you can spend them by pressing R.", #7
-	"As you could see, hovering over the skills gave you a detailed explanation on how that given skill works.", #8
-	"These will be very important during your gameplay, but the difference is only noticable when they are upgraded a lot.", #9
-	"Your characters also have a special ability, which you can use by pressing the right mouse button. Lets go over what each of them do.", #10
-	"1. Assassin: You turn invisible to enemies and your movement speed is increased. Great for escaping risky situations.", #11
-	"2. Mage: You send out a shockwave that stuns enemies, who won't be able to move for 4 seconds, which gives you enough time to change characters and attack them.", #12
-	"3. Archer: You shoot out 5 arrows very quickly, high DPS, but i will nerf it so enjoy it while you can (oo 4th wall break).", #13
-	"4. Knight: You take less damage from enemies, in return you will be very slow.",
-	"You will have to use these abilities to get through the next section, but you will have to figure that out on your own."
+	"You can attack by pressing the left mouse click, each character has unique attacks that make them viable in different situations.", #6
+	"When you kill an enemy you gain experience.", #7
+	"From killing the dummy you got a skill point, you can spend them by pressing R.", #8
+	"As you could see, hovering over the skills gave you a detailed explanation on how that given skill works.", #9
+	"These will be very important during your gameplay, but the difference is only noticable when they are upgraded a lot.", #10
+	"Your characters also have a special ability, which you can use by pressing the right mouse button. Lets go over what each of them do.", #11
+	"1. Assassin: You turn invisible to enemies and your movement speed is increased. Great for escaping risky situations.", #12
+	"2. Mage: You send out a shockwave that stuns enemies, who won't be able to move for 4 seconds, which gives you enough time to change characters and attack them.", #13
+	"3. Archer: You shoot out 5 arrows very quickly, high DPS, but i will nerf it so enjoy it while you can (oo 4th wall break).", #14
+	"4. Knight: You take less damage from enemies, in return you will be very slow.", #15
+	"You will have to use these abilities to get through the next section, but you will have to figure that out on your own.", #16
+	"There are multiple ways to achieve your goal, try as many characters as you can.", #17
+	"Now that you are familiar with the attacks and the abilities, progress to the next part to fight enemies, but before that some info about them.", #18
+	"There are 3 types of enemies, you will meet 2 of them here, as the third type isn't finished yet.", #19
+	"1. Simple/Default: The kind of enemies that shouldn't pose a big problem, they have 1 type of attack and very simple AI", #20
+	"2. Advanced/Elite 1/2: Enemies that have more advanced attacks, and will use the best attack for each situation (in the future, not implemented yet).", #21
+	"2. Advanced 2/2: They also have increased health and DPS and will alert more enemies and 'request' help from them. Fighting elite and simple enemies at the same time might cause issues.", #22
+	"3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope ti give them item drops.", #23
+	"Now that you know the enemy types, let's fight some of them!" #24
 	
 	
 ]
@@ -39,12 +47,17 @@ func _process(_delta: float) -> void:
 			match (counter):
 				3:
 					cantProgress()
-				4:
+				4: #deletes the wall which has the dummy behind it
 					get_parent().get_node("Collisions").get_node("StaticBody2D2").queue_free()
 					counter += 1
-				5:
+				5: #kill dummy
+					cantProgress() 
+				7: #open skills menu
 					cantProgress()
-				7:
+				14:
+					counter += 1
+					get_parent().get_node("Collisions").get_node("StaticBody2D3").queue_free()
+				15: #use abilities
 					cantProgress()
 				utolsoelotti:
 					$Label/RichTextLabel.text = "Press E to exit"

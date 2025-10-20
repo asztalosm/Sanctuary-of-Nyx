@@ -36,6 +36,7 @@ func _process(_delta: float) -> void:
 	$Health/HealthBar.max_value = get_parent().maxhealth
 	$Health/HealthBar.value = get_parent().health
 	$Experience/TextureProgressBar.max_value = get_parent().globalcharacterstats.XptoNextLevel
+	$Experience/RichTextLabel.text = str(get_parent().globalcharacterstats.Xp) + "/" + str(get_parent().globalcharacterstats.XptoNextLevel) + " xp"
 	$Experience/TextureProgressBar.value = get_parent().globalcharacterstats.Xp
 	if get_parent().abilityinuse == true:
 		$Ability/TextureProgressBar.max_value = get_parent().currentcharacter.AbilityDuration
