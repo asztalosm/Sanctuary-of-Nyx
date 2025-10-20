@@ -16,7 +16,7 @@ var szovegek = [
 	"2. Mage: You send out a shockwave that stuns enemies, who won't be able to move for 4 seconds, which gives you enough time to change characters and attack them.", #12
 	"3. Archer: You shoot out 5 arrows very quickly, high DPS, but i will nerf it so enjoy it while you can (oo 4th wall break).", #13
 	"4. Knight: You take less damage from enemies, in return you will be very slow.",
-	"WIP: you will have to use these abilities"
+	"You will have to use these abilities to get through the next section, but you will have to figure that out on your own."
 	
 	
 ]
