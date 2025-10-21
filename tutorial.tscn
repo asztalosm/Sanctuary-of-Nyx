@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://ch1y0043ew4ly"]
+[gd_scene load_steps=22 format=4 uid="uid://ch1y0043ew4ly"]
 
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_yb1ct"]
 [ext_resource type="Texture2D" uid="uid://c2r6ehqdolx4d" path="res://resources/arrowsign.png" id="2_5mrt3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="4_5mrt3"]
 [ext_resource type="Script" uid="uid://bpqntu5b48p2b" path="res://overlay.gd" id="4_rwowx"]
 [ext_resource type="PackedScene" uid="uid://caofjymwqx1yi" path="res://arrowtrap.tscn" id="5_7vrqn"]
+[ext_resource type="Script" uid="uid://b7e2u5anv2aqt" path="res://finished_skills.gd" id="6_bhfnd"]
 [ext_resource type="PackedScene" uid="uid://bbpgfu7xlih8s" path="res://dummy.tscn" id="6_hu44a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5mrt3"]
@@ -109,6 +110,9 @@ size = Vector2(39.80227, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhfnd"]
 size = Vector2(191, 273)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvjhf"]
+size = Vector2(123, 102)
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -142,6 +146,39 @@ offset_bottom = 10.0
 color = Color(0, 0, 0, 0.7137255)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_7vrqn")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Collisions"]
+position = Vector2(1006, 1520.0001)
+rotation = 1.5707964
+scale = Vector2(3.844, 1.1329564)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Collisions/StaticBody2D5"]
+offset_left = -19.0
+offset_top = -10.0
+offset_right = 21.0
+offset_bottom = 10.0
+color = Color(0, 0, 0, 0.7137255)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/StaticBody2D5"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_7vrqn")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Collisions"]
+position = Vector2(1422, 1043)
+scale = Vector2(2.4613988, 0.91152126)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Collisions/StaticBody2D4"]
+offset_left = -19.0
+offset_top = -10.0
+offset_right = 21.0
+offset_bottom = 10.0
+color = Color(0, 0, 0, 0.7137255)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/StaticBody2D4"]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_7vrqn")
 
@@ -238,6 +275,15 @@ rotation = -2.33749
 position = Vector2(1539.9999, 637.99994)
 rotation = 0.7586368
 
+[node name="FinishedSkills" type="Area2D" parent="Collisions"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("6_bhfnd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/FinishedSkills"]
+position = Vector2(1439.5, 983)
+shape = SubResource("RectangleShape2D_tvjhf")
+
 [node name="Character" parent="." instance=ExtResource("2_ehuit")]
 
 [node name="Overlay" type="CanvasLayer" parent="."]
@@ -272,3 +318,4 @@ horizontal_alignment = 2
 position = Vector2(801, -23)
 
 [connection signal="body_entered" from="Collisions/Area2D" to="Collisions/Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Collisions/FinishedSkills" to="Collisions/FinishedSkills" method="_on_body_entered"]

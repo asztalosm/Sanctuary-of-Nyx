@@ -101,7 +101,7 @@ hue_variation_min = -0.04000002
 hue_variation_max = 0.019999977
 
 [node name="EnemyDummy" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_jnamf")
 
@@ -109,6 +109,7 @@ script = ExtResource("1_jnamf")
 visible = false
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_7uaqn")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1ob5i")

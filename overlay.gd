@@ -21,10 +21,12 @@ var szovegek = [
 	"Now that you are familiar with the attacks and the abilities, progress to the next part to fight enemies, but before that some info about them.", #18
 	"There are 3 types of enemies, you will meet 2 of them here, as the third type isn't finished yet.", #19
 	"1. Simple/Default: The kind of enemies that shouldn't pose a big problem, they have 1 type of attack and very simple AI", #20
-	"2. Advanced/Elite 1/2: Enemies that have more advanced attacks, and will use the best attack for each situation (in the future, not implemented yet).", #21
-	"2. Advanced 2/2: They also have increased health and DPS and will alert more enemies and 'request' help from them. Fighting elite and simple enemies at the same time might cause issues.", #22
-	"3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope ti give them item drops.", #23
-	"Now that you know the enemy types, let's fight some of them!" #24
+	"2. Advanced/Elite 1/3: Enemies that have more advanced attacks, and will use the best attack for each situation (in the future, not implemented yet).", #21
+	"2. Advanced/Elite 2/3: They also have increased health and DPS and will alert more enemies and 'request' help from them. Fighting elite and simple enemies at the same time might cause issues.", #22
+	"2. Advanced/Elite 3/3: You can differentiate them from normal enemies by their hitbox.", #23
+	"3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope to give them item drops.", #24
+	"Now that you know the enemy types, let's fight some of them!", #24
+	"You have finished the tutorial, to exit the tutorial go through the portal or press the P button" #25
 	
 	
 ]
@@ -45,6 +47,7 @@ func _process(_delta: float) -> void:
 	if $Label.visible:
 		if Input.is_action_just_pressed("E") and canprogress:
 			match (counter):
+				#execution isn't that nice but whatever
 				3:
 					cantProgress()
 				4: #deletes the wall which has the dummy behind it
@@ -58,7 +61,12 @@ func _process(_delta: float) -> void:
 					counter += 1
 					get_parent().get_node("Collisions").get_node("StaticBody2D3").queue_free()
 					cantProgress()
+				23:
+					counter += 1
+					get_parent().get_node("Collisions").get_node("StaticBody2D5").queue_free()
+					cantProgress()
 				utolsoelotti:
+					canProgress()
 					$Label/RichTextLabel.text = "Press E to exit"
 					counter += 1
 				utolso:
