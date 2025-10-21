@@ -54,14 +54,14 @@ func _physics_process(_delta: float) -> void:
 				else:
 					if $NavigationAgent2D.is_target_reached():
 						attack()
-						await get_tree().create_timer(0.4)
-					$NavigationAgent2D.target_position = target.global_position
-					dir = $NavigationAgent2D.get_next_path_position() - global_position
-					if dir.length_squared() > 1.0:
-							dir = dir.normalized()
-							velocity = dir * speed
-					if velocity != Vector2(0,0):
-						$AnimatedSprite2D.play("walk")
+					else:
+						$NavigationAgent2D.target_position = target.global_position
+						dir = $NavigationAgent2D.get_next_path_position() - global_position
+						if dir.length_squared() > 1.0:
+								dir = dir.normalized()
+								velocity = dir * speed
+						if velocity != Vector2(0,0):
+							$AnimatedSprite2D.play("walk")
 	move_and_slide()
 
 

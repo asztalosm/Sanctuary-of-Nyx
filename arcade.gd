@@ -52,10 +52,11 @@ func startwave() -> void: #starts the wave
 		var barrel = barrelscene.instantiate()
 		get_parent().get_node("TileMapLayer").add_child(barrel)
 		barrel.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
-	for i in randi_range(1,3):
-		var spikes = spikescene.instantiate()
-		get_parent().get_node("TileMapLayer").add_child(spikes)
-		spikes.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
+	#removed this because the crystal enemy uses this script, will remake this later
+	#for i in randi_range(1,3):
+	#	var spikes = spikescene.instantiate()
+	#	get_parent().get_node("TileMapLayer").add_child(spikes)
+	#	spikes.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
 	await get_tree().create_timer(5).timeout
 	WaveOverlay.start_wave()
 	get_parent().get_node("EnemySpawners")._activateSpawner()
