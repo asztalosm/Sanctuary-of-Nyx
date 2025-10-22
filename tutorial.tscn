@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ch1y0043ew4ly"]
+[gd_scene load_steps=33 format=4 uid="uid://ch1y0043ew4ly"]
 
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_yb1ct"]
 [ext_resource type="Texture2D" uid="uid://c2r6ehqdolx4d" path="res://resources/arrowsign.png" id="2_5mrt3"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://caofjymwqx1yi" path="res://arrowtrap.tscn" id="5_7vrqn"]
 [ext_resource type="Script" uid="uid://b7e2u5anv2aqt" path="res://finished_skills.gd" id="6_bhfnd"]
 [ext_resource type="PackedScene" uid="uid://bbpgfu7xlih8s" path="res://dummy.tscn" id="6_hu44a"]
+[ext_resource type="Script" uid="uid://bw57rqor7gpo2" path="res://tutorial_enemies.gd" id="10_tvjhf"]
+[ext_resource type="Script" uid="uid://bo4kpopmhfwad" path="res://special_dummy.gd" id="12_4hjyh"]
+[ext_resource type="Texture2D" uid="uid://cw6hsjqv62hdn" path="res://resources/dummy.png" id="12_vmw6g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5mrt3"]
 texture = ExtResource("1_yb1ct")
@@ -113,6 +116,68 @@ size = Vector2(191, 273)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvjhf"]
 size = Vector2(123, 102)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_4hjyh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_vmw6g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsk3x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dl7dh"]
+radius = 14.0
+height = 32.0
+
+[sub_resource type="Gradient" id="Gradient_1ob5i"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r4o0u"]
+gradient = SubResource("Gradient_1ob5i")
+width = 16
+
+[sub_resource type="Animation" id="Animation_ew55c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4rwaw"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.231373, 0.231373, 0.639216), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g626g"]
+_data = {
+&"RESET": SubResource("Animation_ew55c"),
+&"hit": SubResource("Animation_4rwaw")
+}
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -146,6 +211,23 @@ offset_bottom = 10.0
 color = Color(0, 0, 0, 0.7137255)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_7vrqn")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Collisions"]
+position = Vector2(563, 1296.0001)
+rotation = -0.0934879
+scale = Vector2(14.354493, 1.3335294)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Collisions/StaticBody2D6"]
+offset_left = -19.0
+offset_top = -10.0
+offset_right = 21.0
+offset_bottom = 10.0
+color = Color(0, 0, 0, 0.7137255)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/StaticBody2D6"]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_7vrqn")
 
@@ -285,6 +367,8 @@ position = Vector2(1439.5, 983)
 shape = SubResource("RectangleShape2D_tvjhf")
 
 [node name="Character" parent="." instance=ExtResource("2_ehuit")]
+position = Vector2(1271, 657)
+metadata/_edit_group_ = true
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 script = ExtResource("4_rwowx")
@@ -313,9 +397,52 @@ autowrap_mode = 0
 horizontal_alignment = 2
 
 [node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("10_tvjhf")
+metadata/_edit_lock_ = true
 
 [node name="Dummy" parent="Enemies" instance=ExtResource("6_hu44a")]
 position = Vector2(801, -23)
+
+[node name="SpecialDummy" type="CharacterBody2D" parent="."]
+position = Vector2(471, 980)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("12_4hjyh")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpecialDummy"]
+sprite_frames = SubResource("SpriteFrames_4hjyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialDummy"]
+visible = false
+shape = SubResource("RectangleShape2D_bsk3x")
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="SpecialDummy"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialDummy/Hitbox"]
+shape = SubResource("CapsuleShape2D_dl7dh")
+
+[node name="HealthBar" type="TextureProgressBar" parent="SpecialDummy"]
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -19.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = SubResource("GradientTexture1D_r4o0u")
+texture_progress = SubResource("GradientTexture1D_r4o0u")
+tint_under = Color(0.4, 0.4, 0.4, 1)
+tint_progress = Color(0.5, 0.16, 0.16, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpecialDummy"]
+libraries = {
+&"": SubResource("AnimationLibrary_g626g")
+}
 
 [connection signal="body_entered" from="Collisions/Area2D" to="Collisions/Area2D" method="_on_body_entered"]
 [connection signal="body_entered" from="Collisions/FinishedSkills" to="Collisions/FinishedSkills" method="_on_body_entered"]

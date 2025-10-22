@@ -1,5 +1,5 @@
 extends CanvasLayer
-var szovegek = [
+var texts = [
 	"",
 	"Welcome to Sanctuary of Nyx!", #1
 	"Sanctuary of Nyx is a souls-like game that will have an open world and will be very RPG-like. Currently there is only an arcade gamemode. And the assets are just placeholders", #2
@@ -31,8 +31,8 @@ var szovegek = [
 	
 ]
 var counter = 1
-var utolsoelotti = len(szovegek)-2
-var utolso = len(szovegek)-1
+var utolsoelotti = len(texts)-2
+var utolso = len(texts)-1
 var canprogress = true
 func cantProgress() -> void:
 	canprogress = false
@@ -74,7 +74,7 @@ func _process(_delta: float) -> void:
 				_:
 					counter += 1
 					canprogress = true
-		$Label.text = szovegek[counter]
+		$Label.text = texts[counter]
 	if (Input.is_action_just_pressed("1") or Input.is_action_just_pressed("2") or Input.is_action_just_pressed("3") or Input.is_action_just_pressed("4") or Input.is_action_just_pressed("5") or Input.is_action_just_pressed("6")) and counter == 4 and !canprogress:
 		canProgress()
 	if Input.is_action_just_pressed("Skills") and counter == 8:
