@@ -25,6 +25,6 @@ theme_override_colors/default_color = Color(0.71, 0.28187, 0.23429999, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/normal_font_size = 19
-text = "- 4"
+text = " - 4"
 fit_content = true
 autowrap_mode = 0

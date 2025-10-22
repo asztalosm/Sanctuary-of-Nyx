@@ -26,10 +26,10 @@ var texts = [
 	"2. Advanced/Elite 3/3: You can differentiate them from normal enemies by their hitbox.", #23
 	"3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope to give them item drops.", #24
 	"Now that you know the enemy types, let's fight some of them!", #24
-	"You have finished the tutorial, to exit the tutorial interact with the campfire at the end or press the P/ESCAPE button" #25
-	
-	
+	"The last piece of information about the game is that campfires act as save points. Though these will only be used in the campaign which isn't released yet.", #25
+	"You have finished the tutorial, to exit the tutorial interact with the campfire at the end or press the P/ESCAPE button" #26
 ]
+
 var counter = 1
 var utolsoelotti = len(texts)-2
 var utolso = len(texts)-1

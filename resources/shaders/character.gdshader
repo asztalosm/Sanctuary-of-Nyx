@@ -8,6 +8,7 @@
 	STYLES:
 	[0] - Default
 	[1] - White blink
+	[2] - Darker opaque
 	*/
 	uniform int shading_option = 0;
 	uniform float opacity_strength = 1.0;
