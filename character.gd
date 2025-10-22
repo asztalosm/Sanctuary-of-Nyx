@@ -178,13 +178,13 @@ func ability() -> void:
 			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
 			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 		"fastarrows":
-			for i in range(5): #uses the arrow attack script now but changed cooldown
+			for i in range(5): #uses the arrow attac0k script now but changed cooldown
 				var arrowScene = load("res://player_arrow.tscn")
 				var arrow = arrowScene.instantiate()
 				arrow.global_position = global_position
 				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
 				add_child(arrow)
-				await get_tree().create_timer(0.2).timeout
+				await get_tree().create_timer(0.35).timeout
 		"berserk":
 			globalcharacterstats.BaseDefense = 10
 			speed /= 1.3
@@ -209,7 +209,6 @@ func attack() -> void:
 		return
 	else:
 		attacked = true
-		hitenemies.clear()
 		match currentcharacter.Attack:
 			"daggerattack":
 				$AssassinHitcheck.position.y += 12000
@@ -234,9 +233,9 @@ func attack() -> void:
 				await get_tree().create_timer(1.5).timeout
 				attacked = false
 			"knightattack":
-				$KnightHitcheck.position.y += 12000
+				$KnightHitcheck.position = Vector2(12000.0, 12000.0)
 				$KnightHitcheck.monitoring = true
-				$KnightHitcheck.position.y -= 12000
+				$KnightHitcheck.position = Vector2(0,0)
 				$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(get_global_mouse_position()) + 0.5*PI)
 				$KnightHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025
 				$KnightHitcheck/AnimatedSprite2D.play("default")
@@ -247,15 +246,14 @@ func applydamage() -> void:
 	match currentcharacter.Class:
 		"Assassin":
 			$AssassinHitcheck.monitoring = false
-			attacked = false
 		"Knight":
 			$KnightHitcheck.monitoring = false
-			attacked = false
 		"Mage":
 			$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
 		#for equipment in equipped:
 			#if equipment != null:
 				#print(equipment)
+	attacked = false
 	
 	for enemies in hitenemies:
 		if get_node_or_null(get_path_to(enemies)) != null:
@@ -276,6 +274,7 @@ func applydamage() -> void:
 			enemies.hit(damage)
 		else:
 			hitenemies.erase(enemies)
+		hitenemies.clear()
 func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 	var dodgerng = randi_range(0,100)
 	if dodgerng <= dodgechance + arcadeStats.dodge_chance and dodgeable:
@@ -341,6 +340,7 @@ func charactercheckchange():
 		switchcharacter(Characters[2])
 	elif Input.is_action_just_pressed("4"):
 		switchcharacter(Characters[3])
+		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
 
 func _physics_process(_delta: float) -> void:
@@ -442,6 +442,6 @@ func _on_knightattack_finished() -> void:
 	applydamage()
 
 
-func _on_knight_hitcheck_area_entered(area: Area2D) -> void:
+func _on_knight_hitcheck_area_entered(area: Area2D) -> void: #works fine, issue is somewher else
 	if (area.get_parent().get_parent().name == "Enemies" or area.get_parent().name == "SpecialDummy") and currentcharacter.Class == "Knight":
 		hitenemies.append(area.get_parent())
