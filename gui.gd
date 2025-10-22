@@ -45,6 +45,13 @@ func _process(_delta: float) -> void:
 		$Ability/TextureProgressBar.max_value = get_parent().currentcharacter.AbilityCooldown
 		$Ability/TextureProgressBar.value = get_parent().currentcharacter.AbilityCooldown - $Ability/Cooldown.time_left
 	#opens menus if player isn't dead
+	if Input.is_action_just_pressed("pause") and get_parent().health > 0:
+		if $Pause.visible == true:
+			get_tree().paused = false
+			$Pause.visible = false
+		else:
+			get_tree().paused = true
+			$Pause.visible = true
 	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0 and false == true: #made this not work because inventory system isnt implemented yet and wont be for a long fucking time
 		if $Inventory.visible == false:
 			showinventory()
@@ -143,5 +150,15 @@ func _on_restart_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://menu.tscn")
+
+
+func _on_resume_pressed() -> void:
+	get_tree().paused = false
+	$Pause.visible = false
+
+
+func _on_exit_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://menu.tscn")

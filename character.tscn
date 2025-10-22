@@ -2448,6 +2448,46 @@ material = SubResource("ShaderMaterial_n0b81")
 offset_right = 575.0
 offset_bottom = 323.0
 
+[node name="Pause" type="Control" parent="Player/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Player/GUI/Pause"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0.2, 0.2, 0.2, 0.24705882)
+
+[node name="Resume" type="Button" parent="Player/GUI/Pause"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 151.0
+offset_right = 352.0
+offset_bottom = 183.0
+theme = ExtResource("2_wa5vi")
+text = " Resume "
+
+[node name="Settings" type="Button" parent="Player/GUI/Pause"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 191.0
+offset_right = 352.0
+offset_bottom = 223.0
+theme = ExtResource("2_wa5vi")
+text = " Settings "
+
+[node name="Exit" type="Button" parent="Player/GUI/Pause"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 231.0
+offset_right = 352.0
+offset_bottom = 263.0
+theme = ExtResource("2_wa5vi")
+text = " Exit "
+
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3
 libraries = {
@@ -2536,6 +2576,8 @@ autostart = true
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/Dodge" to="Player/GUI" method="_on_dodge_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/Health" to="Player/GUI" method="_on_health_pressed"]
 [connection signal="pressed" from="Player/GUI/Skills/GridContainer/AtkSpeed" to="Player/GUI" method="_on_atk_speed_pressed"]
+[connection signal="pressed" from="Player/GUI/Pause/Resume" to="Player/GUI" method="_on_resume_pressed"]
+[connection signal="pressed" from="Player/GUI/Pause/Exit" to="Player/GUI" method="_on_exit_pressed"]
 [connection signal="area_entered" from="Player/MageAbility" to="Player" method="_on_stun_area_entered"]
 [connection signal="timeout" from="Player/MageAbility/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Player/RollCooldown" to="Player" method="_on_roll_cooldown_timeout"]
