@@ -10,5 +10,3 @@ func _on_timer_timeout() -> void:
 	arrowinstance.rotation = 0
 	var direction = Vector2.from_angle(global_position.angle_to_point($Marker2D.global_position))
 	arrowinstance.dir = direction
-	print(direction)
-	

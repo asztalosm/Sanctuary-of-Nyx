@@ -44,7 +44,6 @@ func attack() -> void:
 	if !onattackcooldown:
 		onattackcooldown = true
 		target.hit(damage)
-		print(health)
 		health += 1.0
 		$AttackCooldown.start()
 

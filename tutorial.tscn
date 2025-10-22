@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://ch1y0043ew4ly"]
+[gd_scene load_steps=39 format=4 uid="uid://ch1y0043ew4ly"]
 
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_yb1ct"]
 [ext_resource type="Texture2D" uid="uid://c2r6ehqdolx4d" path="res://resources/arrowsign.png" id="2_5mrt3"]
@@ -12,7 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://bbpgfu7xlih8s" path="res://dummy.tscn" id="6_hu44a"]
 [ext_resource type="Script" uid="uid://bw57rqor7gpo2" path="res://tutorial_enemies.gd" id="10_tvjhf"]
 [ext_resource type="Script" uid="uid://bo4kpopmhfwad" path="res://special_dummy.gd" id="12_4hjyh"]
+[ext_resource type="PackedScene" uid="uid://dx85rguk6nluo" path="res://reaper.tscn" id="12_g52lx"]
 [ext_resource type="Texture2D" uid="uid://cw6hsjqv62hdn" path="res://resources/dummy.png" id="12_vmw6g"]
+[ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="13_0lped"]
+[ext_resource type="PackedScene" uid="uid://dxq6u0a387ick" path="res://illusioner.tscn" id="14_dudfa"]
+[ext_resource type="PackedScene" uid="uid://dulu8yqn1otak" path="res://bat.tscn" id="15_5gpbq"]
+[ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="16_tfgte"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g52lx"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5mrt3"]
 texture = ExtResource("1_yb1ct")
@@ -27,6 +38,7 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_g52lx")
 2:1/0 = 0
 2:0/0 = 0
 4:3/0 = 0
@@ -41,6 +53,7 @@ texture = ExtResource("2_5mrt3")
 [sub_resource type="TileSet" id="TileSet_rwowx"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_5mrt3")
 sources/1 = SubResource("TileSetAtlasSource_rwowx")
 
@@ -111,7 +124,7 @@ size = Vector2(40, 20)
 size = Vector2(39.80227, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhfnd"]
-size = Vector2(191, 273)
+size = Vector2(191, 289)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvjhf"]
 size = Vector2(123, 102)
@@ -307,8 +320,7 @@ monitorable = false
 script = ExtResource("4_4t6hg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D"]
-visible = false
-position = Vector2(98.5, 106.5)
+position = Vector2(98.5, 98.5)
 shape = SubResource("RectangleShape2D_bhfnd")
 
 [node name="ColorRect" type="ColorRect" parent="Collisions/Area2D"]
@@ -367,7 +379,7 @@ position = Vector2(1439.5, 983)
 shape = SubResource("RectangleShape2D_tvjhf")
 
 [node name="Character" parent="." instance=ExtResource("2_ehuit")]
-position = Vector2(1271, 657)
+position = Vector2(-107, 4)
 metadata/_edit_group_ = true
 
 [node name="Overlay" type="CanvasLayer" parent="."]
@@ -402,6 +414,30 @@ metadata/_edit_lock_ = true
 
 [node name="Dummy" parent="Enemies" instance=ExtResource("6_hu44a")]
 position = Vector2(801, -23)
+
+[node name="Reaper" parent="Enemies" instance=ExtResource("12_g52lx")]
+position = Vector2(481, 1512)
+
+[node name="ArcherEnemy" parent="Enemies" instance=ExtResource("13_0lped")]
+position = Vector2(547, 1420)
+
+[node name="ArcherEnemy2" parent="Enemies" instance=ExtResource("13_0lped")]
+position = Vector2(567, 1625)
+
+[node name="ArcherEnemy3" parent="Enemies" instance=ExtResource("13_0lped")]
+position = Vector2(602, 1505)
+
+[node name="Illusioner" parent="Enemies" instance=ExtResource("14_dudfa")]
+position = Vector2(721, 1484)
+
+[node name="Bat" parent="Enemies" instance=ExtResource("15_5gpbq")]
+position = Vector2(724, 1574)
+
+[node name="Bat2" parent="Enemies" instance=ExtResource("15_5gpbq")]
+position = Vector2(732, 1398)
+
+[node name="EnemyDummy" parent="Enemies" instance=ExtResource("16_tfgte")]
+position = Vector2(804, 1491)
 
 [node name="SpecialDummy" type="CharacterBody2D" parent="."]
 position = Vector2(471, 980)

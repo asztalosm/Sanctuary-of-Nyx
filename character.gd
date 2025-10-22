@@ -178,10 +178,13 @@ func ability() -> void:
 			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
 			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 		"fastarrows":
-			for i in range(5):
-				attack()
-				attacked = false
-				await get_tree().create_timer(0.1).timeout
+			for i in range(5): #uses the arrow attack script now but changed cooldown
+				var arrowScene = load("res://player_arrow.tscn")
+				var arrow = arrowScene.instantiate()
+				arrow.global_position = global_position
+				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
+				add_child(arrow)
+				await get_tree().create_timer(0.2).timeout
 		"berserk":
 			globalcharacterstats.BaseDefense = 10
 			speed /= 1.3
