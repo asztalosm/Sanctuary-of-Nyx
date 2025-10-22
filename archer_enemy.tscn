@@ -97,7 +97,7 @@ hue_variation_max = 0.019999977
 
 [node name="ArcherEnemy" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 script = ExtResource("1_mo3xb")
 metadata/_edit_group_ = true
 

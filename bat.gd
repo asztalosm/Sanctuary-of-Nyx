@@ -35,7 +35,6 @@ func death() -> void:
 
 func hit(selfdamage) -> void:
 	health -= selfdamage
-	print(health)
 	$AnimationPlayer.play("hit")
 
 
@@ -56,6 +55,7 @@ func _process(_delta: float) -> void:
 			$HealthBar.visible = true
 			$HealthBar.value = health
 			if health > maxhealth:
+				$HealthBar.size.y = 2.0
 				$HealthBar.modulate = Color8(255, 0, 0)
 			else:
 				$HealthBar.modulate = Color8(255, 255, 255)

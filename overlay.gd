@@ -6,7 +6,7 @@ var texts = [
 	"You can move your character around with WASD or the arrow keys", #3
 	"You have the ability to control multiple characters, check them out by pressing the numbers on your keyboard.", #4
 	"Follow The arrows and meet a dummy enemy to learn how the attacks work.", #5
-	"You can attack by pressing the left mouse click, each character has unique attacks that make them viable in different situations.", #6
+	"You can attack by pressing the left mouse click, each character has unique attacks that make them viable in different situations. Kill the dummy", #6
 	"When you kill an enemy you gain experience.", #7
 	"From killing the dummy you got a skill point, you can spend them by pressing R.", #8
 	"As you could see, hovering over the skills gave you a detailed explanation on how that given skill works.", #9
@@ -26,7 +26,7 @@ var texts = [
 	"2. Advanced/Elite 3/3: You can differentiate them from normal enemies by their hitbox.", #23
 	"3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope to give them item drops.", #24
 	"Now that you know the enemy types, let's fight some of them!", #24
-	"You have finished the tutorial, to exit the tutorial go through the portal or press the P button" #25
+	"You have finished the tutorial, to exit the tutorial interact with the campfire at the end or press the P/ESCAPE button" #25
 	
 	
 ]
