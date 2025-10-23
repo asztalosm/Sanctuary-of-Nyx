@@ -457,7 +457,7 @@ position = Vector2(1439.5, 983)
 shape = SubResource("RectangleShape2D_tvjhf")
 
 [node name="Character" parent="." instance=ExtResource("2_ehuit")]
-position = Vector2(560, 1474)
+position = Vector2(-13, 8)
 metadata/_edit_group_ = true
 
 [node name="Overlay" type="CanvasLayer" parent="."]

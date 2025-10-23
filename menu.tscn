@@ -460,13 +460,11 @@ autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="GamemodeToggle2" type="TextureButton" parent="Gamemode"]
-modulate = Color(0.44, 0.44, 0.44, 1)
 layout_mode = 0
 offset_left = 128.0
 offset_top = 64.0
 offset_right = 256.0
 offset_bottom = 192.0
-disabled = true
 texture_normal = ExtResource("15_td6mg")
 texture_pressed = ExtResource("16_oil5j")
 
@@ -479,7 +477,7 @@ offset_bottom = 153.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 24
-text = "Campaign (WIP)"
+text = "Tutorial"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -491,7 +489,6 @@ autoplay = true
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_nrnbx")
-volume_db = -9.369
 autoplay = true
 
 [node name="Shiba" type="TextureRect" parent="."]
@@ -544,11 +541,9 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(1, 1e-05)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings"]
 layout_mode = 0
@@ -567,7 +562,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -581,7 +576,9 @@ horizontal_alignment = 1
 [node name="Music Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_4hy44")
-value = 100.0
+min_value = -24.0
+max_value = 20.0
+step = 2.0
 tick_count = 11
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume"]
@@ -595,6 +592,25 @@ text = "Music Volume:"
 fit_content = true
 autowrap_mode = 0
 
+[node name="SFX Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_4hy44")
+max_value = 200.0
+step = 2.0
+value = 100.0
+tick_count = 11
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume"]
+layout_mode = 0
+offset_top = -17.0
+offset_right = 203.0
+offset_bottom = 1.0
+theme = ExtResource("4_4hy44")
+theme_override_font_sizes/normal_font_size = 17
+text = "Effect Volume:"
+fit_content = true
+autowrap_mode = 0
+
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
@@ -602,3 +618,4 @@ autowrap_mode = 0
 [connection signal="toggled" from="Gamemode/GamemodeToggle" to="Gamemode/GamemodeToggle" method="_on_toggled"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle2" to="Gamemode" method="_on_gamemode_toggle_2_pressed"]
 [connection signal="toggled" from="Gamemode/GamemodeToggle2" to="Gamemode/GamemodeToggle2" method="_on_toggled"]
+[connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_value_changed"]

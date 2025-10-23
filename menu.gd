@@ -2,6 +2,10 @@ extends Control
 var onclassesscreen = false
 var konami = ""
 var selectedclass = ""
+static var musicvolume = 1.0
+static var sfxmusicvolume = 1.0
+
+
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
 	$AudioAlert.visible = true
@@ -59,6 +63,7 @@ func _on_button_3_pressed() -> void:
 	get_tree().quit()
 
 func _process(_delta: float) -> void:
+	$MenuMusic.volume_db = 0 + musicvolume / 10
 	if Input.is_action_just_pressed("Up"): #holy spaghetti code
 		konami = konami + "u"
 	if Input.is_action_just_pressed("Down"):
@@ -69,6 +74,11 @@ func _process(_delta: float) -> void:
 		konami = konami + "r"
 	if Input.is_action_just_pressed("B"):
 		konami = konami + "b"
+		if $Settings.visible:
+			var settingsTween = get_tree().create_tween()
+			settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
+			await settingsTween.finished
+			$Settings.visible = false
 	if Input.is_action_just_pressed("a"):
 		konami = konami + "a"
 	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_SPACE):
@@ -101,3 +111,12 @@ func startgame() -> void: #i have zero fucking ideas for why the pressed signal 
 	$MenuButton.stream = load("res://resources/menubutton.wav")
 	$MenuButton.play()
 	get_tree().change_scene_to_file(startscene)
+
+
+func _on_music_volume_value_changed(value: float) -> void:
+	if value == -24:
+		musicvolume = -5000
+	elif value < 0:
+		musicvolume = 0 - (value * value)
+	else:
+		musicvolume = value * value
