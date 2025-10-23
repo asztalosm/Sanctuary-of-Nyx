@@ -1,9 +1,12 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
 [ext_resource type="StyleBox" uid="uid://00w4ei1xio6h" path="res://resources/shaders/normalbuttontheme.tres" id="2_gdvcs"]
+[ext_resource type="Texture2D" uid="uid://6w6w7cl2tkv1" path="res://resources/hSliderInactive.png" id="3_tc13u"]
 [ext_resource type="FontFile" uid="uid://cbia3drflcldw" path="res://resources/fs-pixel-sans-unicode-regular/fs-pixel-sans-unicode-regular.ttf" id="4_ik0fi"]
+[ext_resource type="Texture2D" uid="uid://b32sy0w7eql8v" path="res://resources/hSliderActive.png" id="4_rdyrp"]
+[ext_resource type="Texture2D" uid="uid://cxait3ao5oori" path="res://resources/HsliderTick.png" id="5_wsjlh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycurf"]
 content_margin_left = 4.0
@@ -27,6 +30,15 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f7xc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1a5s"]
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r83ef"]
+bg_color = Color(0.3083563, 0.40582305, 0.4898507, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_tc13u"]
+color = Color(0.29219013, 0.29219, 0.29219002, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbcev"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -102,6 +114,12 @@ Button/styles/focus = SubResource("StyleBoxFlat_tc13u")
 Button/styles/hover = ExtResource("2_18rsa")
 Button/styles/normal = ExtResource("2_gdvcs")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3f7xc")
+HSlider/icons/grabber = ExtResource("3_tc13u")
+HSlider/icons/grabber_highlight = ExtResource("4_rdyrp")
+HSlider/icons/tick = ExtResource("5_wsjlh")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_f1a5s")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_r83ef")
+HSlider/styles/slider = SubResource("StyleBoxLine_tc13u")
 ItemList/colors/font_color = Color(0.65, 0.65, 0.65, 1)
 ItemList/colors/font_hovered_color = Color(0.95, 0.95, 0.95, 1)
 ItemList/colors/font_hovered_selected_color = Color(1, 1, 1, 1)
@@ -119,7 +137,7 @@ ItemList/styles/hovered_selected = SubResource("StyleBoxFlat_2nyqj")
 ItemList/styles/hovered_selected_focus = SubResource("StyleBoxFlat_2nyqj")
 ItemList/styles/panel = SubResource("StyleBoxFlat_ik0fi")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_2nyqj")
-Label/colors/font_color = Color(0.497474, 0.497474, 0.497474, 1)
+Label/colors/font_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
 Label/styles/normal = SubResource("StyleBoxFlat_rdyrp")
 ProgressBar/font_sizes/font_size = 12
 ProgressBar/styles/background = SubResource("StyleBoxEmpty_yoi3q")

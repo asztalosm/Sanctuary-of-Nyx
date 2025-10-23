@@ -342,7 +342,6 @@ func charactercheckchange():
 		switchcharacter(Characters[3])
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
-
 func _physics_process(_delta: float) -> void:
 	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100
 	$RollCooldown/CanvasLayer/TextureProgressBar.value = ($RollCooldown.wait_time - $RollCooldown.time_left) * 100

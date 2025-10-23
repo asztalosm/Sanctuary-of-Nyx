@@ -6,9 +6,12 @@ var startscene = "res://testplace.tscn"
 func _ready() -> void:
 	$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
+	var audioalertTween = get_tree().create_tween()
+	audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
+	audioalertTween.play()
+	await audioalertTween.finished
 	$AudioAlert.visible = false
 	$Buttons/Button.grab_focus()
-	await get_tree().create_timer(1).timeout
 	
 # func showclasses():
 #	for children in $Classes/Buttons.get_children():
@@ -73,6 +76,10 @@ func _process(_delta: float) -> void:
 		checkkonami()
 	if Input.is_action_pressed("Attack") or Input.is_action_pressed("Up") or Input.is_action_pressed("Down") or Input.is_action_pressed("Left") or Input.is_action_pressed("Right") or Input.is_action_pressed("B") or Input.is_action_pressed("Ability") or Input.is_key_pressed(KEY_SPACE) or Input.is_key_pressed(KEY_ENTER):
 		if $AudioAlert.visible:
+			var audioalertTween = get_tree().create_tween()
+			audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
+			audioalertTween.play()
+			await audioalertTween.finished
 			$AudioAlert.visible = false
 			$Buttons/Button.grab_focus()
 
