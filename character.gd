@@ -149,6 +149,7 @@ func death() -> void:
 	deathtween.tween_property($GUI/DeathScreen, "modulate:a", 1, 1.0)
 	$Soundcontroller.stop()
 	$Soundcontroller.play("death")
+	$GUI/DeathScreen/Restart.grab_focus()
 	get_tree().paused = true
 func ability() -> void:
 	abilityinuse = true
@@ -369,8 +370,6 @@ func _physics_process(_delta: float) -> void:
 			
 			if Input.is_action_just_pressed("Attack") or Input.is_action_pressed("Attack"):
 				attack()
-			if Input.is_action_just_pressed("pause"):
-				get_tree().paused = true
 			if Input.is_action_just_pressed("Roll"):
 				roll()
 			

@@ -22,10 +22,11 @@ func showinventory() -> void:
 	$Inventory/VSplitContainer/Control/TextureRect/Charactericon.texture = get_parent().currentcharacter.Icon
 	$Inventory/VSplitContainer/Control2/MarginContainer/GridContainer/HeadBg.used_text = "[color=444444] Slot for helmet [/color][p] [color=22BB22]+x Defense[/color] [p] +x Health [p] -x Movement speed"
 func showskills() -> void:
-	$Skills.visible = true
-	get_tree().paused = true
-	$Inventory.visible = false
-	$Skills/GridContainer/PhysAtk.grab_focus()
+	if !$Pause.visible:
+		$Skills.visible = true
+		get_tree().paused = true
+		$Inventory.visible = false
+		$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
 	$Ability/Cooldown.wait_time = get_parent().currentcharacter.AbilityCooldown
 	refreshstats()
@@ -50,8 +51,9 @@ func _process(_delta: float) -> void:
 			get_tree().paused = false
 			$Pause.visible = false
 		else:
-			get_tree().paused = true
-			$Pause.visible = true
+			if !$Skills.visible:
+				get_tree().paused = true
+				$Pause.visible = true
 	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0 and false == true: #made this not work because inventory system isnt implemented yet and wont be for a long fucking time
 		if $Inventory.visible == false:
 			showinventory()

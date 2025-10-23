@@ -12,7 +12,7 @@ func _ready() -> void:
 	await audioalertTween.finished
 	$AudioAlert.visible = false
 	$Buttons/Button.grab_focus()
-	
+
 # func showclasses():
 #	for children in $Classes/Buttons.get_children():
 #		var classtween = get_tree().create_tween()
@@ -74,7 +74,7 @@ func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_SPACE):
 		konami = konami + "e"
 		checkkonami()
-	if Input.is_action_pressed("Attack") or Input.is_action_pressed("Up") or Input.is_action_pressed("Down") or Input.is_action_pressed("Left") or Input.is_action_pressed("Right") or Input.is_action_pressed("B") or Input.is_action_pressed("Ability") or Input.is_key_pressed(KEY_SPACE) or Input.is_key_pressed(KEY_ENTER):
+	if Input.is_anything_pressed():
 		if $AudioAlert.visible:
 			var audioalertTween = get_tree().create_tween()
 			audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
@@ -84,6 +84,15 @@ func _process(_delta: float) -> void:
 			$Buttons/Button.grab_focus()
 
 func settings_pressed() -> void:
+	var settingsTween = get_tree().create_tween()
+	if $Settings.visible:
+		settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
+		await settingsTween.finished
+		$Settings.visible = false
+	else:
+		$Settings.visible = true
+		settingsTween.tween_property($Settings, "scale:y", 1.0, 0.3)
+		await settingsTween.finished
 	$MenuButton.stream = load("res://resources/menubutton.wav")
 	$MenuButton.play()
 

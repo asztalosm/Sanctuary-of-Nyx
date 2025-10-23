@@ -2458,7 +2458,7 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 576.0
 offset_bottom = 324.0
-color = Color(0.2, 0.2, 0.2, 0.24705882)
+color = Color(0, 0, 0, 0.23529412)
 
 [node name="Resume" type="Button" parent="Player/GUI/Pause"]
 layout_mode = 0
