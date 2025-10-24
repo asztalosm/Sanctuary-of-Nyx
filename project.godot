@@ -17,6 +17,10 @@ boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="uid://dhwejkiche8im"
 
+[autoload]
+
+MenuMusic="*res://menu_music.tscn"
+
 [debug]
 
 gdscript/warnings/integer_division=0

@@ -28,6 +28,8 @@ func showskills() -> void:
 		$Inventory.visible = false
 		$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
+	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
+	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
 	$Ability/Cooldown.wait_time = get_parent().currentcharacter.AbilityCooldown
 	refreshstats()
 	$Inventory/VSplitContainer/Control/TextureRect/Charactericon.texture = get_parent().currentcharacter.Icon
@@ -164,3 +166,26 @@ func _on_resume_pressed() -> void:
 func _on_exit_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://menu.tscn")
+
+
+func _on_settings_pressed() -> void:
+	var settingsTween = get_tree().create_tween()
+	settingsTween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	if $Pause/Settings2.visible:
+		settingsTween.tween_property($Pause/Settings2, "scale:y", 0.0, 0.3)
+		await settingsTween.finished
+		$Pause/Settings2.visible = false
+	else:
+		$Pause/Settings2.visible = true
+		settingsTween.tween_property($Pause/Settings2, "scale:y", 1.0, 0.3)
+		await settingsTween.finished
+	$MenuButton.stream = load("res://resources/menubutton.wav")
+	$MenuButton.play()
+
+
+func _on_music_volume_value_changed(value: float) -> void:
+	MenuMusic.musicvolume = value
+
+
+func _on_sfx_volume_value_changed(value: float) -> void:
+	MenuMusic.sfxvolume = value

@@ -143,9 +143,15 @@ func death() -> void:
 	$GUI/DeathScreen.visible = true
 	for nodes in $GUI.get_children():
 		if nodes.name != "DeathScreen":
-			nodes.visible = false
+			if nodes.name == "MenuButton":
+				pass
+			else:
+				nodes.visible = false
 		else:
-			nodes.visible = true
+			if nodes.name == "AudioStreamPlayer":
+				pass
+			else:
+				nodes.visible = true
 	deathtween.tween_property($GUI/DeathScreen, "modulate:a", 1, 1.0)
 	$Soundcontroller.stop()
 	$Soundcontroller.play("death")
@@ -294,6 +300,7 @@ func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 				cantakedamage = false
 				health -= selfdamage 
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
+			$Soundcontroller/hit2.volume_db = MenuMusic.setsfx()
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
 			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)

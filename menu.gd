@@ -2,12 +2,12 @@ extends Control
 var onclassesscreen = false
 var konami = ""
 var selectedclass = ""
-static var musicvolume = 1.0
-static var sfxmusicvolume = 1.0
-
+var musicvolume = 1.0
 
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
 	$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
 	var audioalertTween = get_tree().create_tween()
@@ -64,7 +64,7 @@ func _on_button_3_pressed() -> void:
 	get_tree().quit()
 
 func _process(_delta: float) -> void:
-	$MenuMusic.volume_db = 0 + musicvolume / 10
+	#print(MenuMusic.musicvolume)
 	if Input.is_action_just_pressed("Up"): #holy spaghetti code
 		konami = konami + "u"
 	if Input.is_action_just_pressed("Down"):
@@ -115,10 +115,10 @@ func startgame() -> void: #i have zero fucking ideas for why the pressed signal 
 	get_tree().change_scene_to_file(startscene)
 
 
+
 func _on_music_volume_value_changed(value: float) -> void:
-	if value == -12:
-		musicvolume = -5000
-	elif value < 0:
-		musicvolume = 0 - (value * value)
-	else:
-		musicvolume = value * value
+	MenuMusic.musicvolume = value
+
+
+func _on_sfx_volume_value_changed(value: float) -> void:
+	MenuMusic.sfxvolume = value

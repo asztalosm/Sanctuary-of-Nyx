@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://mtkeup31jpcb"]
+
+[ext_resource type="AudioStream" uid="uid://cjfu54oow127u" path="res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav" id="1_1u6hb"]
+[ext_resource type="Script" uid="uid://f5i7llq3afyp" path="res://menu_music.gd" id="2_doxou"]
+
+[node name="MenuMusic" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_1u6hb")
+autoplay = true
+script = ExtResource("2_doxou")
