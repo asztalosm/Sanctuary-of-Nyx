@@ -13,7 +13,8 @@ var enemyList = { #so these will be decided whether theyll spawn in the setDescr
 	"Necromancer": range(1,4),
 	"Skeleton": range(1,6),
 	"Splasher": range(1,3),
-	"Illusioner": range(1,4)
+	"Illusioner": range(1,4),
+	"Bat": range(1,4)
 }
 var enemyBuffList = {
 	"hp": range(1,6),
@@ -52,11 +53,11 @@ func startwave() -> void: #starts the wave
 		var barrel = barrelscene.instantiate()
 		get_parent().get_node("TileMapLayer").add_child(barrel)
 		barrel.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
-	#removed this because the crystal enemy uses this script, will remake this later
-	#for i in randi_range(1,3):
-	#	var spikes = spikescene.instantiate()
-	#	get_parent().get_node("TileMapLayer").add_child(spikes)
-	#	spikes.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
+	#fixed it
+	for i in randi_range(1,3):
+		var spikes = spikescene.instantiate()
+		get_parent().get_node("TileMapLayer").add_child(spikes)
+		spikes.global_position = Vector2( randf_range(-120.0, 120.0), randf_range(-200.0, 200.0))
 	await get_tree().create_timer(5).timeout
 	WaveOverlay.start_wave()
 	get_parent().get_node("EnemySpawners")._activateSpawner()
@@ -110,13 +111,17 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 
 		"EnemyCount": #sends count to WaveOverlay
 			WaveOverlay.spawnableEnemies.clear()
+			var enemymaxcount = 4
+			var count = 0
 			for enemies in enemyList:
-				var enemyRolls = enemyList[enemies]
-				var randomnum = randi_range(1,6)
-				var randomcount = randi_range(1,10) * (6-dicenumber+1)
-				if randomnum in enemyRolls:
-					description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
-					WaveOverlay.spawnableEnemies.get_or_add(enemies, randomcount)
+				if count < enemymaxcount:
+					var enemyRolls = enemyList[enemies]
+					var randomnum = randi_range(1, len(enemies)-1)
+					var randomcount = randi_range(1,10) * (6-dicenumber+1)
+					if randomnum in enemyRolls:
+						count+=1
+						description += "[color=#881111]" + str(randomcount) + "[/color] " + str(enemies) +"\n"
+						WaveOverlay.spawnableEnemies.get_or_add(enemies, randomcount)
 			if description == "": #failsafe enemy spawns, others don't need failsafe
 				description = "[color=#881111]15[/color] Assassin\n[color=#881111]14[/color] Archer\n[color=#881111]3[/color] Necromancer\n[color=#881111]8[/color] Skeleton\n"
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://ch1y0043ew4ly"]
+[gd_scene load_steps=56 format=4 uid="uid://ch1y0043ew4ly"]
 
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_yb1ct"]
 [ext_resource type="Texture2D" uid="uid://c2r6ehqdolx4d" path="res://resources/arrowsign.png" id="2_5mrt3"]
@@ -132,6 +132,17 @@ size = Vector2(191, 289)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvjhf"]
 size = Vector2(123, 102)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfgte"]
+bg_color = Color(0, 0, 0, 0.5686275)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4hjyh"]
 animations = [{
@@ -471,6 +482,7 @@ offset_bottom = 48.0
 theme = ExtResource("4_5mrt3")
 theme_override_colors/font_color = Color(0.93, 0.93, 0.93, 1)
 theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_tfgte")
 text = "Welcome to Sanctuary of Nyx"
 horizontal_alignment = 1
 vertical_alignment = 1

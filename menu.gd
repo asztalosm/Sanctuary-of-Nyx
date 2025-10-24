@@ -13,6 +13,7 @@ func _ready() -> void:
 	var audioalertTween = get_tree().create_tween()
 	audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
 	audioalertTween.play()
+	$AudioAlert.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
 	await audioalertTween.finished
 	$AudioAlert.visible = false
 	$Buttons/Button.grab_focus()
@@ -86,6 +87,7 @@ func _process(_delta: float) -> void:
 		checkkonami()
 	if Input.is_anything_pressed():
 		if $AudioAlert.visible:
+			$AudioAlert.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
 			var audioalertTween = get_tree().create_tween()
 			audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
 			audioalertTween.play()
@@ -114,7 +116,7 @@ func startgame() -> void: #i have zero fucking ideas for why the pressed signal 
 
 
 func _on_music_volume_value_changed(value: float) -> void:
-	if value == -24:
+	if value == -12:
 		musicvolume = -5000
 	elif value < 0:
 		musicvolume = 0 - (value * value)
