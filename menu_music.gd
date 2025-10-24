@@ -11,9 +11,9 @@ func _process(_delta) -> void:
 		volume_db = musicvolume * 1.5
 
 func setsfx():
-	if musicvolume == -10:
+	if sfxvolume == -10:
 		return -5000
-	elif musicvolume < 0:
-		return 0 + (musicvolume * 2)
+	elif sfxvolume < 0:
+		return 0 + (sfxvolume * 2)
 	else:
-		return musicvolume * 1.5
+		return sfxvolume * 1.5

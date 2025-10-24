@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://cdr6un6t5elt3"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://cdr6un6t5elt3"]
 
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="1_fc12t"]
 [ext_resource type="StyleBox" uid="uid://cghfiffcya3e" path="res://resources/shaders/focushoverbutton.tres" id="2_18rsa"]
@@ -30,6 +30,27 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f7xc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsjlh"]
+bg_color = Color(0, 0, 0, 0.2509804)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxcav"]
+bg_color = Color(0, 0, 0, 0.3764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iycgl"]
+bg_color = Color(0.1, 0.1, 0.1, 0.3764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1a5s"]
 corner_detail = 1
@@ -114,6 +135,12 @@ Button/styles/focus = SubResource("StyleBoxFlat_tc13u")
 Button/styles/hover = ExtResource("2_18rsa")
 Button/styles/normal = ExtResource("2_gdvcs")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3f7xc")
+CheckButton/colors/font_outline_color = Color(1, 1, 1, 1)
+CheckButton/styles/focus = SubResource("StyleBoxFlat_wsjlh")
+CheckButton/styles/hover = SubResource("StyleBoxFlat_wsjlh")
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = SubResource("StyleBoxFlat_hxcav")
+CheckButton/styles/pressed = SubResource("StyleBoxFlat_iycgl")
 HSlider/icons/grabber = ExtResource("3_tc13u")
 HSlider/icons/grabber_highlight = ExtResource("4_rdyrp")
 HSlider/icons/tick = ExtResource("5_wsjlh")

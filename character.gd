@@ -300,7 +300,6 @@ func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 				cantakedamage = false
 				health -= selfdamage 
 			$Soundcontroller/hit2.pitch_scale = randf_range(0.85, 1.15)
-			$Soundcontroller/hit2.volume_db = MenuMusic.setsfx()
 			$Soundcontroller.play("hit")
 			var cameratween = get_tree().create_tween()
 			cameratween.tween_property($Camera2D, "offset", Vector2(randf_range(-5,5), randf_range(-5,5)), 0.05)
@@ -351,12 +350,16 @@ func charactercheckchange():
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
 func _physics_process(_delta: float) -> void:
+	
 	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100
 	$RollCooldown/CanvasLayer/TextureProgressBar.value = ($RollCooldown.wait_time - $RollCooldown.time_left) * 100
 	charactercheckchange()
 	if health <= 0:
 		death()
 	else:
+		$Soundcontroller/hit2.volume_db = MenuMusic.setsfx()
+		for node in $Soundcontroller.get_children():
+			node.volume_db = MenuMusic.sfxvolume
 		if !stunned:
 			if health > maxhealth:
 				health = maxhealth

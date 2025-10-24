@@ -606,6 +606,21 @@ text = "Effect Volume:"
 fit_content = true
 autowrap_mode = 0
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_4hy44")
+theme_override_font_sizes/normal_font_size = 17
+text = "- Gameplay -"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_4hy44")
+theme_override_font_sizes/font_size = 17
+text = "Damage numbers"
+
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
