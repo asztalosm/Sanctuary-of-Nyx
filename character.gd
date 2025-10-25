@@ -352,7 +352,7 @@ func charactercheckchange():
 
 func _physics_process(_delta: float) -> void:
 	if global_position.distance_to(get_global_mouse_position()) > 120:
-		$Camera2D.global_position = global_position + (get_local_mouse_position()/17)
+		$Camera2D.global_position = global_position + (get_local_mouse_position()/15)
 	else:
 		$Camera2D.global_position = global_position
 	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100

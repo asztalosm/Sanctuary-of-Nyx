@@ -160,15 +160,13 @@ scale_curve = SubResource("CurveTexture_18qvj")
 alpha_curve = SubResource("CurveTexture_f2446")
 
 [node name="SkeletonSummon" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
 script = ExtResource("1_rl2ub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_rl2ub")
-disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ugetr")
@@ -226,6 +224,7 @@ shape = SubResource("CircleShape2D_22ski")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 40.61
 target_desired_distance = 20.31
+debug_enabled = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.8

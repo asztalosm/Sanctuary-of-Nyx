@@ -159,7 +159,7 @@ scale_curve = SubResource("CurveTexture_v2lle")
 alpha_curve = SubResource("CurveTexture_18qvj")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1tubu"]
-radius = 19.026299
+radius = 19.03
 
 [node name="Bat" type="CharacterBody2D"]
 script = ExtResource("1_tofr1")
@@ -170,7 +170,6 @@ target_desired_distance = 51.23
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_tofr1")
-disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
@@ -224,7 +223,6 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_1tubu")
 
 [node name="AttackRange" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_1tubu")

@@ -61,6 +61,7 @@ func _process(_delta: float) -> void:
 				$HealthBar.modulate = Color8(255, 255, 255)
 		if !stunned:
 			if inattackzone and !onattackcooldown:
+				print(inattackzone)
 				attack()
 			if target != self:
 				if global_position.distance_to(target.global_position) > 220:
@@ -78,6 +79,11 @@ func _process(_delta: float) -> void:
 
 
 func _on_detection_body_entered(body: Node2D) -> void:
+	var raytrace = RayCast2D.new()
+	add_child(raytrace)
+	raytrace.enabled = true
+	raytrace.target_position = body.global_position
+	print(raytrace.is_colliding())
 	target = body
 	$HealthBar.visible = true
 	$HealthBar.value = health
@@ -90,8 +96,9 @@ func _on_attack_cooldown_timeout() -> void:
 	animationname = "default"
 
 
-func _on_attack_range_body_entered(_body: Node2D) -> void:
-	inattackzone = true
+func _on_attack_range_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		inattackzone = true
 
 
 func _on_gpu_particles_2d_finished() -> void:
@@ -99,5 +106,6 @@ func _on_gpu_particles_2d_finished() -> void:
 
 
 
-func _on_attack_range_body_exited(_body: Node2D) -> void:
-	inattackzone = false
+func _on_attack_range_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		inattackzone = false

@@ -11,13 +11,11 @@ size = Vector2(3, 8)
 [node name="Arrow" type="CharacterBody2D"]
 top_level = true
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_l5ahi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_2ndhl")
-disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
