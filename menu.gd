@@ -122,3 +122,9 @@ func _on_music_volume_value_changed(value: float) -> void:
 
 func _on_sfx_volume_value_changed(value: float) -> void:
 	MenuMusic.sfxvolume = value
+
+
+func _on_gamemode_toggle_3_pressed() -> void:
+	$MenuButton.stream = load("res://resources/menubutton.wav")
+	$MenuButton.play()
+	get_tree().change_scene_to_file("res://dungeon.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=204 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -46,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
 [ext_resource type="Shader" uid="uid://k0pkqxox6qxb" path="res://glitch.gdshader" id="40_fwo57"]
 [ext_resource type="AudioStream" uid="uid://f8eqgii7w22c" path="res://resources/stun.wav" id="43_0a77e"]
+[ext_resource type="AudioStream" uid="uid://dqbyuvfmxjxwi" path="res://resources/ability.wav" id="47_n0b81"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
 atlas = ExtResource("6_0fer6")
@@ -1489,10 +1490,40 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_n0b81"]
+resource_name = "ability"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Soundcontroller/ability")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soundcontroller/ability:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("47_n0b81")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1sy7"]
 _data = {
 &"LevelUp": SubResource("Animation_r5wlx"),
 &"RESET": SubResource("Animation_bwfjh"),
+&"ability": SubResource("Animation_n0b81"),
 &"assassinstep": SubResource("Animation_88tkl"),
 &"berserk": SubResource("Animation_ltcw0"),
 &"daggerattack": SubResource("Animation_lpiy1"),
@@ -1722,6 +1753,8 @@ animation = &"Knightwalk5"
 autoplay = "Assassinidle"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 15.0
 
 [node name="AssassinHitcheck" type="Area2D" parent="Player"]
 z_index = 4

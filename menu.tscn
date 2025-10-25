@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=40 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bgssu5nv0olj8" path="res://resources/assassin2.png" id="15_5h80m"]
 [ext_resource type="Texture2D" uid="uid://hofqsd5i5e3g" path="res://resources/gamemodeSelector.png" id="15_td6mg"]
 [ext_resource type="Texture2D" uid="uid://cqy6m7iincjth" path="res://resources/gamemodeSelectorArcade.png" id="16_oil5j"]
+[ext_resource type="Texture2D" uid="uid://bu3btp0gyei3o" path="res://resources/gamemodeSelectorCampaign.png" id="17_guify"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
 shader = ExtResource("4_l48gv")
@@ -437,10 +438,11 @@ horizontal_alignment = 1
 
 [node name="GamemodeToggle" type="TextureButton" parent="Gamemode"]
 layout_mode = 0
-offset_left = 328.0
-offset_top = 64.0
-offset_right = 456.0
-offset_bottom = 192.0
+offset_left = 216.0
+offset_top = 74.0
+offset_right = 344.0
+offset_bottom = 202.0
+scale = Vector2(1.2, 1.2)
 toggle_mode = true
 texture_normal = ExtResource("16_oil5j")
 
@@ -460,12 +462,12 @@ horizontal_alignment = 1
 
 [node name="GamemodeToggle2" type="TextureButton" parent="Gamemode"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 64.0
-offset_right = 256.0
-offset_bottom = 192.0
+offset_left = 80.0
+offset_top = 74.0
+offset_right = 208.0
+offset_bottom = 202.0
 texture_normal = ExtResource("15_td6mg")
-texture_pressed = ExtResource("16_oil5j")
+texture_pressed = ExtResource("17_guify")
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="Gamemode/GamemodeToggle2"]
 layout_mode = 0
@@ -477,6 +479,29 @@ theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 24
 text = "Tutorial"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="GamemodeToggle3" type="TextureButton" parent="Gamemode"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 74.0
+offset_right = 504.0
+offset_bottom = 202.0
+texture_normal = ExtResource("15_td6mg")
+texture_pressed = ExtResource("16_oil5j")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Gamemode/GamemodeToggle3"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 128.0
+offset_right = 157.0
+offset_bottom = 153.0
+theme = ExtResource("4_4hy44")
+theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 24
+text = "Dungeon"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -628,5 +653,6 @@ text = "Damage numbers"
 [connection signal="toggled" from="Gamemode/GamemodeToggle" to="Gamemode/GamemodeToggle" method="_on_toggled"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle2" to="Gamemode" method="_on_gamemode_toggle_2_pressed"]
 [connection signal="toggled" from="Gamemode/GamemodeToggle2" to="Gamemode/GamemodeToggle2" method="_on_toggled"]
+[connection signal="pressed" from="Gamemode/GamemodeToggle3" to="." method="_on_gamemode_toggle_3_pressed"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="." method="_on_sfx_volume_value_changed"]

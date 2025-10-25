@@ -158,6 +158,7 @@ func death() -> void:
 	$GUI/DeathScreen/Restart.grab_focus()
 	get_tree().paused = true
 func ability() -> void:
+	$Soundcontroller.play("ability")
 	abilityinuse = true
 	usedability = true
 	$GUI/Ability.visible = true
@@ -350,16 +351,18 @@ func charactercheckchange():
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
 func _physics_process(_delta: float) -> void:
-	
+	if global_position.distance_to(get_global_mouse_position()) > 120:
+		$Camera2D.global_position = global_position + (get_local_mouse_position()/17)
+	else:
+		$Camera2D.global_position = global_position
 	$RollCooldown/CanvasLayer/TextureProgressBar.max_value = $RollCooldown.wait_time * 100
 	$RollCooldown/CanvasLayer/TextureProgressBar.value = ($RollCooldown.wait_time - $RollCooldown.time_left) * 100
 	charactercheckchange()
 	if health <= 0:
 		death()
 	else:
-		$Soundcontroller/hit2.volume_db = MenuMusic.setsfx()
-		for node in $Soundcontroller.get_children():
-			node.volume_db = MenuMusic.sfxvolume
+		for child in $Soundcontroller.get_children():
+			child.volume_db = MenuMusic.setsfx()
 		if !stunned:
 			if health > maxhealth:
 				health = maxhealth
