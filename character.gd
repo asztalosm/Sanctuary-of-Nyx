@@ -118,7 +118,7 @@ func addpoints(value):
 
 func switchcharacter(character):
 	if !changingcharacter and character != currentcharacter:
-		attacked = false #i guess this could be exploited to reset atk cd but idc cause there already is a cd on character change
+		#update, what was here bit me in the ass very hard
 		changingcharacter = true
 		for elements in Characters:
 			if elements.Class == currentcharacter.Class:
