@@ -230,6 +230,10 @@ shape = SubResource("CircleShape2D_1tubu")
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.75
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(0, 0)
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

@@ -5,11 +5,12 @@ extends CharacterBody2D
 @export var health : float = maxhealth
 @export var speed = 50
 @export var damage :float = 1
-@export var attackcooldown = 0.8	
+@export var attackcooldown = 0.8
 @export var cantakedamage = true
 @export var target = self
 @export var stunned = false
 @export var animationname = "default"
+@export var seentarget = false
 var onshieldcooldown = false
 var inattackzone = false
 var onattackcooldown = false
@@ -61,30 +62,32 @@ func _process(_delta: float) -> void:
 				$HealthBar.modulate = Color8(255, 255, 255)
 		if !stunned:
 			if inattackzone and !onattackcooldown:
-				print(inattackzone)
 				attack()
 			if target != self:
+				$RayCast2D.target_position = target.global_position - global_position
+				if $RayCast2D.get_collider() == null:
+					seentarget = true
+					$RayCast2D.enabled = false
+				else:
+					seentarget = false
 				if global_position.distance_to(target.global_position) > 220:
 					target = self
 				else:
-					if onattackcooldown:
-						$NavigationAgent2D.target_position = global_position + Vector2(randf_range(-250, 250), randf_range(-250, 250))
-					else:
-						$NavigationAgent2D.target_position = target.global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
-					dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-5, 5), randf_range(-5, 5))
-					if dir.length_squared() > 1.0:
-						dir = dir.normalized()
-						velocity = dir * Vector2(speed, speed)
+					if seentarget:
+						if onattackcooldown:
+							$NavigationAgent2D.target_position = global_position + Vector2(randf_range(-250, 250), randf_range(-250, 250))
+						else:
+							$NavigationAgent2D.target_position = target.global_position + Vector2(randf_range(-50, 50), randf_range(-50, 50))
+						dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-5, 5), randf_range(-5, 5))
+						if dir.length_squared() > 1.0:
+							dir = dir.normalized()
+							velocity = dir * Vector2(speed, speed)
 	move_and_slide()
 
-
 func _on_detection_body_entered(body: Node2D) -> void:
-	var raytrace = RayCast2D.new()
-	add_child(raytrace)
-	raytrace.enabled = true
-	raytrace.target_position = body.global_position
-	print(raytrace.is_colliding())
 	target = body
+	$RayCast2D.target_position = target.global_position - global_position
+	$RayCast2D.enabled = true
 	$HealthBar.visible = true
 	$HealthBar.value = health
 

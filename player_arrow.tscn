@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://btxm5x2piwta8" path="res://resources/arrow.png" id="2_sj8k5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ndhl"]
+radius = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
 size = Vector2(3, 8)
@@ -11,15 +12,16 @@ size = Vector2(3, 8)
 [node name="PlayerArrow" type="CharacterBody2D"]
 top_level = true
 collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_er7ls")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_2ndhl")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 131
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -30,3 +32,4 @@ shape = SubResource("RectangleShape2D_acd0x")
 texture = ExtResource("2_sj8k5")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
