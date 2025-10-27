@@ -118,7 +118,6 @@ func addpoints(value):
 
 func switchcharacter(character):
 	if !changingcharacter and character != currentcharacter:
-		#update, what was here bit me in the ass very hard
 		changingcharacter = true
 		for elements in Characters:
 			if elements.Class == currentcharacter.Class:
@@ -135,7 +134,7 @@ func stun() -> void:
 	stunned = false
 
 func _ready() -> void:
-	$AssassinHitcheck.monitoring = false	
+	$AssassinHitcheck.monitoring = false
 func death() -> void:
 	#there will be a death animation that will be played before the death screen comes up
 	var deathtween = get_tree().create_tween()
@@ -186,7 +185,7 @@ func ability() -> void:
 			stunSpriteTween.tween_property($MageAbility, "modulate", Color8(255,255,255,255), 0.1)
 			stunSpriteTween.tween_property($MageAbility, "scale", Vector2(12,12), 2)
 		"fastarrows":
-			for i in range(5): #uses the arrow attac0k script now but changed cooldown
+			for i in range(5): #uses the arrow attack script now but changed cooldown
 				var arrowScene = load("res://player_arrow.tscn")
 				var arrow = arrowScene.instantiate()
 				arrow.global_position = global_position
@@ -264,24 +263,36 @@ func applydamage() -> void:
 	attacked = false
 	
 	for enemies in hitenemies:
-		if get_node_or_null(get_path_to(enemies)) != null:
-			if currentcharacter.AttackType == "Magical":
-				damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
-			elif currentcharacter.AttackType == "Physical":
-				if currentcharacter.Class == "Assassin":
-					damage = (globalcharacterstats.DaggerAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
-				else: #for now this else will work but i should change this to switch statements
-					damage = (globalcharacterstats.SwordAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
-			if randi_range(1,100) <= critchance:
-				$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
-				damage *= 1.5
-			if (enemies.health - damage) <= 0.0:
-				if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
-					health = maxhealth
-				health += arcadeStats.lifesteal
-			enemies.hit(damage)
+		var validhit = RayCast2D.new()
+		validhit.add_exception(self)
+		validhit.enabled  = true
+		validhit.hit_from_inside = true
+		validhit.collision_mask = 1
+		validhit.target_position = enemies.global_position - global_position
+		add_child(validhit)
+		validhit.force_raycast_update()
+		if validhit.get_collider() == null or validhit.get_collider() == enemies:
+			if get_node_or_null(get_path_to(enemies)) != null:
+				if currentcharacter.AttackType == "Magical":
+					damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
+				elif currentcharacter.AttackType == "Physical":
+					if currentcharacter.Class == "Assassin":
+						damage = (globalcharacterstats.DaggerAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+					else: #for now this else will work but i should change this to switch statements
+						damage = (globalcharacterstats.SwordAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+				if randi_range(1,100) <= critchance:
+					$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
+					damage *= 1.5
+				if (enemies.health - damage) <= 0.0:
+					if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
+						health = maxhealth
+					health += arcadeStats.lifesteal
+				enemies.hit(damage)
+			else:
+				hitenemies.erase(enemies)
 		else:
-			hitenemies.erase(enemies)
+			pass
+		validhit.queue_free()
 		hitenemies.clear()
 func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
 	var dodgerng = randi_range(0,100)

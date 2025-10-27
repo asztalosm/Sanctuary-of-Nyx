@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddrhcwbgbanwj"]
+[gd_scene load_steps=6 format=3 uid="uid://ddrhcwbgbanwj"]
 
 [ext_resource type="Script" uid="uid://cpit8plnjb8o5" path="res://arrow.gd" id="1_l5ahi"]
 [ext_resource type="Texture2D" uid="uid://btxm5x2piwta8" path="res://resources/arrow.png" id="2_2ndhl"]
@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ndhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
+size = Vector2(3, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ndhl"]
 size = Vector2(3, 8)
 
 [node name="Arrow" type="CharacterBody2D"]
@@ -16,6 +19,7 @@ script = ExtResource("1_l5ahi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_2ndhl")
+disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -29,4 +33,11 @@ shape = SubResource("RectangleShape2D_acd0x")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_2ndhl")
 
+[node name="Wallcheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wallcheck"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_2ndhl")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Wallcheck" to="." method="_on_wallcheck_body_entered"]

@@ -85,11 +85,10 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_detection_body_entered(body: Node2D) -> void:
-	target = body
-	$RayCast2D.target_position = target.global_position - global_position
-	$RayCast2D.enabled = true
-	$HealthBar.visible = true
-	$HealthBar.value = health
+	if body.name == "Player":
+		target = body
+		$RayCast2D.target_position = target.global_position - global_position
+		$RayCast2D.enabled = true
 
 func _on_detection_body_exited(_body: Node2D) -> void:
 	target = self

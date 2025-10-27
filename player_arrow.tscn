@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7umxi8dc7gtv"]
+[gd_scene load_steps=6 format=3 uid="uid://b7umxi8dc7gtv"]
 
 [ext_resource type="Script" uid="uid://brrjapq20wdev" path="res://player_arrow.gd" id="1_er7ls"]
 [ext_resource type="Texture2D" uid="uid://btxm5x2piwta8" path="res://resources/arrow.png" id="2_sj8k5"]
@@ -9,8 +9,12 @@ radius = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
 size = Vector2(3, 8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er7ls"]
+size = Vector2(3, 8)
+
 [node name="PlayerArrow" type="CharacterBody2D"]
 top_level = true
+z_index = 50
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_er7ls")
@@ -18,10 +22,11 @@ script = ExtResource("1_er7ls")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_2ndhl")
+disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 131
+collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -31,5 +36,11 @@ shape = SubResource("RectangleShape2D_acd0x")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_sj8k5")
 
+[node name="Wallcheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wallcheck"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_er7ls")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Wallcheck" to="." method="_on_wallcheck_body_entered"]

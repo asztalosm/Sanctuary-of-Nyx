@@ -11,7 +11,7 @@ var onattackcooldown = false
 var dir := Vector2.ZERO
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 @export var dead = false
-
+@export var seentarget = false
 func hit(selfdamage) -> void:
 	health -= selfdamage
 	$AnimationPlayer.play("hit")
@@ -50,6 +50,12 @@ func _physics_process(_delta: float) -> void:
 			$HealthBar.value = health
 		if !stunned:
 			if target != self:
+				$RayCast2D.target_position = target.global_position - global_position
+				if $RayCast2D.get_collider() == null:
+					seentarget = true
+					$RayCast2D.enabled = false
+				else:
+					seentarget = false
 				if global_position.distance_to(target.global_position) > 220:
 					target = self
 				else:
@@ -67,6 +73,8 @@ func _physics_process(_delta: float) -> void:
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	target = body
+	$RayCast2D.target_position = target.global_position - global_position
+	$RayCast2D.enabled = true
 	$Detection.scale = Vector2(2,2)
 	$NavigationAgent2D.target_desired_distance = $Detection/AttackZone/CollisionShape2D.shape.radius /2
 
