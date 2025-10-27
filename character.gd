@@ -27,6 +27,7 @@ extends CharacterBody2D
 		"BaseDamage": 2.0,
 		"Type": "Melee",
 		"Ability": "assassinstep",
+		"AttackDamage": 2.0,
 		"AbilityCooldown": 2,
 		"AbilityDuration": 1.2,
 		"Icon": preload("res://resources/assassinicon.png"),
@@ -37,6 +38,7 @@ extends CharacterBody2D
 		"Class": "Mage",
 		"Type": "Projectile",
 		"Ability": "stun",
+		"AttackDamage": 3.0,
 		"AbilityCooldown": 5,
 		"AbilityDuration": 3,
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
@@ -47,6 +49,7 @@ extends CharacterBody2D
 		"Class": "Archer",
 		"Type": "Projectile",
 		"Ability": "fastarrows",
+		"AttackDamage": 3.0,
 		"AbilityCooldown": 3,
 		"AbilityDuration": 1,
 		"Icon": preload("res://resources/temparcher.png"), #just a temp file
@@ -57,6 +60,7 @@ extends CharacterBody2D
 		"Class": "Knight",
 		"Type": "Melee",
 		"Ability": "berserk",
+		"AttackDamage": 4.0,
 		"AbilityCooldown": 8,
 		"AbilityDuration": 4,
 		"Icon": preload("res://resources/temporarybadwizardbase.png"),
@@ -75,16 +79,8 @@ extends CharacterBody2D
 	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
 	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
-@export var currentcharacter = { #this has to be reloaded every time a character change will happen, with the correct information
-	"Class": "Assassin",
-	"Type": "Melee",
-	"Ability": "assassinstep",
-	"AbilityCooldown": 1.1,
-	"AbilityDuration": 1.2,
-	"Icon": preload("res://resources/assassinicon.png"),
-	"Attack": "daggerattack",
-	"AttackType": "Physical"
-}
+@export var currentcharacter = Characters[0]
+
 #inventory menu is a TODO, have to change the resolution of the inventory.png
 @export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
 	"Head": null,
@@ -261,7 +257,6 @@ func applydamage() -> void:
 			#if equipment != null:
 				#print(equipment)
 	attacked = false
-	
 	for enemies in hitenemies:
 		var validhit = RayCast2D.new()
 		validhit.add_exception(self)
@@ -271,30 +266,28 @@ func applydamage() -> void:
 		validhit.target_position = enemies.global_position - global_position
 		add_child(validhit)
 		validhit.force_raycast_update()
-		if validhit.get_collider() != null: #holy shit this code is actually disgusting
-			if validhit.get_collider().name == "TileMapLayer":
-				pass
+		print(validhit.get_collider())
+		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer": #holy shit this code is actually disgusting
+			if get_node_or_null(get_path_to(enemies)) != null:
+				match currentcharacter.Attack:
+					"mageattack":
+						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
+					"daggerattack":
+						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+					"archerattack":
+						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+					"knightattack":
+						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
+				if randi_range(1,100) <= critchance:
+					$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
+					damage *= 1.5
+				if (enemies.health - damage) <= 0.0:
+					if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
+						health = maxhealth
+					health += arcadeStats.lifesteal
+				enemies.hit(damage)
 			else:
-				print(enemies)
-				if get_node_or_null(get_path_to(enemies)) != null:
-					print("will damage an enemy")
-					if currentcharacter.AttackType == "Magical":
-						damage = (globalcharacterstats.BaseMagicAttack + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
-					elif currentcharacter.AttackType == "Physical":
-						if currentcharacter.Class == "Assassin":
-							damage = (globalcharacterstats.DaggerAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
-						else: #for now this else will work but i should change this to switch statements
-							damage = (globalcharacterstats.SwordAttack + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
-					if randi_range(1,100) <= critchance:
-						$AssassinHitcheck/AnimatedSprite2D.modulate = Color8(255,128,128)
-						damage *= 1.5
-					if (enemies.health - damage) <= 0.0:
-						if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
-							health = maxhealth
-						health += arcadeStats.lifesteal
-					enemies.hit(damage)
-				else:
-					hitenemies.erase(enemies)
+				hitenemies.erase(enemies)
 		validhit.queue_free()
 	hitenemies.clear()
 func hit(selfdamage, dodgeable = true, truedamage = false) ->void:
