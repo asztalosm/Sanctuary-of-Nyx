@@ -1,10 +1,11 @@
-[gd_scene load_steps=37 format=4 uid="uid://ca4duebn0p52d"]
+[gd_scene load_steps=38 format=4 uid="uid://ca4duebn0p52d"]
 
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="1_qu0b2"]
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="2_noicg"]
 [ext_resource type="PackedScene" uid="uid://clq5txcg82glr" path="res://shop.tscn" id="2_orq0m"]
 [ext_resource type="PackedScene" uid="uid://dulu8yqn1otak" path="res://bat.tscn" id="3_4f3i4"]
 [ext_resource type="PackedScene" uid="uid://c2qbvyunjnwe4" path="res://door.tscn" id="3_noicg"]
+[ext_resource type="PackedScene" uid="uid://beiim23wxtjq4" path="res://Ladder.tscn" id="3_tgur7"]
 [ext_resource type="PackedScene" uid="uid://cnil3dyaxwrio" path="res://skeleton_summon.tscn" id="4_q5kms"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="5_tgur7"]
 [ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="8_q5kms"]
@@ -269,6 +270,13 @@ tile_set = SubResource("TileSet_my81p")
 
 [node name="Shop" parent="TileMapLayer" instance=ExtResource("2_orq0m")]
 position = Vector2(-111, -896)
+
+[node name="Teleports" type="Node2D" parent="TileMapLayer"]
+
+[node name="Ladder0" parent="TileMapLayer/Teleports" instance=ExtResource("3_tgur7")]
+
+[node name="teleport0" type="Marker2D" parent="TileMapLayer/Teleports"]
+gizmo_extents = 0.0
 
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
 

@@ -2,7 +2,7 @@ extends CharacterBody2D
 @export var dir = Vector2(0,0)
 @export var speed = 250
 func _ready() -> void:
-	rotation = self.get_angle_to(get_global_mouse_position()) + deg_to_rad(90)
+	rotation = self.get_angle_to(get_global_mouse_position()) - deg_to_rad(90)
 	velocity = dir * speed
 	await get_tree().create_timer(0.1).timeout
 	collision_mask = 1

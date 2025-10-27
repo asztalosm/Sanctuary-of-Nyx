@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 
 func _ready() -> void:
-	rotation = self.get_angle_to(get_parent().target.global_position) + deg_to_rad(90)
+	rotation = self.get_angle_to(get_parent().target.global_position) - deg_to_rad(90)
 	await get_tree().create_timer(3).timeout
 	queue_free()
 

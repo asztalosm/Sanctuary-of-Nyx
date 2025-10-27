@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dk5kfbqb21ri3" path="res://resources/doorselect.png" id="3_y5njw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4f3i4"]
-size = Vector2(64, 4)
+size = Vector2(64, 6)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q5kms"]
 radius = 48.09366
