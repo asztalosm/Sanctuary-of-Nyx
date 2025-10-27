@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bi3lrioco1y32"]
+
+[ext_resource type="Script" uid="uid://6ey3lm0hb2u0" path="res://coin_particles.gd" id="1_4xvri"]
+[ext_resource type="Texture2D" uid="uid://bkx0fa2gmx2pv" path="res://resources/coin.png" id="1_c1qnj"]
+
+[sub_resource type="Curve" id="Curve_mmwu5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5588236, 0.8089888), -0.74221516, -0.74221516, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mhgyk"]
+curve = SubResource("Curve_mmwu5")
+
+[sub_resource type="Curve" id="Curve_4xbri"]
+_limits = [-29.21347, 200.0, 0.0, 1.0]
+_data = [Vector2(0, -29.21347), 0.0, -361.1849, 0, 0, Vector2(0.13970588, -29.21347), 16.679039, 16.679039, 0, 0, Vector2(0.38235295, 35.172348), 31.841673, 31.841673, 0, 0, Vector2(0.6985294, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ph2tm"]
+curve_y = SubResource("Curve_4xbri")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sji02"]
+particle_flag_disable_z = true
+angle_min = -215.2
+angle_max = 140.70001
+spread = 138.176
+initial_velocity_max = 17.41
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+directional_velocity_min = 0.9999839
+directional_velocity_max = 0.9999839
+directional_velocity_curve = SubResource("CurveXYZTexture_ph2tm")
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+scale_min = 0.19999999
+scale_max = 0.75
+alpha_curve = SubResource("CurveTexture_mhgyk")
+
+[node name="CoinParticles" type="GPUParticles2D"]
+emitting = false
+texture = ExtResource("1_c1qnj")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_sji02")
+script = ExtResource("1_4xvri")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
