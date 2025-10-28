@@ -288,6 +288,8 @@ position = Vector2(839, -980)
 gizmo_extents = 0.0
 
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
+position = Vector2(-72, -719)
+metadata/_edit_group_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Character"]
 layer = -50

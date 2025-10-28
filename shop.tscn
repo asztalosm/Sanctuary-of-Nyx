@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://clq5txcg82glr"]
+[gd_scene load_steps=9 format=3 uid="uid://clq5txcg82glr"]
 
 [ext_resource type="Script" uid="uid://kxwlhyg1wdgt" path="res://shop.gd" id="1_e7rdd"]
 [ext_resource type="Texture2D" uid="uid://17tjvdh40dkb" path="res://resources/shop.png" id="2_blqjs"]
@@ -41,7 +41,23 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lah5"]
+bg_color = Color(0, 0, 0, 0.49803922)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.4, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+anti_aliasing_size = 0.615
+
 [node name="Shop" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_e7rdd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -53,6 +69,7 @@ sprite_frames = SubResource("SpriteFrames_fgaav")
 shape = SubResource("CircleShape2D_fgaav")
 
 [node name="ShopGUI" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ShopGUI"]
 offset_left = 226.0
@@ -64,41 +81,263 @@ text = "Welcome to the shop!"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="ShopGUI"]
-offset_left = 58.0
+[node name="Buttons" type="Control" parent="ShopGUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="ShopGUI/Buttons"]
+layout_mode = 0
+offset_left = 22.0
 offset_top = 121.0
-offset_right = 183.0
+offset_right = 147.0
 offset_bottom = 305.0
 theme = ExtResource("4_fgaav")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fgaav")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6lah5")
 metadata/_edit_group_ = true
 
-[node name="Control4" type="Control" parent="ShopGUI/Button"]
+[node name="Control" type="Control" parent="ShopGUI/Buttons/Button"]
 clip_contents = true
 anchors_preset = 0
 offset_right = 125.0
 offset_bottom = 184.0
+focus_behavior_recursive = 1
+mouse_filter = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ShopGUI/Button/Control4"]
+[node name="Title" type="RichTextLabel" parent="ShopGUI/Buttons/Button/Control"]
 layout_mode = 0
 offset_right = 125.0
 offset_bottom = 70.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
 theme = ExtResource("4_fgaav")
 theme_override_font_sizes/normal_font_size = 34
 text = "Sharper blades"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="ShopGUI/Button/Control4"]
+[node name="Description" type="RichTextLabel" parent="ShopGUI/Buttons/Button/Control"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 72.0
 offset_right = 121.0
 offset_bottom = 142.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
 theme = ExtResource("4_fgaav")
 theme_override_font_sizes/normal_font_size = 17
 text = " Swords now deal [random number] more damage."
 fit_content = true
 
+[node name="Cost" type="RichTextLabel" parent="ShopGUI/Buttons/Button/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 160.0
+offset_right = 105.0
+offset_bottom = 178.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = " [imgresize=16]res://resources/coin.png[color=cfa951] 999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="ShopGUI/Buttons"]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 121.0
+offset_right = 283.0
+offset_bottom = 305.0
+theme = ExtResource("4_fgaav")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fgaav")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6lah5")
+metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="ShopGUI/Buttons/Button2"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 125.0
+offset_bottom = 184.0
+focus_behavior_recursive = 1
+mouse_filter = 2
+
+[node name="Title" type="RichTextLabel" parent="ShopGUI/Buttons/Button2/Control"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 70.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 34
+text = "Sharper blades"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="ShopGUI/Buttons/Button2/Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 72.0
+offset_right = 121.0
+offset_bottom = 142.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 17
+text = " Swords now deal [random number] more damage."
+fit_content = true
+
+[node name="Cost" type="RichTextLabel" parent="ShopGUI/Buttons/Button2/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 160.0
+offset_right = 105.0
+offset_bottom = 178.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = " [imgresize=16]res://resources/coin.png[color=cfa951] 999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="ShopGUI/Buttons"]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 121.0
+offset_right = 419.0
+offset_bottom = 305.0
+theme = ExtResource("4_fgaav")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fgaav")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6lah5")
+metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="ShopGUI/Buttons/Button3"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 125.0
+offset_bottom = 184.0
+focus_behavior_recursive = 1
+mouse_filter = 2
+
+[node name="Title" type="RichTextLabel" parent="ShopGUI/Buttons/Button3/Control"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 70.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 34
+text = "Sharper blades"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="ShopGUI/Buttons/Button3/Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 72.0
+offset_right = 121.0
+offset_bottom = 142.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 17
+text = " Swords now deal [random number] more damage."
+fit_content = true
+
+[node name="Cost" type="RichTextLabel" parent="ShopGUI/Buttons/Button3/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 160.0
+offset_right = 105.0
+offset_bottom = 178.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = " [imgresize=16]res://resources/coin.png[color=cfa951] 999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Button4" type="Button" parent="ShopGUI/Buttons"]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 121.0
+offset_right = 555.0
+offset_bottom = 305.0
+theme = ExtResource("4_fgaav")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fgaav")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6lah5")
+metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="ShopGUI/Buttons/Button4"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 125.0
+offset_bottom = 184.0
+focus_behavior_recursive = 1
+mouse_filter = 2
+
+[node name="Title" type="RichTextLabel" parent="ShopGUI/Buttons/Button4/Control"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 70.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 34
+text = "Sharper blades"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="ShopGUI/Buttons/Button4/Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 72.0
+offset_right = 121.0
+offset_bottom = 142.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 17
+text = " Swords now deal [random number] more damage."
+fit_content = true
+
+[node name="Cost" type="RichTextLabel" parent="ShopGUI/Buttons/Button4/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 160.0
+offset_right = 105.0
+offset_bottom = 178.0
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = " [imgresize=16]res://resources/coin.png[color=cfa951] 999999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="ShopGUI/Buttons/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ShopGUI/Buttons/Button2" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ShopGUI/Buttons/Button3" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ShopGUI/Buttons/Button4" to="." method="_on_button_pressed"]
