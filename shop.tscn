@@ -1,7 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://clq5txcg82glr"]
+[gd_scene load_steps=7 format=3 uid="uid://clq5txcg82glr"]
 
 [ext_resource type="Script" uid="uid://kxwlhyg1wdgt" path="res://shop.gd" id="1_e7rdd"]
 [ext_resource type="Texture2D" uid="uid://17tjvdh40dkb" path="res://resources/shop.png" id="2_blqjs"]
+[ext_resource type="Texture2D" uid="uid://jbakmeu1m0gm" path="res://resources/shop-outline.png" id="3_blqjs"]
+[ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="4_fgaav"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgaav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_blqjs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_blqjs")
+}],
+"loop": true,
+"name": &"inrange",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fgaav"]
 radius = 74.330345
@@ -9,10 +30,8 @@ radius = 74.330345
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_e7rdd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.7121294, 0.7121294, 0.71212935, 1)
-position = Vector2(2, -18)
-texture = ExtResource("2_blqjs")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fgaav")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -27,6 +46,72 @@ offset_right = 39.0
 offset_bottom = 30.0
 theme_override_font_sizes/normal_font_size = 12
 text = "Work in progress, sorry :("
+
+[node name="ShopGUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="ShopGUI"]
+offset_left = 288.0
+offset_top = 164.0
+offset_right = 352.0
+offset_bottom = 292.0
+
+[node name="Control" type="Control" parent="ShopGUI/Panel"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ShopGUI/Panel/Control"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 30.0
+theme = ExtResource("4_fgaav")
+theme_override_font_sizes/normal_font_size = 17
+text = "Title pretty long if i do say so myself"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Panel2" type="Panel" parent="ShopGUI"]
+offset_left = 368.0
+offset_top = 164.0
+offset_right = 432.0
+offset_bottom = 292.0
+
+[node name="Control2" type="Control" parent="ShopGUI/Panel2"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Panel3" type="Panel" parent="ShopGUI"]
+offset_left = 208.0
+offset_top = 164.0
+offset_right = 272.0
+offset_bottom = 292.0
+
+[node name="Control3" type="Control" parent="ShopGUI/Panel3"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Panel4" type="Panel" parent="ShopGUI"]
+offset_left = 128.0
+offset_top = 164.0
+offset_right = 192.0
+offset_bottom = 292.0
+
+[node name="Control4" type="Control" parent="ShopGUI/Panel4"]
+clip_contents = true
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ShopGUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+text = "Welcome to the shop!"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
