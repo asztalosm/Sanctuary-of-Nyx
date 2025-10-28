@@ -109,6 +109,13 @@ var hitenemies = []
 #cursed branch can only be obtained after fighting a boss - your character will get MASSIVE debuffs AND buffs and new attacks, point redistribution would be expensive and give the player a challenge in the open world
 #chatgpt kinda cooked with the cursed branch idea
 
+func recheckstats():
+	print("old stats: " + currentcharacter)
+	for elements in Characters:
+		if elements.Class == currentcharacter.Class:
+			currentcharacter = elements
+	print("new stats: " + currentcharacter)
+
 func addpoints(value):
 	points += int(value * globalcharacterstats.xpMultiplier)
 
