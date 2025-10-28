@@ -266,8 +266,7 @@ func applydamage() -> void:
 		validhit.target_position = enemies.global_position - global_position
 		add_child(validhit)
 		validhit.force_raycast_update()
-		print(validhit.get_collider())
-		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer": #holy shit this code is actually disgusting
+		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer":
 			if get_node_or_null(get_path_to(enemies)) != null:
 				match currentcharacter.Attack:
 					"mageattack":

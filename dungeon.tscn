@@ -280,7 +280,7 @@ position = Vector2(-111, -896)
 [node name="Ladder0" parent="TileMapLayer/Teleports" instance=ExtResource("3_tgur7")]
 
 [node name="teleport0" type="Marker2D" parent="TileMapLayer/Teleports"]
-position = Vector2(264, 0)
+position = Vector2(1903, -1087)
 gizmo_extents = 0.0
 
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
