@@ -130,6 +130,7 @@ func stun() -> void:
 	stunned = false
 
 func _ready() -> void:
+	switchcharacter(Characters[0])
 	$AssassinHitcheck.monitoring = false
 func death() -> void:
 	#there will be a death animation that will be played before the death screen comes up
@@ -256,7 +257,9 @@ func applydamage() -> void:
 		#for equipment in equipped:
 			#if equipment != null:
 				#print(equipment)
-	attacked = false
+	if currentcharacter.Class != "Mage":
+		attacked = false
+	
 	for enemies in hitenemies:
 		var validhit = RayCast2D.new()
 		validhit.add_exception(self)
@@ -266,7 +269,7 @@ func applydamage() -> void:
 		validhit.target_position = enemies.global_position - global_position
 		add_child(validhit)
 		validhit.force_raycast_update()
-		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer":
+		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer" or currentcharacter.Class == "Mage":
 			if get_node_or_null(get_path_to(enemies)) != null:
 				match currentcharacter.Attack:
 					"mageattack":
@@ -346,13 +349,13 @@ func calculateanimation(direction): #ugly if statements, but will work for now
 		else:
 			$AnimatedSprite2D.play(currentcharacter.Class+"walk2")
 func charactercheckchange():
-	if Input.is_action_just_pressed("1"):
+	if Input.is_action_just_pressed("1") and !attacked:
 		switchcharacter(Characters[0])
-	elif Input.is_action_just_pressed("2"):
+	elif Input.is_action_just_pressed("2") and !attacked:
 		switchcharacter(Characters[1])
-	elif Input.is_action_just_pressed("3"):
+	elif Input.is_action_just_pressed("3") and !attacked:
 		switchcharacter(Characters[2])
-	elif Input.is_action_just_pressed("4"):
+	elif Input.is_action_just_pressed("4") and !attacked:
 		switchcharacter(Characters[3])
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
