@@ -538,12 +538,13 @@ tile_set = SubResource("TileSet_7sx8j")
 [node name="ColorRect" type="ColorRect" parent="TileMapLayer"]
 z_index = -6
 material = SubResource("ShaderMaterial_e11tl")
-offset_left = -660.0
-offset_top = -418.0
-offset_right = 769.0
-offset_bottom = 426.0
+offset_left = -624.0
+offset_top = -392.0
+offset_right = 805.0
+offset_bottom = 452.0
 
 [node name="Character" parent="." instance=ExtResource("1_kjmcv")]
+position = Vector2(0, 24)
 
 [node name="EnemySpawners" type="Node2D" parent="."]
 script = ExtResource("3_bgdj6")
@@ -606,9 +607,16 @@ wait_time = 10.0
 [node name="SpawnTimer" type="Timer" parent="EnemySpawners"]
 wait_time = 0.3
 
+[node name="TeleportBack" type="Area2D" parent="EnemySpawners"]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnemySpawners/TeleportBack"]
+polygon = PackedVector2Array(-96, 256, 96, 256, 96, 240, 144, 240, 144, 224, 176, 224, 176, 208, 192, 208, 192, 192, 208, 192, 208, 176, 224, 176, 224, 144, 240, 144, 240, 96, 256, 96, 256, -96, 240, -96, 240, -144, 224, -144, 224, -176, 208, -176, 208, -192, 192, -192, 192, -208, 176, -208, 176, -224, 144, -224, 144, -240, 96, -240, 96, -256, -96, -256, 384, -384, 384, 384, -384, 384, -384, 256, -384, -384, 384, -384, -96, -256, -96, -240, -144, -240, -144, -224, -176, -224, -176, -208, -192, -208, -192, -192, -208, -192, -208, -176, -224, -176, -224, -144, -240, -144, -240, -96, -256, -96, -256, 96, -240, 96, -240, 144, -224, 144, -224, 176, -208, 176, -208, 192, -192, 192, -192, 208, -176, 208, -176, 224, -144, 224, -144, 240, -96, 240)
+
 [node name="Intermission" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 2
+visible = false
 script = ExtResource("1_7sx8j")
 
 [node name="ColorRect" type="ColorRect" parent="Intermission"]
@@ -873,6 +881,7 @@ text = "Play"
 stream = ExtResource("9_mndso")
 
 [node name="WaveOverlay" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("8_6qik7")
 
 [node name="Points" type="RichTextLabel" parent="WaveOverlay"]
@@ -953,6 +962,7 @@ text = "Play!"
 
 [connection signal="timeout" from="EnemySpawners/ChangeSpawner" to="EnemySpawners" method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemySpawners/SpawnTimer" to="EnemySpawners" method="_on_spawn_timer_timeout"]
+[connection signal="body_entered" from="EnemySpawners/TeleportBack" to="EnemySpawners" method="_on_teleport_back_body_entered"]
 [connection signal="pressed" from="Intermission/Dice/EnemyStats" to="Intermission" method="_on_enemy_stats_pressed"]
 [connection signal="timeout" from="Intermission/Dice/EnemyStats/AnimationTimer" to="Intermission" method="_on_animation_timer_timeout"]
 [connection signal="timeout" from="Intermission/Dice/EnemyStats/Timer" to="Intermission" method="_on_timer_timeout"]

@@ -187,7 +187,7 @@ scale_curve = SubResource("CurveTexture_aeagw")
 alpha_curve = SubResource("CurveTexture_2ia7u")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu45j"]
-size = Vector2(9, 2)
+size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lpiy1"]
 resource_local_to_scene = true
@@ -1690,7 +1690,7 @@ width = 60
 z_index = 5
 
 [node name="Player" type="CharacterBody2D" parent="."]
-collision_layer = 21
+collision_layer = 20
 script = ExtResource("1_pjt0s")
 
 [node name="MageProjectile" type="CharacterBody2D" parent="Player"]
@@ -1740,7 +1740,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_lphiu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0.5, 9)
+position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_vu45j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
@@ -1799,6 +1799,7 @@ shape = SubResource("RectangleShape2D_pjt0s")
 
 [node name="GUI" type="CanvasLayer" parent="Player"]
 process_mode = 3
+layer = 1000
 script = ExtResource("3_jb3kq")
 
 [node name="Health" type="Control" parent="Player/GUI"]

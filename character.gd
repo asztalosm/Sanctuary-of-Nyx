@@ -465,5 +465,5 @@ func _on_knightattack_finished() -> void:
 
 
 func _on_knight_hitcheck_area_entered(area: Area2D) -> void: #works fine, issue is somewher else
-	if (area.get_parent().get_parent().name == "Enemies" or area.get_parent().name == "SpecialDummy") and currentcharacter.Class == "Knight":
+	if (area.get_parent().get_parent().name == "Enemies" or area.get_parent().get_parent().get_parent().name == "Enemies" or area.get_parent().name == "SpecialDummy") or area.get_parent().name.contains("Explosive Barrel") and currentcharacter.Class == "Knight":
 		hitenemies.append(area.get_parent())

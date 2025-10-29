@@ -16,6 +16,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6el0x"]
+size = Vector2(4, 2)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pv4hw"]
 
@@ -100,9 +101,8 @@ script = ExtResource("1_wsr8h")
 sprite_frames = SubResource("SpriteFrames_pv4hw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(1, 11)
 shape = SubResource("RectangleShape2D_6el0x")
-disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
@@ -110,7 +110,6 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-visible = false
 shape = SubResource("CapsuleShape2D_pv4hw")
 
 [node name="Detection" type="Area2D" parent="."]

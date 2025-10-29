@@ -224,7 +224,6 @@ shape = SubResource("CircleShape2D_22ski")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 40.61
 target_desired_distance = 20.31
-debug_enabled = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.8

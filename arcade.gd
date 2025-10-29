@@ -187,6 +187,7 @@ func _ready() -> void:
 		setDescription()
 
 func _process(_delta: float) -> void:
+	$Dicesound.volume_db = MenuMusic.setsfx()
 	$RichTextLabel3.text = "rerolls: " + str(rerollpoints)
 
 

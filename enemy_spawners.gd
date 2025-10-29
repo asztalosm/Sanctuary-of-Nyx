@@ -98,3 +98,7 @@ func _on_spawn_timer_timeout() -> void:
 					return
 				else:
 					spawners.get_node("Sprite2D").visible = false
+
+
+func _on_teleport_back_body_entered(body: Node2D) -> void:
+	body.global_position = Vector2(0,0)

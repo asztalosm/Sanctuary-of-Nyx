@@ -32,6 +32,7 @@ func summonself(count, path) -> void:
 			selfscene.target = target
 			selfscene.name = "Illusion"
 			selfscene.original = false
+			selfscene.modulate = Color(randf_range(1.2,1.6), randf_range(1.2,1.6), randf_range(1.2,1.6))
 	attacked = true
 
 func death() -> void:
@@ -71,7 +72,7 @@ func _physics_process(_delta: float) -> void:
 			$HealthBar.visible = true
 			$HealthBar.value = health
 		if !stunned:
-			if target != self:
+			if target != self and target != null:
 				if global_position.distance_to(target.global_position) < 70:
 					$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
 					dir = $NavigationAgent2D.get_next_path_position() - global_position
