@@ -128,8 +128,15 @@ func stun() -> void:
 	velocity = Vector2.ZERO
 	$AnimatedSprite2D.stop()
 	$AnimatedSprite2D.frame = 0
-	await get_tree().create_timer(1).timeout
+	var stuntime = 1.8
+	var stunscene = load("res://stun.tscn").instantiate()
+	stunscene.global_position = global_position + Vector2(0,-12)
+	stunscene.sprite_frames.set_animation_speed("default", 7 / stuntime)
+	stunscene.play("default")
+	self.add_child(stunscene)
+	await get_tree().create_timer(stuntime).timeout
 	stunned = false
+
 
 func _ready() -> void:
 	switchcharacter(Characters[0])

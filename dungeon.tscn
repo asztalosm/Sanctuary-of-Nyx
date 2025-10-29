@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://ca4duebn0p52d"]
+[gd_scene load_steps=46 format=4 uid="uid://ca4duebn0p52d"]
 
 [ext_resource type="Script" uid="uid://qvk16lkoneo0" path="res://dungeon.gd" id="1_7wc3a"]
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="1_qu0b2"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="12_uag5o"]
 [ext_resource type="PackedScene" uid="uid://dj6xi2bqa36xk" path="res://advanced_skeleton.tscn" id="13_85cul"]
 [ext_resource type="PackedScene" uid="uid://bnmsj2aguea8g" path="res://crystal_figure.tscn" id="14_77ujo"]
+[ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="15_85cul"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_my81p"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -8, -8, -16, 16, -16)
@@ -298,7 +299,7 @@ position = Vector2(2335, -39)
 gizmo_extents = 0.0
 
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
-position = Vector2(28, -31)
+position = Vector2(2402, -820)
 metadata/_edit_group_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Character"]
@@ -386,7 +387,7 @@ position = Vector2(1124.9999, -575.2656)
 position = Vector2(1630, -999)
 
 [node name="AdvancedSkeleton" parent="Enemies" instance=ExtResource("13_85cul")]
-position = Vector2(1190, -448)
+position = Vector2(1185, -483)
 
 [node name="AdvancedSkeleton2" parent="Enemies" instance=ExtResource("13_85cul")]
 position = Vector2(1366, -561)
@@ -429,6 +430,9 @@ position = Vector2(2389, -826)
 
 [node name="SkeletonSummon7" parent="Enemies" instance=ExtResource("4_q5kms")]
 position = Vector2(2523, -946)
+
+[node name="Splasher" parent="Enemies" instance=ExtResource("15_85cul")]
+position = Vector2(2280, -899)
 
 [node name="DungeonOverlay" type="CanvasLayer" parent="."]
 

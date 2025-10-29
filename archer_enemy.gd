@@ -23,7 +23,13 @@ func hit(selfdamage) -> void:
 
 func stun() -> void:
 	stunned = true
-	await get_tree().create_timer(3.0).timeout
+	var stuntime = 3.0
+	var stunscene = load("res://stun.tscn").instantiate()
+	stunscene.global_position = global_position + Vector2(0,-12)
+	stunscene.sprite_frames.set_animation_speed("default", 7 / stuntime)
+	stunscene.play("default")
+	self.add_child(stunscene)
+	await get_tree().create_timer(stuntime).timeout
 	stunned = false
 
 func death() -> void:

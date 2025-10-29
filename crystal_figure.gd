@@ -24,7 +24,13 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 func stun() -> void:
 	stunned = true
-	await get_tree().create_timer(3.0).timeout
+	var stuntime = 2.0
+	var stunscene = load("res://stun.tscn").instantiate()
+	stunscene.global_position = global_position + Vector2(0,-42)
+	stunscene.sprite_frames.set_animation_speed("default", 7 / stuntime)
+	stunscene.play("default")
+	self.add_child(stunscene)
+	await get_tree().create_timer(stuntime).timeout
 	stunned = false
 
 func death() -> void:
@@ -136,6 +142,7 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 
 
 func _on_gpu_particles_2d_finished() -> void:
+	print("meghaltam")
 	queue_free()
 
 

@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var maxhealth : float = 8
 @export var health : float = maxhealth
 @export var speed = 50
-@export var damage :float = 3
+@export var damage :float = 4
 @export var attackcooldown = 1.8
 @export var cantakedamage = true
 @export var target = self
@@ -25,7 +25,13 @@ func _ready() -> void:
 
 func stun() -> void:
 	stunned = true
-	await get_tree().create_timer(3.0).timeout
+	var stuntime = 3.0
+	var stunscene = load("res://stun.tscn").instantiate()
+	stunscene.global_position = global_position + Vector2(0,-12)
+	stunscene.sprite_frames.set_animation_speed("default", 7 / stuntime)
+	stunscene.play("default")
+	self.add_child(stunscene)
+	await get_tree().create_timer(stuntime).timeout
 	stunned = false
 
 func death() -> void:
@@ -47,6 +53,7 @@ func death() -> void:
 func hit(selfdamage) -> void:
 	if shielded:
 		player.stun()
+		player.hit(damage)
 	else:
 		if helmet:
 			helmet = false
@@ -59,10 +66,10 @@ func swordattack() -> void:
 
 func shield() -> void:
 	shielded = true
-	$HealthBar.tint_progress = Color8(255,255,255)
+	#$HealthBar.tint_progress = Color8(255,255,255) this looks a bit weird and isn't communicating anything to the player so i removed it.
 	await get_tree().create_timer(1.2).timeout
 	onshieldcooldown = true
-	$HealthBar.tint_progress = Color8(128, 41, 41)
+	#$HealthBar.tint_progress = Color8(128, 41, 41)
 	$ShieldCooldown.start()
 	shielded = false
 

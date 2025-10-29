@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+@export var stunned = false
 @export var summoncount = 2
 @export var maxhealth : float = 10
 @export var health : float = maxhealth
@@ -16,6 +16,16 @@ var dead = false
 func hit(selfdamage) -> void:
 	health -= selfdamage
 	$AnimationPlayer.play("hit")
+func stun() -> void:
+	stunned = true
+	var stuntime = 3.0
+	var stunscene = load("res://stun.tscn").instantiate()
+	stunscene.global_position = global_position + Vector2(0,-12)
+	stunscene.sprite_frames.set_animation_speed("default", 7 / stuntime)
+	stunscene.play("default")
+	self.add_child(stunscene)
+	await get_tree().create_timer(stuntime).timeout
+	stunned = false
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
