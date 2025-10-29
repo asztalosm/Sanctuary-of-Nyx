@@ -29,9 +29,15 @@ func stun() -> void:
 
 func death() -> void:
 	dead = true
-	print("death")
 	player.globalcharacterstats.Xp += 250 + player.arcadeStats.get("more XP per kill")
 	player.addpoints(250)
+	if get_parent().get_parent().name == "Dungeon":
+		var gpuparticle = load("res://coin_particles.tscn").instantiate()
+		get_parent().add_child(gpuparticle)
+		var coins = randi_range(70,100)
+		gpuparticle.global_position = global_position
+		gpuparticle.amount = coins
+		get_parent().get_parent().coins += coins
 	$GPUParticles2D2.restart()
 	for nodes in self.get_children():
 		if nodes != $GPUParticles2D2:
@@ -130,7 +136,6 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 
 
 func _on_gpu_particles_2d_finished() -> void:
-	print("meghaltam")
 	queue_free()
 
 

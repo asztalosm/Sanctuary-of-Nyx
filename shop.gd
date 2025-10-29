@@ -74,6 +74,7 @@ func _on_button_pressed(source: BaseButton) -> void:
 			if get_parent().get_parent().coins > item.Cost:
 				source.disabled = true
 				source.get_node("Sold").visible = true
+				get_parent().get_parent().coins -= item.Cost
 				match item.Title:
 					"Sharper blades":
 						player.Characters[0].AttackDamage *= 1.5
@@ -82,6 +83,8 @@ func _on_button_pressed(source: BaseButton) -> void:
 						player.speed *= 1.1
 					"Forbidden knowledge":
 						player.Characters[1].AttackDamage *= 1.5
+						player.get_node("MageProjectile").get_node("MageHitcheck").get_node("Timer").wait_time *= 0.7
+						player.get_node("MageProjectile").speed *= 1.3
 					"Enhanced quiver":
 						player.arrowcd *= 0.7
 					"Light armor":

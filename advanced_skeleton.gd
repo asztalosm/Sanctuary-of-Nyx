@@ -33,6 +33,13 @@ func death() -> void:
 	player.globalcharacterstats.Xp += 30 + player.arcadeStats.get("more XP per kill")
 	player.addpoints(20)
 	$GPUParticles2D.restart()
+	if get_parent().get_parent().name == "Dungeon":
+		var gpuparticle = load("res://coin_particles.tscn").instantiate()
+		get_parent().add_child(gpuparticle)
+		var coins = randi_range(30,50)
+		gpuparticle.global_position = global_position
+		gpuparticle.amount = coins
+		get_parent().get_parent().coins += coins
 	for nodes in self.get_children():
 		if nodes != $GPUParticles2D:
 			nodes.queue_free()
