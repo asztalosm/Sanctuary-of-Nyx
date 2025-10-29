@@ -36,7 +36,7 @@ func death() -> void:
 	if get_parent().get_parent().name == "Dungeon":
 		var gpuparticle = load("res://coin_particles.tscn").instantiate()
 		get_parent().add_child(gpuparticle)
-		var coins = randi_range(30,50)
+		var coins = randi_range(10,20)
 		gpuparticle.global_position = global_position
 		gpuparticle.amount = coins
 		get_parent().get_parent().coins += coins

@@ -278,7 +278,7 @@ func applydamage() -> void:
 			if get_node_or_null(get_path_to(enemies)) != null:
 				match currentcharacter.Attack:
 					"mageattack":
-						damage = (currentcharacter.AttackdwwwwwDamage + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
+						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10
 					"daggerattack":
 						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.PhysAtk + 10) / 10
 					"archerattack":

@@ -98,4 +98,4 @@ func _on_button_pressed(source: BaseButton) -> void:
 				await get_tree().create_timer(1.5).timeout
 				source.get_node("Control").get_node("Cost").text = "[imgresize=16]res://resources/coin.png[color=cfa951] " + str(item.Cost)
 			player.recheckstats()
-				
+			get_parent().get_parent().get_node("DungeonOverlay/RichTextLabel").text = " [imgresize=16]res://resources/coin.png[color=cfa951] " + str(get_parent().get_parent().coins)
