@@ -16,8 +16,8 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 
 func hit(selfdamage) -> void:
-	health -= selfdamage
 	$AnimationPlayer.play("hit")
+	health -= selfdamage
 
 func death() -> void:
 	dead = true

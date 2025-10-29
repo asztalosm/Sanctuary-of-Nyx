@@ -1799,7 +1799,6 @@ shape = SubResource("RectangleShape2D_pjt0s")
 
 [node name="GUI" type="CanvasLayer" parent="Player"]
 process_mode = 3
-layer = 1000
 script = ExtResource("3_jb3kq")
 
 [node name="Health" type="Control" parent="Player/GUI"]
@@ -2428,6 +2427,8 @@ offset_bottom = 323.0
 
 [node name="Pause" type="Control" parent="Player/GUI"]
 visible = false
+top_level = true
+z_index = 3000
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
