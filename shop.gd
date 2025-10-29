@@ -69,24 +69,30 @@ func _process(_delta: float) -> void:
 			$ShopGUI.visible = false
 
 func _on_button_pressed(source: BaseButton) -> void:
-	print(source.get_node("Control").get_node("Title").text)
 	for item in shopitems:
 		if source.get_node("Control").get_node("Title").text == item.Title:
-			match item.Title:
-				"Sharper blades":
-					player.Characters[0].AttackDamage *= 1.5
-					player.Characters[2].AttackDamage *= 1.5
-				"Speedster shoes":
-					player.speed *= 1.1
-				"Forbidden knowledge":
-					player.Characters[1].AttackDamage *= 1.5
-				"Enhanced quiver":
-					player.arrowcd *= 0.7
-				"Light armor":
-					player.globalcharacterstats.BaseDefense += 0.2
-				"Good shot":
-					player.critchance += 5
-				"Skill point":
-					player.globalcharacterstats.SkillPoints += 1
+			if get_parent().get_parent().coins > item.Cost:
+				source.disabled = true
+				source.get_node("Sold").visible = true
+				match item.Title:
+					"Sharper blades":
+						player.Characters[0].AttackDamage *= 1.5
+						player.Characters[2].AttackDamage *= 1.5
+					"Speedster shoes":
+						player.speed *= 1.1
+					"Forbidden knowledge":
+						player.Characters[1].AttackDamage *= 1.5
+					"Enhanced quiver":
+						player.arrowcd *= 0.7
+					"Light armor":
+						player.globalcharacterstats.BaseDefense += 0.2
+					"Good shot":
+						player.critchance += 5
+					"Skill point":
+						player.globalcharacterstats.SkillPoints += 1
+			else:
+				source.get_node("Control").get_node("Cost").text = "[imgresize=16]res://resources/coin.png[color=ff1919] " + str(item.Cost)
+				await get_tree().create_timer(1.5).timeout
+				source.get_node("Control").get_node("Cost").text = "[imgresize=16]res://resources/coin.png[color=cfa951] " + str(item.Cost)
 			player.recheckstats()
 				

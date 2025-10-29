@@ -274,9 +274,13 @@ tile_set = SubResource("TileSet_my81p")
 
 [node name="Shop" parent="TileMapLayer" instance=ExtResource("2_orq0m")]
 position = Vector2(-70, -890)
+inrange = false
+ingui = false
 
 [node name="Shop2" parent="TileMapLayer" instance=ExtResource("2_orq0m")]
 position = Vector2(2505, -577)
+inrange = false
+ingui = false
 
 [node name="Teleports" type="Node2D" parent="TileMapLayer"]
 

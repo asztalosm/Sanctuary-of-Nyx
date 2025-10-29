@@ -1690,7 +1690,7 @@ width = 60
 z_index = 5
 
 [node name="Player" type="CharacterBody2D" parent="."]
-collision_layer = 20
+collision_layer = 21
 script = ExtResource("1_pjt0s")
 
 [node name="MageProjectile" type="CharacterBody2D" parent="Player"]
