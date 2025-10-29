@@ -70,6 +70,7 @@ shape = SubResource("CircleShape2D_fgaav")
 
 [node name="ShopGUI" type="CanvasLayer" parent="."]
 layer = 10
+visible = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ShopGUI"]
 offset_left = 226.0

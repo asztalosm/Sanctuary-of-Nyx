@@ -7,22 +7,37 @@ extends Node2D
 	"Cost": 80 + randi_range(1,20)
 	},
 	
-	{"Title": "sample title 1",
-	"Description": "sample description 1",
-	"Cost": randi_range(1,20)
+	{"Title": "Speedster shoes",
+	"Description": "Makes you move 10% faster.",
+	"Cost": 30 + randi_range(1,20)
 	},
 	
-	{"Title": "sample title 2",
-	"Description": "sample description 2",
-	"Cost": randi_range(1,20)
+	{"Title": "Forbidden knowledge",
+	"Description": "Magic attacks deal 50% more damage and cooldown is reduced by 30%",
+	"Cost": 80 + randi_range(1,20)
 	},
 	
-	{"Title": "sample title 3",
-	"Description": "sample description 3",
-	"Cost": randi_range(1,20)
+	{"Title": "Enhanced quiver",
+	"Description": "Archer attack cooldown reduced by 30%",
+	"Cost": 100 + randi_range(1,20)
+	},
+	
+	{"Title": "Light armor",
+	"Description": "Incoming damage reduced by 0.2",
+	"Cost": 40 + randi_range(1,20)
+	},
+	
+	{"Title": "Good shot",
+	"Description": "Critical hit chance increased by 5%",
+	"Cost": 50 + randi_range(1,20)
+	},
+	
+	{"Title": "Skill point",
+	"Description": "Gives you a skill point",
+	"Cost": 30 + randi_range(1,20)
 	}
 ]
-@export var player = get_parent().get_parent().get_node("Character").get_node("Player")
+@onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == player:
 		$AnimatedSprite2D.animation = "inrange"
@@ -53,16 +68,25 @@ func _process(_delta: float) -> void:
 			ingui = false
 			$ShopGUI.visible = false
 
-
-
-
-
 func _on_button_pressed(source: BaseButton) -> void:
 	print(source.get_node("Control").get_node("Title").text)
 	for item in shopitems:
 		if source.get_node("Control").get_node("Title").text == item.Title:
 			match item.Title:
-				"Sharper Blades":
+				"Sharper blades":
 					player.Characters[0].AttackDamage *= 1.5
 					player.Characters[2].AttackDamage *= 1.5
-					player.recheckstats()
+				"Speedster shoes":
+					player.speed *= 1.1
+				"Forbidden knowledge":
+					player.Characters[1].AttackDamage *= 1.5
+				"Enhanced quiver":
+					player.arrowcd *= 0.7
+				"Light armor":
+					player.globalcharacterstats.BaseDefense += 0.2
+				"Good shot":
+					player.critchance += 5
+				"Skill point":
+					player.globalcharacterstats.SkillPoints += 1
+			player.recheckstats()
+				

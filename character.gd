@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var arrowcd = 1.5
 @export var arcadeStats = { #all will be set to 0 and arcade script will change these
 	"hp": 0.0,
 	"dmg": 0.0,
@@ -24,7 +25,6 @@ extends CharacterBody2D
 @export var Characters = [
 	{ #assassin
 		"Class": "Assassin",
-		"BaseDamage": 2.0,
 		"Type": "Melee",
 		"Ability": "assassinstep",
 		"AttackDamage": 2.0,
@@ -73,10 +73,7 @@ extends CharacterBody2D
 	"Xp": 0,
 	"XptoNextLevel": 200,
 	"SkillPoints": 0,
-	"DaggerAttack": 2,
-	"SwordAttack": 4,
 	"BaseDefense": 0.0 + arcadeStats.def,
-	"BaseMagicAttack": 2.5 + arcadeStats.dmg,
 	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
 @export var currentcharacter = Characters[0]
@@ -109,12 +106,10 @@ var hitenemies = []
 #cursed branch can only be obtained after fighting a boss - your character will get MASSIVE debuffs AND buffs and new attacks, point redistribution would be expensive and give the player a challenge in the open world
 #chatgpt kinda cooked with the cursed branch idea
 
-func recheckstats():
-	print("old stats: " + currentcharacter)
+func recheckstats(): #this updates the currentcharacters stats to the Character's stats, which is the one that gets updated
 	for elements in Characters:
 		if elements.Class == currentcharacter.Class:
 			currentcharacter = elements
-	print("new stats: " + currentcharacter)
 
 func addpoints(value):
 	points += int(value * globalcharacterstats.xpMultiplier)
@@ -241,7 +236,7 @@ func attack() -> void:
 				arrow.global_position = global_position
 				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
 				add_child(arrow)
-				await get_tree().create_timer(1.5).timeout
+				await get_tree().create_timer(arrowcd).timeout
 				attacked = false
 			"knightattack":
 				$KnightHitcheck.position = Vector2(12000.0, 12000.0)
