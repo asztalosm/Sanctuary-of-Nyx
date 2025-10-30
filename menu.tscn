@@ -484,13 +484,11 @@ autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="GamemodeToggle3" type="TextureButton" parent="Gamemode"]
-modulate = Color(0.47, 0.47, 0.47, 1)
 layout_mode = 0
 offset_left = 376.0
 offset_top = 74.0
 offset_right = 504.0
 offset_bottom = 202.0
-disabled = true
 texture_normal = ExtResource("15_td6mg")
 texture_pressed = ExtResource("16_oil5j")
 

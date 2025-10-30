@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcpxkrbwotxje"]
+
+[ext_resource type="Script" uid="uid://bni6y8a6q44d" path="res://chest.gd" id="1_8uwsg"]
+[ext_resource type="Texture2D" uid="uid://cdxknjmp2g315" path="res://resources/chest.png" id="1_twpm2"]
+[ext_resource type="Texture2D" uid="uid://bhwctooymjkys" path="res://resources/chestoutline.png" id="3_bp1or"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8uwsg"]
+radius = 51.009804
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trlyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_twpm2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bp1or")
+}],
+"loop": true,
+"name": &"inrange",
+"speed": 5.0
+}]
+
+[node name="Chest" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_8uwsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8uwsg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_trlyu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

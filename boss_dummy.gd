@@ -44,9 +44,6 @@ func slashAttack() -> void:
 	finishedattack()
 
 func groundstomp() -> void:
-	print(global_position)
-	print(global_position * (Vector2(1,1)+global_position.direction_to(player.global_position)))
-	print(global_position.direction_to(player.global_position))
 	if global_position.distance_to(player.global_position) < 100:
 		var stomptween = get_tree().create_tween()
 		stomptween.tween_property(player, "global_position", (player.global_position - (global_position - player.global_position) * 1.2), 0.8)
