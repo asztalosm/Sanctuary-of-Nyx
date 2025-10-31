@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=57 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
@@ -124,6 +124,166 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_6qik7"]
+parameter_name = "Texture2DParameter"
+texture_type = 1
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_a2n0a"]
+output_port_for_preview = 0
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_bgdj6"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_mndso"]
+default_input_values = [0, Vector2(0, 1), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ihh7f"]
+default_input_values = [0, 0.0, 1, 0.02]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_o0pti"]
+operator = 6
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_3xg7x"]
+output_port_for_preview = 0
+default_input_values = [0, 0.0, 1, 10.0]
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_phbxh"]
+output_port_for_preview = 0
+function = 0
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_ajuno"]
+function = 4
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_h1lhu"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(-0.5, 0.5)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_pa4ky"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_tiljb"]
+default_input_values = [0, Vector2(0.55, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShader" id="VisualShader_gdhsj"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Texture2DParameter : source_color, repeat_enable;
+
+
+
+void fragment() {
+// Input:5
+	vec2 n_out5p0 = UV;
+
+
+// Input:14
+	float n_out14p0 = TIME;
+
+
+// FloatFunc:22
+	float n_out22p0 = acos(n_out14p0);
+
+
+// FloatFunc:21
+	float n_out21p0 = sin(n_out14p0);
+
+
+// FloatOp:19
+	float n_out19p0 = max(n_out22p0, n_out21p0);
+
+
+// FloatOp:20
+	float n_in20p1 = 10.00000;
+	float n_out20p0 = n_out19p0 / n_in20p1;
+
+
+// VectorOp:23
+	vec2 n_in23p1 = vec2(-0.50000, 0.50000);
+	vec2 n_out23p0 = vec2(n_out20p0) * n_in23p1;
+
+
+// FloatOp:17
+	float n_in17p1 = 0.02000;
+	float n_out17p0 = n_out14p0 * n_in17p1;
+
+
+// VectorOp:16
+	vec2 n_out16p0 = n_out23p0 + vec2(n_out17p0);
+
+
+// VectorOp:7
+	vec2 n_out7p0 = n_out5p0 + n_out16p0;
+
+
+	vec4 n_out13p0;
+// Texture2D:13
+	n_out13p0 = texture(Texture2DParameter, n_out7p0);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out13p0.xyz);
+
+
+}
+"
+mode = 1
+flags/light_only = false
+preview_params/Texture2DParameter = "Resource(\"uid://rxy21vwhf8l2\", \"res://resources/bgshaderimage.tres\")"
+nodes/fragment/0/position = Vector2(400, 160)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_pa4ky")
+nodes/fragment/5/position = Vector2(-720, 20)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_tiljb")
+nodes/fragment/7/position = Vector2(-440, 160)
+nodes/fragment/12/node = SubResource("VisualShaderNodeTexture2DParameter_6qik7")
+nodes/fragment/12/position = Vector2(-560, 380)
+nodes/fragment/13/node = SubResource("VisualShaderNodeTexture_a2n0a")
+nodes/fragment/13/position = Vector2(80, 260)
+nodes/fragment/14/node = SubResource("VisualShaderNodeInput_bgdj6")
+nodes/fragment/14/position = Vector2(-2080, 260)
+nodes/fragment/16/node = SubResource("VisualShaderNodeVectorOp_mndso")
+nodes/fragment/16/position = Vector2(-780, 180)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFloatOp_ihh7f")
+nodes/fragment/17/position = Vector2(-1020, 240)
+nodes/fragment/19/node = SubResource("VisualShaderNodeFloatOp_o0pti")
+nodes/fragment/19/position = Vector2(-1380, -100)
+nodes/fragment/20/node = SubResource("VisualShaderNodeFloatOp_3xg7x")
+nodes/fragment/20/position = Vector2(-1120, -120)
+nodes/fragment/21/node = SubResource("VisualShaderNodeFloatFunc_phbxh")
+nodes/fragment/21/position = Vector2(-1620, -180)
+nodes/fragment/22/node = SubResource("VisualShaderNodeFloatFunc_ajuno")
+nodes/fragment/22/position = Vector2(-1620, 120)
+nodes/fragment/23/node = SubResource("VisualShaderNodeVectorOp_h1lhu")
+nodes/fragment/23/position = Vector2(-920, 0)
+nodes/fragment/connections = PackedInt32Array(7, 0, 13, 0, 12, 0, 13, 2, 13, 0, 0, 0, 14, 0, 17, 0, 5, 0, 7, 0, 16, 0, 7, 1, 17, 0, 16, 1, 19, 0, 20, 0, 21, 0, 19, 1, 14, 0, 21, 0, 14, 0, 22, 0, 22, 0, 19, 0, 20, 0, 23, 0, 23, 0, 16, 0)
+
+[sub_resource type="Gradient" id="Gradient_guify"]
+colors = PackedColorArray(0, 0, 0, 1, 0.13, 0.13, 0.13, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oil5j"]
+frequency = 0.0165
+fractal_type = 3
+fractal_octaves = 3
+fractal_lacunarity = 0.5
+fractal_gain = 0.0
+fractal_ping_pong_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_438xo"]
+noise = SubResource("FastNoiseLite_oil5j")
+color_ramp = SubResource("Gradient_guify")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uog0"]
+shader = SubResource("VisualShader_gdhsj")
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_438xo")
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -561,11 +721,9 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(1, 1e-05)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings"]
 layout_mode = 0
@@ -646,6 +804,37 @@ theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17
 text = "Damage numbers"
 
+[node name="Credits" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("4_4hy44")
+theme_override_font_sizes/font_size = 17
+text = "Credits"
+
+[node name="ColorRect" type="ColorRect" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits"]
+z_index = 1
+material = SubResource("ShaderMaterial_8uog0")
+layout_mode = 0
+offset_left = -204.0
+offset_top = -236.0
+offset_right = 388.0
+offset_bottom = 99.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits"]
+z_index = 2
+layout_mode = 0
+offset_left = -102.0
+offset_top = -221.0
+offset_right = 294.0
+offset_bottom = -113.0
+theme_override_font_sizes/normal_font_size = 17
+text = "This game is part of Hackclub's Shiba event. I'd like to thank everyone participating, rating my games, giving feedback. I also want to thank everyone in the #1250-yaps channel on slack for supporting each other. Y'all are amazing. Special thanks to Isidore (EZ🚪) for early motivation in huddles.
+
+Sounds from pixabay:
+special thanks to Kalvin C's music (Arcade Boss Funk) which is used in the game"
+fit_content = true
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
@@ -654,5 +843,7 @@ text = "Damage numbers"
 [connection signal="pressed" from="Gamemode/GamemodeToggle2" to="Gamemode" method="_on_gamemode_toggle_2_pressed"]
 [connection signal="toggled" from="Gamemode/GamemodeToggle2" to="Gamemode/GamemodeToggle2" method="_on_toggled"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle3" to="." method="_on_gamemode_toggle_3_pressed"]
+[connection signal="pressed" from="Gamemode/GamemodeToggle3" to="Gamemode" method="_on_gamemode_toggle_3_pressed"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_pressed"]

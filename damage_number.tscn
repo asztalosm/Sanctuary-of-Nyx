@@ -18,8 +18,10 @@ script = ExtResource("1_6f2ja")
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 material = SubResource("ShaderMaterial_ulah8")
 layout_mode = 0
-offset_right = 17.0
-offset_bottom = 20.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 theme = ExtResource("1_jany0")
 theme_override_colors/default_color = Color(0.71, 0.28187, 0.23429999, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

@@ -1,0 +1,327 @@
+[gd_scene load_steps=30 format=3 uid="uid://cjdeonanhf5in"]
+
+[ext_resource type="Script" uid="uid://l357qltdseik" path="res://mage_enemy.gd" id="1_d4paf"]
+[ext_resource type="Texture2D" uid="uid://fe4i5u0ju4d6" path="res://resources/mage.png" id="1_o42u1"]
+[ext_resource type="Texture2D" uid="uid://dl3ro250uj1r7" path="res://resources/sunattack.png" id="3_b8y1s"]
+[ext_resource type="Texture2D" uid="uid://tvl2wjxlooh0" path="res://resources/moonattack.png" id="4_kqusg"]
+[ext_resource type="Texture2D" uid="uid://cxjajhpxe01sd" path="res://resources/elitehealthbar2under.png" id="5_1tu42"]
+[ext_resource type="Texture2D" uid="uid://cwaj7mdfd4i5t" path="res://resources/elitehealthbar2.png" id="6_5fqj4"]
+[ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="7_sbc3t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmyd3"]
+size = Vector2(4, 2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jylbr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_o42u1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1tu42"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_b8y1s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_5fqj4"]
+offsets = PackedFloat32Array(0.2792208, 0.7467533)
+colors = PackedColorArray(0.75, 0.44187498, 0.11249998, 0.61960787, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sbc3t"]
+gradient = SubResource("Gradient_5fqj4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ysi4e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kqusg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_ojnyc"]
+offsets = PackedFloat32Array(0.23376623, 0.37012988)
+colors = PackedColorArray(0.67340004, 0.90605676, 0.91, 0.2627451, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xwbhm"]
+gradient = SubResource("Gradient_ojnyc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_qugms"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-9, -25), Vector2(0, -30), Vector2(9, -25), Vector2(0, -18), Vector2(-9, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Moon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9, -25), Vector2(0, -18), Vector2(-9, -25), Vector2(0, -30), Vector2(9, -25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sun:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [10, 12]
+}
+
+[sub_resource type="Animation" id="Animation_e1elk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Moon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -24)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sun:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4d4h"]
+_data = {
+&"RESET": SubResource("Animation_e1elk"),
+&"default": SubResource("Animation_qugms")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysi4e"]
+size = Vector2(22, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ojnyc"]
+radius = 171.01169
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwbhm"]
+radius = 157.0796
+
+[sub_resource type="Animation" id="Animation_a1mae"]
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_twgjm"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Color(1, 0.23000002, 0.23000002, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8omkc"]
+_data = {
+&"RESET": SubResource("Animation_a1mae"),
+&"hit": SubResource("Animation_twgjm")
+}
+
+[sub_resource type="Curve" id="Curve_qugms"]
+_data = [Vector2(0.6136364, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ohqb6"]
+curve = SubResource("Curve_qugms")
+
+[sub_resource type="Curve" id="Curve_e1elk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79545456, 0.52808994), -1.8055699, -1.8055699, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_twgjm"]
+curve = SubResource("Curve_e1elk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u4d4h"]
+particle_flag_disable_z = true
+angle_min = -50.79999
+angle_max = 33.900013
+radial_velocity_min = 23.529978
+radial_velocity_max = 29.999977
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_twgjm")
+alpha_curve = SubResource("CurveTexture_ohqb6")
+hue_variation_min = -0.04000002
+hue_variation_max = 0.019999977
+
+[node name="MageEnemy" type="CharacterBody2D"]
+script = ExtResource("1_d4paf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hmyd3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jylbr")
+
+[node name="Attacks" type="Node2D" parent="."]
+
+[node name="Sun" type="AnimatedSprite2D" parent="Attacks"]
+position = Vector2(-9, -25)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_1tu42")
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="Attacks/Sun"]
+texture = SubResource("GradientTexture2D_sbc3t")
+metadata/_edit_lock_ = true
+
+[node name="Moon" type="AnimatedSprite2D" parent="Attacks"]
+z_index = 11
+position = Vector2(8, -24)
+sprite_frames = SubResource("SpriteFrames_ysi4e")
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="Attacks/Moon"]
+texture = SubResource("GradientTexture2D_xwbhm")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Attacks"]
+libraries = {
+&"": SubResource("AnimationLibrary_u4d4h")
+}
+autoplay = "default"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
+shape = SubResource("RectangleShape2D_ysi4e")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_ojnyc")
+
+[node name="AttackRange" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_xwbhm")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+process_mode = 3
+visible = false
+offset_left = -8.0
+offset_top = -36.0
+offset_right = 8.0
+offset_bottom = -35.0
+max_value = 10.0
+step = 0.1
+value = 10.0
+texture_under = ExtResource("5_1tu42")
+texture_progress = ExtResource("6_5fqj4")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8omkc")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 3
+texture = ExtResource("7_sbc3t")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.69
+process_material = SubResource("ParticleProcessMaterial_u4d4h")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

@@ -299,6 +299,13 @@ func applydamage() -> void:
 					if (health + arcadeStats.lifesteal) < maxhealth- arcadeStats.lifesteal and arcadeStats.lifesteal != 0.0:
 						health = maxhealth
 					health += arcadeStats.lifesteal
+				if MenuMusic.damagenumber:
+					var damagenumberscene = load("res://damage_number.tscn").instantiate()
+					add_child(damagenumberscene)
+					damagenumberscene.top_level = true
+					damagenumberscene.scale = Vector2(0.5, 0.5)
+					damagenumberscene.global_position = enemies.global_position
+					damagenumberscene.get_node("RichTextLabel").text = " - " + str(damage)
 				enemies.hit(damage)
 			else:
 				hitenemies.erase(enemies)

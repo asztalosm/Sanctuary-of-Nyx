@@ -2540,6 +2540,12 @@ text = "Effect Volume:"
 fit_content = true
 autowrap_mode = 0
 
+[node name="CheckButton" type="CheckButton" parent="Player/GUI/Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wa5vi")
+theme_override_font_sizes/font_size = 17
+text = "Damage numbers"
+
 [node name="MenuButton" type="AudioStreamPlayer" parent="Player/GUI"]
 stream = ExtResource("7_qi5as")
 pitch_scale = 3.0
@@ -2639,6 +2645,7 @@ autostart = true
 [connection signal="pressed" from="Player/GUI/Pause/Exit" to="Player/GUI" method="_on_exit_pressed"]
 [connection signal="value_changed" from="Player/GUI/Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="Player/GUI" method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Player/GUI/Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="Player/GUI" method="_on_sfx_volume_value_changed"]
+[connection signal="pressed" from="Player/GUI/Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/CheckButton" to="Player/GUI" method="_on_check_button_pressed"]
 [connection signal="area_entered" from="Player/MageAbility" to="Player" method="_on_stun_area_entered"]
 [connection signal="timeout" from="Player/MageAbility/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Player/RollCooldown" to="Player" method="_on_roll_cooldown_timeout"]

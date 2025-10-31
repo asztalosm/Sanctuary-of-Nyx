@@ -1,6 +1,7 @@
 extends AudioStreamPlayer
 static var musicvolume = 0.0
 static var sfxvolume = 0.0
+static var damagenumber = false
 
 func _process(_delta) -> void:
 	if musicvolume == -10:

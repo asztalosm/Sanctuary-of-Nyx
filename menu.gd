@@ -6,8 +6,11 @@ var musicvolume = 1.0
 
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
+	MenuMusic.stream = load("res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav")
+	MenuMusic.play()
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed = MenuMusic.damagenumber
 	$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
 	var audioalertTween = get_tree().create_tween()
@@ -124,7 +127,10 @@ func _on_sfx_volume_value_changed(value: float) -> void:
 	MenuMusic.sfxvolume = value
 
 
-func _on_gamemode_toggle_3_pressed() -> void:
-	$MenuButton.stream = load("res://resources/menubutton.wav")
-	$MenuButton.play()
-	get_tree().change_scene_to_file("res://dungeon.tscn")
+
+
+func _on_check_button_pressed() -> void:
+	if $Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed:
+		MenuMusic.damagenumber = true
+	else:
+		MenuMusic.damagenumber = false

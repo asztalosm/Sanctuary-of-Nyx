@@ -28,6 +28,7 @@ func showskills() -> void:
 		$Inventory.visible = false
 		$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
+	$Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed = MenuMusic.damagenumber
 	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
 	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
 	$Ability/Cooldown.wait_time = get_parent().currentcharacter.AbilityCooldown
@@ -189,3 +190,10 @@ func _on_music_volume_value_changed(value: float) -> void:
 
 func _on_sfx_volume_value_changed(value: float) -> void:
 	MenuMusic.sfxvolume = value
+
+
+func _on_check_button_pressed() -> void:
+	if !MenuMusic.damagenumber:
+		MenuMusic.damagenumber = true
+	else:
+		MenuMusic.damagenumber = false

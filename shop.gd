@@ -35,7 +35,11 @@ extends Node2D
 	{"Title": "Skill point",
 	"Description": "Gives you a skill point",
 	"Cost": 30 + randi_range(1,20)
-	}
+	},
+	
+	{"Title": "Quick feet",
+	"Description": "Increases dodge chance by 20% (mmm feet)",
+	"Cost": 40 + randi_range(1,20)}
 ]
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -93,6 +97,8 @@ func _on_button_pressed(source: BaseButton) -> void:
 						player.critchance += 5
 					"Skill point":
 						player.globalcharacterstats.SkillPoints += 1
+					"Quick feet":
+						player.dodgechance *= 1.2
 			else:
 				source.get_node("Control").get_node("Cost").text = "[imgresize=16]res://resources/coin.png[color=ff1919] " + str(item.Cost)
 				await get_tree().create_timer(1.5).timeout

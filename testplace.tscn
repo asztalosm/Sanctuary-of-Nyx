@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d2fxhl0bweris"]
+[gd_scene load_steps=41 format=4 uid="uid://d2fxhl0bweris"]
 
 [ext_resource type="PackedScene" uid="uid://myaokm2mbpvy" path="res://character.tscn" id="1_ceir1"]
 [ext_resource type="Texture2D" uid="uid://46r7nc5opvkj" path="res://resources/grasstilemap.png" id="1_pe3hr"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bnmsj2aguea8g" path="res://crystal_figure.tscn" id="17_ksrqk"]
 [ext_resource type="PackedScene" uid="uid://dulu8yqn1otak" path="res://bat.tscn" id="18_b8mv0"]
 [ext_resource type="PackedScene" uid="uid://dx85rguk6nluo" path="res://reaper.tscn" id="19_ok8i1"]
+[ext_resource type="PackedScene" uid="uid://cjdeonanhf5in" path="res://mage_enemy.tscn" id="21_rmjt7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ob1ba"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -12, 16, -12)
@@ -458,10 +459,13 @@ position = Vector2(590, -219)
 position = Vector2(670, -231)
 
 [node name="Bat" parent="Enemies" instance=ExtResource("18_b8mv0")]
-position = Vector2(-136, -65)
+position = Vector2(668, -324)
 
 [node name="Reaper" parent="Enemies" instance=ExtResource("19_ok8i1")]
-position = Vector2(-112, 72)
+position = Vector2(799, -287)
+
+[node name="MageEnemy" parent="Enemies" instance=ExtResource("21_rmjt7")]
+position = Vector2(-135, 15)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]
