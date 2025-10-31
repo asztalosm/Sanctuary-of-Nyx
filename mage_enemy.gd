@@ -19,6 +19,8 @@ var dead = false
 
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
+	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 0.3)
+	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)
 func stun() -> void:
 	stunned = true
 	var stuntime = 2.0
@@ -44,23 +46,25 @@ func hit(selfdamage) -> void:
 	$AnimationPlayer.play("hit")
 
 func attack1() -> void:
-	print("attack 1")
+	#sun
+	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 1.0)
+	await get_tree().create_timer(0.5).timeout #time to show the player what the attack will be
+	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 0.3)
 
 func attack2() -> void:
-	print("attack 2")
+	#moon
+	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 1.0)
+	await get_tree().create_timer(0.5).timeout #time to show the player what the attack will be
+	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)
 
-func attack3() -> void:
-	print("attack 3")
 
 func attackroll() -> void:
 	if !dead:
-		match randi_range(1,3): #make sure to change the length of this
+		match randi_range(1,2): #make sure to change the length of this
 			1:
 				attack1()
 			2:
 				attack2()
-			3:
-				attack3()
 		onattackcooldown = true
 		$AttackCooldown.start()
 
@@ -111,3 +115,8 @@ func _on_attack_range_body_exited(_body: Node2D) -> void:
 
 func _on_detection_body_exited(body: Node2D) -> void:
 	pass # Replace with function body.
+
+
+func _on_sun_2_area_entered(area: Area2D) -> void:
+	if area.get_parent().name == "Player":
+		area.get_parent().hit(damage)

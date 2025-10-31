@@ -724,6 +724,7 @@ horizontal_alignment = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1, 1e-05)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings"]
 layout_mode = 0
@@ -805,7 +806,6 @@ theme_override_font_sizes/font_size = 17
 text = "Damage numbers"
 
 [node name="Credits" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17

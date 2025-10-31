@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cjdeonanhf5in"]
+[gd_scene load_steps=35 format=3 uid="uid://cjdeonanhf5in"]
 
 [ext_resource type="Script" uid="uid://l357qltdseik" path="res://mage_enemy.gd" id="1_d4paf"]
 [ext_resource type="Texture2D" uid="uid://fe4i5u0ju4d6" path="res://resources/mage.png" id="1_o42u1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://tvl2wjxlooh0" path="res://resources/moonattack.png" id="4_kqusg"]
 [ext_resource type="Texture2D" uid="uid://cxjajhpxe01sd" path="res://resources/elitehealthbar2under.png" id="5_1tu42"]
 [ext_resource type="Texture2D" uid="uid://cwaj7mdfd4i5t" path="res://resources/elitehealthbar2.png" id="6_5fqj4"]
+[ext_resource type="Texture2D" uid="uid://mskrbqxssaj" path="res://resources/sunparticles.png" id="6_ysi4e"]
 [ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="7_sbc3t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hmyd3"]
@@ -62,6 +63,45 @@ gradient = SubResource("Gradient_ojnyc")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Animation" id="Animation_e1elk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Moon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -24)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sun:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_qugms"]
 resource_name = "default"
 length = 2.0
@@ -103,50 +143,40 @@ tracks/2/keys = {
 "values": [10, 12]
 }
 
-[sub_resource type="Animation" id="Animation_e1elk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sun:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-9, -25)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Moon:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(8, -24)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sun:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u4d4h"]
 _data = {
 &"RESET": SubResource("Animation_e1elk"),
 &"default": SubResource("Animation_qugms")
 }
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5fqj4"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_sbc3t"]
+_data = [Vector2(0, 0.8539326), 0.0, 0.0, 0, 0, Vector2(0.6397059, 0.47191018), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ysi4e"]
+curve = SubResource("Curve_sbc3t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojnyc"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(16, 4, 1)
+direction = Vector3(0, 1, 0)
+spread = 11.117
+initial_velocity_min = 157.62999
+initial_velocity_max = 157.62999
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 1.5
+alpha_curve = SubResource("CurveTexture_ysi4e")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.019999977
+anim_offset_max = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysi4e"]
 size = Vector2(22, 32)
@@ -258,6 +288,21 @@ libraries = {
 }
 autoplay = "default"
 
+[node name="Sun2" type="Area2D" parent="Attacks"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Attacks/Sun2"]
+material = SubResource("CanvasItemMaterial_5fqj4")
+amount = 300
+texture = ExtResource("6_ysi4e")
+process_material = SubResource("ParticleProcessMaterial_ojnyc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attacks/Sun2"]
+visible = false
+polygon = PackedVector2Array(18, 0, 42, 154, -44, 154, -15, 0)
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -320,8 +365,10 @@ one_shot = true
 explosiveness = 0.69
 process_material = SubResource("ParticleProcessMaterial_u4d4h")
 
+[connection signal="area_entered" from="Attacks/Sun2" to="." method="_on_sun_2_area_entered"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

@@ -48,6 +48,11 @@ func _on_button_pressed() -> void:
 		$MenuButton.play()
 		onclassesscreen = true
 		#todo: make this be saved locally, idc that the browser probably won't hold the save
+		if $Settings.visible:
+			var settingsTween = get_tree().create_tween()
+			settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
+			await settingsTween.finished
+			$Settings.visible = false
 		var buttontween = get_tree().create_tween()
 		buttontween.set_parallel(true)
 		buttontween.tween_property($Buttons, "modulate:a", 0, 1.0)
