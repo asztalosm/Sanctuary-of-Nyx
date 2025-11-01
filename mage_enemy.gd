@@ -11,12 +11,13 @@ extends CharacterBody2D
 @export var target = self
 @export var stunned = false
 @export var animationname = "default"
+@export var attacking = false
 var inattackzone = false
 var onattackcooldown = false
 var dir := Vector2.ZERO
 var dead = false
 @onready var player = get_parent().get_parent().get_node("Character").get_node("Player")
-
+var canmove = true
 func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 0.3)
@@ -47,14 +48,27 @@ func hit(selfdamage) -> void:
 
 func attack1() -> void:
 	#sun
+	damage = 1.0
+	$AttackDuration.wait_time = 1.8
+	$AttackDuration.start()
+	$Attacks/Sun2/Hitdelay.start()
+	$Attacks/Sun2.set_deferred("disabled", false)
+	canmove = false
+	$Attacks/Sun2/GPUParticles2D2.emitting = true
+	$Attacks/Sun2.rotation = get_angle_to(player.global_position) - 0.5*PI
 	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 1.0)
-	await get_tree().create_timer(0.5).timeout #time to show the player what the attack will be
+	await get_tree().create_timer(0.3).timeout #time to show the player what the attack will be
+	$Attacks/Sun2/AudioStreamPlayer2D.volume_db = MenuMusic.setsfx()
+	$Attacks/Sun2/AudioStreamPlayer2D.play()
 	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 0.3)
 
 func attack2() -> void:
 	#moon
+	canmove = false
+	$AttackDuration.wait_time = 1.8
+	$AttackDuration.start()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 1.0)
-	await get_tree().create_timer(0.5).timeout #time to show the player what the attack will be
+	await get_tree().create_timer(0.3).timeout #time to show the player what the attack will be
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)
 
 
@@ -66,7 +80,6 @@ func attackroll() -> void:
 			2:
 				attack2()
 		onattackcooldown = true
-		$AttackCooldown.start()
 
 func _process(_delta: float) -> void:
 	velocity = Vector2(0,0)
@@ -79,7 +92,7 @@ func _process(_delta: float) -> void:
 		if !stunned:
 			if inattackzone and !onattackcooldown and inattackzone:
 				attackroll()
-			if target != self:
+			if target != self and canmove:
 				if global_position.distance_to(target.global_position) > 220:
 					target = self
 				else:
@@ -98,6 +111,7 @@ func _on_detection_body_entered(body: Node2D) -> void:
 
 func _on_attack_cooldown_timeout() -> void:
 	onattackcooldown = false
+	$Attacks/Sun2/GPUParticles2D2.emitting = false
 	animationname = "default"
 
 
@@ -113,10 +127,27 @@ func _on_attack_range_body_exited(_body: Node2D) -> void:
 	inattackzone = false
 
 
-func _on_detection_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
+func _on_detection_body_exited(_body: Node2D) -> void:
+	pass
 
 
 func _on_sun_2_area_entered(area: Area2D) -> void:
+	$Attacks/Sun2.collision_mask = 0
+	$Attacks/Sun2/Hitdelay.start()
+	print(area)
 	if area.get_parent().name == "Player":
 		area.get_parent().hit(damage)
+
+
+func _on_hitdelay_timeout() -> void:
+	if attacking:
+		$Attacks/Sun2.collision_mask = 0
+		await get_tree().create_timer(0.15).timeout
+		$Attacks/Sun2.collision_mask = 4
+
+
+func _on_attack_duration_timeout() -> void:
+	$AttackCooldown.start()
+	$Attacks/Sun2/AudioStreamPlayer2D.stop()
+	$Attacks/Sun2/GPUParticles2D2.emitting = false
+	$Attacks/Sun2.set_deferred("disabled", true)

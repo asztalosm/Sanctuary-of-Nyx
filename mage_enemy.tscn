@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cjdeonanhf5in"]
+[gd_scene load_steps=36 format=3 uid="uid://cjdeonanhf5in"]
 
 [ext_resource type="Script" uid="uid://l357qltdseik" path="res://mage_enemy.gd" id="1_d4paf"]
 [ext_resource type="Texture2D" uid="uid://fe4i5u0ju4d6" path="res://resources/mage.png" id="1_o42u1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://tvl2wjxlooh0" path="res://resources/moonattack.png" id="4_kqusg"]
 [ext_resource type="Texture2D" uid="uid://cxjajhpxe01sd" path="res://resources/elitehealthbar2under.png" id="5_1tu42"]
 [ext_resource type="Texture2D" uid="uid://cwaj7mdfd4i5t" path="res://resources/elitehealthbar2.png" id="6_5fqj4"]
+[ext_resource type="AudioStream" uid="uid://yrl1lhc6rklm" path="res://resources/sunattack.wav" id="6_sbc3t"]
 [ext_resource type="Texture2D" uid="uid://mskrbqxssaj" path="res://resources/sunparticles.png" id="6_ysi4e"]
 [ext_resource type="Texture2D" uid="uid://c5s886t37cfxb" path="res://resources/particles/blood.png" id="7_sbc3t"]
 
@@ -290,18 +291,24 @@ autoplay = "default"
 
 [node name="Sun2" type="Area2D" parent="Attacks"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 8
 monitorable = false
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Attacks/Sun2"]
 material = SubResource("CanvasItemMaterial_5fqj4")
+emitting = false
 amount = 300
 texture = ExtResource("6_ysi4e")
 process_material = SubResource("ParticleProcessMaterial_ojnyc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attacks/Sun2"]
-visible = false
 polygon = PackedVector2Array(18, 0, 42, 154, -44, 154, -15, 0)
+
+[node name="Hitdelay" type="Timer" parent="Attacks/Sun2"]
+wait_time = 0.2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Attacks/Sun2"]
+stream = ExtResource("6_sbc3t")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -347,7 +354,7 @@ texture_under = ExtResource("5_1tu42")
 texture_progress = ExtResource("6_5fqj4")
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.2
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -365,10 +372,14 @@ one_shot = true
 explosiveness = 0.69
 process_material = SubResource("ParticleProcessMaterial_u4d4h")
 
+[node name="AttackDuration" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Attacks/Sun2" to="." method="_on_sun_2_area_entered"]
+[connection signal="timeout" from="Attacks/Sun2/Hitdelay" to="." method="_on_hitdelay_timeout"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
+[connection signal="timeout" from="AttackDuration" to="." method="_on_attack_duration_timeout"]
