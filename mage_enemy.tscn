@@ -311,6 +311,11 @@ autostart = true
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Attacks/Sun2"]
 stream = ExtResource("6_sbc3t")
 
+[node name="Moon2" type="Node2D" parent="Attacks"]
+
+[node name="HitDelay" type="Timer" parent="Attacks/Moon2"]
+wait_time = 0.5
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -377,6 +382,7 @@ process_material = SubResource("ParticleProcessMaterial_u4d4h")
 
 [connection signal="area_entered" from="Attacks/Sun2" to="." method="_on_sun_2_area_entered"]
 [connection signal="timeout" from="Attacks/Sun2/Hitdelay" to="." method="_on_hitdelay_timeout"]
+[connection signal="timeout" from="Attacks/Moon2/HitDelay" to="." method="_on_hit_delay_timeout"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]

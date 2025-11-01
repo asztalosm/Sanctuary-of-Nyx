@@ -465,7 +465,7 @@ position = Vector2(668, -324)
 position = Vector2(799, -287)
 
 [node name="MageEnemy" parent="Enemies" instance=ExtResource("21_rmjt7")]
-position = Vector2(-135, 15)
+position = Vector2(-94, 22)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]

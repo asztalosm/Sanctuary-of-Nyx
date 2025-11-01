@@ -22,6 +22,14 @@ func _ready() -> void:
 	$HealthBar.max_value = maxhealth
 	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 0.3)
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)
+	
+
+func spawnmoonprojectile() -> void:
+	for i in range(5):
+		var moonprojectilescene = load("res://moon_projectile.tscn").instantiate()
+		get_parent().add_child(moonprojectilescene)
+		moonprojectilescene.global_position = player.global_position + Vector2(randf_range(-75.0,75.0), randf_range(-75.0,75.0))
+
 func stun() -> void:
 	stunned = true
 	var stuntime = 2.0
@@ -54,8 +62,12 @@ func attack1() -> void:
 	$Attacks/Sun2.rotation = get_angle_to(player.global_position) - 0.5*PI
 	$Attacks/Sun.modulate = Color(1.0,1.0,1.0, 1.0)
 	await get_tree().create_timer(0.1).timeout
+	if dead:
+		return
 	$Attacks/Sun2/GPUParticles2D2.emitting = true
 	await get_tree().create_timer(0.2).timeout #time to show the player what the attack will be
+	if dead:
+		return
 	$Attacks/Sun2.collision_mask = 4
 	attacking = true
 	$AttackDuration.start()
@@ -66,10 +78,13 @@ func attack1() -> void:
 func attack2() -> void:
 	#moon
 	canmove = false
+	attacking = true
 	$AttackDuration.wait_time = 1.8
 	$AttackDuration.start()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 1.0)
 	await get_tree().create_timer(0.3).timeout #time to show the player what the attack will be
+	$Attacks/Moon2/HitDelay.start()
+	spawnmoonprojectile()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)
 
 
@@ -142,6 +157,8 @@ func _on_hitdelay_timeout() -> void:
 		$Attacks/Sun2/CollisionPolygon2D.position += Vector2(1,0)
 		$Attacks/Sun2.collision_mask = 0
 		await get_tree().create_timer(0.15).timeout
+		if dead:
+			return
 		$Attacks/Sun2/CollisionPolygon2D.position -= Vector2(1,0)
 		$Attacks/Sun2.collision_mask = 4
 
@@ -152,3 +169,8 @@ func _on_attack_duration_timeout() -> void:
 	$Attacks/Sun2/GPUParticles2D2.emitting = false
 	$Attacks/Sun2.collision_mask = 0
 	$AttackCooldown.start()
+
+
+func _on_hit_delay_timeout() -> void:
+	if attacking:
+		spawnmoonprojectile()

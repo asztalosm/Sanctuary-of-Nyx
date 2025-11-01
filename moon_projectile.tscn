@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfxsm133g6ac0"]
+
+[ext_resource type="Script" uid="uid://cmr6ms4yle7ah" path="res://moon_projectile.gd" id="1_yc6vb"]
+[ext_resource type="Texture2D" uid="uid://bo5dkpuy2xx1c" path="res://resources/moonpredict.png" id="2_hqpc7"]
+[ext_resource type="Texture2D" uid="uid://ca4qa8aaq670f" path="res://resources/moonprojectile.png" id="3_67l66"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp4ww"]
+radius = 15.0
+
+[node name="MoonProjectile" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_yc6vb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.3841858e-07, -2.3841858e-07)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("2_hqpc7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -96)
+shape = SubResource("CircleShape2D_fp4ww")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture = ExtResource("3_67l66")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
