@@ -11,7 +11,8 @@ extends CharacterBody2D
 @export var target = self
 @export var stunned = false
 @export var animationname = "default"
-@export var attacking = false
+@export var sunattacking = false
+@export var moonattacking = false
 var inattackzone = false
 var onattackcooldown = false
 var dir := Vector2.ZERO
@@ -69,7 +70,7 @@ func attack1() -> void:
 	if dead:
 		return
 	$Attacks/Sun2.collision_mask = 4
-	attacking = true
+	sunattacking = true
 	$AttackDuration.start()
 	$Attacks/Sun2/AudioStreamPlayer2D.volume_db = MenuMusic.setsfx()
 	$Attacks/Sun2/AudioStreamPlayer2D.play()
@@ -78,7 +79,7 @@ func attack1() -> void:
 func attack2() -> void:
 	#moon
 	canmove = false
-	attacking = true
+	moonattacking = true
 	$AttackDuration.wait_time = 1.8
 	$AttackDuration.start()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 1.0)
@@ -153,7 +154,7 @@ func _on_sun_2_area_entered(area: Area2D) -> void:
 
 
 func _on_hitdelay_timeout() -> void:
-	if attacking:
+	if sunattacking:
 		$Attacks/Sun2/CollisionPolygon2D.position += Vector2(1,0)
 		$Attacks/Sun2.collision_mask = 0
 		await get_tree().create_timer(0.15).timeout
@@ -164,7 +165,8 @@ func _on_hitdelay_timeout() -> void:
 
 
 func _on_attack_duration_timeout() -> void:
-	attacking = false
+	sunattacking = false
+	moonattacking = false
 	$Attacks/Sun2/AudioStreamPlayer2D.stop()
 	$Attacks/Sun2/GPUParticles2D2.emitting = false
 	$Attacks/Sun2.collision_mask = 0
@@ -172,5 +174,5 @@ func _on_attack_duration_timeout() -> void:
 
 
 func _on_hit_delay_timeout() -> void:
-	if attacking:
+	if moonattacking:
 		spawnmoonprojectile()

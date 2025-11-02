@@ -139,3 +139,12 @@ func _on_check_button_pressed() -> void:
 		MenuMusic.damagenumber = true
 	else:
 		MenuMusic.damagenumber = false
+
+
+func _on_control_gui_input(_event: InputEvent) -> void:
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = false
+
+
+func _on_credits_pressed() -> void:
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = true
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.grab_focus()
