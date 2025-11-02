@@ -368,13 +368,13 @@ func calculateanimation(direction): #ugly if statements, but will work for now
 		else:
 			$AnimatedSprite2D.play(currentcharacter.Class+"walk2")
 func charactercheckchange():
-	if Input.is_action_just_pressed("1") and !attacked:
+	if Input.is_action_just_pressed("1"):
 		switchcharacter(Characters[0])
-	elif Input.is_action_just_pressed("2") and !attacked:
+	elif Input.is_action_just_pressed("2"):
 		switchcharacter(Characters[1])
-	elif Input.is_action_just_pressed("3") and !attacked:
+	elif Input.is_action_just_pressed("3"):
 		switchcharacter(Characters[2])
-	elif Input.is_action_just_pressed("4") and !attacked:
+	elif Input.is_action_just_pressed("4"):
 		switchcharacter(Characters[3])
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
