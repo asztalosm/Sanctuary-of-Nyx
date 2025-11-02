@@ -102,6 +102,9 @@ func _process(_delta: float) -> void:
 			await audioalertTween.finished
 			$AudioAlert.visible = false
 			$Buttons/Button.grab_focus()
+		if $Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.visible:
+			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.visible = false
+			$Buttons/Button.grab_focus()
 
 func settings_pressed() -> void:
 	var settingsTween = get_tree().create_tween()
@@ -148,3 +151,12 @@ func _on_control_gui_input(_event: InputEvent) -> void:
 func _on_credits_pressed() -> void:
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = true
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.grab_focus()
+
+
+func _on_hide_credits_pressed() -> void:
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = false
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
+
+
+func _on_music_volume_focus_entered() -> void:
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".modulate = Color(0.1,0.1,0.3)
