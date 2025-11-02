@@ -3,6 +3,7 @@ var onclassesscreen = false
 var konami = ""
 var selectedclass = ""
 var musicvolume = 1.0
+var area = "play"
 
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
@@ -58,6 +59,7 @@ func _on_button_pressed() -> void:
 		buttontween.tween_property($Buttons, "modulate:a", 0, 1.0)
 		buttontween.tween_property($RichTextLabel, "modulate:a", 0, 1.0)
 		buttontween.play()
+		area = "gamemodes"
 		await get_tree().create_timer(1.0).timeout
 		$Camera2D.position.x += 800
 		await get_tree().create_timer(1.0).timeout
@@ -67,6 +69,19 @@ func _playgame() -> void:
 	$MenuButton.play()
 	get_tree().change_scene_to_file("testplace.tscn")
 
+
+func areacheck() -> void:
+	#this will check if the focus is outside of a certain area or not
+	match area:
+		"play":
+			if !$Buttons/Button.has_focus() and !$Buttons/Button2.has_focus() and !$Buttons/Button3.has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
+				$Buttons/Button.grab_focus()
+		"settings":
+			if !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Credits".has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
+				$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
+		"gamemodes":
+			if !$Gamemode/GamemodeToggle.has_focus() and !$Gamemode/GamemodeToggle2.has_focus() and !$Gamemode/GamemodeToggle3.has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
+				$Gamemode/GamemodeToggle.grab_focus()
 
 func _on_button_3_pressed() -> void:
 	get_tree().quit()
@@ -88,6 +103,8 @@ func _process(_delta: float) -> void:
 			settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
 			await settingsTween.finished
 			$Settings.visible = false
+			$Buttons/Button2.grab_focus()
+			area = "play"
 	if Input.is_action_just_pressed("a"):
 		konami = konami + "a"
 	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_SPACE):
@@ -112,7 +129,9 @@ func settings_pressed() -> void:
 		settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
 		await settingsTween.finished
 		$Settings.visible = false
+		area = "play"
 	else:
+		area = "settings"
 		$Settings.visible = true
 		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
 		settingsTween.tween_property($Settings, "scale:y", 1.0, 0.3)
@@ -160,4 +179,41 @@ func _on_hide_credits_pressed() -> void:
 
 
 func _on_music_volume_focus_entered() -> void:
-	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".modulate = Color(0.1,0.1,0.3)
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".modulate = Color(0.2,0.2,0.4)
+
+
+func _on_music_volume_focus_exited() -> void:
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".modulate = Color(1.0,1.0,1.0)
+
+
+func _on_sfx_volume_focus_entered() -> void:
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume/RichTextLabel2".modulate = Color(0.2,0.2,0.4)
+
+
+func _on_sfx_volume_focus_exited() -> void:
+	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume/RichTextLabel2".modulate = Color(1,1,1)
+
+
+func _on_gamemode_toggle_focus_entered() -> void:
+	$Gamemode/GamemodeToggle.modulate = Color(1.2,1.2,1.2)
+
+func _on_gamemode_toggle_focus_exited() -> void:
+	$Gamemode/GamemodeToggle.modulate = Color(1,1,1)
+
+
+func _on_gamemode_toggle_2_focus_entered() -> void:
+	$Gamemode/GamemodeToggle2.modulate = Color(1.2,1.2,1.2)
+
+func _on_gamemode_toggle_2_focus_exited() -> void:
+	$Gamemode/GamemodeToggle2.modulate = Color(1,1,1)
+
+
+func _on_gamemode_toggle_3_focus_entered() -> void:
+	$Gamemode/GamemodeToggle3.modulate = Color(1.2,1.2,1.2)
+
+func _on_gamemode_toggle_3_focus_exited() -> void:
+	$Gamemode/GamemodeToggle3.modulate = Color(1,1,1)
+
+
+func _on_focuscheck_timeout() -> void:
+	areacheck()

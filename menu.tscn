@@ -618,6 +618,12 @@ offset_top = 74.0
 offset_right = 344.0
 offset_bottom = 202.0
 scale = Vector2(1.2, 1.2)
+focus_neighbor_left = NodePath("../GamemodeToggle2")
+focus_neighbor_top = NodePath("../GamemodeToggle2")
+focus_neighbor_right = NodePath("../GamemodeToggle3")
+focus_neighbor_bottom = NodePath("../GamemodeToggle3")
+focus_next = NodePath("../GamemodeToggle3")
+focus_previous = NodePath("../GamemodeToggle2")
 toggle_mode = true
 texture_normal = ExtResource("16_oil5j")
 
@@ -641,6 +647,12 @@ offset_left = 80.0
 offset_top = 74.0
 offset_right = 208.0
 offset_bottom = 202.0
+focus_neighbor_left = NodePath("../GamemodeToggle3")
+focus_neighbor_top = NodePath("../GamemodeToggle3")
+focus_neighbor_right = NodePath("../GamemodeToggle")
+focus_neighbor_bottom = NodePath("../GamemodeToggle")
+focus_next = NodePath("../GamemodeToggle")
+focus_previous = NodePath("../GamemodeToggle3")
 texture_normal = ExtResource("15_td6mg")
 texture_pressed = ExtResource("17_guify")
 
@@ -664,6 +676,12 @@ offset_left = 376.0
 offset_top = 74.0
 offset_right = 504.0
 offset_bottom = 202.0
+focus_neighbor_left = NodePath("../GamemodeToggle")
+focus_neighbor_top = NodePath("../GamemodeToggle")
+focus_neighbor_right = NodePath("../GamemodeToggle2")
+focus_neighbor_bottom = NodePath("../GamemodeToggle2")
+focus_next = NodePath("../GamemodeToggle2")
+focus_previous = NodePath("../GamemodeToggle")
 texture_normal = ExtResource("15_td6mg")
 texture_pressed = ExtResource("16_oil5j")
 
@@ -887,19 +905,32 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="focuscheck" type="Timer" parent="."]
+autostart = true
+
 [connection signal="pressed" from="Buttons/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/Button2" to="." method="settings_pressed"]
 [connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="focus_entered" from="Gamemode/GamemodeToggle" to="." method="_on_gamemode_toggle_focus_entered"]
+[connection signal="focus_exited" from="Gamemode/GamemodeToggle" to="." method="_on_gamemode_toggle_focus_exited"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle" to="Gamemode" method="_on_gamemode_toggle_pressed"]
 [connection signal="toggled" from="Gamemode/GamemodeToggle" to="Gamemode/GamemodeToggle" method="_on_toggled"]
+[connection signal="focus_entered" from="Gamemode/GamemodeToggle2" to="." method="_on_gamemode_toggle_2_focus_entered"]
+[connection signal="focus_exited" from="Gamemode/GamemodeToggle2" to="." method="_on_gamemode_toggle_2_focus_exited"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle2" to="Gamemode" method="_on_gamemode_toggle_2_pressed"]
 [connection signal="toggled" from="Gamemode/GamemodeToggle2" to="Gamemode/GamemodeToggle2" method="_on_toggled"]
+[connection signal="focus_entered" from="Gamemode/GamemodeToggle3" to="." method="_on_gamemode_toggle_3_focus_entered"]
+[connection signal="focus_exited" from="Gamemode/GamemodeToggle3" to="." method="_on_gamemode_toggle_3_focus_exited"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle3" to="." method="_on_gamemode_toggle_3_pressed"]
 [connection signal="pressed" from="Gamemode/GamemodeToggle3" to="Gamemode" method="_on_gamemode_toggle_3_pressed"]
 [connection signal="focus_entered" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_focus_entered"]
+[connection signal="focus_exited" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_focus_exited"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume" to="." method="_on_music_volume_value_changed"]
+[connection signal="focus_entered" from="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="." method="_on_sfx_volume_focus_entered"]
+[connection signal="focus_exited" from="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="." method="_on_sfx_volume_focus_exited"]
 [connection signal="value_changed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume" to="." method="_on_sfx_volume_value_changed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_pressed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="gui_input" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control/HideCredits" to="." method="_on_hide_credits_pressed"]
+[connection signal="timeout" from="focuscheck" to="." method="_on_focuscheck_timeout"]
