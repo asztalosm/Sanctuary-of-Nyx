@@ -102,9 +102,9 @@ func _process(_delta: float) -> void:
 			await audioalertTween.finished
 			$AudioAlert.visible = false
 			$Buttons/Button.grab_focus()
-		if $Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.visible:
-			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.visible = false
-			$Buttons/Button.grab_focus()
+		if $Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible:
+			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = false
+			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.grab_focus()
 
 func settings_pressed() -> void:
 	var settingsTween = get_tree().create_tween()
@@ -114,6 +114,7 @@ func settings_pressed() -> void:
 		$Settings.visible = false
 	else:
 		$Settings.visible = true
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
 		settingsTween.tween_property($Settings, "scale:y", 1.0, 0.3)
 		await settingsTween.finished
 	$MenuButton.stream = load("res://resources/menubutton.wav")

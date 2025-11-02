@@ -4,6 +4,7 @@ static var sfxvolume = 0.0
 static var damagenumber = false
 
 func _process(_delta) -> void:
+	$FpsCounter/Label.text = str(Engine.get_frames_per_second())
 	if musicvolume == -10:
 		volume_db = -5000
 	elif musicvolume < 0:

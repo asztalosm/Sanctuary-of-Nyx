@@ -26,9 +26,11 @@ func _ready() -> void:
 	
 
 func spawnmoonprojectile() -> void:
-	for i in range(5):
+	for i in range(8):
 		var moonprojectilescene = load("res://moon_projectile.tscn").instantiate()
 		get_parent().add_child(moonprojectilescene)
+		var scale = randf_range (0.5, 1.25)
+		moonprojectilescene.scale = Vector2(scale, scale)
 		moonprojectilescene.global_position = player.global_position + Vector2(randf_range(-75.0,75.0), randf_range(-75.0,75.0))
 
 func stun() -> void:
@@ -84,6 +86,8 @@ func attack2() -> void:
 	$AttackDuration.start()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 1.0)
 	await get_tree().create_timer(0.3).timeout #time to show the player what the attack will be
+	if dead:
+		return
 	$Attacks/Moon2/HitDelay.start()
 	spawnmoonprojectile()
 	$Attacks/Moon.modulate = Color(1.0,1.0,1.0, 0.3)

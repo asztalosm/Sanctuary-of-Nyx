@@ -342,6 +342,7 @@ offset_left = 164.0
 offset_top = 61.0
 offset_right = 212.0
 offset_bottom = 125.0
+focus_mode = 1
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_rkpqm")
 texture_pressed = SubResource("AtlasTexture_7wriu")
@@ -353,6 +354,7 @@ offset_top = 128.0
 offset_right = 605.0
 offset_bottom = 192.0
 rotation = -3.14159
+focus_mode = 1
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_xhgcl")
 texture_pressed = SubResource("AtlasTexture_8tnp7")
@@ -364,6 +366,7 @@ offset_top = 49.0
 offset_right = 737.0
 offset_bottom = 113.0
 rotation = 1.57079
+focus_mode = 1
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_rkpqm")
 
@@ -395,6 +398,12 @@ offset_left = -279.0
 offset_top = -107.0
 offset_right = -167.0
 offset_bottom = -75.0
+focus_neighbor_left = NodePath("../Button3")
+focus_neighbor_top = NodePath("../Button3")
+focus_neighbor_right = NodePath("../Button2")
+focus_neighbor_bottom = NodePath("../Button2")
+focus_next = NodePath("../Button2")
+focus_previous = NodePath("../Button3")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 32
 text = " Play"
@@ -406,6 +415,12 @@ offset_left = -279.0
 offset_top = -72.0
 offset_right = -168.0
 offset_bottom = -40.0
+focus_neighbor_left = NodePath("../Button")
+focus_neighbor_top = NodePath("../Button")
+focus_neighbor_right = NodePath("../Button3")
+focus_neighbor_bottom = NodePath("../Button3")
+focus_next = NodePath("../Button3")
+focus_previous = NodePath("../Button")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 32
 text = " Settings"
@@ -417,9 +432,9 @@ offset_left = -279.0
 offset_top = -36.0
 offset_right = -168.0
 offset_bottom = -4.0
-focus_neighbor_left = NodePath(".")
+focus_neighbor_left = NodePath("../Button2")
 focus_neighbor_top = NodePath("../Button2")
-focus_neighbor_right = NodePath(".")
+focus_neighbor_right = NodePath("../Button")
 focus_neighbor_bottom = NodePath("../Button")
 focus_next = NodePath("../Button")
 focus_previous = NodePath("../Button2")
@@ -747,6 +762,7 @@ theme_override_constants/separation = 16
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/normal_font_size = 17
 text = "- Audio -"
@@ -756,6 +772,12 @@ horizontal_alignment = 1
 
 [node name="Music Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Credits")
+focus_neighbor_top = NodePath("../Credits")
+focus_neighbor_right = NodePath("../SFX Volume")
+focus_neighbor_bottom = NodePath("../SFX Volume")
+focus_next = NodePath("../SFX Volume")
+focus_previous = NodePath("../Credits")
 theme = ExtResource("4_4hy44")
 min_value = -10.0
 max_value = 10.0
@@ -774,6 +796,12 @@ autowrap_mode = 0
 
 [node name="SFX Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Music Volume")
+focus_neighbor_top = NodePath("../Music Volume")
+focus_neighbor_right = NodePath("../CheckButton")
+focus_neighbor_bottom = NodePath("../CheckButton")
+focus_next = NodePath("../CheckButton")
+focus_previous = NodePath("../Music Volume")
 theme = ExtResource("4_4hy44")
 min_value = -10.0
 max_value = 10.0
@@ -792,6 +820,7 @@ autowrap_mode = 0
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/normal_font_size = 17
 text = "- Gameplay -"
@@ -801,12 +830,24 @@ horizontal_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../SFX Volume")
+focus_neighbor_top = NodePath("../SFX Volume")
+focus_neighbor_right = NodePath("../Credits")
+focus_neighbor_bottom = NodePath("../Credits")
+focus_next = NodePath("../Credits")
+focus_previous = NodePath("../SFX Volume")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17
 text = "Damage numbers"
 
 [node name="Credits" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../CheckButton")
+focus_neighbor_top = NodePath("../CheckButton")
+focus_neighbor_right = NodePath("../Music Volume")
+focus_neighbor_bottom = NodePath("../Music Volume")
+focus_next = NodePath("../Music Volume")
+focus_previous = NodePath("../CheckButton")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17
 text = "Credits"
