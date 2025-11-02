@@ -8,7 +8,7 @@ func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	var collisiontween = get_tree().create_tween()
 	$CollisionShape2D.visible = true
-	collisiontween.tween_property($CollisionShape2D, "position", Vector2(0,0), 0.8)
+	collisiontween.tween_property($CollisionShape2D, "position", Vector2(0,0), 0.4)
 	await collisiontween.finished
 	collision_mask = 4
 	#await get_tree().create_timer(0.1).timeout

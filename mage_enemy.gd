@@ -4,7 +4,7 @@ extends CharacterBody2D
 #essential stats
 @export var maxhealth : float = 25.0
 @export var health : float = maxhealth
-@export var speed = 50
+@export var speed = 80
 @export var damage :float = 3
 @export var attackcooldown = 1.8
 @export var cantakedamage = true
@@ -113,11 +113,15 @@ func _process(_delta: float) -> void:
 		if !stunned:
 			if inattackzone and !onattackcooldown and inattackzone:
 				attackroll()
+				
 			if target != self and canmove:
-				if global_position.distance_to(target.global_position) > 220:
-					target = self
+				if global_position.distance_to(target.global_position) > 120:
+					$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100, 100)
+					dir = $NavigationAgent2D.get_next_path_position() - global_position
+					if dir.length_squared() > 1.0:
+							dir = dir.normalized()
 				else:
-					$NavigationAgent2D.target_position = target.global_position
+					$NavigationAgent2D.target_position = (global_position - target.global_position) * Vector2(100,100)
 					dir = $NavigationAgent2D.get_next_path_position() - global_position + Vector2(randf_range(-5, 5), randf_range(-5, 5))
 					if dir.length_squared() > 1.0:
 						dir = dir.normalized()
@@ -169,6 +173,7 @@ func _on_hitdelay_timeout() -> void:
 
 
 func _on_attack_duration_timeout() -> void:
+	canmove = true
 	sunattacking = false
 	moonattacking = false
 	$Attacks/Sun2/AudioStreamPlayer2D.stop()

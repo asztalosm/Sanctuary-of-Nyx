@@ -89,6 +89,7 @@ radius = 171.01169
 radius = 157.0796
 
 [node name="Reaper" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_bpyeu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
