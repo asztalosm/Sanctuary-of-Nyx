@@ -2,10 +2,10 @@
 PLAY; Play;プレイ
 SETTINGS; Settings;設定
 QUIT; Quit;終了
-AUDIO;Audio;オーディオ
+AUDIO;- Audio -;- オーディオ -
 MUSVOL;Music Volume;音楽の音量
 SFXVOL;Effect Volume;効果音の音量
-GAMEPLAY;Gameplay;ゲームプレイ
+GAMEPLAY;- Gameplay -;- ゲームプレイ -
 DMGNUM;Damage Numbers;ダメージ数値表示
 CREDITS;Credits;クレジット
 LANGUAGE;English;日本語

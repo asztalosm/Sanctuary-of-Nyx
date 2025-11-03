@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://1a53yioxea0w"]
+[gd_scene load_steps=58 format=3 uid="uid://1a53yioxea0w"]
 
 [ext_resource type="Script" uid="uid://vs1rs0gqqmrd" path="res://menu.gd" id="1_ouk20"]
 [ext_resource type="Shader" uid="uid://qqtrj4ugpi8b" path="res://resources/shaders/menubg.tres" id="2_mae5d"]
@@ -120,6 +120,15 @@ shader_parameter/Texture2DParameter = ExtResource("3_iqepy")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guify"]
 bg_color = Color(0, 0, 0, 0.64705884)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oil5j"]
+bg_color = Color(0.8431838, 0.8431839, 0.84318364, 0.09803922)
+border_width_right = 2
+border_color = Color(0.8, 0.8, 0.8, 0.24705882)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -461,9 +470,8 @@ offset_bottom = 62.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 bbcode_enabled = true
-text = "[font_size=31]Select a gamemode
-[font_size=15]click on the button to change 
-the gamemode."
+text = "[font_size=33]MENU_SELECT_GAMEMODE
+[font_size=17]MENU_CLICK_GAMEMODE"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -757,6 +765,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1, 1e-05)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings"]
 layout_mode = 0
@@ -781,8 +790,7 @@ theme_override_constants/separation = 16
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("4_4hy44")
-theme_override_font_sizes/normal_font_size = 17
-text = "- Audio -"
+text = "AUDIO"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -807,7 +815,7 @@ offset_right = 203.0
 offset_bottom = 1.0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/normal_font_size = 17
-text = "Music Volume:"
+text = "MUSVOL"
 fit_content = true
 autowrap_mode = 0
 
@@ -831,7 +839,7 @@ offset_right = 203.0
 offset_bottom = 1.0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/normal_font_size = 17
-text = "Effect Volume:"
+text = "SFXVOL"
 fit_content = true
 autowrap_mode = 0
 
@@ -840,7 +848,7 @@ layout_mode = 2
 focus_mode = 0
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/normal_font_size = 17
-text = "- Gameplay -"
+text = "GAMEPLAY"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -855,19 +863,21 @@ focus_next = NodePath("../Credits")
 focus_previous = NodePath("../SFX Volume")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17
-text = "Damage numbers"
+theme_override_styles/focus = SubResource("StyleBoxFlat_oil5j")
+text = "DMGNUM"
 
 [node name="Credits" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../CheckButton")
 focus_neighbor_top = NodePath("../CheckButton")
-focus_neighbor_right = NodePath("../Music Volume")
-focus_neighbor_bottom = NodePath("../Music Volume")
-focus_next = NodePath("../Music Volume")
+focus_neighbor_right = NodePath("../Change Language")
+focus_neighbor_bottom = NodePath("../Change Language")
+focus_next = NodePath("../Change Language")
 focus_previous = NodePath("../CheckButton")
 theme = ExtResource("4_4hy44")
 theme_override_font_sizes/font_size = 17
-text = "Credits"
+text = "CREDITS"
+alignment = 0
 
 [node name="Control" type="Control" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits"]
 visible = false
@@ -905,7 +915,15 @@ offset_bottom = 40.0
 
 [node name="Change Language" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "English"
+focus_neighbor_left = NodePath("../Credits")
+focus_neighbor_top = NodePath("../Credits")
+focus_neighbor_right = NodePath("../Credits")
+focus_neighbor_bottom = NodePath("../Music Volume")
+focus_next = NodePath("../Music Volume")
+focus_previous = NodePath("../Credits")
+theme = ExtResource("4_4hy44")
+text = "LANGUAGE"
+alignment = 0
 
 [node name="focuscheck" type="Timer" parent="."]
 autostart = true

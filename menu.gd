@@ -8,20 +8,21 @@ var area = "play"
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
 	TranslationServer.set_locale("jp")
+	refreshtextsize()
 	MenuMusic.stream = load("res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav")
 	MenuMusic.play()
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed = MenuMusic.damagenumber
 	#commented$AudioAlert.visible = true
-	await get_tree().create_timer(5).timeout
-	var audioalertTween = get_tree().create_tween()
-	audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
-	audioalertTween.play()
-	$AudioAlert.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
-	await audioalertTween.finished
-	$AudioAlert.visible = false
-	$Buttons/Button.grab_focus()
+	#await get_tree().create_timer(5).timeout
+	#var audioalertTween = get_tree().create_tween()
+	#audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
+	#audioalertTween.play()
+	#$AudioAlert.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
+	#await audioalertTween.finished
+	#$AudioAlert.visible = false
+	#$Buttons/Button.grab_focus()
 
 # func showclasses():
 #	for children in $Classes/Buttons.get_children():
@@ -78,7 +79,7 @@ func areacheck() -> void:
 			if !$Buttons/Button.has_focus() and !$Buttons/Button2.has_focus() and !$Buttons/Button3.has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
 				$Buttons/Button.grab_focus()
 		"settings":
-			if !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Credits".has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
+			if !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Credits".has_focus() and !$"Settings/PanelContainer/MarginContainer/VBoxContainer/Change Language".has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
 				$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
 		"gamemodes":
 			if !$Gamemode/GamemodeToggle.has_focus() and !$Gamemode/GamemodeToggle2.has_focus() and !$Gamemode/GamemodeToggle3.has_focus() and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible and !$AudioAlert.visible:
@@ -219,9 +220,33 @@ func _on_gamemode_toggle_3_focus_exited() -> void:
 func _on_focuscheck_timeout() -> void:
 	areacheck()
 
+func refreshtextsize() -> void:
+	if TranslationServer.get_locale() == "jp":
+		$Buttons/Button.add_theme_font_size_override("font_size", 24)
+		$Buttons/Button2.add_theme_font_size_override("font_size", 24)
+		$Buttons/Button3.add_theme_font_size_override("font_size", 24)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.add_theme_font_size_override("font_size", 13) #holy shit i have to do this manually fuck my life i hate this font
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel.add_theme_font_size_override("normal_font_size", 13)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel2.add_theme_font_size_override("normal_font_size", 13)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel.add_theme_font_size_override("normal_font_size", 13)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".add_theme_font_size_override("normal_font_size", 15)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume/RichTextLabel2".add_theme_font_size_override("normal_font_size", 15)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Change Language".add_theme_font_size_override("font_size", 13)
+	else:
+		$Buttons/Button.add_theme_font_size_override("font_size", 34)
+		$Buttons/Button2.add_theme_font_size_override("font_size", 34)
+		$Buttons/Button3.add_theme_font_size_override("font_size", 34)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.add_theme_font_size_override("font_size", 17)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel.add_theme_font_size_override("normal_font_size", 17)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel2.add_theme_font_size_override("normal_font_size", 17)
+		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel.add_theme_font_size_override("normal_font_size", 17)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".add_theme_font_size_override("normal_font_size", 17)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume/RichTextLabel2".add_theme_font_size_override("normal_font", 17)
+		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Change Language".add_theme_font_size_override("font_size", 17)
 
 func _on_change_language_pressed() -> void:
 	if TranslationServer.get_locale() == "en":
 		TranslationServer.set_locale("jp")
 	else:
 		TranslationServer.set_locale("en")
+	refreshtextsize()
