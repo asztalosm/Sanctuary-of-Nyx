@@ -414,16 +414,16 @@ focus_neighbor_bottom = NodePath("../Button2")
 focus_next = NodePath("../Button2")
 focus_previous = NodePath("../Button3")
 theme = ExtResource("4_4hy44")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 33
 text = "PLAY"
 alignment = 0
 
 [node name="Button2" type="Button" parent="Buttons"]
 layout_mode = 0
 offset_left = -279.0
-offset_top = -72.0
+offset_top = -71.0
 offset_right = -168.0
-offset_bottom = -40.0
+offset_bottom = -39.0
 focus_neighbor_left = NodePath("../Button")
 focus_neighbor_top = NodePath("../Button")
 focus_neighbor_right = NodePath("../Button3")
@@ -438,9 +438,9 @@ alignment = 0
 [node name="Button3" type="Button" parent="Buttons" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 0
 offset_left = -279.0
-offset_top = -36.0
+offset_top = -35.0
 offset_right = -168.0
-offset_bottom = -4.0
+offset_bottom = -3.0
 focus_neighbor_left = NodePath("../Button2")
 focus_neighbor_top = NodePath("../Button2")
 focus_neighbor_right = NodePath("../Button")
@@ -643,7 +643,7 @@ offset_bottom = 157.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 32
-text = "Arcade"
+text = "MENU_ARCADE"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -672,7 +672,7 @@ offset_bottom = 153.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 24
-text = "Tutorial"
+text = "MENU_TUTORIAL"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -701,7 +701,7 @@ offset_bottom = 153.0
 theme = ExtResource("4_4hy44")
 theme_override_colors/default_color = Color(0.75, 0.75, 0.75, 1)
 theme_override_font_sizes/normal_font_size = 24
-text = "Dungeon"
+text = "MENU_DUNGEON"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -908,11 +908,6 @@ Sounds from pixabay"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="HideCredits" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="Change Language" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Credits")
@@ -952,6 +947,5 @@ autostart = true
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_pressed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="gui_input" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control" to="." method="_on_control_gui_input"]
-[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control/HideCredits" to="." method="_on_hide_credits_pressed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/Change Language" to="." method="_on_change_language_pressed"]
 [connection signal="timeout" from="focuscheck" to="." method="_on_focuscheck_timeout"]

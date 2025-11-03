@@ -44,3 +44,72 @@ TUTORIAL_27;You have finished the tutorial, to exit the tutorial interact with t
 OBJECTIVE_REMINDER;Finish objective before progressing;目標を達成してから進んでください。
 PROMPT_CONTINUE;Press E to continue;Eキーを押して続行
 PROMPT_EXIT;Press E to exit;Eキーを押して終了
+SHIBA_NOTE;This game is part of Hackclub's Shiba event. I'd like to thank everyone participating, rating my games, giving feedback. I also want to thank everyone in the #1250-yaps channel on slack for supporting each other. Y'all are amazing. Special thanks to Isidore for motivation in huddles and translation. Sounds from pixabay;このゲームはHackclubのShibaイベントの一部です。参加してくれた皆さん、評価やフィードバックをくれた皆さん、本当にありがとうございます。また、Slackの#1250-yapsチャンネルでお互いを支え合っている皆さんにも感謝します。皆さんは最高です。特に、モチベーションと翻訳のサポートをしてくれたIsidoreに特別な感謝を。効果音はpixabayからのものです。
+YOU_DIED;You Died;あなたは死亡しました
+RESTART;Restart;再スタート
+QUIT;Quit;終了
+SKILLS;Skills;スキル
+PHYSDMG;Physical Damage;物理ダメージ
+MAGDMG;Magic Damage;魔法ダメージ
+DEFENSE;Defense;防御
+DODGE;Dodge;回避
+HEALTH;Health;体力
+ATKSPEED;Attack Speed;攻撃速度
+KNIGHT;Knight;ナイト
+SKILLINFO_1;You currently have ;現在のスキルポイント ：
+SKILLINFO_2;Skill Points.;ポイント
+SKILL_PHYSATK_1;Physical Attack [;物理攻撃 [
+SKILL_PHYSATK_USED_1;Multiplies your Physical damage by;物理ダメージを
+SKILL_PHYSATK_USED_2; ; 倍にします
+SKILL_MAGICATK_1;Magic Attack [;魔法攻撃 [
+SKILL_MAGICATK_USED_1;Multiplies your Magical damage by;魔法ダメージを
+SKILL_MAGICATK_USED_2; ; 倍にします
+SKILL_DEFENSE_1;Defense [;防御 [
+SKILL_DEFENSE_USED_1;Reduces damage taken by;受けるダメージを
+SKILL_DEFENSE_USED_2; ; 減少させます
+SKILL_DODGE_1;Speed & Dodge [;スピード＆回避 [
+SKILL_DODGE_USED_1;Increases movement speed by;移動速度を
+SKILL_DODGE_USED_2; and dodge by;上昇させ、回避率を
+SKILL_DODGE_USED_3; ; 上げます
+SKILL_HEALTH_1;Health [;体力 [
+SKILL_HEALTH_USED_1;Increases max health by;最大体力を
+SKILL_HEALTH_USED_2; And heals you for;上昇させ、一度だけ
+SKILL_HEALTH_USED_3; once; 回復します
+SKILL_ATKSPEED_1;Attack Speed & Cooldown [;攻撃速度＆クールダウン [
+SKILL_ATKSPEED_USED_1;Speeds up attack by;攻撃速度を
+SKILL_ATKSPEED_USED_2; and ability cooldown by;にし、アビリティのクールダウンを
+SKILL_ATKSPEED_USED_3; ; 短縮します
+RESUME;Resume;再開
+WAVES;Waves:;ウェーブ：
+REROLLS;Rerolls:;リロール：
+ROLLDICE;Click on a dice to roll it.;サイコロをクリックして振ってください
+ROLLHIGH;The higher the roll, the better.;出目が高いほど効果が良くなります
+ENEMY;Enemy;敵
+STATS;Stats;ステータス
+HP;hp;HP
+DMG;dmg;ダメージ
+ATKSPD;atkspd;攻撃速度
+COUNT;Count;数
+ASSASSIN;Assassin;アサシン
+ARCHER;Archer;アーチャー
+NECROMANCER;Necromancer;ネクロマンサー
+SKELETON;Skeleton;スケルトン
+SPLASHER;Splasher;スプラッシャー
+ILLUSIONER;Illusioner;イリュージョナー
+BAT;Bat;バット
+MOVESPD;Movement Speed;移動速度
+RANGE;Range;射程
+DODGECH;Dodge Chance;回避率
+CRITCH;Crit Chance;クリティカル率
+LASTCHANCE;heal back to half health before death, usable once per run;死亡前に体力の半分まで自動回復（1ランごとに1回使用可能）
+POINTS;points;ポイント
+SKILLWAVE;Skill points every wave start;各ウェーブ開始時にスキルポイント獲得
+XPBONUS;more XP per kill;撃破時により多くのXP獲得
+LIFESTEAL;Life Steal;ライフスティール
+LASTSTAND;Last Stand;ラストスタンド
+POINTMULT;Point Multiplier;ポイント倍率
+POINTS_COLON;Points: ;ポイント：
+ENEMIESLEFT;Enemies left: ;残りの敵：
+WAVE;Wave: ;ウェーブ
+ENDED;Ended;終了
+MODEDESC;In this gamemode your goal is to earn as many points as you can. You get points for killing enemies. There is an intermission where you have to roll dice that give buffs/debuffs to enemies/you. Have fun!;このゲームモードでは、できるだけ多くのポイントを獲得することが目的です。敵を倒すとポイントが得られます。インターバル中にサイコロを振ると、自分や敵にバフ／デバフ効果が付与されます。楽しんでください！

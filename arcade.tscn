@@ -875,7 +875,7 @@ focus_neighbor_top = NodePath("../Dice/EnemyStats")
 theme = ExtResource("6_gy4ly")
 theme_override_fonts/font = ExtResource("7_c0abk")
 theme_override_font_sizes/font_size = 24
-text = "Play"
+text = "PLAY"
 
 [node name="Dicesound" type="AudioStreamPlayer" parent="Intermission"]
 stream = ExtResource("9_mndso")
@@ -956,7 +956,7 @@ offset_right = 352.0
 offset_bottom = 291.0
 theme = ExtResource("6_gy4ly")
 theme_override_font_sizes/font_size = 48
-text = "Play!"
+text = "PLAY"
 
 [node name="Enemies" type="Node2D" parent="."]
 

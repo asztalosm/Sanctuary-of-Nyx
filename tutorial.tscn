@@ -427,35 +427,35 @@ offset_bottom = -4.0
 color = Color(0.80634177, 0.36100188, 0.8859688, 0.42352942)
 
 [node name="ArrowTrap" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1562.9999, 659.99994)
+position = Vector2(1555, 667.99994)
 rotation = 0.7586368
 
 [node name="ArrowTrap3" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1515.9999, 615.00006)
+position = Vector2(1508, 622.99994)
 rotation = 0.7586368
 
 [node name="ArrowTrap4" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1493, 593.99994)
+position = Vector2(1485, 601.99994)
 rotation = 0.7586368
 
 [node name="ArrowTrap5" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1238, 813)
+position = Vector2(1262, 773)
 rotation = -2.33749
 
 [node name="ArrowTrap6" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1260, 837.0001)
+position = Vector2(1284, 797.00024)
 rotation = -2.33749
 
 [node name="ArrowTrap7" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1283, 861.00006)
+position = Vector2(1307, 821)
 rotation = -2.33749
 
 [node name="ArrowTrap8" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1305.9999, 883.99994)
+position = Vector2(1330, 844)
 rotation = -2.33749
 
 [node name="ArrowTrap2" parent="Collisions" instance=ExtResource("5_7vrqn")]
-position = Vector2(1539.9999, 637.99994)
+position = Vector2(1532, 645.99994)
 rotation = 0.7586368
 
 [node name="FinishedSkills" type="Area2D" parent="Collisions"]
@@ -493,7 +493,7 @@ layout_mode = 0
 offset_top = -16.0
 offset_right = 288.0
 theme_override_font_sizes/normal_font_size = 15
-text = "Press E to continue"
+text = "PROMPT_CONTINUE"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 2

@@ -2,6 +2,10 @@ extends CanvasLayer
 
 func _ready() -> void:
 	visible = true
+	if TranslationServer.get_locale() == "jp":
+		$RichTextLabel.text = "[font_size=17]" + tr("MENU_ARCADE") + "[br]" + tr("MODEDESC")
+	else:
+		$RichTextLabel.text = "[font_size=33]" + tr("MENU_ARCADE") + "[br][font_size=16]" + tr("MODEDESC")
 	$Button.grab_focus()
 
 func _on_button_pressed() -> void:

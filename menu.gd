@@ -22,7 +22,7 @@ func _ready() -> void:
 	#$AudioAlert.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
 	#await audioalertTween.finished
 	#$AudioAlert.visible = false
-	#$Buttons/Button.grab_focus()
+	$Buttons/Button.grab_focus()
 
 # func showclasses():
 #	for children in $Classes/Buttons.get_children():
@@ -107,6 +107,14 @@ func _process(_delta: float) -> void:
 			$Settings.visible = false
 			$Buttons/Button2.grab_focus()
 			area = "play"
+	if Input.is_action_just_pressed("pause"):
+		if $Settings.visible:
+			var settingsTween = get_tree().create_tween()
+			settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
+			await settingsTween.finished
+			$Settings.visible = false
+			$Buttons/Button2.grab_focus()
+			area = "play"
 	if Input.is_action_just_pressed("a"):
 		konami = konami + "a"
 	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_SPACE):
@@ -122,8 +130,10 @@ func _process(_delta: float) -> void:
 			$AudioAlert.visible = false
 			$Buttons/Button.grab_focus()
 		if $Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible:
+			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.disabled = false
 			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = false
 			$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.grab_focus()
+	
 
 func settings_pressed() -> void:
 	var settingsTween = get_tree().create_tween()
@@ -171,14 +181,9 @@ func _on_control_gui_input(_event: InputEvent) -> void:
 
 
 func _on_credits_pressed() -> void:
+	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits.disabled = true
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = true
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.grab_focus()
-
-
-func _on_hide_credits_pressed() -> void:
-	$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible = false
-	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".grab_focus()
-
 
 func _on_music_volume_focus_entered() -> void:
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume/RichTextLabel2".modulate = Color(0.2,0.2,0.4)
@@ -221,6 +226,7 @@ func _on_focuscheck_timeout() -> void:
 	areacheck()
 
 func refreshtextsize() -> void:
+	$Gamemode/RichTextLabel2.text = "[font_size=33]" + tr("MENU_SELECT_GAMEMODE") + "[br][font_size=17]" + tr("MENU_CLICK_GAMEMODE")
 	if TranslationServer.get_locale() == "jp":
 		$Buttons/Button.add_theme_font_size_override("font_size", 24)
 		$Buttons/Button2.add_theme_font_size_override("font_size", 24)
@@ -233,9 +239,9 @@ func refreshtextsize() -> void:
 		$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume/RichTextLabel2".add_theme_font_size_override("normal_font_size", 15)
 		$"Settings/PanelContainer/MarginContainer/VBoxContainer/Change Language".add_theme_font_size_override("font_size", 13)
 	else:
-		$Buttons/Button.add_theme_font_size_override("font_size", 34)
-		$Buttons/Button2.add_theme_font_size_override("font_size", 34)
-		$Buttons/Button3.add_theme_font_size_override("font_size", 34)
+		$Buttons/Button.add_theme_font_size_override("font_size", 33)
+		$Buttons/Button2.add_theme_font_size_override("font_size", 33)
+		$Buttons/Button3.add_theme_font_size_override("font_size", 33)
 		$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.add_theme_font_size_override("font_size", 17)
 		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel.add_theme_font_size_override("normal_font_size", 17)
 		$Settings/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel2.add_theme_font_size_override("normal_font_size", 17)

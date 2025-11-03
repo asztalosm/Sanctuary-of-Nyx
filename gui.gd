@@ -1,20 +1,29 @@
 extends CanvasLayer
 var clickedskill = false
 
+func refreshtextsize() -> void:
+	if TranslationServer.get_locale() == "jp":
+		$Skills/Title.add_theme_font_size_override("normal_font_size", 24)
+		$Skills/Info.add_theme_font_size_override("normal_font_size", 24)
+		for children in $Skills/GridContainer.get_children():
+			children.add_theme_font_size_override("font_size", 17)
+
 func refreshstats() -> void:
-	$Skills/Info.text = "You currently have " + str(get_parent().globalcharacterstats.SkillPoints) + " Skill Points."
-	$Skills/GridContainer/PhysAtk.text = "Physical Attack [" +str(get_parent().skills.PhysAtk) + "]"
-	$Skills/GridContainer/PhysAtk.used_text = "Multiplies your Physical damage by [color=#22BB22]" + (str(float(get_parent().skills.PhysAtk + 10) / 10)) + "[/color]"
-	$Skills/GridContainer/MagicAtk.text = "Magic Attack [" +str(get_parent().skills.MagicAtk) + "]"
-	$Skills/GridContainer/MagicAtk.used_text = "Multiplies your Magical damage by [color=#22BB22]" + (str(float(get_parent().skills.MagicAtk + 10) / 10)) + "[/color]"
-	$Skills/GridContainer/Defense.text = "Defense [" + str(get_parent().skills.Defense) + "]"
-	$Skills/GridContainer/Defense.used_text = "Reduces damage taken by [color=#22BB22]" + (str(float(get_parent().skills.Defense) * 0.2))
-	$Skills/GridContainer/Dodge.text = "Speed & Dodge [" + str(get_parent().skills.Dodge) + "]"
-	$Skills/GridContainer/Dodge.used_text = "Increases movement speed by [color=#22BB22]2[/color][color=#00FF00] [" + str(get_parent().speed) + "][/color][p]and dodge by [color=#22BB22]1[/color][color=#00FF00] [" + str(get_parent().dodgechance) + "][/color]"
-	$Skills/GridContainer/Health.text = "Health [" + str(get_parent().skills.Health) + "]"
-	$Skills/GridContainer/Health.used_text = "Increases max health by [color=#22BB22]" + (str(float(get_parent().skills.Health)*2)) + "[/color][p]And heals you for [color=#22BB22]4hp[/color] once" #this might be changed to like a heal potion but i feel like this is going to be SO many buttons
-	$Skills/GridContainer/AtkSpeed.text = "Attack Speed & Cooldown [" + str(get_parent().skills.AtkSpeed) + "]"
-	$Skills/GridContainer/AtkSpeed.used_text = "Speeds up attack by [color=#22BB22]"+ str(float(1 + (get_parent().skills.AtkSpeed)*0.025)) + "x[/color][p]and ability cooldown by [color=#22BB22]"+ str(float(get_parent().skills.AtkSpeed)*0.1) + "s[/color]"
+	$Skills/Title.text = tr("SKILLS")
+	$Skills/Info.text = tr("SKILLINFO_1") + str(get_parent().globalcharacterstats.SkillPoints) + tr("SKILLINFO_2")
+	$Skills/GridContainer/PhysAtk.text = tr("SKILL_PHYSATK_1") +str(get_parent().skills.PhysAtk) + "]"
+	$Skills/GridContainer/PhysAtk.used_text = tr("SKILL_PHYSATK_USED_1") + "[color=#22BB22]" + (str(float(get_parent().skills.PhysAtk + 10) / 10)) + "[/color]" + tr("SKILL_PHYSATK_USED_2")
+	$Skills/GridContainer/MagicAtk.text = tr("SKILL_MAGICATK_1") +str(get_parent().skills.MagicAtk) + "]"
+	$Skills/GridContainer/MagicAtk.used_text = tr("SKILL_MAGICATK_USED_1")+"[color=#22BB22]" + (str(float(get_parent().skills.MagicAtk + 10) / 10)) + "[/color]" + tr("SKILL_MAGICATK_USED_2")
+	$Skills/GridContainer/Defense.text = tr("SKILL_DEFENSE_1") + str(get_parent().skills.Defense) + "]"
+	$Skills/GridContainer/Defense.used_text = tr("SKILL_DEFENSE_USED_1")+"[color=#22BB22]" + (str(float(get_parent().skills.Defense) * 0.2) + "[/color]" + tr("SKILL_DEFENSE_USED_2"))
+	$Skills/GridContainer/Dodge.text = tr("SKILL_DODGE_1") + str(get_parent().skills.Dodge) + "]"
+	$Skills/GridContainer/Dodge.used_text = tr("SKILL_DODGE_USED_1") + "[color=#22BB22]2[/color][color=#00FF00] [" + str(get_parent().speed) + "][/color][p]" + tr("SKILL_DODGE_USED_1") +"[color=#22BB22]1[/color][color=#00FF00] [" + str(get_parent().dodgechance) + "][/color]" + tr("SKILL_DODGE_USED_3")
+	$Skills/GridContainer/Health.text = tr("SKILL_HEALTH_1") + str(get_parent().skills.Health) + "]"
+	$Skills/GridContainer/Health.used_text = tr("SKILL_HEALTH_USED_1") +"[color=#22BB22]" + (str(float(get_parent().skills.Health)*2)) + "[/color][p]" + tr("SKILL_HEALTH_USED_2") + "[color=#22BB22]4hp[/color]" + tr("SKILL_HEALTH_USED_3") #this might be changed to like a heal potion but i feel like this is going to be SO many buttons
+	$Skills/GridContainer/AtkSpeed.text = tr("SKILL_ATKSPEED_1") + str(get_parent().skills.AtkSpeed) + "]"
+	$Skills/GridContainer/AtkSpeed.used_text = tr("SKILL_ATKSPEED_USED_1") +"[color=#22BB22]"+ str(float(1 + (get_parent().skills.AtkSpeed)*0.025)) + "x[/color][p]" + tr("SKILL_ATKSPEED_USED_2") + "[color=#22BB22]"+ str(float(get_parent().skills.AtkSpeed)*0.1) + "s[/color]" + tr("SKILL_ATKSPEED_USED_3")
+	refreshtextsize()
 func showinventory() -> void:
 	get_tree().paused = true
 	$Inventory.visible = true
@@ -28,6 +37,7 @@ func showskills() -> void:
 		$Inventory.visible = false
 		$Skills/GridContainer/PhysAtk.grab_focus()
 func _ready() -> void:
+	refreshtextsize()
 	$Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed = MenuMusic.damagenumber
 	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
 	$"Pause/Settings2/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
@@ -51,6 +61,7 @@ func _process(_delta: float) -> void:
 	#opens menus if player isn't dead
 	if Input.is_action_just_pressed("pause") and get_parent().health > 0:
 		if $Pause.visible == true:
+			$Pause/Resume.grab_focus()
 			get_tree().paused = false
 			$Pause.visible = false
 		else:

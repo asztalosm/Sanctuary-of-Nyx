@@ -43,6 +43,12 @@ func canProgress() -> void:
 	canprogress = true
 	$Label/RichTextLabel.text = tr("PROMPT_CONTINUE")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func _ready() -> void:
+	if TranslationServer.get_locale() == "jp":
+		$Label/RichTextLabel.add_theme_font_size_override("normal_font_size", 17)
+		$Label.add_theme_font_size_override("normal_font_size", 17)
+
 func _process(_delta: float) -> void:
 	if $Label.visible:
 		if Input.is_action_just_pressed("E") and canprogress:

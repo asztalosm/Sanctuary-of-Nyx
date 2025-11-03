@@ -165,11 +165,11 @@ func setDescription() -> void: #sets the description and stats for the 4 dices a
 
 			if buff == playerBuffList[4]:
 				var multiplier = snapped(randf_range(1.3, 1.5), 0.1) * float((10+dicenumber) / 10)
-				description = "[color=#118811]" + str(multiplier) + "x[/color] "
+				description = "[color=#118811]" + str(multiplier) + "x[/color] points"
 				buffvalue = multiplier
 
 			description += buff
-			characterBuff.Type = buff
+			characterBuff.Type = tr(buff)
 			characterBuff.Value = buffvalue
 			WaveOverlay.playerBuffs = characterBuff
 			currentdice.get_node("RichTextLabel").get_node("RichTextLabel").text = description

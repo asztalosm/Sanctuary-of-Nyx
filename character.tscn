@@ -2148,7 +2148,6 @@ toggle_mode = true
 text = "Stats"
 
 [node name="Skills" type="Control" parent="Player/GUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -2447,7 +2446,7 @@ offset_top = 191.0
 offset_right = 136.0
 offset_bottom = 223.0
 theme = ExtResource("2_wa5vi")
-text = " Resume "
+text = " RESUME"
 
 [node name="Settings" type="Button" parent="Player/GUI/Pause"]
 layout_mode = 0
