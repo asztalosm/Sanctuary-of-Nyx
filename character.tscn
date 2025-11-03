@@ -2446,7 +2446,7 @@ offset_top = 191.0
 offset_right = 136.0
 offset_bottom = 223.0
 theme = ExtResource("2_wa5vi")
-text = " RESUME"
+text = "RESUME"
 
 [node name="Settings" type="Button" parent="Player/GUI/Pause"]
 layout_mode = 0

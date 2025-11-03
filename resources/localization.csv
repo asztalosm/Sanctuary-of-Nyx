@@ -79,7 +79,7 @@ SKILL_ATKSPEED_1;Attack Speed & Cooldown [;攻撃速度＆クールダウン [
 SKILL_ATKSPEED_USED_1;Speeds up attack by;攻撃速度を
 SKILL_ATKSPEED_USED_2; and ability cooldown by;にし、アビリティのクールダウンを
 SKILL_ATKSPEED_USED_3; ; 短縮します
-RESUME;Resume;再開
+RESUME; Resume;再開
 WAVES;Waves:;ウェーブ：
 REROLLS;Rerolls:;リロール：
 ROLLDICE;Click on a dice to roll it.;サイコロをクリックして振ってください
