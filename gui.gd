@@ -61,11 +61,11 @@ func _process(_delta: float) -> void:
 	#opens menus if player isn't dead
 	if Input.is_action_just_pressed("pause") and get_parent().health > 0:
 		if $Pause.visible == true:
-			$Pause/Resume.grab_focus()
 			get_tree().paused = false
 			$Pause.visible = false
 		else:
 			if !$Skills.visible:
+				$Pause/Resume.grab_focus()
 				get_tree().paused = true
 				$Pause.visible = true
 	if Input.is_action_just_pressed("Inventory") and get_parent().health > 0 and false == true: #made this not work because inventory system isnt implemented yet and wont be for a long fucking time
