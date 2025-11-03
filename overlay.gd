@@ -1,7 +1,7 @@
 extends CanvasLayer
 var texts = [
 	"",
-	"Welcome to Sanctuary of Nyx!", #1
+	tr("TUTORIAL_1"), #1
 	"Sanctuary of Nyx is a souls-like game that will have an open world and will be very RPG-like. Currently there is only an arcade gamemode. And the assets are just placeholders", #2
 	"You can move your character around with WASD or the arrow keys", #3
 	"You have the ability to control multiple characters, check them out by pressing the numbers on your keyboard.", #4

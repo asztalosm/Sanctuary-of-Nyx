@@ -7,12 +7,13 @@ var area = "play"
 
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
+	TranslationServer.set_locale("jp")
 	MenuMusic.stream = load("res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav")
 	MenuMusic.play()
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/Music Volume".value = MenuMusic.musicvolume
 	$"Settings/PanelContainer/MarginContainer/VBoxContainer/SFX Volume".value = MenuMusic.sfxvolume
 	$Settings/PanelContainer/MarginContainer/VBoxContainer/CheckButton.button_pressed = MenuMusic.damagenumber
-	$AudioAlert.visible = true
+	#commented$AudioAlert.visible = true
 	await get_tree().create_timer(5).timeout
 	var audioalertTween = get_tree().create_tween()
 	audioalertTween.tween_property($AudioAlert, "modulate:a", 0.0, 0.4)
@@ -217,3 +218,10 @@ func _on_gamemode_toggle_3_focus_exited() -> void:
 
 func _on_focuscheck_timeout() -> void:
 	areacheck()
+
+
+func _on_change_language_pressed() -> void:
+	if TranslationServer.get_locale() == "en":
+		TranslationServer.set_locale("jp")
+	else:
+		TranslationServer.set_locale("en")

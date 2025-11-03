@@ -1,1 +1,46 @@
-key;en;jp
+﻿key;en;jp
+PLAY; Play;プレイ
+SETTINGS; Settings;設定
+QUIT; Quit;終了
+AUDIO;Audio;オーディオ
+MUSVOL;Music Volume;音楽の音量
+SFXVOL;Effect Volume;効果音の音量
+GAMEPLAY;Gameplay;ゲームプレイ
+DMGNUM;Damage Numbers;ダメージ数値表示
+CREDITS;Credits;クレジット
+LANGUAGE;English;日本語
+MENU_SELECT_GAMEMODE;Select a gamemode;ゲームモードを選択
+MENU_CLICK_GAMEMODE;Click on the gamemode to play it;プレイしたいモードをクリックしてください
+MENU_TUTORIAL;Tutorial;チュートリアル
+MENU_ARCADE;Arcade;アーケード
+MENU_DUNGEON;Dungeon;ダンジョン
+TUTORIAL_1;Welcome to Sanctuary of Nyx;サンクチュアリ・オブ・ニクスへようこそ
+TUTORIAL_2;Sanctuary of Nyx is a souls-like game that will have an open world and will be very RPG-like. Currently there is only an arcade gamemode. And the assets are just placeholders;『サンクチュアリ・オブ・ニクス』は、ソウルライクなオープンワールドRPGを目指して開発中のゲームです。現在はアーケードモードのみがプレイ可能で、使用しているアセットは仮のものです。
+TUTORIAL_3;You can move your character around with WASD or the arrow keys;キャラクターはWASDキーまたは矢印キーで移動できます。
+TUTORIAL_4;You have the ability to control multiple characters, check them out by pressing the numbers on your keyboard.;複数のキャラクターを操作することができます。キーボードの数字キーを押して切り替えてみましょう。
+TUTORIAL_5;Follow the arrows and meet a dummy enemy to learn how the attacks work.;矢印の方向に進み、ダミーの敵と戦って攻撃の仕組みを学びましょう。
+TUTORIAL_6;You can attack by pressing the left mouse click, each character has unique attacks that make them viable in different situations. Kill the dummy;左クリックで攻撃ができます。各キャラクターはそれぞれ異なる攻撃を持っており、状況に応じて使い分けることが重要です。ダミーを倒してください。
+TUTORIAL_7;When you kill an enemy you gain experience.;敵を倒すと経験値を獲得します。
+TUTORIAL_8;From killing the dummy you got a skill point, you can spend them by pressing R.;ダミーを倒すことでスキルポイントを1つ獲得しました。Rキーを押して使用してみましょう。
+TUTORIAL_9;As you could see, hovering over the skills gave you a detailed explanation on how that given skill works.;スキルにカーソルを合わせると、そのスキルの詳細な説明を見ることができます。
+TUTORIAL_10;These will be very important during your gameplay, but the difference is only noticeable when they are upgraded a lot.;スキルはゲームプレイ中にとても重要ですが、効果の違いは強化を重ねることでより明確になります。
+TUTORIAL_11;Your characters also have a special ability, which you can use by pressing the right mouse button. Lets go over what each of them do.;キャラクターにはそれぞれ固有のスペシャルアビリティがあります。右クリックで使用できます。それぞれの効果を見てみましょう。
+TUTORIAL_12;1. Assassin: You turn invisible to enemies and your movement speed is increased. Great for escaping risky situations.;1. アサシン：敵から姿を隠し、移動速度が上昇します。危険な状況から逃げるのに最適です。
+TUTORIAL_13;2. Mage: You send out a shockwave that stuns enemies, who won't be able to move for 4 seconds, which gives you enough time to change characters and attack them.;2. メイジ：衝撃波を放ち、敵を4秒間スタンさせます。その間にキャラクターを切り替えて攻撃しましょう。
+TUTORIAL_14;3. Archer: You shoot out 5 arrows very quickly, high DPS.;3. アーチャー：5本の矢を素早く放ちます。高いDPSを誇ります。
+TUTORIAL_15;4. Knight: You take less damage from enemies, in return you will be very slow.;4. ナイト：敵から受けるダメージを軽減しますが、その代わり移動速度が大きく低下します。
+TUTORIAL_16;You will have to use these abilities to get through the next section, but you will have to figure that out on your own.;これらのアビリティを使って次のセクションを突破しましょう。ただし、どのように使うかはあなた次第です。
+TUTORIAL_17;There are multiple ways to achieve your goal, try as many characters as you can.;目的を達成する方法は複数あります。できるだけ多くのキャラクターを試してみましょう。
+TUTORIAL_18;Now that you are familiar with the attacks and the abilities, progress to the next part to fight enemies, but before that some info about them.;攻撃やアビリティに慣れたら、次のエリアへ進んで敵と戦いましょう。その前に、敵について少し説明します。
+TUTORIAL_19;There are 3 types of enemies, you will meet 2 of them here, as the third type isn't finished yet.;敵には3つのタイプがあります。ここではそのうち2種類と戦います。3つ目のタイプはまだ未実装です。
+TUTORIAL_20;1. Simple/Default: The kind of enemies that shouldn't pose a big problem, they have 1 type of attack and very simple AI;1. 通常タイプ：単純なAIを持つ基本的な敵です。攻撃パターンは1種類のみで、大きな脅威にはなりません。
+TUTORIAL_21;2. Advanced/Elite 1/3: Enemies that have more advanced attacks and react dynamically to the player.;2. 上級タイプ／エリート 1/3：より高度な攻撃を行い、プレイヤーに合わせた動きを見せます。
+TUTORIAL_22;2. Advanced/Elite 2/3: Enemies that will use the best attack for each situation (in the future, not implemented yet).;2. 上級タイプ／エリート 2/3：状況に応じて最適な攻撃を選択します（※今後実装予定）。
+TUTORIAL_23;2. Advanced/Elite 3/3: You can differentiate them from normal enemies by their hitbox.;2. 上級タイプ／エリート 3/3：通常の敵とは当たり判定や見た目で区別できます。
+TUTORIAL_24;3. Bosses: The hardest enemies of them all, multiple stages, barrage of attacks that are hard to dodge. These are the most WIP of them all. But in the future i hope to give them item drops.;3. ボス：最も強力な敵で、複数のフェーズや回避困難な連続攻撃を持ちます。現在は開発中ですが、将来的にはアイテムドロップも追加予定です。
+TUTORIAL_25;Now that you know the enemy types, let's fight some of them!;敵のタイプを理解したところで、実際に戦ってみましょう！
+TUTORIAL_26;The last piece of information about the game is that campfires act as save points. Though these will only be used in the campaign which isn't released yet.;最後に、キャンプファイヤーはセーブポイントとして機能します。これは今後実装されるキャンペーンモードで使用される予定です。
+TUTORIAL_27;You have finished the tutorial, to exit the tutorial interact with the campfire at the end or press the P/ESCAPE button;チュートリアルをクリアしました。終了するには、最後のキャンプファイヤーに触れるか、PキーまたはESCキーを押してください。
+OBJECTIVE_REMINDER;Finish objective before progressing;目標を達成してから進んでください。
+PROMPT_CONTINUE;Press E to continue;Eキーを押して続行
+PROMPT_EXIT;Press E to exit;Eキーを押して終了

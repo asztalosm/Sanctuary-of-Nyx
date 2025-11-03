@@ -2,6 +2,8 @@ extends AudioStreamPlayer
 static var musicvolume = 0.0
 static var sfxvolume = 0.0
 static var damagenumber = false
+static var locale = "en"
+
 
 func _process(_delta) -> void:
 	$FpsCounter/Label.text = str(Engine.get_frames_per_second())

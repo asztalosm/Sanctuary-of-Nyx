@@ -2,14 +2,16 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://frtol1yf6grr"
-valid=false
+uid="uid://dr0ixfetgmj7d"
 
 [deps]
 
+files=["res://resources/localization.en.translation", "res://resources/localization.jp.translation"]
+
 source_file="res://resources/localization.csv"
+dest_files=["res://resources/localization.en.translation", "res://resources/localization.jp.translation"]
 
 [params]
 
 compress=true
-delimiter=0
+delimiter=1

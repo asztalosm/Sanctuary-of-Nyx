@@ -170,6 +170,10 @@ E={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://resources/localization.en.translation", "res://resources/localization.jp.translation")
+
 [layer_names]
 
 2d_physics/layer_1="Map-Physical"

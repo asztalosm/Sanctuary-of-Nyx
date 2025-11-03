@@ -303,6 +303,7 @@ texture = ExtResource("6_ysi4e")
 process_material = SubResource("ParticleProcessMaterial_ojnyc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attacks/Sun2"]
+visible = false
 polygon = PackedVector2Array(18, 0, 42, 154, -44, 154, -15, 0)
 
 [node name="Hitdelay" type="Timer" parent="Attacks/Sun2"]

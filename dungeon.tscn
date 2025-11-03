@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://ca4duebn0p52d"]
+[gd_scene load_steps=50 format=4 uid="uid://ca4duebn0p52d"]
 
 [ext_resource type="Script" uid="uid://qvk16lkoneo0" path="res://dungeon.gd" id="1_7wc3a"]
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="1_qu0b2"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="15_85cul"]
 [ext_resource type="PackedScene" uid="uid://dx85rguk6nluo" path="res://reaper.tscn" id="16_77ujo"]
 [ext_resource type="PackedScene" uid="uid://c3j5jac2pr1ms" path="res://boss_dummy.tscn" id="18_uj8uw"]
+[ext_resource type="PackedScene" uid="uid://cjdeonanhf5in" path="res://mage_enemy.tscn" id="21_k21r5"]
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_6qik7"]
 parameter_name = "Texture2DParameter"
@@ -697,3 +698,12 @@ position = Vector2(3194, 1819)
 
 [node name="NecromancerEnemy8" parent="Enemies" instance=ExtResource("11_jqckn")]
 position = Vector2(3131, 1733)
+
+[node name="MageEnemy" parent="Enemies" instance=ExtResource("21_k21r5")]
+position = Vector2(1344.8518, -526.29443)
+
+[node name="MageEnemy2" parent="Enemies" instance=ExtResource("21_k21r5")]
+position = Vector2(2527, 728)
+
+[node name="MageEnemy3" parent="Enemies" instance=ExtResource("21_k21r5")]
+position = Vector2(3282, 1892)
