@@ -6,7 +6,6 @@ static var locale = "en"
 
 
 func _process(_delta) -> void:
-	$FpsCounter/Label.text = str(Engine.get_frames_per_second())
 	if musicvolume == -10:
 		volume_db = -5000
 	elif musicvolume < 0:

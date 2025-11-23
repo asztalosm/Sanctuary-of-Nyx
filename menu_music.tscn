@@ -8,12 +8,3 @@ process_mode = 3
 stream = ExtResource("1_1u6hb")
 autoplay = true
 script = ExtResource("2_doxou")
-
-[node name="FpsCounter" type="CanvasLayer" parent="."]
-layer = 1000
-
-[node name="Label" type="Label" parent="FpsCounter"]
-offset_right = 18.0
-offset_bottom = 14.0
-theme_override_font_sizes/font_size = 12
-text = "165"
