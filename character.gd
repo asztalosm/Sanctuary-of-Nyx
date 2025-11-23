@@ -320,7 +320,7 @@ func applydamage() -> void:
 		else:
 			hitenemies.erase(enemies)
 		if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer" or currentcharacter.Class == "Mage":
-			if get_node_or_null(get_path_to(enemies)) != null:
+			if enemies != null:
 				match currentcharacter.Attack:
 					"mageattack":
 						damage = (currentcharacter.AttackDamage + arcadeStats.dmg) * (skills.MagicAtk + 10) / 10

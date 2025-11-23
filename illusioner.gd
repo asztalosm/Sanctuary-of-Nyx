@@ -51,12 +51,12 @@ func death() -> void:
 		$GPUParticles2D.restart()
 		for children in get_children():
 			if children != $GPUParticles2D:
-				children.queue_free()
+				children.call_deferred('free')
 	else:
 		var player = get_parent().get_parent().get_parent().get_node("Character").get_node("Player")
 		summonself(1, get_parent())
 		player.hit(3,false, true)
-		queue_free()
+		call_deferred('free')
 
 func stun() -> void:
 	stunned = true
@@ -105,7 +105,7 @@ func _on_attack_cooldown_timeout() -> void:
 
 func _on_gpu_particles_2d_finished() -> void:
 	if dead:
-		queue_free()
+		call_deferred('free')
 
 func _on_detection_body_exited(_body: Node2D) -> void:
 	target = self

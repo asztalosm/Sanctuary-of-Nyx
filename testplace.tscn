@@ -450,7 +450,10 @@ position = Vector2(370, -358)
 position = Vector2(488, -232)
 
 [node name="Illusioner" parent="Enemies" instance=ExtResource("16_ee4d1")]
-position = Vector2(458, -283)
+position = Vector2(-177, 25)
+
+[node name="Illusioner2" parent="Enemies" instance=ExtResource("16_ee4d1")]
+position = Vector2(-86, 53)
 
 [node name="AdvancedSkeleton" parent="Enemies" instance=ExtResource("16_ksrqk")]
 position = Vector2(590, -219)
@@ -465,7 +468,7 @@ position = Vector2(668, -324)
 position = Vector2(799, -287)
 
 [node name="MageEnemy" parent="Enemies" instance=ExtResource("21_rmjt7")]
-position = Vector2(-94, 22)
+position = Vector2(564, -83)
 
 [connection signal="body_entered" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMapLayer/Tip1" to="TileMapLayer/Tip1" method="_on_body_exited"]
