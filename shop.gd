@@ -54,7 +54,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		inrange = false
 		if $ShopGUI.visible:
 			$ShopGUI.visible = false
-		player.canpause = true
 
 func _ready() -> void:
 	for button in $ShopGUI/Buttons.get_children():
@@ -75,6 +74,7 @@ func _process(_delta: float) -> void:
 			get_tree().paused = false
 			ingui = false
 			$ShopGUI.visible = false
+			player.pausable = true
 
 func _on_button_pressed(source: BaseButton) -> void:
 	for item in shopitems:
