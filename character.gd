@@ -469,6 +469,10 @@ func _physics_process(_delta: float) -> void:
 				$Soundcontroller.play("LevelUp")
 			var direction = Input.get_vector("Left", "Right", "Up", "Down")
 			lookdirection = Input.get_vector("lookleft","lookright","lookup","lookdown")
+			if lookdirection != Vector2.ZERO:
+				buttonasmouse = true
+			else:
+				buttonasmouse = false
 			if direction: #movement
 				velocity = direction * speed
 				calculateanimation(direction)
