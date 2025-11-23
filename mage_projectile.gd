@@ -21,13 +21,16 @@ func start() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if moving:
-		target = get_global_mouse_position()
+		if get_parent().buttonasmouse:
+			target = get_parent().lookdirection * Vector2(50, 50) + global_position
+		else:
+			target = get_global_mouse_position()
 		look_at(target)
 		if global_position.distance_to(target) > 2.0:
 			velocity = transform.x * speed
 		else:
 			velocity = Vector2.ZERO
-		move_and_slide()
+	move_and_slide()
 
 
 func _on_mage_hitcheck_area_entered(area: Area2D) -> void:

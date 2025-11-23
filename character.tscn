@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=3 uid="uid://myaokm2mbpvy"]
+[gd_scene load_steps=208 format=3 uid="uid://myaokm2mbpvy"]
 
 [ext_resource type="Script" uid="uid://bqvsva7dx3x3x" path="res://character.gd" id="1_pjt0s"]
 [ext_resource type="Shader" uid="uid://d2h2c80xnfhqk" path="res://resources/shaders/character.gdshader" id="2_jx0ln"]
@@ -45,8 +45,11 @@
 [ext_resource type="Texture2D" uid="uid://vvqeupnsomto" path="res://resources/minibosshealthunder.png" id="36_3fhje"]
 [ext_resource type="Texture2D" uid="uid://cevp4fehjw0e7" path="res://resources/minibosshealthprogress.png" id="37_0a77e"]
 [ext_resource type="Shader" uid="uid://k0pkqxox6qxb" path="res://glitch.gdshader" id="40_fwo57"]
+[ext_resource type="Texture2D" uid="uid://cjdytsshdj6le" path="res://resources/complexguide.png" id="41_2xv5r"]
+[ext_resource type="Texture2D" uid="uid://tpks7i01ph7x" path="res://resources/temporarybadwizardbase.png" id="42_q5fly"]
 [ext_resource type="AudioStream" uid="uid://f8eqgii7w22c" path="res://resources/stun.wav" id="43_0a77e"]
 [ext_resource type="AudioStream" uid="uid://dqbyuvfmxjxwi" path="res://resources/ability.wav" id="47_n0b81"]
+[ext_resource type="PackedScene" uid="uid://clscw6k0mmd1j" path="res://arrowattackableindicator.tscn" id="50_q5fly"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a2eb"]
 atlas = ExtResource("6_0fer6")
@@ -1686,6 +1689,9 @@ colors = PackedColorArray(0.14055833, 0.40354845, 0.7730844, 1, 0.1224, 0.354959
 gradient = SubResource("Gradient_ltcw0")
 width = 60
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xv5r"]
+radius = 163.01227
+
 [node name="Character" type="Node2D"]
 z_index = 5
 
@@ -2148,6 +2154,7 @@ toggle_mode = true
 text = "Stats"
 
 [node name="Skills" type="Control" parent="Player/GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -2568,6 +2575,62 @@ stream = ExtResource("7_qi5as")
 pitch_scale = 3.0
 autoplay = true
 
+[node name="Carousel" type="Control" parent="Player/GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Player/GUI/Carousel"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.235294)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/GUI/Carousel"]
+
+[node name="TextureRect" type="TextureRect" parent="Player/GUI/Carousel"]
+self_modulate = Color(0.73, 0.73, 0.73, 1)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 260.0
+offset_right = 66.0
+offset_bottom = 292.0
+texture = ExtResource("41_2xv5r")
+
+[node name="TextureRect2" type="TextureRect" parent="Player/GUI/Carousel"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 292.0
+offset_right = 66.0
+offset_bottom = 324.0
+texture = ExtResource("8_ltcw0")
+
+[node name="TextureRect4" type="TextureRect" parent="Player/GUI/Carousel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 260.0
+offset_right = 34.0
+offset_bottom = 292.0
+texture = ExtResource("42_q5fly")
+
+[node name="TextureRect3" type="TextureRect" parent="Player/GUI/Carousel"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 260.0
+offset_right = 98.0
+offset_bottom = 292.0
+texture = ExtResource("6_hkojd")
+
+[node name="TextureRect5" type="TextureRect" parent="Player/GUI/Carousel"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 228.0
+offset_right = 66.0
+offset_bottom = 260.0
+texture = ExtResource("4_px5sl")
+
 [node name="Soundcontroller" type="AnimationPlayer" parent="Player"]
 process_mode = 3
 libraries = {
@@ -2633,6 +2696,18 @@ step = 0.1
 texture_under = SubResource("GradientTexture1D_ltcw0")
 texture_progress = SubResource("GradientTexture1D_fwo57")
 
+[node name="AutoAim" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AutoAim"]
+shape = SubResource("CircleShape2D_2xv5r")
+
+[node name="Arrowattackable" parent="Player" instance=ExtResource("50_q5fly")]
+visible = false
+top_level = true
+
 [node name="PassiveHealthRegen" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
@@ -2666,4 +2741,6 @@ autostart = true
 [connection signal="area_entered" from="Player/MageAbility" to="Player" method="_on_stun_area_entered"]
 [connection signal="timeout" from="Player/MageAbility/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="Player/RollCooldown" to="Player" method="_on_roll_cooldown_timeout"]
+[connection signal="area_entered" from="Player/AutoAim" to="Player" method="_on_auto_aim_area_entered"]
+[connection signal="area_exited" from="Player/AutoAim" to="Player" method="_on_auto_aim_area_exited"]
 [connection signal="timeout" from="PassiveHealthRegen" to="Player" method="_on_passive_health_regen_timeout"]

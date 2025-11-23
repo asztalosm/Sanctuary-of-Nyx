@@ -52,6 +52,9 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body == player:
 		$AnimatedSprite2D.animation = "default"
 		inrange = false
+		if $ShopGUI.visible:
+			$ShopGUI.visible = false
+		player.canpause = true
 
 func _ready() -> void:
 	for button in $ShopGUI/Buttons.get_children():
@@ -66,6 +69,7 @@ func _process(_delta: float) -> void:
 			get_tree().paused = true
 			$ShopGUI/Buttons/Button.grab_focus()
 			ingui = true
+			player.pausable = false
 			$ShopGUI.visible = true
 		else:
 			get_tree().paused = false

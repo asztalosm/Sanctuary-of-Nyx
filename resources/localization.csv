@@ -47,7 +47,6 @@ PROMPT_EXIT;Press E to exit;Eキーを押して終了
 SHIBA_NOTE;This game is part of Hackclub's Shiba event. I'd like to thank everyone participating, rating my games, giving feedback. I also want to thank everyone in the #1250-yaps channel on slack for supporting each other. Y'all are amazing. Special thanks to Isidore for motivation in huddles and translation. Sounds from pixabay;このゲームはHackclubのShibaイベントの一部です。参加してくれた皆さん、評価やフィードバックをくれた皆さん、本当にありがとうございます。また、Slackの#1250-yapsチャンネルでお互いを支え合っている皆さんにも感謝します。皆さんは最高です。特に、モチベーションと翻訳のサポートをしてくれたIsidoreに特別な感謝を。効果音はpixabayからのものです。
 YOU_DIED;You Died;あなたは死亡しました
 RESTART;Restart;再スタート
-QUIT;Quit;終了
 SKILLS;Skills;スキル
 PHYSDMG;Physical Damage;物理ダメージ
 MAGDMG;Magic Damage;魔法ダメージ

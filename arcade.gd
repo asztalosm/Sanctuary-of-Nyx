@@ -187,6 +187,10 @@ func _ready() -> void:
 		setDescription()
 
 func _process(_delta: float) -> void:
+	if visible:
+		get_parent().get_node("Character").get_node("Player").pausable = false
+	else:
+		get_parent().get_node("Character").get_node("Player").pausable = true
 	$Dicesound.volume_db = MenuMusic.setsfx()
 	$RichTextLabel3.text = "rerolls: " + str(rerollpoints)
 

@@ -7,7 +7,7 @@ var area = "play"
 
 var startscene = "res://testplace.tscn"
 func _ready() -> void:
-	TranslationServer.set_locale("jp")
+	TranslationServer.set_locale("en")
 	refreshtextsize()
 	MenuMusic.stream = load("res://resources/trashmenumusicthatmakesmewanttoclosethegame.wav")
 	MenuMusic.play()
@@ -100,7 +100,7 @@ func _process(_delta: float) -> void:
 		konami = konami + "r"
 	if Input.is_action_just_pressed("B"):
 		konami = konami + "b"
-		if $Settings.visible:
+		if $Settings.visible and !$Settings/PanelContainer/MarginContainer/VBoxContainer/Credits/Control.visible:
 			var settingsTween = get_tree().create_tween()
 			settingsTween.tween_property($Settings, "scale:y", 0.0, 0.3)
 			await settingsTween.finished

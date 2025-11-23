@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 func _ready() -> void:
+	get_parent().get_node("Character").get_node("Player").pausable = false
 	visible = true
 	if TranslationServer.get_locale() == "jp":
 		$RichTextLabel.text = "[font_size=17]" + tr("MENU_ARCADE") + "[br]" + tr("MODEDESC")

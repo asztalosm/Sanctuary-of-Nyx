@@ -1,5 +1,6 @@
 extends CanvasLayer
 var clickedskill = false
+@export var otherbutton = true
 
 func refreshtextsize() -> void:
 	if TranslationServer.get_locale() == "jp":
@@ -59,7 +60,7 @@ func _process(_delta: float) -> void:
 		$Ability/TextureProgressBar.max_value = get_parent().currentcharacter.AbilityCooldown
 		$Ability/TextureProgressBar.value = get_parent().currentcharacter.AbilityCooldown - $Ability/Cooldown.time_left
 	#opens menus if player isn't dead
-	if Input.is_action_just_pressed("pause") and get_parent().health > 0:
+	if Input.is_action_just_pressed("pause") and get_parent().health > 0 and get_parent().pausable:
 		if $Pause.visible == true:
 			get_tree().paused = false
 			$Pause.visible = false
@@ -74,13 +75,55 @@ func _process(_delta: float) -> void:
 		else:
 			get_tree().paused = false
 			$Inventory.visible = false
-	if Input.is_action_just_pressed("Skills") and get_parent().health > 0:
+	#if Input.is_action_just_pressed("Skills") and get_parent().health > 0:
+	#	if $Skills.visible == false:
+	#		refreshstats()
+	#		showskills()
+	#	else:
+	#		get_tree().paused = false
+	#		$Skills.visible = false
+	if Input.is_action_just_pressed("multichange") and get_parent().health > 0:
+		get_parent().canattack = false
 		if $Skills.visible == false:
-			refreshstats()
-			showskills()
+			$Carousel.visible = true
+			otherbutton = false
 		else:
-			get_tree().paused = false
+			get_parent().canattack = true
 			$Skills.visible = false
+			get_tree().paused = false
+	if $Carousel.visible:
+		if Input.is_action_just_pressed("lookup"):
+			otherbutton = true
+			get_tree().paused = false
+			get_parent().switchcharacter(get_parent().Characters[0])
+			$Carousel.visible = false
+			await get_tree().create_timer(0.5).timeout
+			get_parent().canattack = true
+		elif Input.is_action_just_pressed("lookright"):
+			otherbutton = true
+			get_tree().paused = false
+			get_parent().switchcharacter(get_parent().Characters[2])
+			$Carousel.visible = false
+			await get_tree().create_timer(0.5).timeout
+			get_parent().canattack = true
+		elif Input.is_action_just_pressed("lookleft"):
+			otherbutton = true
+			get_tree().paused = false
+			get_parent().switchcharacter(get_parent().Characters[1])
+			$Carousel.visible = false
+			await get_tree().create_timer(0.5).timeout
+			get_parent().canattack = true
+		elif Input.is_action_just_pressed("lookdown"):
+			otherbutton = true
+			get_tree().paused = false
+			get_parent().switchcharacter(get_parent().Characters[3])
+			$Carousel.visible = false
+			await get_tree().create_timer(0.5).timeout
+			get_parent().canattack = true
+	if Input.is_action_just_released("multichange") and get_parent().health > 0 and $Carousel.visible and !otherbutton:
+		$Carousel.visible = false
+		refreshstats()
+		showskills()
 
 
 #Skill GUI buttons

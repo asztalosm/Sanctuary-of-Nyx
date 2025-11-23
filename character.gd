@@ -1,5 +1,6 @@
 extends CharacterBody2D
-
+@export var pausable = true
+@export var lookdirection = Vector2(0,0)
 @export var arrowcd = 1.5
 @export var arcadeStats = { #all will be set to 0 and arcade script will change these
 	"hp": 0.0,
@@ -13,6 +14,9 @@ extends CharacterBody2D
 	"lifesteal": 0.0,
 	"laststand": 0.0
 }
+@export var inarcherattackzone = []
+@export var archerattackable = []
+@export var canattack = true
 @export var regen : float = 1.0
 @export var maxhealth : float = 20.0 + arcadeStats.hp
 @export var health : float = maxhealth
@@ -77,7 +81,7 @@ extends CharacterBody2D
 	"xpMultiplier": 1.0 + arcadeStats.xp_multiplier
 }
 @export var currentcharacter = Characters[0]
-
+@export var buttonasmouse = true
 #inventory menu is a TODO, have to change the resolution of the inventory.png
 @export var equipped = { #dont know yet if these should be null as in character has nothing to start with or has some basic items,
 	"Head": null,
@@ -195,7 +199,13 @@ func ability() -> void:
 				var arrowScene = load("res://player_arrow.tscn")
 				var arrow = arrowScene.instantiate()
 				arrow.global_position = global_position
-				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
+				if buttonasmouse:
+					if len(archerattackable) == 1:
+						arrow.dir = Vector2.from_angle(get_angle_to(archerattackable[archerindex].global_position))
+					else:
+						arrow.dir = Vector2.from_angle(get_angle_to(global_position + lookdirection))
+				else:
+					arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
 				add_child(arrow)
 				await get_tree().create_timer(0.35).timeout
 		"berserk":
@@ -221,43 +231,71 @@ func attack() -> void:
 	if attacked or rolling:
 		return
 	else:
-		attacked = true
-		match currentcharacter.Attack:
-			"daggerattack":
-				$AssassinHitcheck.position.y += 12000
-				$AssassinHitcheck.monitoring = true
-				$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
-				$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
-				$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
-				$AssassinHitcheck/AnimatedSprite2D.play("default")
-				$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
-				$Soundcontroller.play(currentcharacter.Attack)
-			"mageattack":
-				$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
-				$MageProjectile/MageHitcheck/Timer.wait_time = 1.8 - skills.AtkSpeed * 0.025
-				$MageProjectile.speed = 220 * (1 + skills.AtkSpeed * 0.025)
-				$MageProjectile.start()
-			"archerattack":
-				var arrowScene = load("res://player_arrow.tscn")
-				var arrow = arrowScene.instantiate()
-				arrow.global_position = global_position
-				arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
-				add_child(arrow)
-				await get_tree().create_timer(arrowcd).timeout
-				attacked = false
-			"knightattack":
-				$KnightHitcheck.position = Vector2(12000.0, 12000.0)
-				$KnightHitcheck.monitoring = true
-				$KnightHitcheck.position = Vector2(0,0)
-				$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(get_global_mouse_position()) + 0.5*PI)
-				$KnightHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025
-				$KnightHitcheck/AnimatedSprite2D.play("default")
-#				$Soundcontroller/attack.pitch_scale = randf_range(0.6, 0.9)
-#				$Soundcontroller.play(currentcharacter.Attack)
+		if canattack:
+			attacked = true
+			match currentcharacter.Attack:
+				"daggerattack":
+					$AssassinHitcheck.position.y += 12000
+					$AssassinHitcheck.monitoring = true
+					$AssassinHitcheck.position.y -= 12000 #pretty ugly way to reset the hitbox but idc
+					if buttonasmouse:
+						$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(global_position + (lookdirection * Vector2(1000, 1000))) +0.5*PI) #this should work, hacky fix but works
+					else:
+						$AssassinHitcheck.rotate($AssassinHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+					$AssassinHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025 # also makes the cd faster 
+					$AssassinHitcheck/AnimatedSprite2D.play("default")
+					$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
+					$Soundcontroller.play(currentcharacter.Attack)
+				"mageattack":
+					$MageProjectile/MageHitcheck.set_deferred("monitoring", true)
+					$MageProjectile/MageHitcheck/Timer.wait_time = 1.8 - skills.AtkSpeed * 0.025
+					$MageProjectile.speed = 220 * (1 + skills.AtkSpeed * 0.025)
+					$MageProjectile.start()
+				"archerattack":
+					if archerindex != null and betterarcheraim:
+						var arrowScene = load("res://player_arrow.tscn")
+						var arrow = arrowScene.instantiate()
+						arrow.global_position = global_position
+						if buttonasmouse:
+							arrow.dir = Vector2.from_angle(get_angle_to(global_position + lookdirection))
+							print(arrow.dir)
+						elif betterarcheraim:
+							arrow.dir = Vector2.from_angle(get_angle_to(archerattackable[archerindex].global_position))
+						else:
+							arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
+						add_child(arrow)
+						await get_tree().create_timer(arrowcd).timeout
+						attacked = false
+					else:
+						var arrowScene = load("res://player_arrow.tscn")
+						var arrow = arrowScene.instantiate()
+						arrow.global_position = global_position
+						if buttonasmouse:
+							arrow.dir = Vector2.from_angle(get_angle_to(global_position + lookdirection))
+						else:
+							arrow.dir = Vector2.from_angle(get_angle_to(get_global_mouse_position()))
+						add_child(arrow)
+						await get_tree().create_timer(arrowcd).timeout
+						attacked = false
+						
+				"knightattack":
+					$KnightHitcheck.position = Vector2(12000.0, 12000.0)
+					$KnightHitcheck.monitoring = true
+					$KnightHitcheck.position = Vector2(0,0)
+					if buttonasmouse:
+						$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(global_position + (lookdirection * Vector2(1000, 1000))) +0.5*PI) #this should work, hacky fix but works
+					else:
+						$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
+					$KnightHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025
+					$KnightHitcheck/AnimatedSprite2D.play("default")
+	#				$Soundcontroller/attack.pitch_scale = randf_range(0.6, 0.9)
+	#				$Soundcontroller.play(currentcharacter.Attack)
 func applydamage() -> void:
 	var damage = 0
 	match currentcharacter.Class:
 		"Assassin":
+			if buttonasmouse:
+				$AssassinHitcheck.rotation = 0
 			$AssassinHitcheck.monitoring = false
 		"Knight":
 			$KnightHitcheck.monitoring = false
@@ -301,10 +339,9 @@ func applydamage() -> void:
 					health += arcadeStats.lifesteal
 				if MenuMusic.damagenumber:
 					var damagenumberscene = load("res://damage_number.tscn").instantiate()
-					add_child(damagenumberscene)
-					damagenumberscene.top_level = true
-					damagenumberscene.scale = Vector2(0.5, 0.5)
 					damagenumberscene.global_position = enemies.global_position
+					damagenumberscene.top_level = true
+					add_child(damagenumberscene)
 					damagenumberscene.get_node("RichTextLabel").text = " - " + str(damage)
 				enemies.hit(damage)
 			else:
@@ -368,15 +405,20 @@ func calculateanimation(direction): #ugly if statements, but will work for now
 		else:
 			$AnimatedSprite2D.play(currentcharacter.Class+"walk2")
 func charactercheckchange():
+	$Arrowattackable.visible = false
 	if Input.is_action_just_pressed("1"):
 		switchcharacter(Characters[0])
 	elif Input.is_action_just_pressed("2"):
 		switchcharacter(Characters[1])
 	elif Input.is_action_just_pressed("3"):
 		switchcharacter(Characters[2])
+		attacked = false
 	elif Input.is_action_just_pressed("4"):
 		switchcharacter(Characters[3])
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
+
+var archerindex = null
+var betterarcheraim = false
 
 func _physics_process(_delta: float) -> void:
 	if global_position.distance_to(get_global_mouse_position()) > 120:
@@ -389,6 +431,31 @@ func _physics_process(_delta: float) -> void:
 	if health <= 0:
 		death()
 	else:
+		if betterarcheraim:
+			if currentcharacter.Class == "Archer":
+				archerattackable.clear()
+				for enemies in inarcherattackzone:
+					var validhit = RayCast2D.new()
+					validhit.add_exception(self)
+					validhit.enabled  = true
+					validhit.hit_from_inside = true
+					validhit.collision_mask = 1
+					if enemies != null:
+						validhit.target_position = enemies.global_position - global_position
+						add_child(validhit)
+						validhit.force_raycast_update()
+					if validhit.get_collider() == null or validhit.get_collider().name != "TileMapLayer" or validhit.get_collider().name == enemies.name:
+						if get_node_or_null(get_path_to(enemies)) != null:
+							archerattackable.append(enemies)
+					validhit.queue_free()
+				if len(archerattackable) == 0:
+					archerindex = null
+					$Arrowattackable.visible = false
+				else:
+					$Arrowattackable.visible = true
+					if archerindex == null:
+						archerindex = 0
+					$Arrowattackable.global_position = archerattackable[archerindex].global_position
 		for child in $Soundcontroller.get_children():
 			child.volume_db = MenuMusic.setsfx()
 		if !stunned:
@@ -401,6 +468,7 @@ func _physics_process(_delta: float) -> void:
 				globalcharacterstats.XptoNextLevel += 200
 				$Soundcontroller.play("LevelUp")
 			var direction = Input.get_vector("Left", "Right", "Up", "Down")
+			lookdirection = Input.get_vector("lookleft","lookright","lookup","lookdown")
 			if direction: #movement
 				velocity = direction * speed
 				calculateanimation(direction)
@@ -484,3 +552,11 @@ func _on_knightattack_finished() -> void:
 func _on_knight_hitcheck_area_entered(area: Area2D) -> void: #works fine, issue is somewher else
 	if (area.get_parent().get_parent().name == "Enemies" or area.get_parent().get_parent().get_parent().name == "Enemies" or area.get_parent().name == "SpecialDummy") or area.get_parent().name.contains("Explosive Barrel") and currentcharacter.Class == "Knight":
 		hitenemies.append(area.get_parent())
+
+
+func _on_auto_aim_area_entered(area: Area2D) -> void:
+	inarcherattackzone.append(area.get_parent())
+
+
+func _on_auto_aim_area_exited(area: Area2D) -> void:
+	inarcherattackzone.erase(area.get_parent())
