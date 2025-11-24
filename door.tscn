@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2qbvyunjnwe4"]
+[gd_scene load_steps=8 format=3 uid="uid://c2qbvyunjnwe4"]
 
 [ext_resource type="Script" uid="uid://becmf886vs8an" path="res://door.gd" id="1_0phs7"]
 [ext_resource type="Texture2D" uid="uid://b6srwy6x0ajyq" path="res://resources/door.png" id="2_50cdl"]
@@ -29,6 +29,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0phs7"]
+polygon = PackedVector2Array(-32, 2, 32, 2, 32, -2, -32, -2)
+
 [node name="Door" type="StaticBody2D"]
 script = ExtResource("1_0phs7")
 
@@ -45,6 +48,9 @@ shape = SubResource("CircleShape2D_q5kms")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_my81p")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_0phs7")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

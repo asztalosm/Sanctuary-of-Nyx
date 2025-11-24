@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://ca4duebn0p52d"]
+[gd_scene load_steps=61 format=4 uid="uid://ca4duebn0p52d"]
 
 [ext_resource type="Script" uid="uid://qvk16lkoneo0" path="res://dungeon.gd" id="1_7wc3a"]
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="1_qu0b2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cnil3dyaxwrio" path="res://skeleton_summon.tscn" id="4_q5kms"]
 [ext_resource type="PackedScene" uid="uid://cbus4tr8g622d" path="res://archer_enemy.tscn" id="5_tgur7"]
 [ext_resource type="PackedScene" uid="uid://bcpxkrbwotxje" path="res://chest.tscn" id="5_v3ata"]
+[ext_resource type="Texture2D" uid="uid://bme3seyvkvysg" path="res://resources/torch.png" id="8_5grt3"]
 [ext_resource type="PackedScene" uid="uid://cn05jtrfs1m72" path="res://enemy_dummy.tscn" id="8_q5kms"]
 [ext_resource type="PackedScene" uid="uid://cu6sly8lgojf0" path="res://necromancer_enemy.tscn" id="11_jqckn"]
 [ext_resource type="Theme" uid="uid://cdr6un6t5elt3" path="res://resources/shaders/buttontheme.tres" id="11_uag5o"]
@@ -188,11 +189,17 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, 16, -16, -8, -8, -16, 16, -16, 16, 16)])
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5grt3"]
+polygon = PackedVector2Array(-14, -16, -12, -16, -12, -14, -14, -14, -14, -12, -16, -12, -16, -16)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vol8w"]
 vertices = PackedVector2Array(16, 16, -8, 16, -8, -16, 16, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, 16, -8, -16, 16, -16, 16, 16)])
 agent_radius = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ou4rh"]
+polygon = PackedVector2Array(-16, -16, -14, -16, -14, 16, -16, 16)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4f3i4"]
 vertices = PackedVector2Array(16, 8, -8, 8, -8, -16, 16, -16)
@@ -200,11 +207,17 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, 8, -8, -16, 16, -16, 16, 8)])
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tkvb4"]
+polygon = PackedVector2Array(-14, -16, -14, 14, 16, 14, 16, 16, -16, 16, -16, -16)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q5kms"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -8, -8, -16, 16, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, 16, -16, -8, -8, -16, 16, -16, 16, 16)])
 agent_radius = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ojnyd"]
+polygon = PackedVector2Array(-14, -16, -14, -14, -16, -14, -16, -16)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tgur7"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -218,11 +231,17 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 8, -16, 8)])
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0luh7"]
+polygon = PackedVector2Array(-16, 14, 16, 14, 16, 16, -16, 16)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7wc3a"]
 vertices = PackedVector2Array(8, 16, -16, 16, -16, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, 16, -16, -8, 8, -8, 8, 16)])
 agent_radius = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k67ek"]
+polygon = PackedVector2Array(16, -16, 16, 16, 14, 16, 14, -14, -16, -14, -16, -16)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uag5o"]
 vertices = PackedVector2Array(8, 16, -16, 16, -16, -16, 8, -16)
@@ -230,49 +249,76 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, 16, -16, -16, 8, -16, 8, 16)])
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ynsks"]
+polygon = PackedVector2Array(16, -16, 16, 16, 14, 16, 14, -16)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jqckn"]
 vertices = PackedVector2Array(8, 8, -16, 8, -16, -16, 8, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 8, -16, 8, 8, -16, 8)])
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pedrn"]
+polygon = PackedVector2Array(16, -16, 16, 16, -16, 16, -16, 14, 14, 13.928261, 14, -16)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_orq0m"]
 texture = ExtResource("1_qu0b2")
 texture_region_size = Vector2i(32, 32)
 use_texture_padding = false
 0:2/0 = 0
+0:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_tkvb4")
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -16, -8, 8, 16, 8, 16, 16, -16, 16, -16, -16)
 0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4f3i4")
 1:2/0 = 0
+1:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_0luh7")
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 8, 16, 8, 16, 16, -16, 16)
 1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_kun6q")
 2:2/0 = 0
+2:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_pedrn")
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, 8, -16, 16, -16, 16, 16, -16, 16, -16, 8)
 2:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jqckn")
 2:1/0 = 0
+2:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_ynsks")
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, 16, 8, 16, 8, -16)
 2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uag5o")
 1:1/0 = 0
 1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tgur7")
 0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_ou4rh")
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -8, -16, -8, 16, -16, 16)
 0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vol8w")
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_5grt3")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -8, -16, -16, -8)
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_my81p")
 1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_ojnyd")
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -8, -16, -16, -8)
 1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_q5kms")
 2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_k67ek")
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 8, 16, 8, -8, -16, -8)
 2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7wc3a")
 
 [sub_resource type="TileSet" id="TileSet_my81p"]
 tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 129
 physics_layer_0/collision_mask = 129
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_orq0m")
+
+[sub_resource type="Gradient" id="Gradient_k21r5"]
+offsets = PackedFloat32Array(0, 0.08888889, 0.7888889)
+colors = PackedColorArray(1, 0.51666665, 0, 1, 0.96, 0.6608, 0.43199998, 0.84313726, 0.96, 0.58463997, 0.2976, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5grt3"]
+gradient = SubResource("Gradient_k21r5")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.13636364, 0)
 
 [node name="Dungeon" type="Node2D"]
 script = ExtResource("1_7wc3a")
@@ -352,9 +398,129 @@ gizmo_extents = 0.0
 [node name="Chest" parent="TileMapLayer" instance=ExtResource("5_v3ata")]
 position = Vector2(2050, 649)
 
+[node name="Decorations" type="Node2D" parent="TileMapLayer"]
+
+[node name="Torch2" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(32, 91)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch2"]
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch3" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(68, -187)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch3"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch5" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(-5, -187)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch5"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch4" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(69, -571)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch4"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch6" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(-4, -571)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch6"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch7" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(-4, -923)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch7"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch9" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(-219, -800)
+rotation = -6.2831855
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch9"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch8" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(-187, -669)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch8"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch10" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(187, -756)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch10"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch11" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(347, -987)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch11"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
 position = Vector2(29, -63)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Character"]
 layer = -50
@@ -438,7 +604,7 @@ position = Vector2(3808, 992)
 rotation = 1.5707964
 
 [node name="Door2" parent="Doors" instance=ExtResource("3_noicg")]
-position = Vector2(32, -575)
+position = Vector2(32, -576)
 
 [node name="Door5" parent="Doors" instance=ExtResource("3_noicg")]
 position = Vector2(1472, -1312)
