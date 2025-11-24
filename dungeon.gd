@@ -6,3 +6,9 @@ func _process(_delta: float) -> void:
 		pass
 	else:
 		$DungeonOverlay/Finish.visible = true
+		get_node("Character/Player").pausable = false
+		$DungeonOverlay/Finish/Menu.grab_focus()
+
+
+func _on_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://menu.tscn")

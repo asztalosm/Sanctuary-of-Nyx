@@ -29,8 +29,8 @@ func spawnmoonprojectile() -> void:
 	for i in range(8):
 		var moonprojectilescene = load("res://moon_projectile.tscn").instantiate()
 		get_parent().add_child(moonprojectilescene)
-		var scale = randf_range (0.5, 1.25)
-		moonprojectilescene.scale = Vector2(scale, scale)
+		var moonscale = randf_range(0.5, 1.25)
+		moonprojectilescene.scale = Vector2(moonscale, moonscale)
 		moonprojectilescene.global_position = player.global_position + Vector2(randf_range(-75.0,75.0), randf_range(-75.0,75.0))
 
 func stun() -> void:
