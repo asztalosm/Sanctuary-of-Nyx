@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://ca4duebn0p52d"]
+[gd_scene load_steps=71 format=4 uid="uid://ca4duebn0p52d"]
 
 [ext_resource type="Script" uid="uid://qvk16lkoneo0" path="res://dungeon.gd" id="1_7wc3a"]
 [ext_resource type="Texture2D" uid="uid://vwlyxc30xprw" path="res://resources/arcadeTileset.png" id="1_qu0b2"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cwuep2rxqhyf2" path="res://resources/bone2.png" id="12_pedrn"]
 [ext_resource type="FontFile" uid="uid://bgjdmbdgei8de" path="res://resources/PixelifySans-VariableFont_wght.ttf" id="12_uag5o"]
 [ext_resource type="PackedScene" uid="uid://dj6xi2bqa36xk" path="res://advanced_skeleton.tscn" id="13_85cul"]
+[ext_resource type="PackedScene" uid="uid://54dk77am1maw" path="res://barrel.tscn" id="13_k67ek"]
 [ext_resource type="PackedScene" uid="uid://bnmsj2aguea8g" path="res://crystal_figure.tscn" id="14_77ujo"]
 [ext_resource type="PackedScene" uid="uid://c8og007kjoahx" path="res://splasher.tscn" id="15_85cul"]
 [ext_resource type="PackedScene" uid="uid://dx85rguk6nluo" path="res://reaper.tscn" id="16_77ujo"]
@@ -1025,6 +1026,9 @@ metadata/_edit_lock_ = true
 [node name="TileMapLayer" type="TileMapLayer" parent="TileMapLayer/Decorations/Miscellaneous"]
 tile_map_data = PackedByteArray("AAA2ALv/AQAAAAAAAAA7AMD/AAAAAAAAAAAyAL//AAAAAAAAABA/AMX/AgAAAAAAAADQ/z//AgAAAAAAAABBAJb+AgAAAAAAAACj/2P+AgAAAAAAAAB0Af/9AgAAAAAAAAAYApn+AgAAAAAAAADgAez+AgAAAAAAAADfAez+AgAAAAAAAAAxBO/9AgAAAAAAAAAyBO/9AgAAAAAAAABeAzT9AgAAAAAAAADjBDX/AgAAAAAAAAByA+MAAgAAAAAAAACwBGcBAgAAAAAAAAA9BFgCAgAAAAAAAAB8BoIDAgAAAAAAAAC/BvIBAgAAAAAAAAA6BRgDAwAAAAAAAABFA+ECAwAAAAAAABBfCK8BAwAAAAAAAFBmBi4AAwAAAAAAAGDMBN3/AwAAAAAAADDbAeP9AwAAAAAAADCZAlr+AwAAAAAAADBuAZ7+AwAAAAAAAGBUAND+AwAAAAAAAAC5/yv/AQAAAAAAAACr/8P+AQAAAAAAAAD0ASb+AQAAAAAAAAAnA+z9AQAAAAAAAAAIBG39AQAAAAAAAAAPBZb+AQAAAAAAAAAHBTT/AQAAAAAAAADyBNj9AAAAAAAAAAAYBG3+AAAAAAAAAAAJAz7+AAAAAAAAABA8AGv+AAAAAAAAABDk/9L/AAAAAAAAAAA9B5gBAAAAAAAAAAC4BnUCAAAAAAAAABC4BnYCAAAAAAAAAAC2BnMCAAAAAAAAAAC7BnsCAAAAAAAAABC6BnsCAAAAAAAAAAC2BnoCAAAAAAAAABC3BnkCAAAAAAAAAADPBfsCAAAAAAAAABBZBf0CAAAAAAAAABA2BroDAAAAAAAAABDABZ8DAAAAAAAAAAC8BeMDAAAAAAAAABC2BGEFAAAAAAAAABCyBM0FAAAAAAAAAACkA64FAAAAAAAAABBvBDQGAAAAAAAAAAAVBCcGAAAAAAAAAAArBPIFAAAAAAAAAADwA5cFAAAAAAAAAADzA1kFAAAAAAAAAAA1BAcFAAAAAAAAAABgBEkFAAAAAAAAAADIBB4FAAAAAAAAAADKAx0FAAAAAAAAAAC+Ay0FAQAAAAAAAAA6BEQFAQAAAAAAAAABBOgFAQAAAAAAAAB+BBMGAQAAAAAAAAD2BH0FAQAAAAAAAAA3BTsFAQAAAAAAABAKBSgFAQAAAAAAAHDTBAgFAQAAAAAAABC1A18FAQAAAAAAAEC2A9oFAQAAAAAAACArBd0FAQAAAAAAAHAyBUMFAwAAAAAAAABCBUEFAgAAAAAAAAAoBUgFAAAAAAAAAAAwBUwFAAAAAAAAAGA4BUQFAAAAAAAAAGAyBT8FAAAAAAAAAFAtBT4FAAAAAAAAAAA9BUUFAAAAAAAAAAAqBT0FAgAAAAAAAAA=")
 tile_set = SubResource("TileSet_720ou")
+
+[node name="barrel" parent="TileMapLayer/Decorations" instance=ExtResource("13_k67ek")]
+position = Vector2(-32, 0)
 
 [node name="Character" parent="." instance=ExtResource("2_noicg")]
 position = Vector2(29, -63)

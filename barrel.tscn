@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://54dk77am1maw"]
+
+[ext_resource type="Script" uid="uid://bbqi12xikc6s0" path="res://barrel.gd" id="1_u3ejk"]
+[ext_resource type="Texture2D" uid="uid://dtkfjbnc8n3lt" path="res://resources/barrel.png" id="2_0irma"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vfj6"]
+
+[sub_resource type="Animation" id="Animation_a12vh"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6666667, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 0), Vector2(-3, 0), Vector2(1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rdxsi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ygdis"]
+_data = {
+&"RESET": SubResource("Animation_rdxsi"),
+&"hit": SubResource("Animation_a12vh")
+}
+
+[node name="barrel" type="CharacterBody2D"]
+script = ExtResource("1_u3ejk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0irma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_2vfj6")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ygdis")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_2vfj6")

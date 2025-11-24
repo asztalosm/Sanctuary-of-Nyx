@@ -256,7 +256,7 @@ func attack() -> void:
 						var arrowScene = load("res://player_arrow.tscn")
 						var arrow = arrowScene.instantiate()
 						arrow.global_position = global_position
-						if buttonasmouse:
+						if buttonasmouse and !betterarcheraim:
 							arrow.dir = Vector2.from_angle(get_angle_to(global_position + lookdirection))
 							print(arrow.dir)
 						elif betterarcheraim:
@@ -288,8 +288,8 @@ func attack() -> void:
 						$KnightHitcheck.rotate($KnightHitcheck.get_angle_to(get_global_mouse_position()) +0.5*PI)
 					$KnightHitcheck/AnimatedSprite2D.speed_scale = 1 + skills.AtkSpeed * 0.025
 					$KnightHitcheck/AnimatedSprite2D.play("default")
-	#				$Soundcontroller/attack.pitch_scale = randf_range(0.6, 0.9)
-	#				$Soundcontroller.play(currentcharacter.Attack)
+					$Soundcontroller/attack.pitch_scale = randf_range(0.9, 1.25)
+					$Soundcontroller.play("daggerattack")
 func applydamage() -> void:
 	var damage = 0
 	match currentcharacter.Class:
@@ -298,6 +298,7 @@ func applydamage() -> void:
 				$AssassinHitcheck.rotation = 0
 			$AssassinHitcheck.monitoring = false
 		"Knight":
+			print("valami")
 			$KnightHitcheck.monitoring = false
 		"Mage":
 			$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
@@ -418,7 +419,7 @@ func charactercheckchange():
 		$KnightHitcheck.position = Vector2(12000.0, 12000.0) #ugly fix but it works, don't delete or knight attacks first hit may not register
 
 var archerindex = null
-var betterarcheraim = false
+var betterarcheraim = true
 
 func _physics_process(_delta: float) -> void:
 	if global_position.distance_to(get_global_mouse_position()) > 120:
@@ -471,8 +472,8 @@ func _physics_process(_delta: float) -> void:
 			lookdirection = Input.get_vector("lookleft","lookright","lookup","lookdown")
 			if lookdirection != Vector2.ZERO:
 				buttonasmouse = true
-			else:
-				buttonasmouse = false
+			#else:
+				#buttonasmouse = false
 			if direction: #movement
 				velocity = direction * speed
 				calculateanimation(direction)
