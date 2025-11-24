@@ -370,6 +370,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="Finish" type="Control" parent="DungeonOverlay"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
