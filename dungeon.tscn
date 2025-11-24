@@ -400,79 +400,87 @@ position = Vector2(2050, 649)
 
 [node name="Decorations" type="Node2D" parent="TileMapLayer"]
 
-[node name="Torch2" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(32, 91)
-rotation = -1.5707964
-texture = ExtResource("8_5grt3")
-metadata/_edit_group_ = true
-
-[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch2"]
-texture = SubResource("GradientTexture2D_5grt3")
-metadata/_edit_lock_ = true
-
 [node name="Torch3" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(68, -187)
+position = Vector2(-3, -187)
 rotation = -4.712389
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch3"]
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
 [node name="Torch5" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(-5, -187)
+position = Vector2(67, -187)
 rotation = -4.712389
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch5"]
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
 [node name="Torch4" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(69, -571)
+position = Vector2(-3, -571)
 rotation = -4.712389
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch4"]
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
 [node name="Torch6" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(-4, -571)
+position = Vector2(67, -571)
 rotation = -4.712389
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch6"]
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
 [node name="Torch7" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(-4, -923)
+position = Vector2(231, -1115)
 rotation = -4.712389
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch7"]
+energy = 0.5
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch8" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(347, -1049)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch8"]
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
 [node name="Torch9" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(-219, -800)
-rotation = -6.2831855
+position = Vector2(963, -805)
+rotation = -1.5707964
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
@@ -482,20 +490,9 @@ shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
-[node name="Torch8" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(-187, -669)
-texture = ExtResource("8_5grt3")
-metadata/_edit_group_ = true
-
-[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch8"]
-shadow_enabled = true
-shadow_filter_smooth = 3.0
-texture = SubResource("GradientTexture2D_5grt3")
-metadata/_edit_lock_ = true
-
 [node name="Torch10" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(187, -756)
-rotation = -3.1415927
+position = Vector2(891, -762)
+rotation = 3.1415925
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
@@ -505,13 +502,476 @@ shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
 metadata/_edit_lock_ = true
 
+[node name="Torch23" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(1309, -635)
+rotation = -4.712389
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch23"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch24" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(1371, -579)
+rotation = 3.1415925
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch24"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
 [node name="Torch11" type="Sprite2D" parent="TileMapLayer/Decorations"]
-position = Vector2(347, -987)
-rotation = -3.1415927
+position = Vector2(1507, -1307)
+rotation = 1.5707964
 texture = ExtResource("8_5grt3")
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch11"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch12" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(1437, -1307)
+rotation = 1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch12"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch29" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2083, 901)
+rotation = 1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch29"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch30" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2013, 901)
+rotation = 1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch30"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch13" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2107, -1159)
+rotation = 3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch13"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch14" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2045, -1157)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch14"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch15" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2373, -677)
+rotation = -7.853982
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch15"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch17" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2213, -2.999999)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch17"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch18" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2213, 67)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch18"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch25" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3301, 1053)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch25"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch26" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3301, 1123)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch26"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch27" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2533, 1789)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch27"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch28" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2533, 1859)
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch28"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch19" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2491, -2.999999)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch19"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch20" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2491, 67)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch20"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch31" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2843, 221)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch31"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch32" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2843, 291)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch32"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch33" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2555, 605)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch33"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch34" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2555, 675)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch34"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch35" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(1947, 509)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch35"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch36" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(1947, 579)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch36"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch37" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3323, 221)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch37"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch38" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3323, 291)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch38"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch39" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3803, 957)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch39"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch40" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3803, 1027)
+rotation = -3.1415927
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch40"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch21" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2403, 155)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch21"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch22" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2333, 155)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch22"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch41" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2403, 379)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch41"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch42" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2333, 379)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch42"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch43" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2371, 795)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch43"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch44" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2301, 795)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch44"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch45" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3043, 635)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch45"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch46" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2973, 635)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch46"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch47" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3587, 731)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch47"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch48" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3517, 731)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch48"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch49" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3107, 1499)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch49"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch50" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(3037, 1499)
+rotation = -1.5707964
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch50"]
+shadow_enabled = true
+shadow_filter_smooth = 3.0
+texture = SubResource("GradientTexture2D_5grt3")
+metadata/_edit_lock_ = true
+
+[node name="Torch16" type="Sprite2D" parent="TileMapLayer/Decorations"]
+position = Vector2(2300, -677)
+rotation = -7.853982
+texture = ExtResource("8_5grt3")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="TileMapLayer/Decorations/Torch16"]
 shadow_enabled = true
 shadow_filter_smooth = 3.0
 texture = SubResource("GradientTexture2D_5grt3")
