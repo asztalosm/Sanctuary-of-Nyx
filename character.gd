@@ -298,7 +298,6 @@ func applydamage() -> void:
 				$AssassinHitcheck.rotation = 0
 			$AssassinHitcheck.monitoring = false
 		"Knight":
-			print("valami")
 			$KnightHitcheck.monitoring = false
 		"Mage":
 			$MageProjectile/MageHitcheck.set_deferred("monitoring", false)
@@ -307,7 +306,7 @@ func applydamage() -> void:
 				#print(equipment)
 	if currentcharacter.Class != "Mage":
 		attacked = false
-	
+		
 	for enemies in hitenemies:
 		var validhit = RayCast2D.new()
 		validhit.add_exception(self)
@@ -345,6 +344,7 @@ func applydamage() -> void:
 					add_child(damagenumberscene)
 					damagenumberscene.get_node("RichTextLabel").text = " - " + str(damage)
 				enemies.hit(damage)
+				print(damage)
 			else:
 				hitenemies.erase(enemies)
 		validhit.queue_free()
@@ -555,8 +555,7 @@ func _on_knightattack_finished() -> void:
 
 
 func _on_knight_hitcheck_area_entered(area: Area2D) -> void: #works fine, issue is somewher else
-	if (area.get_parent().get_parent().name == "Enemies" or area.get_parent().get_parent().get_parent().name == "Enemies" or area.get_parent().name == "SpecialDummy") or area.get_parent().name.contains("Explosive Barrel") and currentcharacter.Class == "Knight":
-		hitenemies.append(area.get_parent())
+	hitenemies.append(area.get_parent())
 
 
 func _on_auto_aim_area_entered(area: Area2D) -> void:

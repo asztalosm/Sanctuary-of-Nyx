@@ -15,9 +15,9 @@ func death() -> void:
 	#player.globalcharacterstats.Xp += 1000 + player.arcadeStats.get("more XP per kill")
 	match randi_range(1,3):
 		1:
-			print("1")
+			player.health = player.maxhealth
 		2:
-			print("2")
+			get_parent().get_parent().get_parent().coins += 50
 		3:
-			print("3")
+			player.globalcharacterstats.SkillPoints += 1
 	queue_free()
